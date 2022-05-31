@@ -1,26 +1,45 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { Provider, useSelector } from 'react-redux'
+import { configureStore, combineReducers } from '@reduxjs/toolkit'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import Login from './pages/Login'
+import MyPage from './pages/MyPage'
+import NotFound from './pages/NotFound'
+
+import user from './reducers/user'
+// import programs from './reducers/programs'
+
+const reducer = combineReducers({
+  user: user.reducer,
+  // programs: programs.reducer
+})
+
+
+const persistedStateJSON = localStorage.getItem("userItemsReduxState")
+let preloadedState = {}
+
+if (persistedStateJSON) {
+  preloadedState = JSON.parse(persistedStateJSON)
 }
 
-export default App;
+const store = configureStore({reducer, preloadedState})
+
+store.subscribe(() => {
+  localStorage.setItem("userItemsReduxState", JSON.stringify(store.getState()))
+})
+
+
+export const App = () => {
+  return (
+    <Provider store={store} >
+      <BrowserRouter>
+        <Routes>
+          <Route path="/login" element={<Login />}></Route>
+          <Route path="/" element={<MyPage />}></Route>
+          <Route path="*" element={<NotFound />}></Route>
+        </Routes>
+      </BrowserRouter>
+    </Provider>
+  )
+}
