@@ -53,8 +53,33 @@ const Login = () => {
         if (accessToken) {
             navigate("/")
         }
-    }, [accessToken])
+    }, [accessToken, navigate])
    
+
+    let Schema = {}
+    if (mode === "register") {
+        console.log("register", mode)
+        Schema = Yup.object().shape({
+            username: Yup.string()
+                .required("Username is required"),
+            password: Yup.string()
+                .required("Password is required")
+                .min(8, "The password must contain at least 8 characters"),
+            confirmPassword: Yup.string()
+                .required("Please, fill in your password again")
+                .oneOf([Yup.ref("password"), null], "Passwords must match")
+        })
+    } else if (mode === "login") {
+        console.log("login", mode)
+        Schema = Yup.object().shape({
+            username: Yup.string()
+                .required("Username is required"),
+            password: Yup.string()
+                .required("Password is required")
+                .min(8, "The password must contain at least 8 characters")
+        })
+    }
+
     return (
         <>
             <StyledLoginSection>
@@ -69,18 +94,8 @@ const Login = () => {
                     {mode === 'login' ? <StyledTitle>Login here</StyledTitle> : <StyledTitle>Register here</StyledTitle>}
                     
                     <Formik
-                        initialValues={{ username: "", password: "", email: "" }}
-                        validationSchema={Yup.object({
-                            username: Yup.string()
-                                .required("Required"),
-                            password: Yup.string()
-                                .required("Required")
-                                .min(8, "The password must contain at least 8 characters"),
-                            // email: Yup.string()
-                            //     .required("Required")
-                            //     .email("Invalid email address")
-                        })}
-
+                        initialValues={{ username: "", password: "", confirmPassword: "", email: "" }}
+                        validationSchema={Schema}
                         onSubmit={(values, { setSubmitting, resetForm }) => {
                             fetch(API_URL(mode), {
                                 method: "POST",
@@ -127,6 +142,12 @@ const Login = () => {
                                 type="password" 
                                 />
 
+                                {mode === "register" ?
+                                <StyledInput
+                                label="Confirm password"
+                                name="confirmPassword"
+                                type="password" 
+                                /> : null }
 
                                 {mode === 'login' ? <StyledButton type="submit">Login</StyledButton> : <StyledButton type="submit">Register</StyledButton>}
                                 
@@ -156,8 +177,8 @@ const StyledLoginWrapper = styled.section`
 const StyledTitle = styled.h1`
 `
     
-const StyledMode = styled.div`
-`
+// const StyledMode = styled.div`
+// `
 
 const StyledForm = styled(Form)`
 `

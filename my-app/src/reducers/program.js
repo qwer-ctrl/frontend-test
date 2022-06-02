@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit"
 const programs = createSlice({
     name: "programs",
     initialState: {
-        programs: []
+        programs: [],
         error: null
     },
     reducers: {
