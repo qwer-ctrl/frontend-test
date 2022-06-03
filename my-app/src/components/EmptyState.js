@@ -8,7 +8,6 @@ const EmptyState = () => {
         <>
         <EmptyStateContainer>
         <p>EmptyState</p>
-        <button>Add new program</button>
         </EmptyStateContainer>
         </>
     )
