@@ -33,7 +33,6 @@ const Login = () => {
 
 
     const handleLoginSuccess = (data) => {
-        console.log('data', data)
         batch(() => {
             dispatch(user.actions.setUserId(data.userId))
             dispatch(user.actions.setAccessToken(data.accessToken))
@@ -61,7 +60,6 @@ const Login = () => {
 
     let Schema = {}
     if (mode === "register") {
-        console.log("register", mode)
         Schema = Yup.object().shape({
             username: Yup.string()
                 .required("Username is required"),
@@ -73,7 +71,6 @@ const Login = () => {
                 .oneOf([Yup.ref("password"), null], "Passwords must match")
         })
     } else if (mode === "login") {
-        console.log("login", mode)
         Schema = Yup.object().shape({
             username: Yup.string()
                 .required("Username is required"),

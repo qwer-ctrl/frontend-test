@@ -9,10 +9,12 @@ import NotFound from './pages/NotFound'
 
 import user from './reducers/user'
 import program from './reducers/program'
+import ui from './reducers/ui'
 
 const reducer = combineReducers({
   user: user.reducer,
-  program: program.reducer
+  program: program.reducer,
+  ui: ui.reducer
 })
 
 
