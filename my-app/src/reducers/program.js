@@ -1,14 +1,21 @@
 import { createSlice } from "@reduxjs/toolkit"
 
-const programs = createSlice({
-    name: "programs",
+const program = createSlice({
+    name: "program",
     initialState: {
-        programs: [],
+        programType: null,
+        programName: null,
+        // exercise: [],
+        // createdAt: null,
+        // programId: null,
         error: null
     },
     reducers: {
-        setPrograms: (store, action) => {
-            store.programs = action.payload
+        setProgramType: (store, action) => {
+            store.programType = action.payload
+        },
+        setProgramName: (store, action) => {
+            store.programName = action.payload
         },
         setError: (store, action) => {
             store.error = action.payload
@@ -16,4 +23,4 @@ const programs = createSlice({
     }
 })
 
-export default programs
+export default program

@@ -1,17 +1,22 @@
 import React, { useEffect } from "react"
-import { useSelector } from "react-redux"
+import { useSelector, useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom"
 import styled from "styled-components/macro";
 
 import { API_URL } from "../utils/utils"
-// import programs from "../reducers/programs"
+import program from "../reducers/program"
 import SignOut from "../components/SignOut"
+import EmptyState from "../components/EmptyState";
 
 const MyPage = () => {
     const accessToken = useSelector((store) => store.user.accessToken)
-    // const programItems = useSelector((store) => store.programs.programs)
+    const userId = useSelector((store) => store.user.userId)
+    const userHasProgram = useSelector((store) => store.user.program)
+    // const programType = useSelector((store) => store.program.programType)
+    // const programName = useSelector((store) => store.program.programName)
+    // const error = useSelector((store) => store.program.error)
     const navigate = useNavigate()
-    // const dispatch = useDispatch()
+    const dispatch = useDispatch()
     
     useEffect(() => {
         if (!accessToken) {
@@ -28,23 +33,27 @@ const MyPage = () => {
             }
         }
 
-        fetch(API_URL("programs"), options)
+        fetch(API_URL(`mypage/${userId}`), options)
             .then(res => res.json())
             .then(data => {
-                console.log(data)
-                // if (data.success) {
-                //     dispatch(programs.actions.setPrograms(data.response))
-                //     dispatch(programs.actions.setError(null))
-                // } else {
-                //     dispatch(programs.actions.setError(data.response))
-                //     dispatch(programs.actions.setPrograms([]))
-                // }
+                if (data.success) {
+                    dispatch(program.actions.setProgramType(data.response))
+                    dispatch(program.actions.setProgramName(data.response))
+                    dispatch(program.actions.setError(null))
+                } else {
+                    dispatch(program.actions.setError(data.response))
+                    dispatch(program.actions.setProgramName(data.response))
+                    dispatch(program.actions.setPrograms([]))
+                }
             })
-    }, [accessToken])
+    }, [accessToken, userId, dispatch])
     
     return (
         <MainContainer>
+            {userHasProgram ? 
+                <h1>hi! I have programs!</h1>
         <SignOut />
+            : <EmptyState />}
         </MainContainer>
     )
 }

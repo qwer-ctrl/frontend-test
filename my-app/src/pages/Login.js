@@ -33,10 +33,12 @@ const Login = () => {
 
 
     const handleLoginSuccess = (data) => {
+        console.log('data', data)
         batch(() => {
             dispatch(user.actions.setUserId(data.userId))
             dispatch(user.actions.setAccessToken(data.accessToken))
             dispatch(user.actions.setUserName(data.username))
+            dispatch(user.actions.setProgram(data.program))
             dispatch(user.actions.setError(null))
         })
     }
@@ -46,6 +48,7 @@ const Login = () => {
             dispatch(user.actions.setUserId(null))
             dispatch(user.actions.setAccessToken(null))
             dispatch(user.actions.setUserName(null))
+            dispatch(user.actions.setProgram(null))
         })
     }    
 

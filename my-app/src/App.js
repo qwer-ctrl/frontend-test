@@ -8,11 +8,11 @@ import MyPage from './pages/MyPage'
 import NotFound from './pages/NotFound'
 
 import user from './reducers/user'
-// import programs from './reducers/programs'
+import program from './reducers/program'
 
 const reducer = combineReducers({
   user: user.reducer,
-  // programs: programs.reducer
+  program: program.reducer
 })
 
 
