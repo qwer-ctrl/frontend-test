@@ -25,7 +25,7 @@ const MyPage = () => {
     
 const onProgramClick = () => {
     Swal.fire({
-        title: 'Submit your Github username',
+        title: 'add program name',
         input: 'text',
         inputAttributes: {
           autocapitalize: 'off'
@@ -93,7 +93,6 @@ const onProgramClick = () => {
         
             
     }, [accessToken, userId, dispatch])
-    
     
     
     return isLoading ? <LoadingAnimation /> : (
