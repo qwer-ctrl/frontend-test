@@ -41,7 +41,7 @@ export const App = () => {
       <BrowserRouter>
         <Routes>
           <Route path="/login" element={<Login />}></Route>
-          <Route path="/myprogram" element={<SingleProgram />}></Route>
+          <Route path="/myprogram/:programId" element={<SingleProgram />}></Route>
           <Route path="/" element={<MyPage />}></Route>
           <Route path="*" element={<NotFound />}></Route>
         </Routes>
