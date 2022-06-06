@@ -1,18 +1,21 @@
-import React, { useEffect } from "react"
+import React, { useEffect, useState } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom"
 import styled from "styled-components/macro";
-import Swal from 'sweetalert2'
+// import Swal from 'sweetalert2'
 
 import { API_URL } from "../utils/utils"
 import user from "../reducers/user"
 import program from "../reducers/program"
 import ui from "../reducers/ui";
 import LoadingAnimation from "../components/LoadingAnimation";
+import Modal from "../components/Modal"
 import SignOut from "../components/SignOut"
 import EmptyState from "../components/EmptyState";
 
 const MyPage = () => {
+    const [showModal, setShowModal] = useState(false);
+    
     const accessToken = useSelector((store) => store.user.accessToken)
     const userId = useSelector((store) => store.user.userId)
     const userHasProgram = useSelector((store) => store.user.program)
@@ -22,41 +25,72 @@ const MyPage = () => {
     console.log(isLoading)
     const navigate = useNavigate()
     const dispatch = useDispatch()
+
+
+    const openModal = () => {
+        setShowModal(prev => !prev);
+      };
     
-const onProgramClick = () => {
-    Swal.fire({
-        title: 'add program name',
-        input: 'text',
-        inputAttributes: {
-          autocapitalize: 'off'
-        },
-        showCancelButton: true,
-        confirmButtonText: 'Look up',
-        showLoaderOnConfirm: true,
-        preConfirm: (login) => {
-          return fetch(`//api.github.com/users/${login}`)
-            .then(response => {
-              if (!response.ok) {
-                throw new Error(response.statusText)
-              }
-              return response.json()
-            })
-            .catch(error => {
-              Swal.showValidationMessage(
-                `Request failed: ${error}`
-              )
-            })
-        },
-        allowOutsideClick: () => !Swal.isLoading()
-      }).then((result) => {
-        if (result.isConfirmed) {
-          Swal.fire({
-            title: `${result.value.login}'s avatar`,
-            imageUrl: result.value.avatar_url
-          })
-        }
-      })
-}
+// const onProgramClick = () => {
+//     const inputOptions = new Promise((resolve) => {
+//       setTimeout(() => {
+//         resolve({
+//           "weights": "Weights",
+//           "cardio": "Cardio"
+//         })
+//       }, 1000)
+//     })
+
+
+
+//     const { value: formValues } = Swal.fire({
+//         title: 'Add program name',
+//         input: 'text',
+//         inputValidator: (value) => {
+//           if (!value) {
+//             return "You need to write something"
+//           }
+//         },
+//         inputAttributes: {
+//           autocapitalize: 'off'
+//         },
+//         title: "Select program type",
+//         input: "radio",
+//         inputOptions: inputOptions,
+//         inputValidator: (value) => {
+//           if (!value) {
+//             return "You need to choose one!"
+//           }
+//         },
+//         showCancelButton: true,
+//         confirmButtonText: 'Add program',
+//         showLoaderOnConfirm: true,
+//         preConfirm: (userId) => {
+//           return fetch(API_URL(`program/${userId}`))
+//             .then(response => {
+//               if (!response.ok) {
+//                 throw new Error(response.statusText)
+//               }
+//               return response.json()
+//             })
+//             .catch(error => {
+//               Swal.showValidationMessage(
+//                 `Request failed: ${error}`
+//               )
+//             })
+//         },
+//         allowOutsideClick: () => !Swal.isLoading()
+//       }).then((result) => {
+//         if (result.isConfirmed) {
+//           Swal.fire({
+//             title: `${result.value.programName}'s avatar`,
+//             imageUrl: result.value.avatar_url
+//           })
+//         }
+//       })
+// }
+
+
     useEffect(() => {
         if (!accessToken) {
             navigate("/login")
@@ -109,7 +143,8 @@ const onProgramClick = () => {
                 : <EmptyState />}
     
         </MainContainer>
-        <button onClick={onProgramClick}>Add new program</button>
+        <StyledButton onClick={openModal}>Add new program </StyledButton>
+        <Modal showModal={showModal} setShowModal={setShowModal}/>
         <SignOut />
         </>
     )
@@ -119,3 +154,5 @@ export default MyPage
 
 
 const MainContainer = styled.section``
+
+const StyledButton = styled.button``
