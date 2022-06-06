@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux"
 import styled from "styled-components/macro";
 
 import { API_URL } from "../utils/utils"
-import program from "../reducers/program"
+import {program} from "../reducers/program"
 import exercise from "../reducers/exercise"
 import ui from "../reducers/ui"
 import LoadingAnimation from "../components/LoadingAnimation"
