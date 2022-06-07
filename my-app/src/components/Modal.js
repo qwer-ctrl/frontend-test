@@ -1,12 +1,14 @@
 import React, {useEffect, useState} from "react"
 import { useSelector, useDispatch } from "react-redux"
-import { useNavigate } from "react-router-dom"
+import { NavigationType, useNavigate, useParams } from "react-router-dom"
 import {program} from "../reducers/program"
 import styled from 'styled-components/macro'
 import ui from "../reducers/ui"
+import user from "../reducers/user"
 // import { createProgram } from "../reducers/program"
 
 import { API_URL } from "../utils/utils"
+import SingleProgram from "../pages/SingleProgram"
 
 const Modal = ({ showModal, setShowModal}) => {
   //refactor to use store instead for sending props to MyPage..
@@ -44,19 +46,20 @@ const Modal = ({ showModal, setShowModal}) => {
       })
       .then(res => res.json())
       .then(data => {
+        console.log('data', data)
           setProgramId(data.response._id)
           dispatch(program.actions.setProgramName(data.response))
           dispatch(program.actions.setProgramType(data.response))
           dispatch(program.actions.setProgramId(data.response))
-          console.log(data.response._id) 
+         console.log('hello', data.response) 
       })
       .catch((err) => {
-          console.log(err);
+        console.log(err)
       })
       .finally(() => {
-        console.log('programID?', programId)
-        dispatch(ui.actions.setLoading(false))
-        // navigate(`/myprogram/${programId}`)
+        //console.log('programID?', programId)
+        //dispatch(ui.actions.setLoading(false))
+       //navigate(`/myprogram/${programId}`)
       })
     }
 
