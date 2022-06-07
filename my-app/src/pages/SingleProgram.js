@@ -24,23 +24,23 @@ const MyTextInput = ({ label, ...props }) => {
 	)
 }
 
-const MyCheckbox = ({ label, ...props }) => {
-	const [field, meta] = useField(props)
-	return (
-		<>
-			<label htmlFor={props.id || props.name}>{label}</label>
-			<input className='text-input' {...field} {...props} />
-			{meta.touched && meta.error ? <StyledError className='error'>{meta.error}</StyledError> : null}
-		</>
-	)
-}
+// const MyCheckbox = ({ label, ...props }) => {
+// 	const [field, meta] = useField(props)
+// 	return (
+// 		<>
+// 			<label htmlFor={props.id || props.name}>{label}</label>
+// 			<input className='text-input' {...field} {...props} />
+// 			{meta.touched && meta.error ? <StyledError className='error'>{meta.error}</StyledError> : null}
+// 		</>
+// 	)
+// }
 
 const SingleProgram = () => {
 	const [programName, setProgramName] = useState('')
 	const { programId } = useParams()
 	const isLoading = useSelector((store) => store.ui.isLoading)
 	const userHasExercise = useSelector((store) => store.program.exercise)
-	const navigate = useNavigate()
+	// const navigate = useNavigate()
 	const dispatch = useDispatch()
 
 	// useEffect(() => {
@@ -57,12 +57,12 @@ const SingleProgram = () => {
 			},
 		}
 
-		console.log(programId)
+		// console.log(programId)
 		fetch(API_URL(`myprogram/${programId}`), options)
 			.then((res) => res.json())
 			.then((data) => {
 				dispatch(ui.actions.setLoading(true))
-				console.log(data)
+				// console.log(data)
 				if (data.success) {
 					dispatch(program.actions.setExercise(data.response))
 					dispatch(exercise.actions.setExercise(data.response))
@@ -91,8 +91,8 @@ const SingleProgram = () => {
 
 	const Schema = Yup.object().shape({
 		exerciseName: Yup.string().required('Username is required'),
-		sets: Yup.number(),
-		reps: Yup.number(),
+		sets: Yup.string(),
+		reps: Yup.string(),
 		weights: Yup.string(),
 		comments: Yup.string(),
 	})
@@ -106,8 +106,11 @@ const SingleProgram = () => {
 
 				<Formik
 					initialValues={{
-						exerciseName: '',
-						metrics: [],
+						exercise: '',
+						// sets: '',
+						// reps: '',
+						// weights: '',
+						// comments: '',
 					}}
 					validationSchema={Schema}
 					onSubmit={(values, { setSubmitting, resetForm }) => {
@@ -116,7 +119,13 @@ const SingleProgram = () => {
 							headers: {
 								'Content-Type': 'application/json',
 							},
-							body: JSON.stringify({ exercise: values.exerciseName, metrics: values.metrics }),
+							body: JSON.stringify({
+								exercise: values.exercise,
+								// sets: values.sets,
+								// reps: values.reps,
+								// weights: values.weights,
+								// comments: values.comments,
+							}),
 						})
 							.then((res) => res.json())
 							.then((data) => {
@@ -136,12 +145,15 @@ const SingleProgram = () => {
 					{({ isSubmitting }) => (
 						<StyledForm>
 							{isSubmitting && <LoadingAnimation />}
-							<StyledInput label='Exercise name' name='exerciseName' type='text' />
-							<StyledCheckbox label='Sets' name='metrics' type='checkbox' value='sets' />
-							<StyledCheckbox label='Reps' name='metrics' type='checkbox' value='reps' />
-							<StyledCheckbox label='Weights' name='metrics' type='checkbox' value='weights' />
-							<StyledCheckbox label='Comments' name='metrics' type='checkbox' value='comments' />
-
+							<StyledInput label='Exercise name' name='exercise' type='text' />
+							{/* <button type='button'>Sets</button>
+							<button type='button'>Reps</button>
+							<button type='button'>Weights</button>
+							<button type='button'>Comments</button> */}
+							{/* <StyledInput label='Sets' name='sets' type='text' /> */}
+							{/* <StyledInput label='Reps' name='reps' type='text' />
+							<StyledInput label='Weights' name='weights' type='text' />
+							<StyledInput label='Comments' name='comments' type='text' /> */}
 							<StyledButton type='submit'>Add exercise</StyledButton>
 						</StyledForm>
 					)}
@@ -156,11 +168,16 @@ export default SingleProgram
 
 const MainContainer = styled.section``
 
-const StyledForm = styled(Form)``
+const StyledForm = styled(Form)`
+	display: flex;
+	flex-direction: column;
+`
 
-const StyledInput = styled(MyTextInput)``
+const StyledInput = styled(MyTextInput)`
+	max-width: 150px;
+`
 
-const StyledCheckbox = styled(MyCheckbox)``
+// const StyledCheckbox = styled(MyCheckbox)``
 
 const StyledError = styled.div``
 
