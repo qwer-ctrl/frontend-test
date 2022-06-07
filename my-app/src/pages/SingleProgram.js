@@ -90,7 +90,7 @@ const SingleProgram = () => {
 	}, [programId, dispatch])
 
 	const Schema = Yup.object().shape({
-		exerciseName: Yup.string().required('Username is required'),
+		exercise: Yup.string().required('Username is required'),
 		sets: Yup.string(),
 		reps: Yup.string(),
 		weights: Yup.string(),
@@ -107,10 +107,10 @@ const SingleProgram = () => {
 				<Formik
 					initialValues={{
 						exercise: '',
-						// sets: '',
-						// reps: '',
-						// weights: '',
-						// comments: '',
+						sets: '',
+						reps: '',
+						weights: '',
+						comments: '',
 					}}
 					validationSchema={Schema}
 					onSubmit={(values, { setSubmitting, resetForm }) => {
@@ -121,10 +121,10 @@ const SingleProgram = () => {
 							},
 							body: JSON.stringify({
 								exercise: values.exercise,
-								// sets: values.sets,
-								// reps: values.reps,
-								// weights: values.weights,
-								// comments: values.comments,
+								sets: values.sets,
+								reps: values.reps,
+								weights: values.weights,
+								comments: values.comments,
 							}),
 						})
 							.then((res) => res.json())
@@ -146,14 +146,14 @@ const SingleProgram = () => {
 						<StyledForm>
 							{isSubmitting && <LoadingAnimation />}
 							<StyledInput label='Exercise name' name='exercise' type='text' />
-							{/* <button type='button'>Sets</button>
+							<button type='button'>Sets</button>
 							<button type='button'>Reps</button>
 							<button type='button'>Weights</button>
-							<button type='button'>Comments</button> */}
-							{/* <StyledInput label='Sets' name='sets' type='text' /> */}
-							{/* <StyledInput label='Reps' name='reps' type='text' />
+							<button type='button'>Comments</button>
+							<StyledInput label='Sets' name='sets' type='text' />
+							<StyledInput label='Reps' name='reps' type='text' />
 							<StyledInput label='Weights' name='weights' type='text' />
-							<StyledInput label='Comments' name='comments' type='text' /> */}
+							<StyledInput label='Comments' name='comments' type='text' />
 							<StyledButton type='submit'>Add exercise</StyledButton>
 						</StyledForm>
 					)}
