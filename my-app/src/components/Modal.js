@@ -14,8 +14,8 @@ const Modal = ({ showModal, setShowModal}) => {
   //refactor to use store instead for sending props to MyPage..
     const [programName, setProgramName] = useState('');
     const [programType, setProgramType] = useState('');
-    const userId = useSelector((store) => store.user.userId)
     const [programId, setProgramId] = useState('')
+    const userId = useSelector((store) => store.user.userId)
     console.log(programId)
     const navigate = useNavigate()
     const dispatch = useDispatch()
@@ -47,12 +47,12 @@ const Modal = ({ showModal, setShowModal}) => {
       .then(res => res.json())
       .then(data => {
         console.log('data', data)
-          setProgramId(data.response._id)
-          dispatch(program.actions.setProgramName(data.response))
-          dispatch(program.actions.setProgramType(data.response))
-          dispatch(program.actions.setProgramId(data.response))
-         console.log('hello', data.response) 
-         navigate(`/myprogram/${data.response._id}`) //<---------------------change!
+        dispatch(program.actions.setProgramName(data.response))
+        dispatch(program.actions.setProgramType(data.response))
+        dispatch(program.actions.setProgramId(data.response))
+        setProgramId(data.response._id)
+        console.log('hello', data.response._id) 
+        navigate(`/myprogram/${data.response._id}`) //<---------------------change!
       })
       .catch((err) => {
         console.log(err)
@@ -60,7 +60,7 @@ const Modal = ({ showModal, setShowModal}) => {
       .finally(() => {
         //console.log('programID?', programId)
         //dispatch(ui.actions.setLoading(false))
-       //navigate(`/myprogram/${programId}`)
+        //navigate(`/myprogram/${programId}`)
       })
     }
 

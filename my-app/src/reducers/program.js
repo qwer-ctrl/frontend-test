@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit"
-import user from "./user"
-import { API_URL } from "../utils/utils"
+// import user from "./user"
+// import { API_URL } from "../utils/utils"
 
  export const program = createSlice({
     name: "program",
