@@ -1,4 +1,4 @@
-import React, { useEffect } from "react"
+import React, { useEffect, useState } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { useNavigate, useParams } from "react-router-dom"
 import styled from "styled-components/macro";
@@ -12,6 +12,8 @@ import SignOut from "../components/SignOut"
 import EmptyState from "../components/EmptyState"
 
 const SingleProgram = () => {
+  const [programName, setProgramName] = useState('')
+  console.log('programname', programName)
   const { programId } = useParams()
   const isLoading = useSelector((store) => store.ui.isLoading)
   const userHasExercise = useSelector((store) => store.program.exercise)
@@ -50,6 +52,7 @@ const SingleProgram = () => {
             dispatch(exercise.actions.setCreatedAt(data.response))
             dispatch(exercise.actions.setExerciseId(data.response))
             dispatch(exercise.actions.setError(null))
+            setProgramName(data.response.programName)
         } else {
             dispatch(exercise.actions.setError(data.response))
             dispatch(program.actions.setExercise(null))
@@ -75,6 +78,7 @@ const SingleProgram = () => {
       {userHasExercise ? 
         <h1>hi! I have programs!</h1>
         : <EmptyState />}
+        <p>{programName}</p>
     </MainContainer>
     <SignOut />
     </>

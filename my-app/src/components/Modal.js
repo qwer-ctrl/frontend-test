@@ -1,14 +1,14 @@
 import React, {useEffect, useState} from "react"
 import { useSelector, useDispatch } from "react-redux"
-import { NavigationType, useNavigate, useParams } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import {program} from "../reducers/program"
 import styled from 'styled-components/macro'
 import ui from "../reducers/ui"
-import user from "../reducers/user"
+// import user from "../reducers/user"
 // import { createProgram } from "../reducers/program"
 
 import { API_URL } from "../utils/utils"
-import SingleProgram from "../pages/SingleProgram"
+// import SingleProgram from "../pages/SingleProgram"
 
 const Modal = ({ showModal, setShowModal}) => {
   //refactor to use store instead for sending props to MyPage..
@@ -52,6 +52,7 @@ const Modal = ({ showModal, setShowModal}) => {
           dispatch(program.actions.setProgramType(data.response))
           dispatch(program.actions.setProgramId(data.response))
          console.log('hello', data.response) 
+         navigate(`/myprogram/${data.response._id}`) //<---------------------change!
       })
       .catch((err) => {
         console.log(err)
@@ -107,11 +108,5 @@ const ModalContainer = styled.div`
   border: 1px solid #888;
   width: 80%;
 `
-
-
-
-const CardioButton = styled.button``
-
-const WeightsButton = styled.button``
 
 const CloseButton = styled.button``
