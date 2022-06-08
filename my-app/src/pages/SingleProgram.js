@@ -36,8 +36,17 @@ const MyTextInput = ({ label, ...props }) => {
 // }
 
 const SingleProgram = () => {
-	const [programName, setProgramName] = useState('')
 	const { programId } = useParams()
+	const [programName, setProgramName] = useState('')
+	const [exerciseId, setExerciseId] = useState('')
+	const [sets, setSets] = useState('')
+	const [reps, setReps] = useState('')
+	const [weights, setWeights] = useState('')
+	const [comments, setComments] = useState('')
+	const [displaySets, setDisplaySets] = useState(false)
+	const [displayReps, setDisplayReps] = useState(false)
+	const [displayWeights, setDisplayWeights] = useState(false)
+	const [displayComments, setDisplayComments] = useState(false)
 	const isLoading = useSelector((store) => store.ui.isLoading)
 	const userHasExercise = useSelector((store) => store.program.exercise)
 	// const navigate = useNavigate()
@@ -62,7 +71,7 @@ const SingleProgram = () => {
 			.then((res) => res.json())
 			.then((data) => {
 				dispatch(ui.actions.setLoading(true))
-				// console.log(data)
+				//console.log(data)
 				if (data.success) {
 					dispatch(program.actions.setExercise(data.response))
 					dispatch(exercise.actions.setExercise(data.response))
@@ -89,6 +98,49 @@ const SingleProgram = () => {
 			.finally(() => dispatch(ui.actions.setLoading(false)))
 	}, [programId, dispatch])
 
+
+	useEffect(() => {
+		if (exerciseId) {
+		const options = {
+			method: 'GET',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			
+		}
+
+		fetch(API_URL(`exercise/${exerciseId}`), options)
+			.then((res) => res.json())
+			.then((data) => {
+				dispatch(ui.actions.setLoading(true))
+				console.log(data)
+				if (data.success) {
+					dispatch(exercise.actions.setError(null))
+					dispatch(exercise.actions.setExercise(data.response))
+					dispatch(exercise.actions.setSets(data.response))
+					dispatch(exercise.actions.setReps(data.response))
+					dispatch(exercise.actions.setWeights(data.response))
+					dispatch(exercise.actions.setComments(data.response))
+					dispatch(exercise.actions.setCreatedAt(data.response))
+					dispatch(exercise.actions.setExerciseId(data.response))
+					
+				} else {
+					dispatch(exercise.actions.setError(data.response))
+					dispatch(exercise.actions.setExercise(null))
+					dispatch(exercise.actions.setSets(null))
+					dispatch(exercise.actions.setReps(null))
+					dispatch(exercise.actions.setWeights(null))
+					dispatch(exercise.actions.setComments(null))
+					dispatch(exercise.actions.setCreatedAt(null))
+					dispatch(exercise.actions.setExerciseId(null))
+				}
+			})
+			.finally(() => dispatch(ui.actions.setLoading(false)))
+		}
+	}, [exerciseId, dispatch])
+
+
+
 	const Schema = Yup.object().shape({
 		exercise: Yup.string().required('Username is required'),
 		sets: Yup.string(),
@@ -96,6 +148,27 @@ const SingleProgram = () => {
 		weights: Yup.string(),
 		comments: Yup.string(),
 	})
+
+	const handleData = (data) => {
+		setExerciseId(data.response._id)
+		setReps(data.response.reps)
+		setWeights(data.response.weights)
+		setComments(data.response.comments)
+		setSets(data.response.sets)
+	}
+
+	const handleSetsState = () => {
+		setDisplaySets(!displaySets)
+	}
+	const handleRepsState = () => {
+		setDisplayReps(!displayReps)
+	}
+	const handleWeightsState = () => {
+		setDisplayWeights(!displayWeights)
+	}
+	const handleCommentsState = () => {
+		setDisplayComments(!displayComments)
+	}
 
 	return isLoading ? (
 		<LoadingAnimation />
@@ -129,9 +202,9 @@ const SingleProgram = () => {
 						})
 							.then((res) => res.json())
 							.then((data) => {
-								console.log(data)
-								// handleLoginSuccess(data)
-								// setMode('login')
+								//console.log(data)
+								handleData(data)
+								console.log(data.response._id)
 							})
 							.catch((err) => {
 								// handleLoginFailure(err)
@@ -146,18 +219,23 @@ const SingleProgram = () => {
 						<StyledForm>
 							{isSubmitting && <LoadingAnimation />}
 							<StyledInput label='Exercise name' name='exercise' type='text' />
-							<button type='button'>Sets</button>
-							<button type='button'>Reps</button>
-							<button type='button'>Weights</button>
-							<button type='button'>Comments</button>
-							<StyledInput label='Sets' name='sets' type='text' />
-							<StyledInput label='Reps' name='reps' type='text' />
-							<StyledInput label='Weights' name='weights' type='text' />
-							<StyledInput label='Comments' name='comments' type='text' />
+							<button onClick={handleSetsState} type='button'>Sets</button>
+							<button onClick={handleRepsState} type='button'>Reps</button>
+							<button onClick={handleWeightsState} type='button'>Weights</button>
+							<button onClick={handleCommentsState} type='button'>Comments</button>
+							{displaySets ? <StyledInput label='Sets' name='sets' type='text' /> : null }
+							{displayReps ? <StyledInput label='Reps' name='reps' type='text' /> : null }
+							{displayWeights ? <StyledInput label='Weights' name='weights' type='text' /> : null }
+							{displayComments ? <StyledInput label='Comments' name='comments' type='text' /> : null }
 							<StyledButton type='submit'>Add exercise</StyledButton>
 						</StyledForm>
 					)}
 				</Formik>
+				<div>
+				 <h1>{exerciseId}</h1>
+				 <p>{sets}</p>
+				 <p>{weights}</p>
+				</div>
 			</MainContainer>
 			<SignOut />
 		</>
