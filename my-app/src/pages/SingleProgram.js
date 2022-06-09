@@ -14,7 +14,14 @@ import SignOut from '../components/SignOut'
 const SingleProgram = () => {
 	const { programId } = useParams()
 	const isLoading = useSelector((store) => store.ui.isLoading)
-	const userHasExercise = useSelector((store) => store.program.exercise.exercise)
+	const allPrograms = useSelector((store) => store.user.program.program)
+	const allExercises = useSelector((store) => store.program.exercise.exercise)
+	console.log(allPrograms)
+	const myProgram = allPrograms.filter((program) => program._id === programId)
+	const myExercise = allExercises.map((exercise) => exercise._id)
+	console.log('myExercises', myExercise)
+	console.log('my program', myProgram)
+	// const userHasExercise = useSelector((store) => store.program.exercise)
 	const navigate = useNavigate()
 	const dispatch = useDispatch()
 
@@ -23,19 +30,15 @@ const SingleProgram = () => {
 	) : (
 		<>
 			<div>
-				{userHasExercise.map((item) => {
-					return (
-						<div key={item._id}>
-							<h1>{item.exercise}</h1>
-							<div>
-								<p>{item.sets} sets</p>
-								<p>{item.reps} reps</p>
-								<p>{item.weights} </p>
-								<p>comment: {item.comments}</p>
-							</div>
-						</div>
-					)
-				})}
+				<h1>{myProgram[0].programName}</h1>
+				{/* {myProgram.exercise.map((exercise) => (
+					<div>
+						<p>{exercise.sets} sets</p>
+						<p>{reps} reps</p>
+						<p>{weights} </p>
+						<p>comment: {comments}</p>
+					</div>
+				))} */}
 			</div>
 		</>
 	)

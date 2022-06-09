@@ -12,7 +12,6 @@ import ui from '../reducers/ui'
 import LoadingAnimation from '../components/LoadingAnimation'
 import SignOut from '../components/SignOut'
 import EmptyState from '../components/EmptyState'
-import SingleProgram from './SingleProgram'
 
 const MyTextInput = ({ label, ...props }) => {
 	const [field, meta] = useField(props)
@@ -34,7 +33,8 @@ const AddProgram = () => {
 	const [displayWeights, setDisplayWeights] = useState(false)
 	const [displayComments, setDisplayComments] = useState(false)
 	const isLoading = useSelector((store) => store.ui.isLoading)
-	const userHasExercise = useSelector((store) => store.program.exercise.exercise)
+	const userHasExercise = useSelector((store) => store.program.exercise)
+	console.log('ex from add', userHasExercise)
 	const navigate = useNavigate()
 	const dispatch = useDispatch()
 
@@ -217,7 +217,7 @@ const AddProgram = () => {
 				</Formik>
 				<button onClick={handleGoBack}>Done with program, go back to main</button>
 				<div>
-					{userHasExercise.map((item) => {
+					{userHasExercise.exercise.map((item) => {
 						return (
 							<div key={item._id}>
 								<h1>{item.exercise}</h1>
