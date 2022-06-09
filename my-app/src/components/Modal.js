@@ -16,7 +16,6 @@ const Modal = ({ showModal, setShowModal }) => {
 	const [programType, setProgramType] = useState('')
 	const [programId, setProgramId] = useState('')
 	const userId = useSelector((store) => store.user.userId)
-	console.log(programId)
 	const navigate = useNavigate()
 	const dispatch = useDispatch()
 

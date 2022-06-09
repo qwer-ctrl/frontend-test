@@ -34,7 +34,6 @@ const AddProgram = () => {
 	const [displayComments, setDisplayComments] = useState(false)
 	const isLoading = useSelector((store) => store.ui.isLoading)
 	const userHasExercise = useSelector((store) => store.program.exercise)
-	console.log('ex from add', userHasExercise)
 	const navigate = useNavigate()
 	const dispatch = useDispatch()
 

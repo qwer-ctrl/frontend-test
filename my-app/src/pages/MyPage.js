@@ -19,7 +19,7 @@ const MyPage = () => {
 	const userId = useSelector((store) => store.user.userId)
 	const userHasProgram = useSelector((store) => store.user.program)
 	const programs = userHasProgram.program
-	// console.log("test", userHasProgram)
+	console.log('test', userHasProgram)
 	const isLoading = useSelector((store) => store.ui.isLoading)
 	//console.log(isLoading)
 	const navigate = useNavigate()
