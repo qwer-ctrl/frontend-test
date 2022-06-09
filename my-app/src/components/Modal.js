@@ -1,93 +1,103 @@
-import React, {useEffect, useState} from "react"
-import { useSelector, useDispatch } from "react-redux"
-import { useNavigate } from "react-router-dom"
-import {program} from "../reducers/program"
+import React, { useEffect, useState } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+import { program } from '../reducers/program'
 import styled from 'styled-components/macro'
-import ui from "../reducers/ui"
+import ui from '../reducers/ui'
 // import user from "../reducers/user"
 // import { createProgram } from "../reducers/program"
 
-import { API_URL } from "../utils/utils"
+import { API_URL } from '../utils/utils'
 // import SingleProgram from "../pages/SingleProgram"
 
-const Modal = ({ showModal, setShowModal}) => {
-  //refactor to use store instead for sending props to MyPage..
-    const [programName, setProgramName] = useState('');
-    const [programType, setProgramType] = useState('');
-    const [programId, setProgramId] = useState('')
-    const userId = useSelector((store) => store.user.userId)
-    console.log(programId)
-    const navigate = useNavigate()
-    const dispatch = useDispatch()
+const Modal = ({ showModal, setShowModal }) => {
+	//refactor to use store instead for sending props to MyPage..
+	const [programName, setProgramName] = useState('')
+	const [programType, setProgramType] = useState('')
+	const [programId, setProgramId] = useState('')
+	const userId = useSelector((store) => store.user.userId)
+	console.log(programId)
+	const navigate = useNavigate()
+	const dispatch = useDispatch()
 
+	const closeModal = () => {
+		setShowModal((prev) => !prev)
+	}
 
-    const closeModal = () => {
-      setShowModal(prev => !prev);
-    }
+	const handleProgramName = (e) => {
+		setProgramName(e.target.value)
+	}
 
-    const handleProgramName = (e) => {
-      setProgramName(e.target.value)
-    }
+	const handleProgramType = (e) => {
+		setProgramType(e.target.value)
+	}
 
-    const handleProgramType = (e) => {
-      setProgramType(e.target.value)
-    }
-    
-    const handleProgramSubmit = (e) => {
-      e.preventDefault()
-      dispatch(ui.actions.setLoading(true))
+	const handleProgramSubmit = (e) => {
+		e.preventDefault()
+		dispatch(ui.actions.setLoading(true))
 
-      fetch(API_URL(`program/${userId}`), {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({programName, programType})
-      })
-      .then(res => res.json())
-      .then(data => {
-        console.log('data', data)
-        dispatch(program.actions.setProgramName(data.response))
-        dispatch(program.actions.setProgramType(data.response))
-        dispatch(program.actions.setProgramId(data.response))
-        setProgramId(data.response._id)
-        console.log('hello', data.response._id) 
-        navigate(`/myprogram/${data.response._id}`) //<---------------------change!
-      })
-      .catch((err) => {
-        console.log(err)
-      })
-      .finally(() => {
-        //console.log('programID?', programId)
-        //dispatch(ui.actions.setLoading(false))
-        //navigate(`/myprogram/${programId}`)
-      })
-    }
+		fetch(API_URL(`program/${userId}`), {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({ programName, programType }),
+		})
+			.then((res) => res.json())
+			.then((data) => {
+				console.log('data', data)
+				dispatch(program.actions.setProgramName(data.response))
+				dispatch(program.actions.setProgramType(data.response))
+				dispatch(program.actions.setProgramId(data.response))
+				setProgramId(data.response._id)
+				console.log('hello', data.response._id)
+				navigate(`/addprogram/${data.response._id}`) //<---------------------change!
+			})
+			.catch((err) => {
+				console.log(err)
+			})
+			.finally(() => {
+				//console.log('programID?', programId)
+				//dispatch(ui.actions.setLoading(false))
+				//navigate(`/myprogram/${programId}`)
+			})
+	}
 
-    return (
-      <>
-      {showModal ? 
-      <ModalContainer showModal={showModal}>
-        <StyledModal>
-        <CloseButton onClick={closeModal}>x</CloseButton>
-        <form onSubmit={handleProgramSubmit}>
-        <label htmlFor="programname">Program name</label>
-          <input name="programname" type="text" onChange={handleProgramName}></input>
-        <label htmlFor="weights">Weights</label>
-          <input type="radio" name="weights" value="weights" checked={programType === "weights"} onChange={handleProgramType}></input>
-        <label htmlFor="cardio">Cardio</label>
-          <input type="radio" name="cardio" value="cardio" checked={programType === "cardio"} onChange={handleProgramType}></input>
-        <button type="submit">Add program</button>
-        </form>
-        </StyledModal>
-      </ModalContainer>
-      : null }
-      </>
-    )
+	return (
+		<>
+			{showModal ? (
+				<ModalContainer showModal={showModal}>
+					<StyledModal>
+						<CloseButton onClick={closeModal}>x</CloseButton>
+						<form onSubmit={handleProgramSubmit}>
+							<label htmlFor='programname'>Program name</label>
+							<input name='programname' type='text' onChange={handleProgramName}></input>
+							<label htmlFor='weights'>Weights</label>
+							<input
+								type='radio'
+								name='weights'
+								value='weights'
+								checked={programType === 'weights'}
+								onChange={handleProgramType}
+							></input>
+							<label htmlFor='cardio'>Cardio</label>
+							<input
+								type='radio'
+								name='cardio'
+								value='cardio'
+								checked={programType === 'cardio'}
+								onChange={handleProgramType}
+							></input>
+							<button type='submit'>Add program</button>
+						</form>
+					</StyledModal>
+				</ModalContainer>
+			) : null}
+		</>
+	)
 }
 
 export default Modal
-
 
 const ModalContainer = styled.div`
   position: fixed;
@@ -100,13 +110,13 @@ const ModalContainer = styled.div`
   overflow: auto;
   background: rgb(0,0,0,0.2); // <-------------- change
   `
-  
-  const StyledModal = styled.div`
-  background: white;
-  margin: auto;
-  padding: 20px;
-  border: 1px solid #888;
-  width: 80%;
+
+const StyledModal = styled.div`
+	background: white;
+	margin: auto;
+	padding: 20px;
+	border: 1px solid #888;
+	width: 80%;
 `
 
 const CloseButton = styled.button``

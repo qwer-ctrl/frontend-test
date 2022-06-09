@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components/macro'
-// import Swal from 'sweetalert2'
 
 import { API_URL } from '../utils/utils'
 import user from '../reducers/user'
@@ -19,7 +18,7 @@ const MyPage = () => {
 	const accessToken = useSelector((store) => store.user.accessToken)
 	const userId = useSelector((store) => store.user.userId)
 	const userHasProgram = useSelector((store) => store.user.program)
-	// const programs = userHasProgram.program
+	const programs = userHasProgram.program
 	// console.log("test", userHasProgram)
 	const isLoading = useSelector((store) => store.ui.isLoading)
 	//console.log(isLoading)
@@ -75,6 +74,11 @@ const MyPage = () => {
 			.finally(() => dispatch(ui.actions.setLoading(false)))
 	}, [accessToken, userId, dispatch])
 
+	const handleProgram = (programId) => {
+		navigate(`/singleprogram/${programId}`)
+	}
+	console.log('programs', programs)
+
 	return isLoading ? (
 		<LoadingAnimation />
 	) : (
@@ -82,11 +86,11 @@ const MyPage = () => {
 			<MainContainer>
 				{userHasProgram ? (
 					<>
-						{/* {programs.map((program) => (
-                    <div key={program.programId}>
-                        <h1>{program.programName}</h1>
-                    </div>
-                 ))} */}
+						{programs.map((program) => (
+							<div key={program._id}>
+								<button onClick={() => handleProgram(program._id)}>{program.programName}</button>
+							</div>
+						))}
 					</>
 				) : (
 					<EmptyState />
