@@ -22,7 +22,5 @@ const FooterContainer = styled.footer`
   justify-content: space-around;
   background-color: #E8E8E8;
   margin-top: 20px;
-  position: sticky;
-  bottom: 0;
   cursor: pointer;
 `
