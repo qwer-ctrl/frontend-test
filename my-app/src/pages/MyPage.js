@@ -8,7 +8,7 @@ import user from '../reducers/user'
 import { program } from '../reducers/program'
 import ui from '../reducers/ui'
 import LoadingAnimation from '../components/LoadingAnimation'
-import Modal from '../components/Modal'
+import ProgramModal from '../components/ProgramModal'
 import SignOut from '../components/SignOut'
 import EmptyState from '../components/EmptyState'
 
@@ -97,7 +97,7 @@ const MyPage = () => {
 				)}
 			</MainContainer>
 			<StyledButton onClick={openModal}>Add new program </StyledButton>
-			<Modal showModal={showModal} setShowModal={setShowModal} />
+			<ProgramModal showModal={showModal} setShowModal={setShowModal} />
 			<SignOut />
 		</>
 	)

@@ -8,6 +8,12 @@ const exercise = createSlice({
         reps: null,
         weights: null,
         comments: null,
+        link: null,
+        seconds: null,
+        minutes: null,
+        duration: null,
+        length: null,
+        feeling: null,
         createdAt: null,
         exerciseId: null,
         error: null
@@ -27,6 +33,21 @@ const exercise = createSlice({
         },
         setComments: (store, action) => {
             store.comments = action.payload
+        },
+        setSeconds: (store, action) => {
+            store.seconds = action.payload
+        },
+        setMinutes: (store, action) => {
+            store.minutes = action.payload
+        },
+        setDuration: (store, action) => {
+            store.duration = action.payload
+        },
+        setLength: (store, action) => {
+            store.length = action.payload
+        },
+        setLink: (store, action) => {
+            store.link = action.payload
         },
         setCreatedAt: (store, action) => {
             store.createdAt = action.payload

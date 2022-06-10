@@ -10,7 +10,7 @@ import ui from '../reducers/ui'
 import { API_URL } from '../utils/utils'
 // import SingleProgram from "../pages/SingleProgram"
 
-const Modal = ({ showModal, setShowModal }) => {
+const ProgramModal = ({ showModal, setShowModal }) => {
 	//refactor to use store instead for sending props to MyPage..
 	const [programName, setProgramName] = useState('')
 	const [programType, setProgramType] = useState('')
@@ -96,7 +96,7 @@ const Modal = ({ showModal, setShowModal }) => {
 	)
 }
 
-export default Modal
+export default ProgramModal
 
 const ModalContainer = styled.div`
   position: fixed;

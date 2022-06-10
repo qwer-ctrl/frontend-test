@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
 import styled from 'styled-components/macro'
-
+import EditExerciseModal from '../components/EditExerciseModal'
 import { API_URL } from '../utils/utils'
 import { program } from '../reducers/program'
 import exercise from '../reducers/exercise'
@@ -15,6 +15,9 @@ const SingleProgram = () => {
 	const { programId } = useParams()
 	//console.log(programId)
 	const isLoading = useSelector((store) => store.ui.isLoading)
+	const showModal = useSelector((store) => store.ui.showModal)
+	const currentModalId = useSelector((store) => store.user.currentModalId)
+	console.log('current ID', currentModalId)
 	const [programExercise, setProgramExercise] = useState([])
 	const allPrograms = useSelector((store) => store.user.program.program)
 	// const allExercises = useSelector((store) => store.program.exercise)
@@ -27,6 +30,8 @@ const SingleProgram = () => {
 	// const userHasExercise = useSelector((store) => store.program.exercise)
 	const navigate = useNavigate()
 	const dispatch = useDispatch()
+
+	
 
 	useEffect(() => {
 		const options = {
@@ -47,6 +52,12 @@ const SingleProgram = () => {
 			.finally(() => dispatch(ui.actions.setLoading(false)))
 	}, [programId, dispatch])
 
+	const handleModal = () => {
+			dispatch(ui.actions.setShowModal(true))
+			// dispatch(ui.actions.currentModalId(id))
+	}
+	console.log(handleModal)
+
 	console.log('programexercise',programExercise)
 	return isLoading ? (
 		<LoadingAnimation />
@@ -61,8 +72,15 @@ const SingleProgram = () => {
 							<p>{item.sets} sets</p>
 							<p>{item.reps} reps</p>
 							<p>{item.weights} </p>
+							<p>{item.minutes} min</p>
+							<p>{item.seconds} sec</p>
+							<p>{item.duration}</p>
+							<p>{item.length} sec</p>
 							<p>comment: {item.comments}</p>
+							<p>link: {item.link}</p>
 						</div>
+						<StyledButton onClick={() => handleModal()}>Edit exercise </StyledButton>
+						{showModal ? <EditExerciseModal/> : null}
 					</div>
 				))}
 			</div>
@@ -71,3 +89,5 @@ const SingleProgram = () => {
 }
 
 export default SingleProgram
+
+const StyledButton = styled.button``
