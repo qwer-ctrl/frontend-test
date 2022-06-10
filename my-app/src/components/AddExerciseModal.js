@@ -24,53 +24,22 @@ const MyTextInput = ({ label, ...props }) => {
 	)
 }
 
-const EditExerciseModal = () => {
+const AddExerciseModal = () => {
 	//refactor to use store instead for sending props to MyPage..
 	// const [programName, setProgramName] = useState('')
 	// const [programType, setProgramType] = useState('')
-	const [exerciseContent, setExerciseContent] = useState('')
-	const exerciseId = useSelector((store) => store.ui.currentEditModalId)
-	const showModal = useSelector((store) => store.ui.showEditModal)
-	console.log('showmodal?', showModal)
-	console.log('id from modal', exerciseId)
+	// const [exerciseContent, setExerciseContent] = useState('')
+	const showModal = useSelector((store) => store.ui.showAddExerciseModal)
+	const programId = useSelector((store) => store.ui.currentAddExerciseModalId)
 	const navigate = useNavigate()
 	const dispatch = useDispatch()
 
 	const closeModal = () => {
-		dispatch(ui.actions.setShowEditModal(false))
+		dispatch(ui.actions.setShowAddExerciseModal(false))
 	}
 
-	useEffect(() => {
-		const options = {
-			method: 'GET',
-			headers: {
-				'Content-Type': 'application/json',
-			},
-		}
-
-		fetch(API_URL(`exercise/${exerciseId}`), options)
-			.then((res) => res.json())
-			.then((data) => {
-				// dispatch(ui.actions.setLoading(true))
-				setExerciseContent(data.response)
-			})
-		// .finally(() => dispatch(ui.actions.setLoading(false)))
-	}, [exerciseId])
-
-	// const handleProgramName = (e) => {
-	// 	setProgramName(e.target.value)
-	// }
-
-	// const handleProgramType = (e) => {
-	// 	setProgramType(e.target.value)
-	// }
-
-	// const handleProgramSubmit = (e) => {
-	// 	e.preventDefault()
-	// 	dispatch(ui.actions.setLoading(true))
-
 	const Schema = Yup.object().shape({
-		exercise: Yup.string(),
+		exercise: Yup.string().required('Exercise name is required'),
 		sets: Yup.string(),
 		reps: Yup.string(),
 		weights: Yup.string(),
@@ -90,25 +59,26 @@ const EditExerciseModal = () => {
 						<CloseButton onClick={closeModal}>x</CloseButton>
 						<Formik
 							initialValues={{
-								// exercise: '',
-								sets: exerciseContent.sets,
-								reps: exerciseContent.reps,
-								weights: exerciseContent.weights,
-								exerciseLink: exerciseContent.exerciseLink,
-								seconds: exerciseContent.seconds,
-								minutes: exerciseContent.minutes,
-								duration: exerciseContent.duration,
-								exerciseLength: exerciseContent.exerciseLength,
-								comments: exerciseContent.comments,
+								exercise: '',
+								sets: '',
+								reps: '',
+								weights: '',
+								exerciseLink: '',
+								seconds: '',
+								minutes: '',
+								duration: '',
+								exerciseLength: '',
+								comments: '',
 							}}
 							validationSchema={Schema}
 							onSubmit={(values, { setSubmitting, resetForm }) => {
-								fetch(API_URL(`updateexercise/${exerciseId}`), {
-									method: 'PATCH',
+								fetch(API_URL(`exercise/${programId}`), {
+									method: 'POST',
 									headers: {
 										'Content-Type': 'application/json',
 									},
 									body: JSON.stringify({
+										exercise: values.exercise,
 										sets: values.sets,
 										reps: values.reps,
 										weights: values.weights,
@@ -138,52 +108,17 @@ const EditExerciseModal = () => {
 							{({ isSubmitting }) => (
 								<StyledForm>
 									{isSubmitting && <LoadingAnimation />}
-									<h1>{exerciseContent.exercise}</h1>
-									<StyledInput label='Sets' name='sets' type='text' placeholder={exerciseContent.sets} />
-									<StyledInput label='Reps' name='reps' type='text' placeholder={exerciseContent.reps} />
-									<StyledInput
-										label='Weights'
-										name='weights'
-										type='text'
-										placeholder={exerciseContent.weights}
-									/>
-									<StyledInput
-										label='Seconds'
-										name='seconds'
-										type='text'
-										placeholder={exerciseContent.seconds}
-									/>
-									<StyledInput
-										label='Minutes'
-										name='minutes'
-										type='text'
-										placeholder={exerciseContent.minutes}
-									/>
-									<StyledInput
-										label='Duration'
-										name='duration'
-										type='text'
-										placeholder={exerciseContent.duration}
-									/>
-									<StyledInput
-										label='Length'
-										name='exerciseLength'
-										type='text'
-										placeholder={exerciseContent.exerciseLength}
-									/>
-									<StyledInput
-										label='Comments'
-										name='comments'
-										type='text'
-										placeholder={exerciseContent.comments}
-									/>
-									<StyledInput
-										label='Link'
-										name='exerciseLink'
-										type='text'
-										placeholder={exerciseContent.exerciseLink}
-									/>
-									<StyledButton type='submit'>Update exercise</StyledButton>
+									<StyledInput label='Exercise name' name='exercise' type='text' />
+									<StyledInput label='Sets' name='sets' type='text' />
+									<StyledInput label='Reps' name='reps' type='text' />
+									<StyledInput label='Weights' name='weights' type='text' />
+									<StyledInput label='Seconds' name='seconds' type='text' />
+									<StyledInput label='Minutes' name='minutes' type='text' />
+									<StyledInput label='Duration' name='duration' type='text' />
+									<StyledInput label='Length' name='exerciseLength' type='text' />
+									<StyledInput label='Comments' name='comments' type='text' />
+									<StyledInput label='Link' name='exerciseLink' type='text' />
+									<StyledButton type='submit'>Add exercise</StyledButton>
 								</StyledForm>
 							)}
 						</Formik>
@@ -194,7 +129,7 @@ const EditExerciseModal = () => {
 	)
 }
 
-export default EditExerciseModal
+export default AddExerciseModal
 
 const ModalContainer = styled.div`
   position: fixed;

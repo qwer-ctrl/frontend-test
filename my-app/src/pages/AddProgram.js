@@ -35,8 +35,8 @@ const AddProgram = () => {
 	const [displayMinutes, setDisplayMinutes] = useState(false)
 	const [displaySeconds, setDisplaySeconds] = useState(false)
 	const [displayDuration, setDisplayDuration] = useState(false)
-	const [displayLength, setDisplayLength] = useState(false)
-	const [displayLink, setDisplayLink] = useState(false)
+	const [displayExerciseLength, setDisplayExerciseLength] = useState(false)
+	const [displayExerciseLink, setDisplayExerciseLink] = useState(false)
 	const isLoading = useSelector((store) => store.ui.isLoading)
 	const userHasExercise = useSelector((store) => store.program.exercise)
 	const navigate = useNavigate()
@@ -50,7 +50,7 @@ const AddProgram = () => {
 			},
 		}
 
-		 console.log('pId',programId)
+		console.log('pId', programId)
 		fetch(API_URL(`myprogram/${programId}`), options)
 			.then((res) => res.json())
 			.then((data) => {
@@ -66,8 +66,8 @@ const AddProgram = () => {
 					dispatch(exercise.actions.setSeconds(data.response))
 					dispatch(exercise.actions.setMinutes(data.response))
 					dispatch(exercise.actions.setDuration(data.response))
-					dispatch(exercise.actions.setLength(data.response))
-					dispatch(exercise.actions.setLink(data.response))
+					dispatch(exercise.actions.setExerciseLength(data.response))
+					dispatch(exercise.actions.setExerciseLink(data.response))
 					dispatch(exercise.actions.setCreatedAt(data.response))
 					dispatch(exercise.actions.setExerciseId(data.response))
 					dispatch(exercise.actions.setError(null))
@@ -84,8 +84,8 @@ const AddProgram = () => {
 					dispatch(exercise.actions.setSeconds(null))
 					dispatch(exercise.actions.setMinutes(null))
 					dispatch(exercise.actions.setDuration(null))
-					dispatch(exercise.actions.setLength(null))
-					dispatch(exercise.actions.setLink(null))
+					dispatch(exercise.actions.setExerciseLength(null))
+					dispatch(exercise.actions.setExerciseLink(null))
 					dispatch(exercise.actions.setCreatedAt(null))
 					dispatch(exercise.actions.setExerciseId(null))
 				}
@@ -117,8 +117,8 @@ const AddProgram = () => {
 						dispatch(exercise.actions.setSeconds(data.response))
 						dispatch(exercise.actions.setMinutes(data.response))
 						dispatch(exercise.actions.setDuration(data.response))
-						dispatch(exercise.actions.setLength(data.response))
-						dispatch(exercise.actions.setLink(data.response))
+						dispatch(exercise.actions.setExerciseLength(data.response))
+						dispatch(exercise.actions.setExerciseLink(data.response))
 						dispatch(exercise.actions.setCreatedAt(data.response))
 						dispatch(exercise.actions.setExerciseId(data.response))
 					} else {
@@ -131,8 +131,8 @@ const AddProgram = () => {
 						dispatch(exercise.actions.setSeconds(null))
 						dispatch(exercise.actions.setMinutes(null))
 						dispatch(exercise.actions.setDuration(null))
-						dispatch(exercise.actions.setLength(null))
-						dispatch(exercise.actions.setLink(null))
+						dispatch(exercise.actions.setExerciseLength(null))
+						dispatch(exercise.actions.setExerciseLink(null))
 						dispatch(exercise.actions.setCreatedAt(null))
 						dispatch(exercise.actions.setExerciseId(null))
 					}
@@ -142,7 +142,7 @@ const AddProgram = () => {
 	}, [exerciseId, dispatch])
 
 	const Schema = Yup.object().shape({
-		exercise: Yup.string().required('Username is required'),
+		exercise: Yup.string().required('Exercise name is required'),
 		sets: Yup.string(),
 		reps: Yup.string(),
 		weights: Yup.string(),
@@ -150,9 +150,8 @@ const AddProgram = () => {
 		seconds: Yup.string(),
 		minutes: Yup.string(),
 		duration: Yup.string(),
-		length: Yup.string(),
-		link: Yup.string(),
-		
+		exerciseLength: Yup.string(),
+		exerciseLink: Yup.string(),
 	})
 
 	const handleData = (data) => {
@@ -180,11 +179,11 @@ const AddProgram = () => {
 	const handleDurationState = () => {
 		setDisplayDuration(!displayDuration)
 	}
-	const handleLengthState = () => {
-		setDisplayLength(!displayLength)
+	const handleExerciseLengthState = () => {
+		setDisplayExerciseLength(!displayExerciseLength)
 	}
-	const handleLinkState = () => {
-		setDisplayLink(!displayLink)
+	const handleExerciseLinkState = () => {
+		setDisplayExerciseLink(!displayExerciseLink)
 	}
 
 	const handleGoBack = () => {
@@ -204,11 +203,11 @@ const AddProgram = () => {
 						sets: '',
 						reps: '',
 						weights: '',
-						link: '',
+						exerciseLink: '',
 						seconds: '',
 						minutes: '',
 						duration: '',
-						length: '',
+						exerciseLength: '',
 						feeling: '',
 						comments: '',
 					}}
@@ -225,12 +224,11 @@ const AddProgram = () => {
 								reps: values.reps,
 								weights: values.weights,
 								comments: values.comments,
-								link: values.link,
+								exerciseLink: values.exerciseLink,
 								seconds: values.seconds,
 								minutes: values.minutes,
 								duration: values.duration,
-								length: values.length,
-								feeling: values.feeling,
+								exerciseLength: values.exerciseLength,
 							}),
 						})
 							.then((res) => res.json())
@@ -271,13 +269,13 @@ const AddProgram = () => {
 							<button onClick={handleDurationState} type='button'>
 								Duration
 							</button>
-							<button onClick={handleLengthState} type='button'>
+							<button onClick={handleExerciseLengthState} type='button'>
 								Length
 							</button>
 							<button onClick={handleCommentsState} type='button'>
 								Comments
 							</button>
-							<button onClick={handleLinkState} type='button'>
+							<button onClick={handleExerciseLinkState} type='button'>
 								Link
 							</button>
 							{displaySets ? <StyledInput label='Sets' name='sets' type='text' /> : null}
@@ -286,9 +284,11 @@ const AddProgram = () => {
 							{displaySeconds ? <StyledInput label='Seconds' name='seconds' type='text' /> : null}
 							{displayMinutes ? <StyledInput label='Minutes' name='minutes' type='text' /> : null}
 							{displayDuration ? <StyledInput label='Duration' name='duration' type='text' /> : null}
-							{displayLength ? <StyledInput label='Length' name='length' type='text' /> : null}
+							{displayExerciseLength ? (
+								<StyledInput label='Length' name='exerciseLength' type='text' />
+							) : null}
 							{displayComments ? <StyledInput label='Comments' name='comments' type='text' /> : null}
-							{displayLink ? <StyledInput label='Link' name='link' type='text' /> : null}
+							{displayExerciseLink ? <StyledInput label='Link' name='exerciseLink' type='text' /> : null}
 							<StyledButton type='submit'>Add exercise</StyledButton>
 						</StyledForm>
 					)}
@@ -303,12 +303,12 @@ const AddProgram = () => {
 									<p>{item.sets} sets</p>
 									<p>{item.reps} reps</p>
 									<p>{item.weights} </p>
-								<p>{item.minutes} min</p>
-								<p>{item.seconds} sec</p>
-								<p>{item.duration}</p>
-								<p>distance: {item.length} </p>
-								<p>comment: {item.comments}</p>
-								<p>link: {item.link}</p>
+									<p>{item.minutes} min</p>
+									<p>{item.seconds} sec</p>
+									<p>{item.duration}</p>
+									<p>distance: {item.length} </p>
+									<p>comment: {item.comments}</p>
+									<p>link: {item.link}</p>
 								</div>
 							</div>
 						)
