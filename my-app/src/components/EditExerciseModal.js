@@ -18,8 +18,8 @@ const EditExerciseModal = () => {
 	// const [programId, setProgramId] = useState('')
 	const exerciseId = useSelector((store) => store.ui.currentModalId)
 	const showModal = useSelector((store) => store.ui.showModal)
-  console.log('showmodal?', showModal)
-  console.log('id from modal', exerciseId)
+	console.log('showmodal?', showModal)
+	console.log('id from modal', exerciseId)
 	const navigate = useNavigate()
 	const dispatch = useDispatch()
 
@@ -70,9 +70,10 @@ const EditExerciseModal = () => {
 		<>
 			{showModal ? (
 				<ModalContainer>
-          <h1>modal</h1>
+					<h1>modal</h1>
 					<StyledModal>
 						<CloseButton onClick={closeModal}>x</CloseButton>
+						<h1>{exerciseId}</h1>
 						{/* <form onSubmit={handleProgramSubmit}>
 							<label htmlFor='programname'>Program name</label>
 							<input name='programname' type='text' onChange={handleProgramName}></input>

@@ -5,7 +5,7 @@ const ui = createSlice({
 	initialState: {
 		isLoading: false,
 		showModal: false,
-		currentModalId: null
+		currentModalId: null,
 	},
 	reducers: {
 		setLoading: (store, action) => {

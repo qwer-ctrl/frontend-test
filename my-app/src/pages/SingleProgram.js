@@ -17,7 +17,7 @@ const SingleProgram = () => {
 	const isLoading = useSelector((store) => store.ui.isLoading)
 	const showModal = useSelector((store) => store.ui.showModal)
 	const currentModalId = useSelector((store) => store.user.currentModalId)
-	console.log('current ID', currentModalId)
+	// console.log('current ID', currentModalId)
 	const [programExercise, setProgramExercise] = useState([])
 	const allPrograms = useSelector((store) => store.user.program.program)
 	// const allExercises = useSelector((store) => store.program.exercise)
@@ -31,8 +31,6 @@ const SingleProgram = () => {
 	const navigate = useNavigate()
 	const dispatch = useDispatch()
 
-	
-
 	useEffect(() => {
 		const options = {
 			method: 'GET',
@@ -41,46 +39,45 @@ const SingleProgram = () => {
 			},
 		}
 
-		 console.log('haloo',programId)
+		console.log('haloo', programId)
 		fetch(API_URL(`myprogram/${programId}`), options)
 			.then((res) => res.json())
 			.then((data) => {
 				dispatch(ui.actions.setLoading(true))
 				setProgramExercise(data.response.exercise)
-				console.log('exercise in fetch',data.response)
+				console.log('exercise in fetch', data.response)
 			})
 			.finally(() => dispatch(ui.actions.setLoading(false)))
 	}, [programId, dispatch])
 
-	const handleModal = () => {
-			dispatch(ui.actions.setShowModal(true))
-			// dispatch(ui.actions.currentModalId(id))
+	const handleModal = (id) => {
+		dispatch(ui.actions.setShowModal(true))
+		dispatch(ui.actions.setCurrentModalId(id))
 	}
-	console.log(handleModal)
 
-	console.log('programexercise',programExercise)
+	// console.log('programexercise', programExercise)
 	return isLoading ? (
 		<LoadingAnimation />
 	) : (
 		<>
 			<div>
-				<h1>{myProgram[0].programName}</h1> 
+				<h1>{myProgram[0].programName}</h1>
 				{programExercise.map((item) => (
 					<div key={item._id}>
 						<h1>{item.exercise}</h1>
 						<div>
-							<p>{item.sets} sets</p>
-							<p>{item.reps} reps</p>
-							<p>{item.weights} </p>
-							<p>{item.minutes} min</p>
-							<p>{item.seconds} sec</p>
-							<p>{item.duration}</p>
-							<p>{item.length} sec</p>
-							<p>comment: {item.comments}</p>
-							<p>link: {item.link}</p>
+							{item.sets ? <p>{item.sets} sets</p> : null}
+							{item.reps ? <p>{item.reps} sets</p> : null}
+							{item.weights ? <p>{item.weights}</p> : null}
+							{item.minutes ? <p>{item.minutes} minutes</p> : null}
+							{item.seconds ? <p>{item.seconds} seconds</p> : null}
+							{item.duration ? <p>{item.duration}</p> : null}
+							{item.length ? <p>{item.length}</p> : null}
+							{item.comments ? <p>comments: {item.comments}</p> : null}
+							{item.link ? <p>link: {item.link}</p> : null}
 						</div>
-						<StyledButton onClick={() => handleModal()}>Edit exercise </StyledButton>
-						{showModal ? <EditExerciseModal/> : null}
+						<StyledButton onClick={() => handleModal(item._id)}>Edit exercise</StyledButton>
+						{showModal ? <EditExerciseModal /> : null}
 					</div>
 				))}
 			</div>
