@@ -45,7 +45,7 @@ const AddProgram = () => {
 			},
 		}
 
-		// console.log(programId)
+		 console.log('pId',programId)
 		fetch(API_URL(`myprogram/${programId}`), options)
 			.then((res) => res.json())
 			.then((data) => {

@@ -13,9 +13,9 @@ import SignOut from '../components/SignOut'
 
 const SingleProgram = () => {
 	const { programId } = useParams()
-	console.log(programId)
+	//console.log(programId)
 	const isLoading = useSelector((store) => store.ui.isLoading)
-	const [programExercise, setProgramExercise] = useState(null)
+	const [programExercise, setProgramExercise] = useState([])
 	const allPrograms = useSelector((store) => store.user.program.program)
 	// const allExercises = useSelector((store) => store.program.exercise)
 	// console.log('all programs', allPrograms)
@@ -36,24 +36,24 @@ const SingleProgram = () => {
 			},
 		}
 
-		// console.log(programId)
+		 console.log('haloo',programId)
 		fetch(API_URL(`myprogram/${programId}`), options)
 			.then((res) => res.json())
 			.then((data) => {
 				dispatch(ui.actions.setLoading(true))
 				setProgramExercise(data.response.exercise)
-				console.log(data.response.exercise)
+				console.log('exercise in fetch',data.response)
 			})
 			.finally(() => dispatch(ui.actions.setLoading(false)))
 	}, [programId, dispatch])
 
-	console.log(programExercise)
+	console.log('programexercise',programExercise)
 	return isLoading ? (
 		<LoadingAnimation />
 	) : (
 		<>
 			<div>
-				<h1>{myProgram[0].programName}</h1>
+				<h1>{myProgram[0].programName}</h1> 
 				{programExercise.map((item) => (
 					<div key={item._id}>
 						<h1>{item.exercise}</h1>
