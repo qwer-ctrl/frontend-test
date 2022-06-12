@@ -4,8 +4,8 @@ import { useNavigate } from 'react-router-dom'
 import { Formik, Form, useField } from 'formik'
 import * as Yup from 'yup'
 import styled from 'styled-components/macro'
-import LoadingAnimation from '../components/LoadingAnimation'
 
+import LoadingAnimation from '../components/LoadingAnimation'
 import { API_URL } from '../utils/utils'
 import user from '../reducers/user'
 import { OuterWrapper, InnerWrapper } from '../styles/GlobalStyles'
@@ -160,9 +160,6 @@ const StyledLoginSection = styled.section``
 const StyledLoginWrapper = styled.section``
 
 const StyledTitle = styled.h1``
-
-// const StyledMode = styled.div`
-// `
 
 const StyledForm = styled(Form)``
 

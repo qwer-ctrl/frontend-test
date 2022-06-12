@@ -13,7 +13,6 @@ import user from './reducers/user'
 import { program } from './reducers/program'
 import exercise from './reducers/exercise'
 import ui from './reducers/ui'
-import Footer from './components/Footer'
 
 const reducer = combineReducers({
 	user: user.reducer,

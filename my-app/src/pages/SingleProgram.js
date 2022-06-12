@@ -6,13 +6,11 @@ import styled from 'styled-components/macro'
 import EditExerciseModal from '../components/EditExerciseModal'
 import DeleteExerciseModal from '../components/DeleteExerciseModal'
 import { API_URL } from '../utils/utils'
-import { program } from '../reducers/program'
-import exercise from '../reducers/exercise'
 import ui from '../reducers/ui'
 import LoadingAnimation from '../components/LoadingAnimation'
-import SignOut from '../components/SignOut'
 import AddExerciseModal from '../components/AddExerciseModal'
 import UpdateProgramModal from '../components/UpdateProgramModal'
+import DeleteProgramModal from '../components/DeleteProgramModal'
 // import EmptyState from '../components/EmptyState'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
@@ -24,10 +22,11 @@ const SingleProgram = () => {
 	const [programExercise, setProgramExercise] = useState([])
 	const [checked, setChecked] = useState([])
 	const isLoading = useSelector((store) => store.ui.isLoading)
-	const showEditModal = useSelector((store) => store.ui.showEditModal)
-	const showDeleteModal = useSelector((store) => store.ui.showDeleteModal)
+	const showDeleteProgramModal = useSelector((store) => store.ui.showDeleteProgramModal)
 	const showAddExerciseModal = useSelector((store) => store.ui.showAddExerciseModal)
 	const showUpdateProgramModal = useSelector((store) => store.ui.showUpdateProgramModal)
+	const showEditExerciseModal = useSelector((store) => store.ui.showEditExerciseModal)
+	const showDeleteExerciseModal = useSelector((store) => store.ui.showDeleteExerciseModal)
 	const navigate = useNavigate()
 	const dispatch = useDispatch()
 
@@ -42,26 +41,20 @@ const SingleProgram = () => {
 				'Content-Type': 'application/json',
 			},
 		}
-		// console.log('haloo', programId)
 		fetch(API_URL(`myprogram/${programId}`), options)
 			.then((res) => res.json())
 			.then((data) => {
 				dispatch(ui.actions.setLoading(true))
 				setProgramExercise(data.response.exercise)
 				setProgramName(data.response.programName)
-				// console.log('exercise in fetch', data.response)
 			})
 			.finally(() => dispatch(ui.actions.setLoading(false)))
 	}
 
-	const handleEditModal = (id) => {
-		dispatch(ui.actions.setShowEditModal(true))
-		dispatch(ui.actions.setCurrentEditModalId(id))
-	}
-
-	const handleDeleteModal = (id) => {
-		dispatch(ui.actions.setShowDeleteModal(true))
-		dispatch(ui.actions.setCurrentDeleteModalId(id))
+	const handleUpdateProgramModal = (id) => {
+		console.log(id)
+		dispatch(ui.actions.setShowUpdateProgramModal(true))
+		dispatch(ui.actions.setCurrentAddExerciseModalId(id))
 		fetchProgram()
 	}
 
@@ -72,32 +65,24 @@ const SingleProgram = () => {
 		fetchProgram()
 	}
 
-	const handleUpdateProgramModal = (id) => {
-		console.log(id)
-		dispatch(ui.actions.setShowUpdateProgramModal(true))
-		dispatch(ui.actions.setCurrentAddExerciseModalId(id))
+	const handleDeleteProgramModal = (id) => {
+		dispatch(ui.actions.setShowDeleteProgramModal(true))
+		dispatch(ui.actions.setCurrentModalId(id))
+	}
+
+	const handleEditExerciseModal = (id) => {
+		dispatch(ui.actions.setShowEditExerciseModal(true))
+		dispatch(ui.actions.setCurrentModalId(id))
+	}
+
+	const handleDeleteExerciseModal = (id) => {
+		dispatch(ui.actions.setShowDeleteExerciseModal(true))
+		dispatch(ui.actions.setCurrentModalId(id))
 		fetchProgram()
 	}
 
 	const handleGoBack = () => {
 		navigate('/')
-	}
-
-	const handleProgramDeletion = (programId) => {
-		const options = {
-			method: 'DELETE',
-			headers: {
-				'Content-Type': 'application/json',
-			},
-		}
-
-		fetch(API_URL(`deleteprogram/${programId}`), options)
-			.then((res) => res.json())
-			.then((data) => {
-				console.log(data)
-				fetchProgram()
-				navigate('/')
-			})
 	}
 
 	const handleChecked = (event) => {
@@ -117,14 +102,18 @@ const SingleProgram = () => {
 			<Header />
 			<InnerWrapper>
 				<h1>{programName}</h1>
-				<StyledButton onClick={() => handleProgramDeletion(programId)}>Delete program</StyledButton>
-				<StyledButton onClick={() => handleUpdateProgramModal(programId)}>Update program</StyledButton>
-				{showUpdateProgramModal ? <UpdateProgramModal /> : null}
-				<StyledButton onClick={() => handleAddExerciseModal(programId)}>Add exercise</StyledButton>
-				{showAddExerciseModal ? <AddExerciseModal /> : null}
-				{programExercise.map((item, index) => (
+				<ButtonContainer justifyContent="space-evenly">
+					<StyledButton onClick={() => handleUpdateProgramModal(programId)}>Update program</StyledButton>
+					{showUpdateProgramModal ? <UpdateProgramModal /> : null}
+					<StyledButton onClick={() => handleAddExerciseModal(programId)}>Add exercise</StyledButton>
+					{showAddExerciseModal ? <AddExerciseModal /> : null}
+					<StyledButton onClick={() => handleDeleteProgramModal(programId)}>Delete program</StyledButton>
+					{showDeleteProgramModal ? <DeleteProgramModal /> : null}
+				</ButtonContainer>
+				
+				{programExercise.map((item) => (
 					<div key={item._id}>
-						<h1>{item.exercise}</h1>
+						<h3>{item.exercise}</h3>
 						<div>
 							{item.sets ? <p>{item.sets} sets</p> : null}
 							{item.reps ? <p>{item.reps} sets</p> : null}
@@ -136,12 +125,16 @@ const SingleProgram = () => {
 							{item.comments ? <p>comments: {item.comments}</p> : null}
 							{item.exerciseLink ? <p>link: {item.exerciseLink}</p> : null}
 						</div>
+
 						<label htmlFor='checkbox'></label>
 						<input id='checkbox' type='checkbox' value={item._id} onChange={handleChecked} />
-						<StyledButton onClick={() => handleEditModal(item._id)}>Edit exercise</StyledButton>
-						{showEditModal ? <EditExerciseModal /> : null}
-						<StyledButton onClick={() => handleDeleteModal(item._id)}>Delete exercise</StyledButton>
-						{showDeleteModal ? <DeleteExerciseModal /> : null}
+						
+						<ButtonContainer justifyContent="flex-start">
+							<StyledButton onClick={() => handleEditExerciseModal(item._id)}>Edit exercise</StyledButton>
+							{showEditExerciseModal ? <EditExerciseModal /> : null}
+							<StyledButton onClick={() => handleDeleteExerciseModal(item._id)}>Delete exercise</StyledButton>
+							{showDeleteExerciseModal ? <DeleteExerciseModal /> : null}
+						</ButtonContainer>
 					</div>
 				))}
 				<StyledButton onClick={handleGoBack}>Go back</StyledButton>
@@ -153,4 +146,13 @@ const SingleProgram = () => {
 
 export default SingleProgram
 
-const StyledButton = styled.button``
+const ButtonContainer = styled.div`
+	display: flex;
+	justify-content: ${props => props.justifyContent};
+	margin: 1rem 0;
+	gap: 1rem;
+`
+
+const StyledButton = styled.button`
+	
+`

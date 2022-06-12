@@ -18,7 +18,13 @@ export default Footer
 const FooterContainer = styled.footer`
 	display: flex;
 	justify-content: space-around;
+	align-items: center;
 	background-color: #e8e8e8;
-	margin-top: 20px;
 	cursor: pointer;
+	// margin-top: auto;
+	height: 80px;
+	// position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
 `

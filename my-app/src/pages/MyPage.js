@@ -21,9 +21,7 @@ const MyPage = () => {
 	const userId = useSelector((store) => store.user.userId)
 	const userHasProgram = useSelector((store) => store.user.program)
 	const programs = userHasProgram.program
-	console.log('test', userHasProgram)
 	const isLoading = useSelector((store) => store.ui.isLoading)
-	console.log(isLoading)
 	const navigate = useNavigate()
 	const dispatch = useDispatch()
 
@@ -65,7 +63,7 @@ const MyPage = () => {
 		fetch(API_URL(`mypage/${userId}`), options)
 			.then((res) => res.json())
 			.then((data) => {
-				console.log(data)
+				// console.log(data)
 				if (data.success) {
 					dispatch(user.actions.setProgram(data.response))
 					dispatch(program.actions.setProgramType(data.response))
@@ -97,18 +95,21 @@ const MyPage = () => {
 					{userHasProgram ? (
 						<>
 							{programs.map((program) => (
-								<div key={program._id}>
+								<ProgramContainer key={program._id}>
+									<StyledImage src="" />
 									<button onClick={() => handleProgram(program._id)}>{program.programName}</button>
-								</div>
+								</ProgramContainer>
 							))}
 						</>
 					) : (
 						<EmptyState />
 					)}
 				</MainContainer>
-				<StyledButton onClick={openModal}>Add new program </StyledButton>
-				<ProgramModal showModal={showModal} setShowModal={setShowModal} />
-				<SignOut />
+				<ButtonContainer>
+					<StyledButton onClick={openModal}>Add new program </StyledButton>
+					<ProgramModal showModal={showModal} setShowModal={setShowModal} />
+					<SignOut />
+				</ButtonContainer>
 			</InnerWrapper>
 			<Footer />
 		</OuterWrapper>
@@ -117,6 +118,31 @@ const MyPage = () => {
 
 export default MyPage
 
-const MainContainer = styled.section``
+const MainContainer = styled.section`
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+	grid-gap: 1rem;
+`
 
-const StyledButton = styled.button``
+const ProgramContainer = styled.div`
+	display: flex;
+	flex-direction: column;
+`
+const StyledImage = styled.img`
+	width: 100%;
+	height: 100px;
+	margin: 0 0 2rem;
+`
+
+const ButtonContainer = styled.div`
+	display: flex;
+	justify-content: flex-start;
+	margin: 2rem 0;
+	gap: 1rem;
+`
+
+const StyledButton = styled.button`
+	width: 150px;
+	padding: 5px;
+	margin: 5px;
+`

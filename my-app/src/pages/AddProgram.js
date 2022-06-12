@@ -46,19 +46,24 @@ const AddProgram = () => {
 	const dispatch = useDispatch()
 
 	useEffect(() => {
+		fetchProgram()
+	}, [])
+
+
+	const fetchProgram = () => {
 		const options = {
 			method: 'GET',
 			headers: {
 				'Content-Type': 'application/json',
 			},
 		}
-
-		console.log('pId', programId)
+		
+		dispatch(ui.actions.setLoading(true))
+		// console.log('pId', programId)
 		fetch(API_URL(`myprogram/${programId}`), options)
 			.then((res) => res.json())
 			.then((data) => {
-				dispatch(ui.actions.setLoading(true))
-				//console.log(data)
+				console.log(data)
 				if (data.success) {
 					dispatch(program.actions.setExercise(data.response))
 					dispatch(exercise.actions.setExercise(data.response))
@@ -94,7 +99,7 @@ const AddProgram = () => {
 				}
 			})
 			.finally(() => dispatch(ui.actions.setLoading(false)))
-	}, [programId, dispatch])
+	}
 
 	useEffect(() => {
 		if (exerciseId) {
@@ -243,7 +248,7 @@ const AddProgram = () => {
 									console.log(data.response._id)
 								})
 								.catch((err) => {
-									// handleLoginFailure(err)
+									console.log(err)
 								})
 								.finally(() => {
 									setSubmitting(false)
@@ -256,71 +261,82 @@ const AddProgram = () => {
 							<StyledForm>
 								{isSubmitting && <LoadingAnimation />}
 								<StyledInput label='Exercise name' name='exercise' type='text' />
-								<button onClick={handleSetsState} type='button'>
+
+								<StyledButton onClick={handleSetsState} type='button'>
 									Sets
-								</button>
-								<button onClick={handleRepsState} type='button'>
-									Reps
-								</button>
-								<button onClick={handleWeightsState} type='button'>
-									Weights
-								</button>
-								<button onClick={handleMinutesState} type='button'>
-									Minutes
-								</button>
-								<button onClick={handleSecondsState} type='button'>
-									Seconds
-								</button>
-								<button onClick={handleDurationState} type='button'>
-									Duration
-								</button>
-								<button onClick={handleExerciseLengthState} type='button'>
-									Length
-								</button>
-								<button onClick={handleCommentsState} type='button'>
-									Comments
-								</button>
-								<button onClick={handleExerciseLinkState} type='button'>
-									Link
-								</button>
+								</StyledButton>
 								{displaySets ? <StyledInput label='Sets' name='sets' type='text' /> : null}
+
+								<StyledButton onClick={handleRepsState} type='button'>
+									Reps
+								</StyledButton>
 								{displayReps ? <StyledInput label='Reps' name='reps' type='text' /> : null}
+
+								<StyledButton onClick={handleWeightsState} type='button'>
+									Weights
+								</StyledButton>
 								{displayWeights ? <StyledInput label='Weights' name='weights' type='text' /> : null}
-								{displaySeconds ? <StyledInput label='Seconds' name='seconds' type='text' /> : null}
+
+								<StyledButton onClick={handleMinutesState} type='button'>
+									Minutes
+								</StyledButton>
 								{displayMinutes ? <StyledInput label='Minutes' name='minutes' type='text' /> : null}
+
+								<StyledButton onClick={handleSecondsState} type='button'>
+									Seconds
+								</StyledButton>
+								{displaySeconds ? <StyledInput label='Seconds' name='seconds' type='text' /> : null}
+
+								<StyledButton onClick={handleDurationState} type='button'>
+									Duration
+								</StyledButton>
 								{displayDuration ? <StyledInput label='Duration' name='duration' type='text' /> : null}
+
+								<StyledButton onClick={handleExerciseLengthState} type='button'>
+									Length
+								</StyledButton>
 								{displayExerciseLength ? (
 									<StyledInput label='Length' name='exerciseLength' type='text' />
 								) : null}
+
+								<StyledButton onClick={handleCommentsState} type='button'>
+									Comments
+								</StyledButton>
 								{displayComments ? <StyledInput label='Comments' name='comments' type='text' /> : null}
+
+								<StyledButton onClick={handleExerciseLinkState} type='button'>
+									Link
+								</StyledButton>
 								{displayExerciseLink ? <StyledInput label='Link' name='exerciseLink' type='text' /> : null}
 								<StyledButton type='submit'>Add exercise</StyledButton>
 							</StyledForm>
 						)}
 					</Formik>
-					<button onClick={handleGoBack}>Done with program, go back to main</button>
-					<div>
-						{userHasExercise.exercise.map((item) => {
-							return (
-								<div key={item._id}>
-									<h1>{item.exercise}</h1>
-									<div>
-										<p>{item.sets} sets</p>
-										<p>{item.reps} reps</p>
-										<p>{item.weights} </p>
-										<p>{item.minutes} min</p>
-										<p>{item.seconds} sec</p>
-										<p>{item.duration}</p>
-										<p>distance: {item.length} </p>
-										<p>comment: {item.comments}</p>
-										<p>link: {item.link}</p>
+						<div>
+							{userHasExercise.exercise.map((item) => {
+								return (
+									<div key={item._id}>
+										<h1>{item.exercise}</h1>
+										<div>
+											<p>{item.sets} sets</p>
+											<p>{item.reps} reps</p>
+											<p>{item.weights} </p>
+											<p>{item.minutes} min</p>
+											<p>{item.seconds} sec</p>
+											<p>{item.duration}</p>
+											<p>distance: {item.length} </p>
+											<p>comment: {item.comments}</p>
+											<p>link: {item.link}</p>
+										</div>
 									</div>
-								</div>
-							)
-						})}
-					</div>
+								)
+							})}
+						</div>
+						<ButtonContainer>
+							<StyledButton onClick={handleGoBack}>Done with program, go back to main</StyledButton>
+							<SignOut />
+						</ButtonContainer>
 				</MainContainer>
-				<SignOut />
 			</InnerWrapper>
 			<Footer />
 		</OuterWrapper>
@@ -329,19 +345,37 @@ const AddProgram = () => {
 
 export default AddProgram
 
-const MainContainer = styled.section``
+const MainContainer = styled.section`
+	text-align: center;
+`
 
 const StyledForm = styled(Form)`
 	display: flex;
 	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	margin: 2rem 0 0;
 `
 
 const StyledInput = styled(MyTextInput)`
 	max-width: 150px;
+	margin: 0.5rem 0;
+	text-align: center;
 `
 
 // const StyledCheckbox = styled(MyCheckbox)``
 
+const ButtonContainer = styled.div`
+	display: flex;
+	justify-content: flex-start;
+	margin: 2rem 0;
+	gap: 1rem;
+`
+
 const StyledError = styled.div``
 
-const StyledButton = styled.button``
+const StyledButton = styled.button`
+	width: 150px;
+	margin: 5px;
+	padding: 5px;
+`

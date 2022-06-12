@@ -4,9 +4,11 @@ const ui = createSlice({
 	name: 'ui',
 	initialState: {
 		isLoading: false,
-		showEditModal: false,
-		showDeleteModal: false,
+		showDeleteProgramModal: false,
+		showUpdateProgramModal: false,
 		showAddExerciseModal: false,
+		showEditExerciseModal: false,
+		showDeleteExerciseModal: false,
 		currentModalId: null,
 		currentAddExerciseModalId: null,
 	},
@@ -14,17 +16,20 @@ const ui = createSlice({
 		setLoading: (store, action) => {
 			store.isLoading = action.payload
 		},
-		setShowEditModal: (store, action) => {
-			store.showEditModal = action.payload
+		setShowDeleteProgramModal: (store, action) => {
+			store.showDeleteProgramModal = action.payload
 		},
-		setShowDeleteModal: (store, action) => {
-			store.showDeleteModal = action.payload
+		setShowUpdateProgramModal: (store, action) => {
+			store.showUpdateProgramModal = action.payload
 		},
 		setShowAddExerciseModal: (store, action) => {
 			store.showAddExerciseModal = action.payload
 		},
-		setShowUpdateProgramModal: (store, action) => {
-			store.showUpdateProgramModal = action.payload
+		setShowEditExerciseModal: (store, action) => {
+			store.showEditExerciseModal = action.payload
+		},
+		setShowDeleteExerciseModal: (store, action) => {
+			store.showDeleteExerciseModal = action.payload
 		},
 		setCurrentModalId: (store, action) => {
 			store.currentModalId = action.payload

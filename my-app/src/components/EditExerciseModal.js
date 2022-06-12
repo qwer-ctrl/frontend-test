@@ -1,16 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
 import { Formik, Form, useField } from 'formik'
 import * as Yup from 'yup'
-
-import { program } from '../reducers/program'
-import { exercise } from '../reducers/exercise'
 import styled from 'styled-components/macro'
+
 import ui from '../reducers/ui'
-// import user from "../reducers/user"
 import { API_URL } from '../utils/utils'
-// import SingleProgram from "../pages/SingleProgram"
 import LoadingAnimation from '../components/LoadingAnimation'
 
 const MyTextInput = ({ label, ...props }) => {
@@ -25,17 +20,13 @@ const MyTextInput = ({ label, ...props }) => {
 }
 
 const EditExerciseModal = () => {
-	//refactor to use store instead for sending props to MyPage..
-	// const [programName, setProgramName] = useState('')
-	// const [programType, setProgramType] = useState('')
 	const [exerciseContent, setExerciseContent] = useState('')
-	const exerciseId = useSelector((store) => store.ui.currentEditModalId)
-	const showModal = useSelector((store) => store.ui.showEditModal)
-	const navigate = useNavigate()
+	const exerciseId = useSelector((store) => store.ui.currentModalId)
+	const showModal = useSelector((store) => store.ui.showEditExerciseModal)
 	const dispatch = useDispatch()
 
 	const closeModal = () => {
-		dispatch(ui.actions.setShowEditModal(false))
+		dispatch(ui.actions.setShowEditExerciseModal(false))
 	}
 
 	useEffect(() => {

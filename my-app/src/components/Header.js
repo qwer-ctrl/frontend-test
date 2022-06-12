@@ -18,5 +18,7 @@ export default Header
 const HeaderContainer = styled.header`
   display: flex;
   justify-content: center;
+  align-items: center;
   background-color: #E8E8E8;
+  height: 80px;
 `

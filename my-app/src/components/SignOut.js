@@ -1,11 +1,11 @@
 import React from "react"
 import { useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom"
-import user from "../reducers/user"
 import styled from 'styled-components/macro'
 
+import user from "../reducers/user"
+
 const SignOut = () => {
-    // const accessToken = useSelector((store) => store.user.accessToken)
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
@@ -24,4 +24,7 @@ export default SignOut
 
 
 const StyledButton = styled.button`
+    width: 150px;
+    padding: 5px;
+    margin: 5px;
 `

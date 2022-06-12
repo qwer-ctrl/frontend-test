@@ -1,21 +1,23 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 
 import styled from 'styled-components/macro'
 import ui from '../reducers/ui'
 import { API_URL } from '../utils/utils'
 // import LoadingAnimation from '../components/LoadingAnimation'
 
-const DeleteExerciseModal = () => {
-	const exerciseId = useSelector((store) => store.ui.currentModalId)
-	const showModal = useSelector((store) => store.ui.showDeleteExerciseModal)
+const DeleteProgramModal = () => {
+    const programId = useSelector((store) => store.ui.currentDeleteModalId)
+	const showModal = useSelector((store) => store.ui.showDeleteProgramModal)
+	const navigate = useNavigate()
 	const dispatch = useDispatch()
 
 	const closeModal = () => {
-		dispatch(ui.actions.setShowDeleteExerciseModal(false))
+		dispatch(ui.actions.setShowDeleteProgramModal(false))
 	}
 
-	const handleExerciseDeletion = () => {
+    const handleProgramDeletion = () => {
 		const options = {
 			method: 'DELETE',
 			headers: {
@@ -23,23 +25,23 @@ const DeleteExerciseModal = () => {
 			},
 		}
 
-		fetch(API_URL(`deleteexercise/${exerciseId}`), options)
+		fetch(API_URL(`deleteprogram/${programId}`), options)
 			.then((res) => res.json())
 			.then((data) => {
 				console.log(data)
-				closeModal()
-				window.location.reload()
+                closeModal()
+				navigate('/')
 			})
 	}
-
+	
 	return (
 		<>
 			{showModal ? (
 				<ModalContainer>
 					<StyledModal>
 						<CloseButton onClick={closeModal}>x</CloseButton>
-						<h1>Are you sure you want to delete the exercise?</h1>
-						<StyledButton onClick={() => handleExerciseDeletion()}>Delete</StyledButton>
+						<h1>Are you sure you want to delete the program?</h1>
+						<StyledButton onClick={() => handleProgramDeletion()}>Delete</StyledButton>
 					</StyledModal>
 				</ModalContainer>
 			) : null}
@@ -47,7 +49,7 @@ const DeleteExerciseModal = () => {
 	)
 }
 
-export default DeleteExerciseModal
+export default DeleteProgramModal
 
 const ModalContainer = styled.div`
   position: fixed;

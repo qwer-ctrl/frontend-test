@@ -1,17 +1,14 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { program } from '../reducers/program'
 import styled from 'styled-components/macro'
 import ui from '../reducers/ui'
-// import user from "../reducers/user"
-// import { createProgram } from "../reducers/program"
 
 import { API_URL } from '../utils/utils'
-// import SingleProgram from "../pages/SingleProgram"
 
 const ProgramModal = ({ showModal, setShowModal }) => {
-	//refactor to use store instead for sending props to MyPage..
+	//refactor to use store instead of sending props to MyPage..
 	const [programName, setProgramName] = useState('')
 	const [programType, setProgramType] = useState('')
 	const [programId, setProgramId] = useState('')

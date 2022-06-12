@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
-// import { program } from '../reducers/program'
-// import { exercise } from '../reducers/exercise'
 import styled from 'styled-components/macro'
 import ui from '../reducers/ui'
-// import user from "../reducers/user"
 import { API_URL } from '../utils/utils'
 
 const UpdateProgramModal = () => {
