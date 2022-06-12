@@ -48,7 +48,7 @@ const MyPage = () => {
 
 	useEffect(() => {
 		fetchPrograms()
-	}, [accessToken, userId, dispatch])
+	}, [])
 
 
 	const fetchPrograms = () => {
