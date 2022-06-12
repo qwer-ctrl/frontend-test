@@ -8,6 +8,8 @@ import LoadingAnimation from "../components/LoadingAnimation"
 
 import { API_URL } from "../utils/utils"
 import user from "../reducers/user"
+import { OuterWrapper } from "../styles/GlobalStyles"
+import { InnerWrapper } from "../styles/GlobalStyles"
 
 
 const MyTextInput = ({ label, ...props }) => {
@@ -81,87 +83,82 @@ const Login = () => {
     }
 
     return (
-        <>
-            <StyledLoginSection>
-                <StyledLoginWrapper>
-                    {/* <StyledMode>
-                        <label htmlFor="register">Register</label>
-                            <input type="radio" id="register" checked={mode === "register"} onChange={() => setMode("register")} />
-                        <label htmlFor="login">Login</label>
-                            <input type="radio" id="login" checked={mode === "login"} onChange={() => setMode("login")} />
-                    </StyledMode> */}
-
-                    {mode === 'login' ? <StyledTitle>Login here</StyledTitle> : <StyledTitle>Register here</StyledTitle>}
-                    
-                    <Formik
-                        initialValues={{ username: "", password: "", confirmPassword: "", email: "" }}
-                        validationSchema={Schema}
-                        onSubmit={(values, { setSubmitting, resetForm }) => {
-                            fetch(API_URL(mode), {
-                                method: "POST",
-                                headers: {
-                                    "Content-Type": "application/json"
-                                },
-                                body: JSON.stringify({username: values.username, password: values.password})
-                            })
-                            .then(res => res.json())
-                            .then(data => {
-                                console.log(data)
-                                handleLoginSuccess(data)
-                                setMode('login')
-                            })
-                            .catch((err) => {
-                                handleLoginFailure(err);
-                            })
-                            .finally(() => {
-                                setSubmitting(false)
-                                resetForm()
-                            })
-                        }}
+        <OuterWrapper>
+            <InnerWrapper>
+                {/* <StyledLoginSection>
+                    <StyledLoginWrapper> */}
+                        {mode === 'login' ? <StyledTitle>Login here</StyledTitle> : <StyledTitle>Register here</StyledTitle>}
                         
-                        >
-                    {({ isSubmitting }) => (
-                        <StyledForm>
-                                {isSubmitting && <LoadingAnimation />}
+                        <Formik
+                            initialValues={{ username: "", password: "", confirmPassword: "", email: "" }}
+                            validationSchema={Schema}
+                            onSubmit={(values, { setSubmitting, resetForm }) => {
+                                fetch(API_URL(mode), {
+                                    method: "POST",
+                                    headers: {
+                                        "Content-Type": "application/json"
+                                    },
+                                    body: JSON.stringify({username: values.username, password: values.password})
+                                })
+                                .then(res => res.json())
+                                .then(data => {
+                                    console.log(data)
+                                    handleLoginSuccess(data)
+                                    setMode('login')
+                                })
+                                .catch((err) => {
+                                    handleLoginFailure(err);
+                                })
+                                .finally(() => {
+                                    setSubmitting(false)
+                                    resetForm()
+                                })
+                            }}
                             
-                                <StyledInput
-                                label="Username"
-                                name="username"
-                                type="text" 
-                                />
+                            >
+                        {({ isSubmitting }) => (
+                            <StyledForm>
+                                    {isSubmitting && <LoadingAnimation />}
                                 
-                                {/* <StyledInput
-                                label="Email address"
-                                name="email"
-                                type="email" 
-                                /> */}
+                                    <StyledInput
+                                    label="Username"
+                                    name="username"
+                                    type="text" 
+                                    />
+                                    
+                                    {/* <StyledInput
+                                    label="Email address"
+                                    name="email"
+                                    type="email" 
+                                    /> */}
 
-                                <StyledInput
-                                label="Password"
-                                name="password"
-                                type="password" 
-                                />
+                                    <StyledInput
+                                    label="Password"
+                                    name="password"
+                                    type="password" 
+                                    />
 
-                                {mode === "register" ?
-                                <StyledInput
-                                label="Confirm password"
-                                name="confirmPassword"
-                                type="password" 
-                                /> : null }
+                                    {mode === "register" ?
+                                    <StyledInput
+                                    label="Confirm password"
+                                    name="confirmPassword"
+                                    type="password" 
+                                    /> : null }
 
-                                {mode === 'login' ? <StyledButton type="submit">Login</StyledButton> : <StyledButton type="submit">Register</StyledButton>}
-                                
-                                {mode === 'login' ? 
-                                <StyledButton type="button" onClick={()=> setMode("register")}>Not a member yet? Register here</StyledButton> :
-                                <StyledButton type="button" onClick={()=> setMode("login")}>Already a member? Login here</StyledButton>
-                            }
-                            </StyledForm>
-                    )}
-                    
-                    </Formik>
-                </StyledLoginWrapper>
-            </StyledLoginSection>
-        </>  
+                                    {mode === 'login' ? <StyledButton type="submit">Login</StyledButton> : <StyledButton type="submit">Register</StyledButton>}
+                                    
+                                    {mode === 'login' ? 
+                                    <StyledButton type="button" onClick={()=> setMode("register")}>Not a member yet? Register here</StyledButton> :
+                                    <StyledButton type="button" onClick={()=> setMode("login")}>Already a member? Login here</StyledButton>
+                                }
+                                </StyledForm>
+                        )}
+                        
+                        </Formik>
+                    {/* </StyledLoginWrapper>
+                </StyledLoginSection> */}
+            </InnerWrapper>
+        </OuterWrapper>  
     )
 }
 

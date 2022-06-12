@@ -7,7 +7,7 @@ export const program = createSlice({
 	initialState: {
 		programType: null,
 		programName: null,
-		exercise: {},
+		exercise: [],
 		createdAt: null,
 		programId: null,
 		error: null,
@@ -30,7 +30,7 @@ export const program = createSlice({
 		},
 		setError: (store, action) => {
 			store.error = action.payload
-		},
+		}
 	},
 })
 

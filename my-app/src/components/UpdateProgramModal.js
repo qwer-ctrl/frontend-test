@@ -1,28 +1,19 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
-import { Formik, Form, useField } from 'formik'
-import * as Yup from 'yup'
 
-import { program } from '../reducers/program'
-import { exercise } from '../reducers/exercise'
+// import { program } from '../reducers/program'
+// import { exercise } from '../reducers/exercise'
 import styled from 'styled-components/macro'
 import ui from '../reducers/ui'
 // import user from "../reducers/user"
 import { API_URL } from '../utils/utils'
-// import SingleProgram from "../pages/SingleProgram"
-import LoadingAnimation from '../components/LoadingAnimation'
 
 const UpdateProgramModal = () => {
-	//refactor to use store instead for sending props to MyPage..
-	// const [programName, setProgramName] = useState('')
-	// const [programType, setProgramType] = useState('')
 	const [exerciseContent, setExerciseContent] = useState('')
 	const [programName, setProgramName] = useState('')
 	const [programType, setProgramType] = useState('')
 	const showModal = useSelector((store) => store.ui.showUpdateProgramModal)
 	const programId = useSelector((store) => store.ui.currentAddExerciseModalId)
-	const navigate = useNavigate()
 	const dispatch = useDispatch()
 
 	const closeModal = () => {

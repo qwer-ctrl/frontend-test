@@ -14,30 +14,19 @@ import SignOut from '../components/SignOut'
 import AddExerciseModal from '../components/AddExerciseModal'
 import UpdateProgramModal from '../components/UpdateProgramModal'
 // import EmptyState from '../components/EmptyState'
+import { OuterWrapper } from '../styles/GlobalStyles'
+import { InnerWrapper } from '../styles/GlobalStyles'
 
 const SingleProgram = () => {
 	const { programId } = useParams()
-	//console.log(programId)
+	const [programName, setProgramName] = useState('')
+	const [programExercise, setProgramExercise] = useState([])
+	const [checked, setChecked] = useState([])
 	const isLoading = useSelector((store) => store.ui.isLoading)
 	const showEditModal = useSelector((store) => store.ui.showEditModal)
 	const showDeleteModal = useSelector((store) => store.ui.showDeleteModal)
 	const showAddExerciseModal = useSelector((store) => store.ui.showAddExerciseModal)
 	const showUpdateProgramModal = useSelector((store) => store.ui.showUpdateProgramModal)
-	const currentModalId = useSelector((store) => store.user.currentModalId)
-	const currentAddExerciseModalId = useSelector((store) => store.user.currentAddExerciseModalId)
-	const currentUpdateProgramModalId = useSelector((store) => store.user.currentUpdateProgramModalId)
-	const [programName, setProgramName] = useState('')
-	// console.log('current ID', currentModalId)
-	const [programExercise, setProgramExercise] = useState([])
-	// const allPrograms = useSelector((store) => store.user.program.program)
-	// const allExercises = useSelector((store) => store.program.exercise)
-	// console.log('all programs', allPrograms)
-	// console.log('all exercises', allExercises)
-	// const myProgram = allPrograms.filter((program) => program._id === programId)
-	// const myExercise = allExercises.map((exercise) => exercise._id)
-	// console.log('myExercises', myExercise)
-	// console.log('my program', myProgram)
-	// const userHasExercise = useSelector((store) => store.program.exercise)
 	const navigate = useNavigate()
 	const dispatch = useDispatch()
 
@@ -110,11 +99,22 @@ const SingleProgram = () => {
 			})
 	}
 
+	const handleChecked = (event) => {
+		let updatedList = [...checked]
+		if (event.target.checked) {
+			updatedList = [...checked, event.target.value]
+		} else {
+			updatedList.splice(checked.indexOf(event.target.value), 1)
+		}
+		setChecked(updatedList)
+	}
+
+
 	return isLoading ? (
 		<LoadingAnimation />
 	) : (
-		<>
-			<div>
+		<OuterWrapper>
+			<InnerWrapper>
 				<h1>{programName}</h1>
 				{/* {programId} */}
 				<StyledButton onClick={() => handleProgramDeletion(programId)}>Delete program</StyledButton>
@@ -122,7 +122,7 @@ const SingleProgram = () => {
 				{showUpdateProgramModal ? <UpdateProgramModal /> : null}
 				<StyledButton onClick={() => handleAddExerciseModal(programId)}>Add exercise</StyledButton>
 				{showAddExerciseModal ? <AddExerciseModal /> : null}
-				{programExercise.map((item) => (
+				{programExercise.map((item, index) => (
 					<div key={item._id}>
 						<h1>{item.exercise}</h1>
 						<div>
@@ -137,6 +137,8 @@ const SingleProgram = () => {
 							{item.exerciseLink ? <p>link: {item.exerciseLink}</p> : null}
 							{item._id}
 						</div>
+						<label htmlFor='checkbox'></label>
+						<input id="checkbox" type="checkbox" value={item._id} onChange={handleChecked}/>
 						<StyledButton onClick={() => handleEditModal(item._id)}>Edit exercise</StyledButton>
 						{showEditModal ? <EditExerciseModal /> : null}
 						<StyledButton onClick={() => handleDeleteModal(item._id)}>Delete exercise</StyledButton>
@@ -144,8 +146,8 @@ const SingleProgram = () => {
 					</div>
 				))}
 				<StyledButton onClick={handleGoBack}>Go back</StyledButton>
-			</div>
-		</>
+			</InnerWrapper>
+		</OuterWrapper>
 	)
 }
 

@@ -12,6 +12,8 @@ import ui from '../reducers/ui'
 import LoadingAnimation from '../components/LoadingAnimation'
 import SignOut from '../components/SignOut'
 import EmptyState from '../components/EmptyState'
+import { OuterWrapper } from '../styles/GlobalStyles'
+import { InnerWrapper } from '../styles/GlobalStyles'
 
 const MyTextInput = ({ label, ...props }) => {
 	const [field, meta] = useField(props)
@@ -193,130 +195,132 @@ const AddProgram = () => {
 	return isLoading ? (
 		<LoadingAnimation />
 	) : (
-		<>
-			<MainContainer>
-				{userHasExercise ? <h1>{programName}!</h1> : <EmptyState />}
+		<OuterWrapper>
+			<InnerWrapper>
+				<MainContainer>
+					{userHasExercise ? <h1>{programName}!</h1> : <EmptyState />}
 
-				<Formik
-					initialValues={{
-						exercise: '',
-						sets: '',
-						reps: '',
-						weights: '',
-						exerciseLink: '',
-						seconds: '',
-						minutes: '',
-						duration: '',
-						exerciseLength: '',
-						feeling: '',
-						comments: '',
-					}}
-					validationSchema={Schema}
-					onSubmit={(values, { setSubmitting, resetForm }) => {
-						fetch(API_URL(`exercise/${programId}`), {
-							method: 'POST',
-							headers: {
-								'Content-Type': 'application/json',
-							},
-							body: JSON.stringify({
-								exercise: values.exercise,
-								sets: values.sets,
-								reps: values.reps,
-								weights: values.weights,
-								comments: values.comments,
-								exerciseLink: values.exerciseLink,
-								seconds: values.seconds,
-								minutes: values.minutes,
-								duration: values.duration,
-								exerciseLength: values.exerciseLength,
-							}),
-						})
-							.then((res) => res.json())
-							.then((data) => {
-								console.log(data)
-								handleData(data)
-								console.log(data.response._id)
+					<Formik
+						initialValues={{
+							exercise: '',
+							sets: '',
+							reps: '',
+							weights: '',
+							exerciseLink: '',
+							seconds: '',
+							minutes: '',
+							duration: '',
+							exerciseLength: '',
+							feeling: '',
+							comments: '',
+						}}
+						validationSchema={Schema}
+						onSubmit={(values, { setSubmitting, resetForm }) => {
+							fetch(API_URL(`exercise/${programId}`), {
+								method: 'POST',
+								headers: {
+									'Content-Type': 'application/json',
+								},
+								body: JSON.stringify({
+									exercise: values.exercise,
+									sets: values.sets,
+									reps: values.reps,
+									weights: values.weights,
+									comments: values.comments,
+									exerciseLink: values.exerciseLink,
+									seconds: values.seconds,
+									minutes: values.minutes,
+									duration: values.duration,
+									exerciseLength: values.exerciseLength,
+								}),
 							})
-							.catch((err) => {
-								// handleLoginFailure(err)
-							})
-							.finally(() => {
-								setSubmitting(false)
-								resetForm()
-								window.location.reload()
-							})
-					}}
-				>
-					{({ isSubmitting }) => (
-						<StyledForm>
-							{isSubmitting && <LoadingAnimation />}
-							<StyledInput label='Exercise name' name='exercise' type='text' />
-							<button onClick={handleSetsState} type='button'>
-								Sets
-							</button>
-							<button onClick={handleRepsState} type='button'>
-								Reps
-							</button>
-							<button onClick={handleWeightsState} type='button'>
-								Weights
-							</button>
-							<button onClick={handleMinutesState} type='button'>
-								Minutes
-							</button>
-							<button onClick={handleSecondsState} type='button'>
-								Seconds
-							</button>
-							<button onClick={handleDurationState} type='button'>
-								Duration
-							</button>
-							<button onClick={handleExerciseLengthState} type='button'>
-								Length
-							</button>
-							<button onClick={handleCommentsState} type='button'>
-								Comments
-							</button>
-							<button onClick={handleExerciseLinkState} type='button'>
-								Link
-							</button>
-							{displaySets ? <StyledInput label='Sets' name='sets' type='text' /> : null}
-							{displayReps ? <StyledInput label='Reps' name='reps' type='text' /> : null}
-							{displayWeights ? <StyledInput label='Weights' name='weights' type='text' /> : null}
-							{displaySeconds ? <StyledInput label='Seconds' name='seconds' type='text' /> : null}
-							{displayMinutes ? <StyledInput label='Minutes' name='minutes' type='text' /> : null}
-							{displayDuration ? <StyledInput label='Duration' name='duration' type='text' /> : null}
-							{displayExerciseLength ? (
-								<StyledInput label='Length' name='exerciseLength' type='text' />
-							) : null}
-							{displayComments ? <StyledInput label='Comments' name='comments' type='text' /> : null}
-							{displayExerciseLink ? <StyledInput label='Link' name='exerciseLink' type='text' /> : null}
-							<StyledButton type='submit'>Add exercise</StyledButton>
-						</StyledForm>
-					)}
-				</Formik>
-				<button onClick={handleGoBack}>Done with program, go back to main</button>
-				<div>
-					{userHasExercise.exercise.map((item) => {
-						return (
-							<div key={item._id}>
-								<h1>{item.exercise}</h1>
-								<div>
-									<p>{item.sets} sets</p>
-									<p>{item.reps} reps</p>
-									<p>{item.weights} </p>
-									<p>{item.minutes} min</p>
-									<p>{item.seconds} sec</p>
-									<p>{item.duration}</p>
-									<p>distance: {item.length} </p>
-									<p>comment: {item.comments}</p>
-									<p>link: {item.link}</p>
+								.then((res) => res.json())
+								.then((data) => {
+									console.log(data)
+									handleData(data)
+									console.log(data.response._id)
+								})
+								.catch((err) => {
+									// handleLoginFailure(err)
+								})
+								.finally(() => {
+									setSubmitting(false)
+									resetForm()
+									window.location.reload()
+								})
+						}}
+					>
+						{({ isSubmitting }) => (
+							<StyledForm>
+								{isSubmitting && <LoadingAnimation />}
+								<StyledInput label='Exercise name' name='exercise' type='text' />
+								<button onClick={handleSetsState} type='button'>
+									Sets
+								</button>
+								<button onClick={handleRepsState} type='button'>
+									Reps
+								</button>
+								<button onClick={handleWeightsState} type='button'>
+									Weights
+								</button>
+								<button onClick={handleMinutesState} type='button'>
+									Minutes
+								</button>
+								<button onClick={handleSecondsState} type='button'>
+									Seconds
+								</button>
+								<button onClick={handleDurationState} type='button'>
+									Duration
+								</button>
+								<button onClick={handleExerciseLengthState} type='button'>
+									Length
+								</button>
+								<button onClick={handleCommentsState} type='button'>
+									Comments
+								</button>
+								<button onClick={handleExerciseLinkState} type='button'>
+									Link
+								</button>
+								{displaySets ? <StyledInput label='Sets' name='sets' type='text' /> : null}
+								{displayReps ? <StyledInput label='Reps' name='reps' type='text' /> : null}
+								{displayWeights ? <StyledInput label='Weights' name='weights' type='text' /> : null}
+								{displaySeconds ? <StyledInput label='Seconds' name='seconds' type='text' /> : null}
+								{displayMinutes ? <StyledInput label='Minutes' name='minutes' type='text' /> : null}
+								{displayDuration ? <StyledInput label='Duration' name='duration' type='text' /> : null}
+								{displayExerciseLength ? (
+									<StyledInput label='Length' name='exerciseLength' type='text' />
+								) : null}
+								{displayComments ? <StyledInput label='Comments' name='comments' type='text' /> : null}
+								{displayExerciseLink ? <StyledInput label='Link' name='exerciseLink' type='text' /> : null}
+								<StyledButton type='submit'>Add exercise</StyledButton>
+							</StyledForm>
+						)}
+					</Formik>
+					<button onClick={handleGoBack}>Done with program, go back to main</button>
+					<div>
+						{userHasExercise.exercise.map((item) => {
+							return (
+								<div key={item._id}>
+									<h1>{item.exercise}</h1>
+									<div>
+										<p>{item.sets} sets</p>
+										<p>{item.reps} reps</p>
+										<p>{item.weights} </p>
+										<p>{item.minutes} min</p>
+										<p>{item.seconds} sec</p>
+										<p>{item.duration}</p>
+										<p>distance: {item.length} </p>
+										<p>comment: {item.comments}</p>
+										<p>link: {item.link}</p>
+									</div>
 								</div>
-							</div>
-						)
-					})}
-				</div>
-			</MainContainer>
-			<SignOut />
-		</>
+							)
+						})}
+					</div>
+				</MainContainer>
+				<SignOut />
+			</InnerWrapper>
+		</OuterWrapper>
 	)
 }
 

@@ -11,17 +11,18 @@ import LoadingAnimation from '../components/LoadingAnimation'
 import ProgramModal from '../components/ProgramModal'
 import SignOut from '../components/SignOut'
 import EmptyState from '../components/EmptyState'
+import { OuterWrapper } from '../styles/GlobalStyles'
+import { InnerWrapper } from '../styles/GlobalStyles'
 
 const MyPage = () => {
 	const [showModal, setShowModal] = useState(false)
-
 	const accessToken = useSelector((store) => store.user.accessToken)
 	const userId = useSelector((store) => store.user.userId)
 	const userHasProgram = useSelector((store) => store.user.program)
 	const programs = userHasProgram.program
-	//console.log('test', userHasProgram)
+	console.log('test', userHasProgram)
 	const isLoading = useSelector((store) => store.ui.isLoading)
-	//console.log(isLoading)
+	console.log(isLoading)
 	const navigate = useNavigate()
 	const dispatch = useDispatch()
 
@@ -46,6 +47,11 @@ const MyPage = () => {
 	}, [accessToken, navigate])
 
 	useEffect(() => {
+		fetchPrograms()
+	}, [accessToken, userId, dispatch])
+
+
+	const fetchPrograms = () => {
 		const options = {
 			method: 'GET',
 			headers: {
@@ -54,11 +60,12 @@ const MyPage = () => {
 			},
 		}
 
+		dispatch(ui.actions.setLoading(true))
+
 		fetch(API_URL(`mypage/${userId}`), options)
 			.then((res) => res.json())
 			.then((data) => {
-				dispatch(ui.actions.setLoading(true))
-				//console.log(data)
+				console.log(data)
 				if (data.success) {
 					dispatch(user.actions.setProgram(data.response))
 					dispatch(program.actions.setProgramType(data.response))
@@ -71,8 +78,9 @@ const MyPage = () => {
 					dispatch(user.actions.setProgram([]))
 				}
 			})
+			.catch((error) => console.log(error))
 			.finally(() => dispatch(ui.actions.setLoading(false)))
-	}, [accessToken, userId, dispatch])
+	}
 
 	const handleProgram = (programId) => {
 		navigate(`/singleprogram/${programId}`)
@@ -82,24 +90,26 @@ const MyPage = () => {
 	return isLoading ? (
 		<LoadingAnimation />
 	) : (
-		<>
-			<MainContainer>
-				{userHasProgram ? (
-					<>
-						{programs.map((program) => (
-							<div key={program._id}>
-								<button onClick={() => handleProgram(program._id)}>{program.programName}</button>
-							</div>
-						))}
-					</>
-				) : (
-					<EmptyState />
-				)}
-			</MainContainer>
-			<StyledButton onClick={openModal}>Add new program </StyledButton>
-			<ProgramModal showModal={showModal} setShowModal={setShowModal} />
-			<SignOut />
-		</>
+		<OuterWrapper>
+			<InnerWrapper>
+				<MainContainer>
+					{userHasProgram ? (
+						<>
+							{programs.map((program) => (
+								<div key={program._id}>
+									<button onClick={() => handleProgram(program._id)}>{program.programName}</button>
+								</div>
+							))}
+						</>
+					) : (
+						<EmptyState />
+					)}
+				</MainContainer>
+				<StyledButton onClick={openModal}>Add new program </StyledButton>
+				<ProgramModal showModal={showModal} setShowModal={setShowModal} />
+				<SignOut />
+			</InnerWrapper>
+		</OuterWrapper>
 	)
 }
 
