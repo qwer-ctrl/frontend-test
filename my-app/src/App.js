@@ -14,7 +14,6 @@ import { program } from './reducers/program'
 import exercise from './reducers/exercise'
 import ui from './reducers/ui'
 import Footer from './components/Footer'
-import Header from './components/Header'
 
 const reducer = combineReducers({
 	user: user.reducer,
@@ -40,7 +39,6 @@ export const App = () => {
 	return (
 		<Provider store={store}>
 			<BrowserRouter>
-			<Header/>
 				<Routes>
 					<Route path='/login' element={<Login />}></Route>
 					<Route path='/addprogram/:programId' element={<AddProgram />}></Route>
@@ -48,7 +46,6 @@ export const App = () => {
 					<Route path='/' element={<MyPage />}></Route>
 					<Route path='*' element={<NotFound />}></Route>
 				</Routes>
-        <Footer/>
 			</BrowserRouter>
 		</Provider>
 	)

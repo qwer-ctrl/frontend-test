@@ -14,8 +14,9 @@ import SignOut from '../components/SignOut'
 import AddExerciseModal from '../components/AddExerciseModal'
 import UpdateProgramModal from '../components/UpdateProgramModal'
 // import EmptyState from '../components/EmptyState'
-import { OuterWrapper } from '../styles/GlobalStyles'
-import { InnerWrapper } from '../styles/GlobalStyles'
+import Header from '../components/Header'
+import Footer from '../components/Footer'
+import { OuterWrapper, InnerWrapper } from '../styles/GlobalStyles'
 
 const SingleProgram = () => {
 	const { programId } = useParams()
@@ -109,14 +110,13 @@ const SingleProgram = () => {
 		setChecked(updatedList)
 	}
 
-
 	return isLoading ? (
 		<LoadingAnimation />
 	) : (
 		<OuterWrapper>
+			<Header />
 			<InnerWrapper>
 				<h1>{programName}</h1>
-				{/* {programId} */}
 				<StyledButton onClick={() => handleProgramDeletion(programId)}>Delete program</StyledButton>
 				<StyledButton onClick={() => handleUpdateProgramModal(programId)}>Update program</StyledButton>
 				{showUpdateProgramModal ? <UpdateProgramModal /> : null}
@@ -135,10 +135,9 @@ const SingleProgram = () => {
 							{item.exerciseLength ? <p>{item.exerciseLength}</p> : null}
 							{item.comments ? <p>comments: {item.comments}</p> : null}
 							{item.exerciseLink ? <p>link: {item.exerciseLink}</p> : null}
-							{item._id}
 						</div>
 						<label htmlFor='checkbox'></label>
-						<input id="checkbox" type="checkbox" value={item._id} onChange={handleChecked}/>
+						<input id='checkbox' type='checkbox' value={item._id} onChange={handleChecked} />
 						<StyledButton onClick={() => handleEditModal(item._id)}>Edit exercise</StyledButton>
 						{showEditModal ? <EditExerciseModal /> : null}
 						<StyledButton onClick={() => handleDeleteModal(item._id)}>Delete exercise</StyledButton>
@@ -147,6 +146,7 @@ const SingleProgram = () => {
 				))}
 				<StyledButton onClick={handleGoBack}>Go back</StyledButton>
 			</InnerWrapper>
+			<Footer />
 		</OuterWrapper>
 	)
 }

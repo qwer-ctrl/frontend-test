@@ -11,8 +11,9 @@ import LoadingAnimation from '../components/LoadingAnimation'
 import ProgramModal from '../components/ProgramModal'
 import SignOut from '../components/SignOut'
 import EmptyState from '../components/EmptyState'
-import { OuterWrapper } from '../styles/GlobalStyles'
-import { InnerWrapper } from '../styles/GlobalStyles'
+import Header from '../components/Header'
+import { OuterWrapper, InnerWrapper } from '../styles/GlobalStyles'
+import Footer from '../components/Footer'
 
 const MyPage = () => {
 	const [showModal, setShowModal] = useState(false)
@@ -49,7 +50,6 @@ const MyPage = () => {
 	useEffect(() => {
 		fetchPrograms()
 	}, [])
-
 
 	const fetchPrograms = () => {
 		const options = {
@@ -91,6 +91,7 @@ const MyPage = () => {
 		<LoadingAnimation />
 	) : (
 		<OuterWrapper>
+			<Header />
 			<InnerWrapper>
 				<MainContainer>
 					{userHasProgram ? (
@@ -109,6 +110,7 @@ const MyPage = () => {
 				<ProgramModal showModal={showModal} setShowModal={setShowModal} />
 				<SignOut />
 			</InnerWrapper>
+			<Footer />
 		</OuterWrapper>
 	)
 }

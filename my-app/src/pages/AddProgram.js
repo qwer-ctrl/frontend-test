@@ -12,8 +12,9 @@ import ui from '../reducers/ui'
 import LoadingAnimation from '../components/LoadingAnimation'
 import SignOut from '../components/SignOut'
 import EmptyState from '../components/EmptyState'
-import { OuterWrapper } from '../styles/GlobalStyles'
-import { InnerWrapper } from '../styles/GlobalStyles'
+import Header from '../components/Header'
+import Footer from '../components/Footer'
+import { OuterWrapper, InnerWrapper } from '../styles/GlobalStyles'
 
 const MyTextInput = ({ label, ...props }) => {
 	const [field, meta] = useField(props)
@@ -196,6 +197,7 @@ const AddProgram = () => {
 		<LoadingAnimation />
 	) : (
 		<OuterWrapper>
+			<Header />
 			<InnerWrapper>
 				<MainContainer>
 					{userHasExercise ? <h1>{programName}!</h1> : <EmptyState />}
@@ -320,6 +322,7 @@ const AddProgram = () => {
 				</MainContainer>
 				<SignOut />
 			</InnerWrapper>
+			<Footer />
 		</OuterWrapper>
 	)
 }
