@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components/macro'
@@ -44,11 +44,8 @@ const MyPage = () => {
 		}
 	}, [accessToken, navigate])
 
-	useEffect(() => {
-		fetchPrograms()
-	}, [])
 
-	const fetchPrograms = () => {
+	const fetchPrograms = useCallback(() => {
 		const options = {
 			method: 'GET',
 			headers: {
@@ -77,7 +74,11 @@ const MyPage = () => {
 			})
 			.catch((error) => console.log(error))
 			.finally(() => dispatch(ui.actions.setLoading(false)))
-	}
+	}, [accessToken, dispatch, userId])
+
+	useEffect(() => {
+		fetchPrograms()
+	}, [fetchPrograms])
 
 	const handleProgram = (programId) => {
 		navigate(`/singleprogram/${programId}`)

@@ -53,7 +53,7 @@ const ProgramModal = ({ showModal, setShowModal }) => {
 				console.log(err)
 			})
 			.finally(() => {
-				//console.log('programID?', programId)
+				console.log('programID?', programId)
 				//dispatch(ui.actions.setLoading(false))
 				//navigate(`/myprogram/${programId}`)
 			})
