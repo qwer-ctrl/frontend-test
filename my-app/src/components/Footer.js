@@ -6,7 +6,7 @@ const Footer = () => {
 	return (
 		<>
 			<FooterContainer>
-				<NavLink to='/'>👤</NavLink>
+				<NavLink to='/mypage/:userId'>👤</NavLink>
 				<p>🕒</p>
 				<p>⚙️</p>
 			</FooterContainer>

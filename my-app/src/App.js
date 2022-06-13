@@ -40,11 +40,12 @@ export const App = () => {
 		<Provider store={store}>
 			<BrowserRouter>
 				<Routes>
-					<Route path='/' element={<MyPage />}></Route>
+					{/* <Route path='/' element={<MyPage />}></Route> */}
+					 <Route path='/mypage/:userId' element={<MyPage />}></Route> 
 					<Route path='/addprogram/:programId' element={<AddProgram />}></Route>
 					<Route path='/singleprogram/:programId' element={<SingleProgram />}></Route>
-					{/* <Route path='/' element={<Login />}></Route> */}
-					<Route path='/login' element={<Login />}></Route>
+					<Route path='/' element={<Login />}></Route>
+					{/* <Route path='/login' element={<Login />}></Route> */}
 					<Route path='*' element={<NotFound />}></Route>
 				</Routes>
 			</BrowserRouter>
