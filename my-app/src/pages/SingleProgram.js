@@ -32,7 +32,7 @@ const SingleProgram = () => {
 
 	useEffect(() => {
 		fetchProgram()
-	},)
+	}, [])
 
 	const fetchProgram = () => {
 		const options = {

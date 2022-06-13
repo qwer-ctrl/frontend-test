@@ -11,6 +11,7 @@ import user from '../reducers/user'
 import { OuterWrapper, InnerWrapper } from '../styles/GlobalStyles'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
+// import MyPage from './MyPage'
 
 const MyTextInput = ({ label, ...props }) => {
 	const [field, meta] = useField(props)
@@ -25,7 +26,6 @@ const MyTextInput = ({ label, ...props }) => {
 
 const Login = () => {
 	const [mode, setMode] = useState('login')
-
 	const dispatch = useDispatch()
 	const navigate = useNavigate()
 	const accessToken = useSelector((store) => store.user.accessToken)
@@ -51,7 +51,7 @@ const Login = () => {
 
 	useEffect(() => {
 		if (accessToken) {
-			navigate('/mypage/:userId')
+			navigate('/')
 		}
 	}, [accessToken, navigate])
 

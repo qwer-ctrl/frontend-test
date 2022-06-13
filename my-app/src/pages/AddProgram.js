@@ -47,7 +47,7 @@ const AddProgram = () => {
 
 	useEffect(() => {
 		fetchProgram()
-	},)
+	}, [])
 
 
 	const fetchProgram = () => {
@@ -59,7 +59,6 @@ const AddProgram = () => {
 		}
 		
 		dispatch(ui.actions.setLoading(true))
-		// console.log('pId', programId)
 		fetch(API_URL(`myprogram/${programId}`), options)
 			.then((res) => res.json())
 			.then((data) => {
@@ -318,15 +317,15 @@ const AddProgram = () => {
 									<div key={item._id}>
 										<h1>{item.exercise}</h1>
 										<div>
-											<p>{item.sets} sets</p>
-											<p>{item.reps} reps</p>
-											<p>{item.weights} </p>
-											<p>{item.minutes} min</p>
-											<p>{item.seconds} sec</p>
-											<p>{item.duration}</p>
-											<p>distance: {item.length} </p>
-											<p>comment: {item.comments}</p>
-											<p>link: {item.link}</p>
+											{item.sets && <p>{item.sets} sets</p>}
+											{item.reps && <p>{item.reps} reps</p>}
+											{item.weights && <p>{item.weights} </p>}
+											{item.minutes && <p>{item.minutes} min</p>}
+											{item.seconds && <p>{item.seconds} sec</p>}
+											{item.duration && <p>{item.duration}</p>}
+											{item.length && <p>distance: {item.length} </p>}
+											{item.comments && <p>comment: {item.comments}</p>}
+											{item.link && <p>link: {item.link}</p>}
 										</div>
 									</div>
 								)

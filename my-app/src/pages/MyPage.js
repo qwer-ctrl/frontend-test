@@ -20,7 +20,6 @@ const MyPage = () => {
 	const accessToken = useSelector((store) => store.user.accessToken)
 	const userId = useSelector((store) => store.user.userId)
 	const userHasProgram = useSelector((store) => store.user.program)
-	const programs = userHasProgram.program
 	const isLoading = useSelector((store) => store.ui.isLoading)
 	const navigate = useNavigate()
 	const dispatch = useDispatch()
@@ -47,7 +46,7 @@ const MyPage = () => {
 
 	useEffect(() => {
 		fetchPrograms()
-	},)
+	}, [])
 
 	const fetchPrograms = () => {
 		const options = {
@@ -94,7 +93,7 @@ const MyPage = () => {
 				<MainContainer>
 					{userHasProgram ? (
 						<>
-							{programs.map((program) => (
+							{userHasProgram.program.map((program) => (
 								<ProgramContainer key={program._id}>
 									<StyledImage src="" />
 									<button onClick={() => handleProgram(program._id)}>{program.programName}</button>
