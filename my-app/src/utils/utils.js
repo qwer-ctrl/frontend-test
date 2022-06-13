@@ -1,4 +1,4 @@
-const BASE_URL = `https://git.heroku.com/flexnjoy.git`
+const BASE_URL = `https://flexnjoy.herokuapp.com/`
 
 //"http://localhost:8080"
 
