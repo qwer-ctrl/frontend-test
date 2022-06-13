@@ -41,7 +41,7 @@ const MyPage = () => {
 
 	useEffect(() => {
 		if (!accessToken) {
-			navigate('/login')
+			navigate('/')
 		}
 	}, [accessToken, navigate])
 
