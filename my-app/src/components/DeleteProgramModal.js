@@ -8,7 +8,7 @@ import { API_URL } from '../utils/utils'
 // import LoadingAnimation from '../components/LoadingAnimation'
 
 const DeleteProgramModal = () => {
-    const programId = useSelector((store) => store.ui.currentDeleteModalId)
+    const programId = useSelector((store) => store.ui.currentModalId)
 	const showModal = useSelector((store) => store.ui.showDeleteProgramModal)
 	const navigate = useNavigate()
 	const dispatch = useDispatch()
