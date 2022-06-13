@@ -1,11 +1,12 @@
 import React from 'react'
+import { NavLink } from 'react-router-dom'
 import styled from 'styled-components/macro'
 
 const Footer = () => {
 	return (
 		<>
 			<FooterContainer>
-				<p>👤</p>
+				<NavLink to='/'>👤</NavLink>
 				<p>🕒</p>
 				<p>⚙️</p>
 			</FooterContainer>
