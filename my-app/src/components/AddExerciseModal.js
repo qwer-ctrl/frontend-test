@@ -23,7 +23,6 @@ const MyTextInput = ({ label, ...props }) => {
 const AddExerciseModal = () => {
 	const showModal = useSelector((store) => store.ui.showAddExerciseModal)
 	const programId = useSelector((store) => store.ui.currentAddExerciseModalId)
-	const navigate = useNavigate()
 	const dispatch = useDispatch()
 
 	const closeModal = () => {

@@ -11,7 +11,7 @@ const ProgramModal = ({ showModal, setShowModal }) => {
 	//refactor to use store instead of sending props to MyPage..
 	const [programName, setProgramName] = useState('')
 	const [programType, setProgramType] = useState('')
-	const [programId, setProgramId] = useState('')
+	const [setProgramId] = useState('')
 	const userId = useSelector((store) => store.user.userId)
 	const navigate = useNavigate()
 	const dispatch = useDispatch()

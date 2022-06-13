@@ -47,7 +47,7 @@ const AddProgram = () => {
 
 	useEffect(() => {
 		fetchProgram()
-	}, [])
+	},)
 
 
 	const fetchProgram = () => {

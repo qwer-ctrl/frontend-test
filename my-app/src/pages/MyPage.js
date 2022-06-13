@@ -47,7 +47,7 @@ const MyPage = () => {
 
 	useEffect(() => {
 		fetchPrograms()
-	}, [])
+	},)
 
 	const fetchPrograms = () => {
 		const options = {

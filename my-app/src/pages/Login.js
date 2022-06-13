@@ -155,9 +155,6 @@ const Login = () => {
 
 export default Login
 
-const StyledLoginSection = styled.section``
-
-const StyledLoginWrapper = styled.section``
 
 const StyledTitle = styled.h1``
 
