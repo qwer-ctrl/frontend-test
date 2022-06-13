@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
 import { Formik, Form, useField } from 'formik'
@@ -45,12 +45,8 @@ const AddProgram = () => {
 	const navigate = useNavigate()
 	const dispatch = useDispatch()
 
-	useEffect(() => {
-		fetchProgram()
-	}, [])
 
-
-	const fetchProgram = () => {
+	const fetchProgram = useCallback(() => {
 		const options = {
 			method: 'GET',
 			headers: {
@@ -98,7 +94,11 @@ const AddProgram = () => {
 				}
 			})
 			.finally(() => dispatch(ui.actions.setLoading(false)))
-	}
+	}, [dispatch, programId])
+
+	useEffect(() => {
+		fetchProgram()
+	}, [fetchProgram])
 
 	useEffect(() => {
 		if (exerciseId) {
