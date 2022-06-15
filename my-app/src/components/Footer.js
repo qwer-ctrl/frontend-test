@@ -24,7 +24,7 @@ const FooterContainer = styled.footer`
 	cursor: pointer;
 	// margin-top: auto;
 	height: 80px;
-	// position: absolute;
+	// position: fixed;
 	bottom: 0;
 	left: 0;
 	right: 0;

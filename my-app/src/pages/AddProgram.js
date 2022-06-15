@@ -1,7 +1,8 @@
 import React, { useEffect, useState, useCallback } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
-import { Formik, Form, useField } from 'formik'
+import { useRef } from 'react'
+import { Formik, Form, useField, Field, FieldArray } from 'formik'
 import * as Yup from 'yup'
 import styled from 'styled-components/macro'
 
@@ -32,6 +33,7 @@ const AddProgram = () => {
 	const userId = useSelector((store) => store.user.userId)
 	const [programName, setProgramName] = useState('')
 	const [exerciseId, setExerciseId] = useState('')
+	const [inputSet, setInputSets] = useState('')
 	const [displaySets, setDisplaySets] = useState(false)
 	const [displayReps, setDisplayReps] = useState(false)
 	const [displayWeights, setDisplayWeights] = useState(false)
@@ -45,6 +47,8 @@ const AddProgram = () => {
 	const userHasExercise = useSelector((store) => store.program.exercise)
 	const navigate = useNavigate()
 	const dispatch = useDispatch()
+	// const arrOfReps = []
+	const ref = useRef(null)
 
 	const fetchProgram = useCallback(() => {
 		const options = {
@@ -74,7 +78,7 @@ const AddProgram = () => {
 					dispatch(exercise.actions.setCreatedAt(data.response))
 					dispatch(exercise.actions.setExerciseId(data.response))
 					dispatch(exercise.actions.setError(null))
-					console.log(data.response)
+					// console.log(data.response)
 					setProgramName(data.response.programName)
 				} else {
 					dispatch(exercise.actions.setError(data.response))
@@ -113,7 +117,7 @@ const AddProgram = () => {
 				.then((res) => res.json())
 				.then((data) => {
 					dispatch(ui.actions.setLoading(true))
-					console.log(data)
+					// console.log(data)
 					if (data.success) {
 						dispatch(exercise.actions.setError(null))
 						dispatch(exercise.actions.setExercise(data.response))
@@ -197,6 +201,22 @@ const AddProgram = () => {
 		navigate(`/mypage/${userId}`)
 	}
 
+	// useEffect(() => {
+	// 	if (ref.current) {
+	// 		console.log(ref)
+	// 		console.log(ref.current.values.sets)
+	// 		const numberOfSets = ref.current.values.sets
+	// 		console.log(numberOfSets)
+
+	// 		for (let i = 1; i <= numberOfSets; i++) {
+	// 			arrOfReps.push('hej')
+	// 			console.log(arrOfReps)
+	// 			console.log('hej')
+	// 		}
+	// 		// console.log(ref.current.values)
+	// 	}
+	// }, [arrOfReps])
+
 	return isLoading ? (
 		<LoadingAnimation />
 	) : (
@@ -209,7 +229,7 @@ const AddProgram = () => {
 					<Formik
 						initialValues={{
 							exercise: '',
-							sets: '',
+							// sets: '',
 							reps: '',
 							weights: '',
 							exerciseLink: '',
@@ -219,8 +239,15 @@ const AddProgram = () => {
 							exerciseLength: '',
 							feeling: '',
 							comments: '',
+							sets: [
+								{
+									reps: '',
+									weights: '',
+								},
+							],
 						}}
 						validationSchema={Schema}
+						innerRef={ref}
 						onSubmit={(values, { setSubmitting, resetForm }) => {
 							fetch(API_URL(`exercise/${programId}`), {
 								method: 'POST',
@@ -242,9 +269,9 @@ const AddProgram = () => {
 							})
 								.then((res) => res.json())
 								.then((data) => {
-									console.log(data)
+									// console.log(data)
 									handleData(data)
-									console.log(data.response._id)
+									// console.log(data.response._id)
 								})
 								.catch((err) => {
 									console.log(err)
@@ -252,7 +279,7 @@ const AddProgram = () => {
 								.finally(() => {
 									setSubmitting(false)
 									resetForm()
-									window.location.reload()
+									// window.location.reload()
 								})
 						}}
 					>
@@ -261,10 +288,44 @@ const AddProgram = () => {
 								{isSubmitting && <LoadingAnimation />}
 								<StyledInput label='Exercise name' name='exercise' type='text' />
 
-								<StyledButton onClick={handleSetsState} type='button'>
+								{/* <StyledButton onClick={handleSetsState} type='button'>
 									Sets
 								</StyledButton>
-								{displaySets ? <StyledInput label='Sets' name='sets' type='text' /> : null}
+								{displaySets ? <StyledInput label='Sets' name='sets' type='text' /> : null} */}
+
+								<Form>
+									<FieldArray name='sets'>
+										{({ remove, push, form }) => (
+											<div>
+												{form.values.sets.length > 0 &&
+													form.values.sets.map((sets, index) => (
+														<div className='row' key={index}>
+															<div className='col'>
+																<label htmlFor={`sets.${index}.reps`}>Reps</label>
+																<Field name={`sets.${index}.reps`} type='text' />
+															</div>
+															<div className='col'>
+																<label htmlFor={`sets.${index}.weights`}>Weights</label>
+																<Field name={`sets.${index}.weights`} type='text' />
+															</div>
+															<div className='col'>
+																<button type='button' className='secondary' onClick={() => remove(index)}>
+																	X
+																</button>
+															</div>
+														</div>
+													))}
+												<button
+													type='button'
+													className='secondary'
+													onClick={() => push({ reps: '', weights: '' })}
+												>
+													Add new set
+												</button>
+											</div>
+										)}
+									</FieldArray>
+								</Form>
 
 								<StyledButton onClick={handleRepsState} type='button'>
 									Reps

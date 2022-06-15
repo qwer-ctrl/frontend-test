@@ -75,6 +75,7 @@ const UpdateProgramModal = () => {
 								type='text'
 								onChange={handleProgramName}
 								placeholder={exerciseContent.programName}
+								required
 							/>
 							<label htmlFor='weights'>Weights</label>
 							<input
@@ -83,6 +84,7 @@ const UpdateProgramModal = () => {
 								value='weights'
 								checked={programType === 'weights'}
 								onChange={handleProgramType}
+								required
 							/>
 							<label htmlFor='cardio'>Cardio</label>
 							<input
