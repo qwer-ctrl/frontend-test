@@ -28,6 +28,7 @@ const Login = () => {
 	const [mode, setMode] = useState('login')
 	const dispatch = useDispatch()
 	const navigate = useNavigate()
+	const userId = useSelector((store) => store.user.userId)
 	const accessToken = useSelector((store) => store.user.accessToken)
 
 	const handleLoginSuccess = (data) => {
@@ -51,9 +52,9 @@ const Login = () => {
 
 	useEffect(() => {
 		if (accessToken) {
-			navigate('/mypage/:userId')
+			navigate(`/mypage/${userId}`)
 		}
-	}, [accessToken, navigate])
+	}, [accessToken, navigate, userId])
 
 	let Schema = {}
 	if (mode === 'register') {
@@ -154,7 +155,6 @@ const Login = () => {
 }
 
 export default Login
-
 
 const StyledTitle = styled.h1``
 

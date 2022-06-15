@@ -44,7 +44,6 @@ const MyPage = () => {
 		}
 	}, [accessToken, navigate])
 
-
 	const fetchPrograms = useCallback(() => {
 		const options = {
 			method: 'GET',
@@ -85,34 +84,31 @@ const MyPage = () => {
 	}
 	//console.log('programs', programs)
 
-	return isLoading ? (
-		<LoadingAnimation />
-	) : (
-		<OuterWrapper>
-			<Header />
-			<InnerWrapper>
-				<MainContainer>
-					{userHasProgram ? (
-						<>
-							{userHasProgram.program.map((program) => (
-								<ProgramContainer key={program._id}>
-									<StyledImage src="" />
-									<button onClick={() => handleProgram(program._id)}>{program.programName}</button>
-								</ProgramContainer>
-							))}
-						</>
-					) : (
-						<EmptyState />
-					)}
-				</MainContainer>
-				<ButtonContainer>
-					<StyledButton onClick={openModal}>Add new program </StyledButton>
-					<ProgramModal showModal={showModal} setShowModal={setShowModal} />
-					<SignOut />
-				</ButtonContainer>
-			</InnerWrapper>
-			<Footer />
-		</OuterWrapper>
+	return (
+		<>
+			{isLoading && <LoadingAnimation />}
+			<OuterWrapper>
+				<Header />
+				<InnerWrapper>
+					<>{userHasProgram.program.length === 0 ? <EmptyState /> : null}</>
+					<MainContainer>
+						{userHasProgram.program.map((program) => (
+							<ProgramContainer key={program._id}>
+								<StyledImage src='' />
+								<button onClick={() => handleProgram(program._id)}>{program.programName}</button>
+							</ProgramContainer>
+						))}
+						{!userHasProgram.program ? <EmptyState /> : null}
+					</MainContainer>
+					<ButtonContainer>
+						<StyledButton onClick={openModal}>Add new program </StyledButton>
+						<ProgramModal showModal={showModal} setShowModal={setShowModal} />
+						<SignOut />
+					</ButtonContainer>
+				</InnerWrapper>
+				<Footer />
+			</OuterWrapper>
+		</>
 	)
 }
 
@@ -120,7 +116,7 @@ export default MyPage
 
 const MainContainer = styled.section`
 	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+	grid-template-columns: repeat(auto-fit, minmax(140px, 50%));
 	grid-gap: 1rem;
 `
 

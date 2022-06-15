@@ -1,15 +1,17 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-
 import styled from 'styled-components/macro'
+
+import user from '../reducers/user'
 import ui from '../reducers/ui'
 import { API_URL } from '../utils/utils'
 // import LoadingAnimation from '../components/LoadingAnimation'
 
 const DeleteProgramModal = () => {
-    const programId = useSelector((store) => store.ui.currentModalId)
+	const programId = useSelector((store) => store.ui.currentModalId)
 	const showModal = useSelector((store) => store.ui.showDeleteProgramModal)
+	const userId = useSelector((store) => store.user.userId)
 	const navigate = useNavigate()
 	const dispatch = useDispatch()
 
@@ -17,7 +19,7 @@ const DeleteProgramModal = () => {
 		dispatch(ui.actions.setShowDeleteProgramModal(false))
 	}
 
-    const handleProgramDeletion = () => {
+	const handleProgramDeletion = () => {
 		const options = {
 			method: 'DELETE',
 			headers: {
@@ -29,11 +31,11 @@ const DeleteProgramModal = () => {
 			.then((res) => res.json())
 			.then((data) => {
 				console.log(data)
-                closeModal()
-				navigate('/mypage/:userId')
+				closeModal()
+				navigate(`/mypage/${userId}`)
 			})
 	}
-	
+
 	return (
 		<>
 			{showModal ? (

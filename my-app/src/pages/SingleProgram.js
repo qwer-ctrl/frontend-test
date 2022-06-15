@@ -21,6 +21,7 @@ const SingleProgram = () => {
 	const [programName, setProgramName] = useState('')
 	const [programExercise, setProgramExercise] = useState([])
 	const [checked, setChecked] = useState([])
+
 	const isLoading = useSelector((store) => store.ui.isLoading)
 	const showDeleteProgramModal = useSelector((store) => store.ui.showDeleteProgramModal)
 	const showAddExerciseModal = useSelector((store) => store.ui.showAddExerciseModal)
@@ -29,7 +30,6 @@ const SingleProgram = () => {
 	const showDeleteExerciseModal = useSelector((store) => store.ui.showDeleteExerciseModal)
 	const navigate = useNavigate()
 	const dispatch = useDispatch()
-
 
 	const fetchProgram = useCallback(() => {
 		const options = {
@@ -103,7 +103,7 @@ const SingleProgram = () => {
 			<Header />
 			<InnerWrapper>
 				<h1>{programName}</h1>
-				<ButtonContainer justifyContent="space-evenly">
+				<ButtonContainer justifyContent='space-evenly'>
 					<StyledButton onClick={() => handleUpdateProgramModal(programId)}>Update program</StyledButton>
 					{showUpdateProgramModal ? <UpdateProgramModal /> : null}
 					<StyledButton onClick={() => handleAddExerciseModal(programId)}>Add exercise</StyledButton>
@@ -111,7 +111,7 @@ const SingleProgram = () => {
 					<StyledButton onClick={() => handleDeleteProgramModal(programId)}>Delete program</StyledButton>
 					{showDeleteProgramModal ? <DeleteProgramModal /> : null}
 				</ButtonContainer>
-				
+
 				{programExercise.map((item) => (
 					<div key={item._id}>
 						<h3>{item.exercise}</h3>
@@ -129,8 +129,8 @@ const SingleProgram = () => {
 
 						<label htmlFor='checkbox'></label>
 						<input id='checkbox' type='checkbox' value={item._id} onChange={handleChecked} />
-						
-						<ButtonContainer justifyContent="flex-start">
+
+						<ButtonContainer justifyContent='flex-start'>
 							<StyledButton onClick={() => handleEditExerciseModal(item._id)}>Edit exercise</StyledButton>
 							{showEditExerciseModal ? <EditExerciseModal /> : null}
 							<StyledButton onClick={() => handleDeleteExerciseModal(item._id)}>Delete exercise</StyledButton>
@@ -149,11 +149,9 @@ export default SingleProgram
 
 const ButtonContainer = styled.div`
 	display: flex;
-	justify-content: ${props => props.justifyContent};
+	justify-content: ${(props) => props.justifyContent};
 	margin: 1rem 0;
 	gap: 1rem;
 `
 
-const StyledButton = styled.button`
-	
-`
+const StyledButton = styled.button``

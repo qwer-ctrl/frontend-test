@@ -29,6 +29,7 @@ const MyTextInput = ({ label, ...props }) => {
 
 const AddProgram = () => {
 	const { programId } = useParams()
+	const userId = useSelector((store) => store.user.userId)
 	const [programName, setProgramName] = useState('')
 	const [exerciseId, setExerciseId] = useState('')
 	const [displaySets, setDisplaySets] = useState(false)
@@ -45,7 +46,6 @@ const AddProgram = () => {
 	const navigate = useNavigate()
 	const dispatch = useDispatch()
 
-
 	const fetchProgram = useCallback(() => {
 		const options = {
 			method: 'GET',
@@ -53,12 +53,12 @@ const AddProgram = () => {
 				'Content-Type': 'application/json',
 			},
 		}
-		
+
 		dispatch(ui.actions.setLoading(true))
 		fetch(API_URL(`myprogram/${programId}`), options)
 			.then((res) => res.json())
 			.then((data) => {
-				console.log(data)
+				// console.log(data)
 				if (data.success) {
 					dispatch(program.actions.setExercise(data.response))
 					dispatch(exercise.actions.setExercise(data.response))
@@ -194,7 +194,7 @@ const AddProgram = () => {
 	}
 
 	const handleGoBack = () => {
-		navigate('/')
+		navigate(`/mypage/${userId}`)
 	}
 
 	return isLoading ? (
@@ -311,30 +311,30 @@ const AddProgram = () => {
 							</StyledForm>
 						)}
 					</Formik>
-						<div>
-							{userHasExercise.exercise.map((item) => {
-								return (
-									<div key={item._id}>
-										<h1>{item.exercise}</h1>
-										<div>
-											{item.sets && <p>{item.sets} sets</p>}
-											{item.reps && <p>{item.reps} reps</p>}
-											{item.weights && <p>{item.weights} </p>}
-											{item.minutes && <p>{item.minutes} min</p>}
-											{item.seconds && <p>{item.seconds} sec</p>}
-											{item.duration && <p>{item.duration}</p>}
-											{item.length && <p>distance: {item.length} </p>}
-											{item.comments && <p>comment: {item.comments}</p>}
-											{item.link && <p>link: {item.link}</p>}
-										</div>
+					<div>
+						{userHasExercise.exercise.map((item) => {
+							return (
+								<div key={item._id}>
+									<h1>{item.exercise}</h1>
+									<div>
+										{item.sets && <p>{item.sets} sets</p>}
+										{item.reps && <p>{item.reps} reps</p>}
+										{item.weights && <p>{item.weights} </p>}
+										{item.minutes && <p>{item.minutes} min</p>}
+										{item.seconds && <p>{item.seconds} sec</p>}
+										{item.duration && <p>{item.duration}</p>}
+										{item.length && <p>distance: {item.length} </p>}
+										{item.comments && <p>comment: {item.comments}</p>}
+										{item.link && <p>link: {item.link}</p>}
 									</div>
-								)
-							})}
-						</div>
-						<ButtonContainer>
-							<StyledButton onClick={handleGoBack}>Done with program, go back to main</StyledButton>
-							<SignOut />
-						</ButtonContainer>
+								</div>
+							)
+						})}
+					</div>
+					<ButtonContainer>
+						<StyledButton onClick={handleGoBack}>Done with program, go back to main</StyledButton>
+						<SignOut />
+					</ButtonContainer>
 				</MainContainer>
 			</InnerWrapper>
 			<Footer />
