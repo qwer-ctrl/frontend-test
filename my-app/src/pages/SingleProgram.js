@@ -7,6 +7,7 @@ import EditExerciseModal from '../components/EditExerciseModal'
 import DeleteExerciseModal from '../components/DeleteExerciseModal'
 import { API_URL } from '../utils/utils'
 import ui from '../reducers/ui'
+import Timer from '../components/Timer'
 import LoadingAnimation from '../components/LoadingAnimation'
 import AddExerciseModal from '../components/AddExerciseModal'
 import UpdateProgramModal from '../components/UpdateProgramModal'
@@ -140,6 +141,7 @@ const SingleProgram = () => {
 				))}
 				<StyledButton onClick={handleGoBack}>Go back</StyledButton>
 			</InnerWrapper>
+			<Timer />
 			<Footer />
 		</OuterWrapper>
 	)
