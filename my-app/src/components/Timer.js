@@ -5,21 +5,20 @@ const Timer = () => {
 
     const [seconds, setSeconds] = useState(20)
     const [rounds, setRounds] = useState(0)
+    const [runTimer, setRunTimer] = useState(false)
 
-
-    
-//     useEffect(() => {
-
-//         const countdown = setInterval(() => {
-
-//         })
-//       }, [seconds])
-//    seconds > 0 && setTimeout(() => setSeconds(seconds - 1), 1000)
-
-    // // const countdown = () => {
-    // //     setInterval(() => setSeconds(seconds - 1), 1000)
-    // // }
-    
+    useEffect(() => {
+        if (seconds > 0 && runTimer) {
+        const interval =
+        setInterval(() => {
+            setSeconds(seconds => seconds - 1)
+        }, 1000)
+        return () => clearInterval(interval)
+    } else if (seconds === 0) {
+        clearInterval()
+    }
+    }, [seconds, runTimer])
+   
 
     return (
         <TimerContainer>
@@ -27,7 +26,7 @@ const Timer = () => {
                 <p>{rounds}</p>
                 <p>{seconds}</p>
             </TimerBox>
-            <StartButton>Start</StartButton>
+            <StartButton onClick={() => setRunTimer(!runTimer)}>Start</StartButton>
             <MinusRoundsButton onClick={() => setRounds(rounds - 1)}>-</MinusRoundsButton>
             <Rounds>{rounds}</Rounds>
             <PlusRoundsButton onClick={() => setRounds(rounds + 1)}>+</PlusRoundsButton>
