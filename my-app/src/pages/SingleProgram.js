@@ -124,7 +124,7 @@ const SingleProgram = () => {
 							{item.duration ? <p>{item.duration}</p> : null}
 							{item.exerciseLength ? <p>{item.exerciseLength}</p> : null}
 							{item.comments ? <p>comments: {item.comments}</p> : null}
-							{item.exerciseLink ? <p>link: {item.exerciseLink}</p> : null}
+							{item.exerciseLink ? <p>link: <a href={item.exerciseLink} target="_blank" rel="noopener noreferrer">{item.exerciseLink}</a></p> : null}
 						</div>
 
 						<label htmlFor='checkbox'></label>

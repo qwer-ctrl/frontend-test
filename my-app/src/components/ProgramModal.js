@@ -53,7 +53,7 @@ const ProgramModal = ({ showModal, setShowModal }) => {
 	}
 
 	const Schema = Yup.object().shape({
-		programName: Yup.string().required('Program name is required'),
+		programName: Yup.string().required('Program name is required').min(5, "The name must contain minimum 5 characters").max(20, "The name can contain maximum 20 letters"),
 		programType: Yup.string().required('You have to choose a program type'),
 	})
 

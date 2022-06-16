@@ -117,8 +117,8 @@ const AddProgram = () => {
 				.then((res) => res.json())
 				.then((data) => {
 					dispatch(ui.actions.setLoading(true))
-					// console.log(data)
 					if (data.success) {
+						console.log(data)
 						dispatch(exercise.actions.setError(null))
 						dispatch(exercise.actions.setExercise(data.response))
 						dispatch(exercise.actions.setSets(data.response))
@@ -157,7 +157,7 @@ const AddProgram = () => {
 		sets: Yup.string(),
 		reps: Yup.string(),
 		weights: Yup.string(),
-		comments: Yup.string(),
+		comments: Yup.string().max(140, "The maximum amount of characters is 140"),
 		seconds: Yup.string(),
 		minutes: Yup.string(),
 		duration: Yup.string(),
@@ -287,8 +287,8 @@ const AddProgram = () => {
 							<StyledForm>
 								{isSubmitting && <LoadingAnimation />}
 								<StyledInput label='Exercise name' name='exercise' type='text' />
-
-								{/* <StyledButton onClick={handleSetsState} type='button'>
+{/* 
+								<StyledButton onClick={handleSetsState} type='button'>
 									Sets
 								</StyledButton>
 								{displaySets ? <StyledInput label='Sets' name='sets' type='text' /> : null} */}
@@ -373,7 +373,7 @@ const AddProgram = () => {
 						)}
 					</Formik>
 					<div>
-						{userHasExercise.exercise.map((item) => {
+						{userHasExercise && userHasExercise.exercise.map((item) => {
 							return (
 								<div key={item._id}>
 									<h1>{item.exercise}</h1>
@@ -384,9 +384,9 @@ const AddProgram = () => {
 										{item.minutes && <p>{item.minutes} min</p>}
 										{item.seconds && <p>{item.seconds} sec</p>}
 										{item.duration && <p>{item.duration}</p>}
-										{item.length && <p>distance: {item.length} </p>}
+										{item.exerciseLength && <p>distance: {item.exerciseLength} </p>}
 										{item.comments && <p>comment: {item.comments}</p>}
-										{item.link && <p>link: {item.link}</p>}
+										{item.exerciseLink && <p>link:  <a href={item.exerciseLink} target="_blank" rel="noopener noreferrer">{item.exerciseLink}</a></p>}
 									</div>
 								</div>
 							)
