@@ -20,13 +20,13 @@ export const GlobalStyle = createGlobalStyle`
 export const OuterWrapper = styled.main`
 	width: 100%;
 	height: 100vh;
+	overflow-y: scroll;
 	position: relative;
 `
 
 export const InnerWrapper = styled.section`
 	width: 80%;
-	margin: 2rem auto;
-	margin-top: 25vh;
+	margin: 25vh auto 4rem;
 `
 
 export const HeadingOne = styled.h1`

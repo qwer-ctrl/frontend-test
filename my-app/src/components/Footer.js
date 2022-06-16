@@ -21,8 +21,8 @@ const FooterContainer = styled.footer`
 	align-items: center;
 	background-color: #e8e8e8;
 	cursor: pointer;
-	// margin-top: auto;
-	height: 10vh;
+	margin-top: 12vh;
+	height: 8vh;
 	position: fixed;
 	bottom: 0;
 	left: 0;

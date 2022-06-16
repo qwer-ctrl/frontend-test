@@ -4,7 +4,7 @@ const exercise = createSlice({
 	name: 'exercise',
 	initialState: {
 		exercise: null,
-		sets: null,
+		sets: [],
 		reps: null,
 		weights: null,
 		comments: null,

@@ -142,12 +142,12 @@ const ButtonContainer = styled.div`
 
 const AddProgramButton = styled.button`
 	position: fixed;
-	width: 70px;
-	height: 70px;
+	width: 60px;
+	height: 60px;
 	border: none;
 	border-radius: 50%;
 	background: var(--primary);
-	bottom: 5vh;
-	left: calc(50% - 35px);
+	bottom: 2.5vh;
+	left: calc(50% - 30px);
 	z-index: 10;
 `

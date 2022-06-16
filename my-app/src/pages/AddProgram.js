@@ -12,7 +12,6 @@ import exercise from '../reducers/exercise'
 import ui from '../reducers/ui'
 import LoadingAnimation from '../components/LoadingAnimation'
 import SignOut from '../components/SignOut'
-import EmptyState from '../components/EmptyState'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import { OuterWrapper, InnerWrapper } from '../styles/GlobalStyles'
@@ -33,10 +32,10 @@ const AddProgram = () => {
 	const userId = useSelector((store) => store.user.userId)
 	const [programName, setProgramName] = useState('')
 	const [exerciseId, setExerciseId] = useState('')
-	const [inputSet, setInputSets] = useState('')
+	const [inputSet, setInputSets] = useState([])
 	const [displaySets, setDisplaySets] = useState(false)
-	const [displayReps, setDisplayReps] = useState(false)
-	const [displayWeights, setDisplayWeights] = useState(false)
+	// const [displayReps, setDisplayReps] = useState(false)
+	// const [displayWeights, setDisplayWeights] = useState(false)
 	const [displayComments, setDisplayComments] = useState(false)
 	const [displayMinutes, setDisplayMinutes] = useState(false)
 	const [displaySeconds, setDisplaySeconds] = useState(false)
@@ -67,8 +66,8 @@ const AddProgram = () => {
 					dispatch(program.actions.setExercise(data.response))
 					dispatch(exercise.actions.setExercise(data.response))
 					dispatch(exercise.actions.setSets(data.response))
-					dispatch(exercise.actions.setReps(data.response))
-					dispatch(exercise.actions.setWeights(data.response))
+					// dispatch(exercise.actions.setReps(data.response))
+					// dispatch(exercise.actions.setWeights(data.response))
 					dispatch(exercise.actions.setComments(data.response))
 					dispatch(exercise.actions.setSeconds(data.response))
 					dispatch(exercise.actions.setMinutes(data.response))
@@ -78,15 +77,15 @@ const AddProgram = () => {
 					dispatch(exercise.actions.setCreatedAt(data.response))
 					dispatch(exercise.actions.setExerciseId(data.response))
 					dispatch(exercise.actions.setError(null))
-					// console.log(data.response)
+					console.log('from post in FE', data.response)
 					setProgramName(data.response.programName)
 				} else {
 					dispatch(exercise.actions.setError(data.response))
 					dispatch(program.actions.setExercise(null))
 					dispatch(exercise.actions.setExercise(null))
 					dispatch(exercise.actions.setSets(null))
-					dispatch(exercise.actions.setReps(null))
-					dispatch(exercise.actions.setWeights(null))
+					// dispatch(exercise.actions.setReps(null))
+					// dispatch(exercise.actions.setWeights(null))
 					dispatch(exercise.actions.setComments(null))
 					dispatch(exercise.actions.setSeconds(null))
 					dispatch(exercise.actions.setMinutes(null))
@@ -118,12 +117,12 @@ const AddProgram = () => {
 				.then((data) => {
 					dispatch(ui.actions.setLoading(true))
 					if (data.success) {
-						console.log(data)
+						console.log('fetch from BE', data)
 						dispatch(exercise.actions.setError(null))
 						dispatch(exercise.actions.setExercise(data.response))
 						dispatch(exercise.actions.setSets(data.response))
-						dispatch(exercise.actions.setReps(data.response))
-						dispatch(exercise.actions.setWeights(data.response))
+						// dispatch(exercise.actions.setReps(data.response))
+						// dispatch(exercise.actions.setWeights(data.response))
 						dispatch(exercise.actions.setComments(data.response))
 						dispatch(exercise.actions.setSeconds(data.response))
 						dispatch(exercise.actions.setMinutes(data.response))
@@ -135,8 +134,8 @@ const AddProgram = () => {
 					} else {
 						dispatch(exercise.actions.setError(data.response))
 						dispatch(exercise.actions.setExercise(null))
-						dispatch(exercise.actions.setSets(null))
-						dispatch(exercise.actions.setReps(null))
+						// dispatch(exercise.actions.setSets(null))
+						// dispatch(exercise.actions.setReps(null))
 						dispatch(exercise.actions.setWeights(null))
 						dispatch(exercise.actions.setComments(null))
 						dispatch(exercise.actions.setSeconds(null))
@@ -154,9 +153,14 @@ const AddProgram = () => {
 
 	const Schema = Yup.object().shape({
 		exercise: Yup.string().required('Exercise name is required'),
-		sets: Yup.string(),
-		reps: Yup.string(),
-		weights: Yup.string(),
+		sets: Yup.array(
+			Yup.object().shape({
+				reps: Yup.string(),
+				weights: Yup.string(),
+			})
+		),
+		// reps: Yup.string(),
+		// weights: Yup.string(),
 		comments: Yup.string().max(140, 'The maximum amount of characters is 140'),
 		seconds: Yup.string(),
 		minutes: Yup.string(),
@@ -172,12 +176,12 @@ const AddProgram = () => {
 	const handleSetsState = () => {
 		setDisplaySets(!displaySets)
 	}
-	const handleRepsState = () => {
-		setDisplayReps(!displayReps)
-	}
-	const handleWeightsState = () => {
-		setDisplayWeights(!displayWeights)
-	}
+	// const handleRepsState = () => {
+	// 	setDisplayReps(!displayReps)
+	// }
+	// const handleWeightsState = () => {
+	// 	setDisplayWeights(!displayWeights)
+	// }
 	const handleCommentsState = () => {
 		setDisplayComments(!displayComments)
 	}
@@ -201,21 +205,21 @@ const AddProgram = () => {
 		navigate(`/mypage/${userId}`)
 	}
 
-	// useEffect(() => {
-	// 	if (ref.current) {
-	// 		console.log(ref)
-	// 		console.log(ref.current.values.sets)
-	// 		const numberOfSets = ref.current.values.sets
-	// 		console.log(numberOfSets)
+	useEffect(() => {
+		if (ref.current) {
+			console.log(ref)
+			console.log(ref.current.values.sets)
+			// const numberOfSets = ref.current.values.sets
+			// console.log(numberOfSets)
 
-	// 		for (let i = 1; i <= numberOfSets; i++) {
-	// 			arrOfReps.push('hej')
-	// 			console.log(arrOfReps)
-	// 			console.log('hej')
-	// 		}
-	// 		// console.log(ref.current.values)
-	// 	}
-	// }, [arrOfReps])
+			// for (let i = 1; i <= numberOfSets; i++) {
+			// 	arrOfReps.push('hej')
+			// 	console.log(arrOfReps)
+			// 	console.log('hej')
+			// }
+			// console.log(ref.current.values)
+		}
+	}, [])
 
 	return isLoading ? (
 		<LoadingAnimation />
@@ -224,14 +228,14 @@ const AddProgram = () => {
 			<Header />
 			<InnerWrapper>
 				<MainContainer>
-					{userHasExercise ? <h1>{programName}!</h1> : <EmptyState />}
+					{userHasExercise && <h1>{programName}!</h1>}
 
 					<Formik
 						initialValues={{
 							exercise: '',
 							// sets: '',
-							reps: '',
-							weights: '',
+							// reps: '',
+							// weights: '',
 							exerciseLink: '',
 							seconds: '',
 							minutes: '',
@@ -257,8 +261,8 @@ const AddProgram = () => {
 								body: JSON.stringify({
 									exercise: values.exercise,
 									sets: values.sets,
-									reps: values.reps,
-									weights: values.weights,
+									// reps: values.reps,
+									// weights: values.weights,
 									comments: values.comments,
 									exerciseLink: values.exerciseLink,
 									seconds: values.seconds,
@@ -279,7 +283,7 @@ const AddProgram = () => {
 								.finally(() => {
 									setSubmitting(false)
 									resetForm()
-									// window.location.reload()
+									window.location.reload()
 								})
 						}}
 					>
@@ -293,49 +297,46 @@ const AddProgram = () => {
 								</StyledButton>
 								{displaySets ? <StyledInput label='Sets' name='sets' type='text' /> : null} */}
 
-								<Form>
-									<FieldArray name='sets'>
-										{({ remove, push, form }) => (
-											<div>
-												{form.values.sets.length > 0 &&
-													form.values.sets.map((sets, index) => (
-														<div className='row' key={index}>
-															<div className='col'>
-																<label htmlFor={`sets.${index}.reps`}>Reps</label>
-																<Field name={`sets.${index}.reps`} type='text' />
-															</div>
-															<div className='col'>
-																<label htmlFor={`sets.${index}.weights`}>Weights</label>
-																<Field name={`sets.${index}.weights`} type='text' />
-															</div>
-															<div className='col'>
-																<button type='button' className='secondary' onClick={() => remove(index)}>
-																	X
-																</button>
-															</div>
+								<FieldArray name='sets'>
+									{({ remove, push, form }) => (
+										<div>
+											{form.values.sets.length > 0 &&
+												form.values.sets.map((sets, index) => (
+													<div key={index}>
+														<StyledButton onClick={handleSetsState} type='button'>
+															Sets
+														</StyledButton>
+														<div>
+															{displaySets ? <label htmlFor={`${sets}.${index}.reps`}>Reps</label> : null}
+															{displaySets ? <Field name={`${sets}.${index}.reps`} type='text' /> : null}
 														</div>
-													))}
-												<button
-													type='button'
-													className='secondary'
-													onClick={() => push({ reps: '', weights: '' })}
-												>
-													Add new set
-												</button>
-											</div>
-										)}
-									</FieldArray>
-								</Form>
+														<div>
+															{displaySets ? (
+																<label htmlFor={`${sets}.${index}.weights`}>Weights</label>
+															) : null}
+															{displaySets ? <Field name={`${sets}.${index}.weights`} type='text' /> : null}
+														</div>
+														<button type='button' className='secondary' onClick={() => remove(index)}>
+															X
+														</button>
+													</div>
+												))}
+											<button type='button' onClick={() => push({ reps: '', weights: '' })}>
+												Add new set
+											</button>
+										</div>
+									)}
+								</FieldArray>
 
-								<StyledButton onClick={handleRepsState} type='button'>
+								{/* <StyledButton onClick={handleRepsState} type='button'>
 									Reps
 								</StyledButton>
-								{displayReps ? <StyledInput label='Reps' name='reps' type='text' /> : null}
+								{displayReps ? <StyledInput label='Reps' name='reps' type='text' /> : null} */}
 
-								<StyledButton onClick={handleWeightsState} type='button'>
+								{/* <StyledButton onClick={handleWeightsState} type='button'>
 									Weights
 								</StyledButton>
-								{displayWeights ? <StyledInput label='Weights' name='weights' type='text' /> : null}
+								{displayWeights ? <StyledInput label='Weights' name='weights' type='text' /> : null} */}
 
 								<StyledButton onClick={handleMinutesState} type='button'>
 									Minutes
@@ -375,13 +376,14 @@ const AddProgram = () => {
 					<div>
 						{userHasExercise &&
 							userHasExercise.exercise.map((item) => {
+								console.log('exercises from store', item.sets)
 								return (
 									<div key={item._id}>
 										<h1>{item.exercise}</h1>
 										<div>
 											{item.sets && <p>{item.sets} sets</p>}
-											{item.reps && <p>{item.reps} reps</p>}
-											{item.weights && <p>{item.weights} </p>}
+											{/* {item.reps && <p>{item.reps} reps</p>}
+											{item.weights && <p>{item.weights} </p>} */}
 											{item.minutes && <p>{item.minutes} min</p>}
 											{item.seconds && <p>{item.seconds} sec</p>}
 											{item.duration && <p>{item.duration}</p>}
@@ -389,7 +391,7 @@ const AddProgram = () => {
 											{item.comments && <p>comment: {item.comments}</p>}
 											{item.exerciseLink && (
 												<p>
-													link:{' '}
+													link:
 													<a href={item.exerciseLink} target='_blank' rel='noopener noreferrer'>
 														{item.exerciseLink}
 													</a>

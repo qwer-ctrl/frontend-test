@@ -51,7 +51,7 @@ const ProgramModal = ({ showModal, setShowModal }) => {
 		dispatch(program.actions.setProgramId(data.response))
 		setProgramId(data.response._id)
 		console.log('hello', data.response._id)
-		navigate(`/addprogram/${data.response._id}`) //<---------------------change!
+		navigate(`/addprogram/${data.response._id}`) //<---------------------change?
 	}
 
 	const Schema = Yup.object().shape({
@@ -87,9 +87,8 @@ const ProgramModal = ({ showModal, setShowModal }) => {
 								})
 									.then((res) => res.json())
 									.then((data) => {
-										// console.log(data)
+										console.log(data)
 										handleData(data)
-										// console.log(data.response._id)
 									})
 									.catch((err) => {
 										console.log(err)
@@ -97,7 +96,7 @@ const ProgramModal = ({ showModal, setShowModal }) => {
 									.finally(() => {
 										setSubmitting(false)
 										resetForm()
-										// window.location.reload()
+										window.location.reload()
 									})
 							}}
 						>
