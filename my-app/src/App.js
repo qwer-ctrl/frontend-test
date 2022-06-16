@@ -13,6 +13,7 @@ import user from './reducers/user'
 import { program } from './reducers/program'
 import exercise from './reducers/exercise'
 import ui from './reducers/ui'
+import { GlobalStyle } from './styles/GlobalStyles'
 
 const reducer = combineReducers({
 	user: user.reducer,
@@ -38,6 +39,7 @@ export const App = () => {
 	return (
 		<Provider store={store}>
 			<BrowserRouter>
+				<GlobalStyle />
 				<Routes>
 					{/* <Route path='/' element={<MyPage />}></Route> */}
 					<Route path='/' element={<Login />}></Route>

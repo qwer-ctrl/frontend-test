@@ -13,6 +13,7 @@ import SignOut from '../components/SignOut'
 import EmptyState from '../components/EmptyState'
 import Header from '../components/Header'
 import { OuterWrapper, InnerWrapper } from '../styles/GlobalStyles'
+import { StyledButton } from '../styles/ButtonStyles'
 import Footer from '../components/Footer'
 
 const MyPage = () => {
@@ -85,38 +86,42 @@ const MyPage = () => {
 	//console.log('programs', programs)
 
 	return isLoading ? (
-	<LoadingAnimation />
+		<LoadingAnimation />
 	) : (
-		<OuterWrapper>
-			<Header />
-			<InnerWrapper>
-				<>{userHasProgram.program.length === 0 ? <EmptyState /> : null}</>
-				<MainContainer>
-					{userHasProgram.program.map((program) => (
-						<ProgramContainer key={program._id}>
-							<StyledImage src='' />
-							<button onClick={() => handleProgram(program._id)}>{program.programName}</button>
-						</ProgramContainer>
-					))}
-					{!userHasProgram.program ? <EmptyState /> : null}
-				</MainContainer>
-				<ButtonContainer>
-					<StyledButton onClick={openModal}>Add new program </StyledButton>
-					<ProgramModal showModal={showModal} setShowModal={setShowModal} />
-					<SignOut />
-				</ButtonContainer>
-			</InnerWrapper>
-			<Footer />
-		</OuterWrapper>
+		<>
+			<OuterWrapper>
+				<Header />
+				<InnerWrapper>
+					<>{userHasProgram.program.length === 0 ? <EmptyState /> : null}</>
+					<MainContainer>
+						{userHasProgram.program.map((program) => (
+							<ProgramContainer key={program._id}>
+								<StyledImage src='' />
+								<button onClick={() => handleProgram(program._id)}>{program.programName}</button>
+							</ProgramContainer>
+						))}
+						{!userHasProgram.program ? <EmptyState /> : null}
+					</MainContainer>
+					<ButtonContainer>
+						<ProgramModal showModal={showModal} setShowModal={setShowModal} />
+						<AddProgramButton onClick={openModal}>+ </AddProgramButton>
+						<SignOut />
+					</ButtonContainer>
+				</InnerWrapper>
+				<Footer />
+			</OuterWrapper>
+		</>
 	)
 }
 
 export default MyPage
 
-const MainContainer = styled.section`
+const MainContainer = styled.div`
 	display: grid;
 	grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
 	grid-gap: 1rem;
+	height: 70vh;
+	overflow-y: scroll;
 `
 
 const ProgramContainer = styled.div`
@@ -128,7 +133,6 @@ const StyledImage = styled.img`
 	height: 100px;
 	margin: 0 0 2rem;
 `
-
 const ButtonContainer = styled.div`
 	display: flex;
 	justify-content: flex-start;
@@ -136,8 +140,14 @@ const ButtonContainer = styled.div`
 	gap: 1rem;
 `
 
-const StyledButton = styled.button`
-	width: 150px;
-	padding: 5px;
-	margin: 5px;
+const AddProgramButton = styled.button`
+	position: fixed;
+	width: 70px;
+	height: 70px;
+	border: none;
+	border-radius: 50%;
+	background: var(--primary);
+	bottom: 5vh;
+	left: calc(50% - 35px);
+	z-index: 10;
 `

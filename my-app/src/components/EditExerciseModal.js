@@ -2,7 +2,10 @@ import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Formik, Form, useField } from 'formik'
 import * as Yup from 'yup'
+
 import styled from 'styled-components/macro'
+import { ModalContainer, StyledModal, CloseButton } from '../styles/ModalStyles'
+import { StyledButton } from '../styles/ButtonStyles'
 
 import ui from '../reducers/ui'
 import { API_URL } from '../utils/utils'
@@ -172,18 +175,6 @@ const EditExerciseModal = () => {
 
 export default EditExerciseModal
 
-const ModalContainer = styled.div`
-  position: fixed;
-  z-index: 1
-  margin-top: 100px;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background: rgb(0,0,0,0.2); // <-------------- change
-  `
-
 const StyledForm = styled(Form)`
 	display: flex;
 	flex-direction: column;
@@ -193,16 +184,4 @@ const StyledInput = styled(MyTextInput)`
 	max-width: 200px;
 	margin: 5px 0 5px;
 `
-
-const StyledModal = styled.div`
-	background: white;
-	margin: auto;
-	padding: 20px;
-	border: 1px solid #888;
-	width: 80%;
-`
 const StyledError = styled.div``
-
-const StyledButton = styled.button``
-
-const CloseButton = styled.button``

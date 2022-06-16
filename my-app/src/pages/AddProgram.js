@@ -157,7 +157,7 @@ const AddProgram = () => {
 		sets: Yup.string(),
 		reps: Yup.string(),
 		weights: Yup.string(),
-		comments: Yup.string().max(140, "The maximum amount of characters is 140"),
+		comments: Yup.string().max(140, 'The maximum amount of characters is 140'),
 		seconds: Yup.string(),
 		minutes: Yup.string(),
 		duration: Yup.string(),
@@ -287,7 +287,7 @@ const AddProgram = () => {
 							<StyledForm>
 								{isSubmitting && <LoadingAnimation />}
 								<StyledInput label='Exercise name' name='exercise' type='text' />
-{/* 
+								{/* 
 								<StyledButton onClick={handleSetsState} type='button'>
 									Sets
 								</StyledButton>
@@ -373,24 +373,32 @@ const AddProgram = () => {
 						)}
 					</Formik>
 					<div>
-						{userHasExercise && userHasExercise.exercise.map((item) => {
-							return (
-								<div key={item._id}>
-									<h1>{item.exercise}</h1>
-									<div>
-										{item.sets && <p>{item.sets} sets</p>}
-										{item.reps && <p>{item.reps} reps</p>}
-										{item.weights && <p>{item.weights} </p>}
-										{item.minutes && <p>{item.minutes} min</p>}
-										{item.seconds && <p>{item.seconds} sec</p>}
-										{item.duration && <p>{item.duration}</p>}
-										{item.exerciseLength && <p>distance: {item.exerciseLength} </p>}
-										{item.comments && <p>comment: {item.comments}</p>}
-										{item.exerciseLink && <p>link:  <a href={item.exerciseLink} target="_blank" rel="noopener noreferrer">{item.exerciseLink}</a></p>}
+						{userHasExercise &&
+							userHasExercise.exercise.map((item) => {
+								return (
+									<div key={item._id}>
+										<h1>{item.exercise}</h1>
+										<div>
+											{item.sets && <p>{item.sets} sets</p>}
+											{item.reps && <p>{item.reps} reps</p>}
+											{item.weights && <p>{item.weights} </p>}
+											{item.minutes && <p>{item.minutes} min</p>}
+											{item.seconds && <p>{item.seconds} sec</p>}
+											{item.duration && <p>{item.duration}</p>}
+											{item.exerciseLength && <p>distance: {item.exerciseLength} </p>}
+											{item.comments && <p>comment: {item.comments}</p>}
+											{item.exerciseLink && (
+												<p>
+													link:{' '}
+													<a href={item.exerciseLink} target='_blank' rel='noopener noreferrer'>
+														{item.exerciseLink}
+													</a>
+												</p>
+											)}
+										</div>
 									</div>
-								</div>
-							)
-						})}
+								)
+							})}
 					</div>
 					<ButtonContainer>
 						<StyledButton onClick={handleGoBack}>Done with program, go back to main</StyledButton>

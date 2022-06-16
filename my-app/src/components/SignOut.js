@@ -14,12 +14,12 @@ const SignOut = () => {
 		navigate('/')
 	}
 
-	return <StyledButton onClick={() => removeToken()}>Sign out </StyledButton>
+	return <SignOutButton onClick={() => removeToken()}>Sign out </SignOutButton>
 }
 
 export default SignOut
 
-const StyledButton = styled.button`
+const SignOutButton = styled.button`
 	width: 150px;
 	padding: 5px;
 	margin: 5px;

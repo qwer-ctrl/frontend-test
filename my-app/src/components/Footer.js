@@ -8,7 +8,6 @@ const Footer = () => {
 			<FooterContainer>
 				<NavLink to='/mypage/:userId'>👤</NavLink>
 				<p>🕒</p>
-				<p>⚙️</p>
 			</FooterContainer>
 		</>
 	)
@@ -23,8 +22,8 @@ const FooterContainer = styled.footer`
 	background-color: #e8e8e8;
 	cursor: pointer;
 	// margin-top: auto;
-	height: 80px;
-	// position: fixed;
+	height: 10vh;
+	position: fixed;
 	bottom: 0;
 	left: 0;
 	right: 0;
