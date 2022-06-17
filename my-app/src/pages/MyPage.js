@@ -20,7 +20,7 @@ const MyPage = () => {
 	const accessToken = useSelector((store) => store.user.accessToken)
 	const userId = useSelector((store) => store.user.userId)
 	const userHasProgram = useSelector((store) => store.user.program)
-	console.log('programs??', userHasProgram)
+
 	const isLoading = useSelector((store) => store.ui.isLoading)
 	const navigate = useNavigate()
 	const dispatch = useDispatch()
@@ -62,13 +62,9 @@ const MyPage = () => {
 				// console.log(data)
 				if (data.success) {
 					dispatch(user.actions.setProgram(data.response))
-					dispatch(program.actions.setProgramType(data.response))
-					dispatch(program.actions.setProgramName(data.response))
 					dispatch(program.actions.setError(null))
 				} else {
 					dispatch(program.actions.setError(data.response))
-					dispatch(program.actions.setProgramType(null))
-					dispatch(program.actions.setProgramName(null))
 					dispatch(user.actions.setProgram([]))
 				}
 			})
@@ -92,16 +88,18 @@ const MyPage = () => {
 			<OuterWrapper>
 				<Header />
 				<InnerWrapper>
-					<>{userHasProgram.program.length === 0 ? <EmptyState /> : null}</>
-					<MainContainer>
-						{userHasProgram.program.map((program) => (
-							<ProgramContainer key={program._id}>
-								<StyledImage src='' />
-								<button onClick={() => handleProgram(program._id)}>{program.programName}</button>
-							</ProgramContainer>
-						))}
-						{!userHasProgram.program ? <EmptyState /> : null}
-					</MainContainer>
+					<>{!userHasProgram || userHasProgram.length > 1 ? <EmptyState /> : null}</>
+					{userHasProgram.length > 0 && (
+						<MainContainer>
+							{userHasProgram.map((program) => (
+								<ProgramContainer key={program._id}>
+									<StyledImage src='' />
+									<button onClick={() => handleProgram(program._id)}>{program.programName}</button>
+								</ProgramContainer>
+							))}
+							{!userHasProgram.program ? <EmptyState /> : null}
+						</MainContainer>
+					)}
 					<ButtonContainer>
 						<ProgramModal showModal={showModal} setShowModal={setShowModal} />
 						<AddProgramButton onClick={openModal}>+ </AddProgramButton>

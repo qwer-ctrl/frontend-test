@@ -17,7 +17,7 @@ import Footer from '../components/Footer'
 import { OuterWrapper, InnerWrapper } from '../styles/GlobalStyles'
 
 const MyTextInput = ({ label, ...props }) => {
-	const [field, meta] = useField(props)
+	const [field, meta] = useField(props.name)
 	return (
 		<>
 			<label htmlFor={props.id || props.name}>{label}</label>
@@ -29,7 +29,7 @@ const MyTextInput = ({ label, ...props }) => {
 
 const AddProgram = () => {
 	const { programId } = useParams()
-	const userId = useSelector((store) => store.user.userId)
+	// const userId = useSelector((store) => store.user.userId)
 	const [programName, setProgramName] = useState('')
 	const [exerciseId, setExerciseId] = useState('')
 	// const [inputSet, setInputSets] = useState([])
@@ -44,6 +44,8 @@ const AddProgram = () => {
 	const [displayExerciseLink, setDisplayExerciseLink] = useState(false)
 	const isLoading = useSelector((store) => store.ui.isLoading)
 	const userHasExercise = useSelector((store) => store.program.exercise)
+	const programs = useSelector((store) => store.program)
+	console.log(programs, 'program')
 	const navigate = useNavigate()
 	const dispatch = useDispatch()
 	// const arrOfReps = []
@@ -63,11 +65,13 @@ const AddProgram = () => {
 			.then((data) => {
 				// console.log(data)
 				if (data.success) {
-					dispatch(program.actions.setExercise(data.response))
+					dispatch(program.actions.setExercise(data.response.exercise))
+					// dispatch(program.actions.setProgramName(data.response.programName))
+					// dispatch(program.actions.setProgramType(data.response.programType))
 					dispatch(exercise.actions.setExercise(data.response))
 					dispatch(exercise.actions.setSets(data.response))
-					// dispatch(exercise.actions.setReps(data.response))
-					// dispatch(exercise.actions.setWeights(data.response))
+					dispatch(exercise.actions.setReps(data.response))
+					dispatch(exercise.actions.setWeights(data.response))
 					dispatch(exercise.actions.setComments(data.response))
 					dispatch(exercise.actions.setSeconds(data.response))
 					dispatch(exercise.actions.setMinutes(data.response))
@@ -84,8 +88,8 @@ const AddProgram = () => {
 					dispatch(program.actions.setExercise(null))
 					dispatch(exercise.actions.setExercise(null))
 					dispatch(exercise.actions.setSets(null))
-					// dispatch(exercise.actions.setReps(null))
-					// dispatch(exercise.actions.setWeights(null))
+					dispatch(exercise.actions.setReps(null))
+					dispatch(exercise.actions.setWeights(null))
 					dispatch(exercise.actions.setComments(null))
 					dispatch(exercise.actions.setSeconds(null))
 					dispatch(exercise.actions.setMinutes(null))
@@ -171,6 +175,7 @@ const AddProgram = () => {
 
 	const handleData = (data) => {
 		setExerciseId(data.response._id)
+		console.log('exercise-id', exerciseId)
 	}
 
 	const handleSetsState = () => {
@@ -202,7 +207,7 @@ const AddProgram = () => {
 	}
 
 	const handleGoBack = () => {
-		navigate(`/mypage/${userId}`)
+		navigate('/mypage')
 	}
 
 	useEffect(() => {
@@ -261,8 +266,8 @@ const AddProgram = () => {
 								body: JSON.stringify({
 									exercise: values.exercise,
 									sets: values.sets,
-									// reps: values.reps,
-									// weights: values.weights,
+									reps: values.reps,
+									weights: values.weights,
 									comments: values.comments,
 									exerciseLink: values.exerciseLink,
 									seconds: values.seconds,
@@ -301,20 +306,18 @@ const AddProgram = () => {
 									{({ remove, push, form }) => (
 										<div>
 											{form.values.sets.length > 0 &&
-												form.values.sets.map((sets, index) => (
+												form.values.sets.map((set, index) => (
 													<div key={index}>
 														<StyledButton onClick={handleSetsState} type='button'>
 															Sets
 														</StyledButton>
 														<div>
-															{displaySets ? <label htmlFor={`${sets}.${index}.reps`}>Reps</label> : null}
-															{displaySets ? <Field name={`${sets}.${index}.reps`} type='text' /> : null}
+															{displaySets ? <label htmlFor={`set.${index}.reps`}>Reps</label> : null}
+															{displaySets ? <Field name={`set.${index}.reps`} type='text' /> : null}
 														</div>
 														<div>
-															{displaySets ? (
-																<label htmlFor={`${sets}.${index}.weights`}>Weights</label>
-															) : null}
-															{displaySets ? <Field name={`${sets}.${index}.weights`} type='text' /> : null}
+															{displaySets ? <label htmlFor={`set.${index}.weights`}>Weights</label> : null}
+															{displaySets ? <Field name={`set.${index}.weights`} type='text' /> : null}
 														</div>
 														<button type='button' className='secondary' onClick={() => remove(index)}>
 															X
@@ -373,35 +376,7 @@ const AddProgram = () => {
 							</StyledForm>
 						)}
 					</Formik>
-					<div>
-						{userHasExercise &&
-							userHasExercise.exercise.map((item) => {
-								console.log('exercises from store', item.sets)
-								return (
-									<div key={item._id}>
-										<h1>{item.exercise}</h1>
-										<div>
-											{item.sets && <p>{item.sets} sets</p>}
-											{/* {item.reps && <p>{item.reps} reps</p>}
-											{item.weights && <p>{item.weights} </p>} */}
-											{item.minutes && <p>{item.minutes} min</p>}
-											{item.seconds && <p>{item.seconds} sec</p>}
-											{item.duration && <p>{item.duration}</p>}
-											{item.exerciseLength && <p>distance: {item.exerciseLength} </p>}
-											{item.comments && <p>comment: {item.comments}</p>}
-											{item.exerciseLink && (
-												<p>
-													link:
-													<a href={item.exerciseLink} target='_blank' rel='noopener noreferrer'>
-														{item.exerciseLink}
-													</a>
-												</p>
-											)}
-										</div>
-									</div>
-								)
-							})}
-					</div>
+
 					<ButtonContainer>
 						<StyledButton onClick={handleGoBack}>Done with program, go back to main</StyledButton>
 						<SignOut />

@@ -43,7 +43,7 @@ export const App = () => {
 				<Routes>
 					{/* <Route path='/' element={<MyPage />}></Route> */}
 					<Route path='/' element={<Login />}></Route>
-					<Route path='/mypage/:userId' element={<MyPage />}></Route>
+					<Route path='/mypage' element={<MyPage />}></Route>
 					<Route path='/addprogram/:programId' element={<AddProgram />}></Route>
 					<Route path='/singleprogram/:programId' element={<SingleProgram />}></Route>
 					{/* <Route path='/login' element={<Login />}></Route> */}
