@@ -13,7 +13,6 @@ import SignOut from '../components/SignOut'
 import EmptyState from '../components/EmptyState'
 import Header from '../components/Header'
 import { OuterWrapper, InnerWrapper } from '../styles/GlobalStyles'
-import { StyledButton } from '../styles/ButtonStyles'
 import Footer from '../components/Footer'
 
 const MyPage = () => {
@@ -21,6 +20,7 @@ const MyPage = () => {
 	const accessToken = useSelector((store) => store.user.accessToken)
 	const userId = useSelector((store) => store.user.userId)
 	const userHasProgram = useSelector((store) => store.user.program)
+	console.log('programs??', userHasProgram)
 	const isLoading = useSelector((store) => store.ui.isLoading)
 	const navigate = useNavigate()
 	const dispatch = useDispatch()

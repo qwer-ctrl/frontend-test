@@ -8,7 +8,6 @@ import * as Yup from 'yup'
 
 import { ModalContainer, StyledModal, CloseButton } from '../styles/ModalStyles'
 import { StyledButton } from '../styles/ButtonStyles'
-import ui from '../reducers/ui'
 import { API_URL } from '../utils/utils'
 
 const MyTextInput = ({ label, ...props }) => {
