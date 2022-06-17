@@ -20,18 +20,14 @@ const Timer = () => {
             return () => clearInterval(workInterval)
 
     }   else if (addWorkingSeconds > 0 && !runTimer) {
-            const addWorkInterval =
             setTimeout(() => {
                 setWorkingSeconds(addWorkingSeconds)
             })
-            return () => clearInterval(addWorkInterval)
 
     }   else if (addRestSeconds > 0 && !runTimer) { //<--this value can't update unless addWorkingSeconds is NOT 0! 
-            const addRestInterval =
             setTimeout(() => {
                 setRestSeconds(addRestSeconds)
             })
-            return () => clearInterval(addRestInterval)
 
     }   else if (restSeconds > 0 && runTimer) { 
             const restInterval =
@@ -60,11 +56,20 @@ const Timer = () => {
             setRunTimer(false)
     }
     }, [workingSeconds, runTimer, restSeconds, rounds, addWorkingSeconds, addRestSeconds, addRounds])
-   
+
+   const getBackground = () => {
+    let color
+    if (workingSeconds < 1) {
+        color = 'green'
+    } else {
+        color = 'red'
+    }
+    return color
+   }
 
     return (
         <TimerContainer>
-            <TimerBox>
+            <TimerBox style={{backgroundColor: getBackground()}}>
                 <p>{rounds}/{addRounds}</p>
                 <p>{workingSeconds}</p>
                 <p>{restSeconds}</p>
