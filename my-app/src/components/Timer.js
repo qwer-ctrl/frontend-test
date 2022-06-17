@@ -3,37 +3,79 @@ import styled from "styled-components"
 
 const Timer = () => {
 
-    const [seconds, setSeconds] = useState(20)
-    const [rounds, setRounds] = useState(0)
+    const [workingSeconds, setWorkingSeconds] = useState(0)
+    const [addWorkingSeconds, setAddWorkingSeconds] = useState(0)
+    const [addRestSeconds, setAddRestSeconds] = useState(0)
+    const [restSeconds, setRestSeconds] = useState(0)
+    const [rounds, setRounds] = useState(2)
     const [runTimer, setRunTimer] = useState(false)
 
     useEffect(() => {
-        if (seconds > 0 && runTimer) {
-        const interval =
+    if (workingSeconds > 0 && runTimer) {
+        const workInterval =
         setInterval(() => {
-            setSeconds(seconds => seconds - 1)
+            setWorkingSeconds(workingSeconds => workingSeconds - 1)
         }, 1000)
-        return () => clearInterval(interval)
-    } else if (seconds === 0) {
-        clearInterval()
+        return () => clearInterval(workInterval)
+
+    }  else if (addWorkingSeconds > 0 && !runTimer) {
+        const addWorkInterval =
+        setTimeout(() => {
+            setWorkingSeconds(addWorkingSeconds)
+        }, 500)
+        return () => clearInterval(addWorkInterval)
+
+    }  else if (addRestSeconds > 0 && !runTimer) { //<--this value can't update unless addWorkingSeconds is NOT 0! 
+        const addRestInterval =
+        setTimeout(() => {
+            setRestSeconds(addRestSeconds)
+        }, 500)
+        return () => clearInterval(addRestInterval)
+
+    } else if (restSeconds > 0 && runTimer) { 
+        const restInterval =
+        setInterval(() => {
+            setRestSeconds(restSeconds => restSeconds - 1)
+        }, 1000)
+        return () => clearInterval(restInterval)
+
+    } else if (workingSeconds === 0 && restSeconds === 0 && rounds > 0 && runTimer) {
+        setTimeout(() => {
+        setRounds(rounds => rounds - 1)
+        setWorkingSeconds(addWorkingSeconds)
+        setRestSeconds(addRestSeconds)
+    }, 1000)
+    } 
+    else if (workingSeconds === 0 && restSeconds === 0 && rounds === 0) {
+       clearInterval()
+       setAddRestSeconds(0)
+       setAddWorkingSeconds(0) 
+       setRunTimer(false)
     }
-    }, [seconds, runTimer])
+    }, [workingSeconds, runTimer, restSeconds, rounds, addWorkingSeconds, addRestSeconds])
    
 
     return (
         <TimerContainer>
             <TimerBox>
                 <p>{rounds}</p>
-                <p>{seconds}</p>
+                <p>{workingSeconds}</p>
+                <p>{restSeconds}</p>
+                {workingSeconds === 0 && restSeconds === 0 && rounds === 0 && <p>Good job!</p>}
             </TimerBox>
-            <StartButton onClick={() => setRunTimer(!runTimer)}>Start</StartButton>
+            <StartButton onClick={() => setRunTimer(true)}>Start</StartButton>
+
             <MinusRoundsButton onClick={() => setRounds(rounds - 1)}>-</MinusRoundsButton>
-            <Rounds>{rounds}</Rounds>
+            <Rounds>{rounds}round</Rounds>
             <PlusRoundsButton onClick={() => setRounds(rounds + 1)}>+</PlusRoundsButton>
 
-            <MinusSecondsButton onClick={() => setSeconds(seconds - 1)}>-</MinusSecondsButton>
-            <Seconds>{seconds}</Seconds>
-            <PlusSecondsButton onClick={() => setSeconds(seconds + 1)}>+</PlusSecondsButton>
+            <MinusSecondsButton onClick={() => setAddWorkingSeconds(addWorkingSeconds - 1)}>-</MinusSecondsButton>
+            <Seconds>{addWorkingSeconds}worksec</Seconds>
+            <PlusSecondsButton onClick={() => setAddWorkingSeconds(addWorkingSeconds + 1)}>+</PlusSecondsButton>
+
+            <MinusSecondsButton onClick={() => setAddRestSeconds(addRestSeconds - 1)}>-</MinusSecondsButton>
+            <Seconds>{addRestSeconds}restsec</Seconds>
+            <PlusSecondsButton onClick={() => setAddRestSeconds(addRestSeconds + 1)}>+</PlusSecondsButton>
         </TimerContainer>
     )
 
