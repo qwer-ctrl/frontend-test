@@ -32,7 +32,7 @@ const AddProgram = () => {
 	const userId = useSelector((store) => store.user.userId)
 	const [programName, setProgramName] = useState('')
 	const [exerciseId, setExerciseId] = useState('')
-	const [inputSet, setInputSets] = useState([])
+	// const [inputSet, setInputSets] = useState([])
 	const [displaySets, setDisplaySets] = useState(false)
 	// const [displayReps, setDisplayReps] = useState(false)
 	// const [displayWeights, setDisplayWeights] = useState(false)

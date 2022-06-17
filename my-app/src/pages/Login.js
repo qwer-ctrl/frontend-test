@@ -29,6 +29,7 @@ const Login = () => {
 	const dispatch = useDispatch()
 	const navigate = useNavigate()
 	const userId = useSelector((store) => store.user.userId)
+	console.log('userId', userId)
 	const accessToken = useSelector((store) => store.user.accessToken)
 
 	const handleLoginSuccess = (data) => {

@@ -36,6 +36,7 @@ const MyCheckbox = ({ label, ...props }) => {
 const ProgramModal = ({ showModal, setShowModal }) => {
 	//refactor to use store instead of sending props to MyPage..
 	const [programId, setProgramId] = useState('')
+	console.log(programId)
 	const userId = useSelector((store) => store.user.userId)
 	const navigate = useNavigate()
 	const dispatch = useDispatch()
