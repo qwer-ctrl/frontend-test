@@ -19,15 +19,12 @@ const Timer = () => {
             }, 1000)
             return () => clearInterval(workInterval)
 
-    }   else if (addWorkingSeconds > 0 && !runTimer) {
+    }   else if ((addWorkingSeconds > 0 && !runTimer) || (addRestSeconds > 0 && !runTimer)){
             setTimeout(() => {
                 setWorkingSeconds(addWorkingSeconds)
-            })
-
-    }   else if (addRestSeconds > 0 && !runTimer) { //<--this value can't update unless addWorkingSeconds is NOT 0! 
-            setTimeout(() => {
                 setRestSeconds(addRestSeconds)
             })
+
 
     }   else if (restSeconds > 0 && runTimer) { 
             const restInterval =
