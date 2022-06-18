@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector, useDispatch, batch } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
 import { Formik, Form, useField } from 'formik'
 import * as Yup from 'yup'
@@ -59,39 +59,47 @@ const AddProgram = () => {
 		fetch(API_URL(`myprogram/${programId}`), options)
 			.then((res) => res.json())
 			.then((data) => {
-				// console.log(data)
+				console.log("data from program fetch", data)
 				if (data.success) {
-					dispatch(program.actions.setExercise(data.response))
-					dispatch(exercise.actions.setExercise(data.response))
-					dispatch(exercise.actions.setSets(data.response))
-					dispatch(exercise.actions.setReps(data.response))
-					dispatch(exercise.actions.setWeights(data.response))
-					dispatch(exercise.actions.setComments(data.response))
-					dispatch(exercise.actions.setSeconds(data.response))
-					dispatch(exercise.actions.setMinutes(data.response))
-					dispatch(exercise.actions.setDuration(data.response))
-					dispatch(exercise.actions.setExerciseLength(data.response))
-					dispatch(exercise.actions.setExerciseLink(data.response))
-					dispatch(exercise.actions.setCreatedAt(data.response))
-					dispatch(exercise.actions.setExerciseId(data.response))
-					dispatch(exercise.actions.setError(null))
-					console.log('exercise', data.response)
-					setProgramName(data.response.programName)
+					batch(() => {
+						dispatch(exercise.actions.setExercise(data.response.exercise))
+						dispatch(exercise.actions.setSets(data.response.sets))
+						dispatch(exercise.actions.setReps(data.response.reps))
+						dispatch(exercise.actions.setWeights(data.response.weights))
+						dispatch(exercise.actions.setComments(data.response.comments))
+						dispatch(exercise.actions.setSeconds(data.response.seconds))
+						dispatch(exercise.actions.setMinutes(data.response.minutes))
+						dispatch(exercise.actions.setDuration(data.response.duration))
+						dispatch(exercise.actions.setExerciseLength(data.response.exerciseLength))
+						dispatch(exercise.actions.setExerciseLink(data.response.exerciseLink))
+						dispatch(exercise.actions.setCreatedAt(data.response.createdAt))
+						dispatch(exercise.actions.setExerciseId(data.response._id))
+						dispatch(exercise.actions.setError(null))
+						// console.log('exercise', data.response)
+						setProgramName(data.response.programName)
+						if (data.response.exercise) {
+							dispatch(program.actions.setExercise(data.response.exercise))
+						} else {
+							dispatch(program.actions.setExercise([]))
+						}
+					})
 				} else {
-					dispatch(exercise.actions.setError(data.response))
-					dispatch(program.actions.setExercise(null))
-					dispatch(exercise.actions.setExercise(null))
-					dispatch(exercise.actions.setSets(null))
-					dispatch(exercise.actions.setReps(null))
-					dispatch(exercise.actions.setWeights(null))
-					dispatch(exercise.actions.setComments(null))
-					dispatch(exercise.actions.setSeconds(null))
-					dispatch(exercise.actions.setMinutes(null))
-					dispatch(exercise.actions.setDuration(null))
-					dispatch(exercise.actions.setExerciseLength(null))
-					dispatch(exercise.actions.setExerciseLink(null))
-					dispatch(exercise.actions.setCreatedAt(null))
-					dispatch(exercise.actions.setExerciseId(null))
+					batch(() => {
+						dispatch(exercise.actions.setError(data.response))
+						dispatch(program.actions.setExercise(null))
+						dispatch(exercise.actions.setExercise(null))
+						dispatch(exercise.actions.setSets(null))
+						dispatch(exercise.actions.setReps(null))
+						dispatch(exercise.actions.setWeights(null))
+						dispatch(exercise.actions.setComments(null))
+						dispatch(exercise.actions.setSeconds(null))
+						dispatch(exercise.actions.setMinutes(null))
+						dispatch(exercise.actions.setDuration(null))
+						dispatch(exercise.actions.setExerciseLength(null))
+						dispatch(exercise.actions.setExerciseLink(null))
+						dispatch(exercise.actions.setCreatedAt(null))
+						dispatch(exercise.actions.setExerciseId(null))
+					})
 				}
 			})
 			.finally(() => dispatch(ui.actions.setLoading(false)))
@@ -114,35 +122,39 @@ const AddProgram = () => {
 				.then((res) => res.json())
 				.then((data) => {
 					dispatch(ui.actions.setLoading(true))
-					console.log(data)
+					console.log("data from exercise fetch", data)
 					if (data.success) {
-						dispatch(exercise.actions.setError(null))
-						dispatch(exercise.actions.setExercise(data.response))
-						dispatch(exercise.actions.setSets(data.response))
-						dispatch(exercise.actions.setReps(data.response))
-						dispatch(exercise.actions.setWeights(data.response))
-						dispatch(exercise.actions.setComments(data.response))
-						dispatch(exercise.actions.setSeconds(data.response))
-						dispatch(exercise.actions.setMinutes(data.response))
-						dispatch(exercise.actions.setDuration(data.response))
-						dispatch(exercise.actions.setExerciseLength(data.response))
-						dispatch(exercise.actions.setExerciseLink(data.response))
-						dispatch(exercise.actions.setCreatedAt(data.response))
-						dispatch(exercise.actions.setExerciseId(data.response))
+						batch(() => {
+							dispatch(exercise.actions.setError(null))
+							dispatch(exercise.actions.setExercise(data.response.exercise))
+							dispatch(exercise.actions.setSets(data.response.sets))
+							dispatch(exercise.actions.setReps(data.response.reps))
+							dispatch(exercise.actions.setWeights(data.response.weights))
+							dispatch(exercise.actions.setComments(data.response.comments))
+							dispatch(exercise.actions.setSeconds(data.response.seconds))
+							dispatch(exercise.actions.setMinutes(data.response.minutes))
+							dispatch(exercise.actions.setDuration(data.response.duration))
+							dispatch(exercise.actions.setExerciseLength(data.response.exerciseLength))
+							dispatch(exercise.actions.setExerciseLink(data.response.exerciseLink))
+							dispatch(exercise.actions.setCreatedAt(data.response.createdAt))
+							dispatch(exercise.actions.setExerciseId(data.response._id))
+						})
 					} else {
-						dispatch(exercise.actions.setError(data.response))
-						dispatch(exercise.actions.setExercise(null))
-						dispatch(exercise.actions.setSets(null))
-						dispatch(exercise.actions.setReps(null))
-						dispatch(exercise.actions.setWeights(null))
-						dispatch(exercise.actions.setComments(null))
-						dispatch(exercise.actions.setSeconds(null))
-						dispatch(exercise.actions.setMinutes(null))
-						dispatch(exercise.actions.setDuration(null))
-						dispatch(exercise.actions.setExerciseLength(null))
-						dispatch(exercise.actions.setExerciseLink(null))
-						dispatch(exercise.actions.setCreatedAt(null))
-						dispatch(exercise.actions.setExerciseId(null))
+						batch(() => {
+							dispatch(exercise.actions.setError(data.response))
+							dispatch(exercise.actions.setExercise(null))
+							dispatch(exercise.actions.setSets(null))
+							dispatch(exercise.actions.setReps(null))
+							dispatch(exercise.actions.setWeights(null))
+							dispatch(exercise.actions.setComments(null))
+							dispatch(exercise.actions.setSeconds(null))
+							dispatch(exercise.actions.setMinutes(null))
+							dispatch(exercise.actions.setDuration(null))
+							dispatch(exercise.actions.setExerciseLength(null))
+							dispatch(exercise.actions.setExerciseLink(null))
+							dispatch(exercise.actions.setCreatedAt(null))
+							dispatch(exercise.actions.setExerciseId(null))
+						})
 					}
 				})
 				.finally(() => dispatch(ui.actions.setLoading(false)))
@@ -164,6 +176,7 @@ const AddProgram = () => {
 
 	const handleData = (data) => {
 		setExerciseId(data.response._id)
+		console.log(data)
 	}
 
 	const handleSetsState = () => {
@@ -205,7 +218,7 @@ const AddProgram = () => {
 			<Header />
 			<InnerWrapper>
 				<MainContainer>
-					{/* {userHasExercise ? <h1>{programName}!</h1> : <EmptyState />} */}
+					{userHasExercise ? <h1>{programName}!</h1> : <EmptyState />}
 
 					<Formik
 						initialValues={{
@@ -243,9 +256,7 @@ const AddProgram = () => {
 							})
 								.then((res) => res.json())
 								.then((data) => {
-									console.log(data)
 									handleData(data)
-									console.log(data.response._id)
 								})
 								.catch((err) => {
 									console.log(err)
@@ -253,7 +264,7 @@ const AddProgram = () => {
 								.finally(() => {
 									setSubmitting(false)
 									resetForm()
-									window.location.reload()
+									// window.location.reload()
 								})
 						}}
 					>
@@ -312,26 +323,26 @@ const AddProgram = () => {
 							</StyledForm>
 						)}
 					</Formik>
-					{/* <div>
-						{userHasExercise.exercise.map((item) => {
+					<div>
+						{userHasExercise.map((item) => {
 							return (
 								<div key={item._id}>
 									<h1>{item.exercise}</h1>
 									<div>
-										{item.sets && <p>{item.sets} sets</p>}
-										{item.reps && <p>{item.reps} reps</p>}
-										{item.weights && <p>{item.weights} </p>}
-										{item.minutes && <p>{item.minutes} min</p>}
-										{item.seconds && <p>{item.seconds} sec</p>}
-										{item.duration && <p>{item.duration}</p>}
-										{item.length && <p>distance: {item.length} </p>}
-										{item.comments && <p>comment: {item.comments}</p>}
-										{item.link && <p>link: {item.link}</p>}
+										{item.sets && <p>Sets: {item.sets}</p>}
+										{item.reps && <p>Reps: {item.reps}</p>}
+										{item.weights && <p>Weights: {item.weights}</p>}
+										{item.minutes && <p>Minutes: {item.minutes}</p>}
+										{item.seconds && <p>Seconds: {item.seconds}</p>}
+										{item.duration && <p>Duration: {item.duration}</p>}
+										{item.length && <p>Distance: {item.length} </p>}
+										{item.comments && <p>Comment: {item.comments}</p>}
+										{item.link && <p>Link: {item.link}</p>}
 									</div>
 								</div>
 							)
 						})}
-					</div> */}
+					</div>
 					<ButtonContainer>
 						<StyledButton onClick={handleGoBack}>Done with program, go back to main</StyledButton>
 						<SignOut />
