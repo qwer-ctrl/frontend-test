@@ -42,6 +42,7 @@ const SingleProgram = () => {
 		fetch(API_URL(`myprogram/${programId}`), options)
 			.then((res) => res.json())
 			.then((data) => {
+				console.log("data from single program fetch", data)
 				dispatch(ui.actions.setLoading(true))
 				setProgramExercise(data.response.exercise)
 				setProgramName(data.response.programName)
@@ -54,7 +55,6 @@ const SingleProgram = () => {
 	}, [fetchProgram])
 
 	const handleUpdateProgramModal = (id) => {
-		console.log(id)
 		dispatch(ui.actions.setShowUpdateProgramModal(true))
 		dispatch(ui.actions.setCurrentAddExerciseModalId(id))
 		fetchProgram()

@@ -20,8 +20,6 @@ const MyPage = () => {
 	const accessToken = useSelector((store) => store.user.accessToken)
 	const userId = useSelector((store) => store.user.userId)
 	const userHasProgram = useSelector((store) => store.user.program)
-	console.log('program?', userHasProgram)
-
 	const isLoading = useSelector((store) => store.ui.isLoading)
 	const navigate = useNavigate()
 	const dispatch = useDispatch()
@@ -60,7 +58,6 @@ const MyPage = () => {
 		fetch(API_URL(`mypage/${userId}`), options)
 			.then((res) => res.json())
 			.then((data) => {
-				console.log('program from fetch', data)
 				if (data.success) {
 					dispatch(user.actions.setProgram(data.response.program))
 					dispatch(program.actions.setError(null))

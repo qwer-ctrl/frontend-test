@@ -3,7 +3,8 @@ import { createGlobalStyle } from 'styled-components'
 
 export const GlobalStyle = createGlobalStyle`
   :root {
-		--primary: #6EB3B8;
+		--primary: #8DB9BC;
+		//  #6EB3B8;
 		--secondary: #D6EAE3;
 		--white: #FFFFFF;
 		--black: #202020;
@@ -32,3 +33,5 @@ export const InnerWrapper = styled.section`
 export const HeadingOne = styled.h1`
 	font-family: 'Poppins', sans-serif;
 `
+
+

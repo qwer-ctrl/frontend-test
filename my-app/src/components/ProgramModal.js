@@ -102,7 +102,7 @@ const ProgramModal = ({ showModal, setShowModal }) => {
 						>
 							{({ isSubmitting }) => (
 								<StyledForm>
-									<StyledInput label='Program name' name='programName' type='text' />
+									<StyledInput label='Program name' name='programName' type='text' width="" />
 
 									<MyCheckbox label='Weights' name='programType' value='weights' />
 
@@ -126,13 +126,17 @@ const StyledForm = styled(Form)`
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	margin: 2rem 0 0;
+	margin: 1rem 0;
 `
 
 const StyledInput = styled(MyTextInput)`
 	max-width: 150px;
 	margin: 0.5rem 0;
 	text-align: center;
+	border: none;
+	border-radius: 10px;
+	padding: 6px 10px;
+	box-shadow: inset 0px 4px 4px 0px #ADADAd;
 `
 
 const StyledError = styled.div``
