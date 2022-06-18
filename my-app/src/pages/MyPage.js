@@ -20,6 +20,7 @@ const MyPage = () => {
 	const accessToken = useSelector((store) => store.user.accessToken)
 	const userId = useSelector((store) => store.user.userId)
 	const userHasProgram = useSelector((store) => store.user.program)
+	console.log('program?', userHasProgram)
 
 	const isLoading = useSelector((store) => store.ui.isLoading)
 	const navigate = useNavigate()
@@ -59,12 +60,12 @@ const MyPage = () => {
 		fetch(API_URL(`mypage/${userId}`), options)
 			.then((res) => res.json())
 			.then((data) => {
-				// console.log(data)
+				console.log('program from fetch', data)
 				if (data.success) {
-					dispatch(user.actions.setProgram(data.response))
+					dispatch(user.actions.setProgram(data.response.program))
 					dispatch(program.actions.setError(null))
 				} else {
-					dispatch(program.actions.setError(data.response))
+					dispatch(program.actions.setError(data.response.success))
 					dispatch(user.actions.setProgram([]))
 				}
 			})
@@ -88,16 +89,15 @@ const MyPage = () => {
 			<OuterWrapper>
 				<Header />
 				<InnerWrapper>
-					<>{!userHasProgram || userHasProgram.length > 1 ? <EmptyState /> : null}</>
+					{(!userHasProgram || userHasProgram.length < 1) && <EmptyState />}
 					{userHasProgram.length > 0 && (
 						<MainContainer>
-							{userHasProgram.map((program) => (
-								<ProgramContainer key={program._id}>
+							{userHasProgram.map((prog) => (
+								<ProgramContainer key={prog._id}>
 									<StyledImage src='' />
-									<button onClick={() => handleProgram(program._id)}>{program.programName}</button>
+									<button onClick={() => handleProgram(prog._id)}>{prog.programName}</button>
 								</ProgramContainer>
 							))}
-							{!userHasProgram.program ? <EmptyState /> : null}
 						</MainContainer>
 					)}
 					<ButtonContainer>

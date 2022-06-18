@@ -33,11 +33,16 @@ const Login = () => {
 	const accessToken = useSelector((store) => store.user.accessToken)
 
 	const handleLoginSuccess = (data) => {
+		console.log('programs from user', data, data.program)
 		batch(() => {
 			dispatch(user.actions.setUserId(data.userId))
 			dispatch(user.actions.setAccessToken(data.accessToken))
 			dispatch(user.actions.setUserName(data.username))
-			dispatch(user.actions.setProgram(data.program))
+			if (data.program) {
+				dispatch(user.actions.setProgram(data.program))
+			} else {
+				dispatch(user.actions.setProgram([]))
+			}
 			dispatch(user.actions.setError(null))
 		})
 	}
@@ -98,7 +103,7 @@ const Login = () => {
 						})
 							.then((res) => res.json())
 							.then((data) => {
-								console.log(data)
+								console.log('data passed to function from fetch in', data)
 								handleLoginSuccess(data)
 								setMode('login')
 							})

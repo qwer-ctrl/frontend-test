@@ -33,7 +33,7 @@ const DeleteProgramModal = () => {
 			.then((data) => {
 				console.log(data)
 				closeModal()
-				navigate(`/mypage/${userId}`)
+				navigate('/mypage')
 			})
 	}
 
