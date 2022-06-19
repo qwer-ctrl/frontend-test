@@ -111,7 +111,17 @@ const AddExerciseModal = () => {
 									<StyledInput label='Length' name='exerciseLength' type='text' />
 									<StyledInput label='Comments' name='comments' type='text' />
 									<StyledInput label='Link' name='exerciseLink' type='text' />
-									<StyledButton type='submit'>Add exercise</StyledButton>
+									<StyledButton
+										background='var(--primary)'
+										margin='1em 0 0'
+										padding='6px 18px'
+										boxShadow='0px 10px 13px -7px #808080'
+										backgroundHover='var(--accentgreen)'
+										fontSize='10px'
+										type='submit'
+									>
+										Add exercise
+									</StyledButton>
 								</StyledForm>
 							)}
 						</Formik>
@@ -136,7 +146,7 @@ const StyledInput = styled(MyTextInput)`
 	border: none;
 	border-radius: 10px;
 	padding: 6px 10px;
-	box-shadow: inset 0px 4px 4px 0px #ADADAd;
+	box-shadow: inset 0px 4px 4px 0px #adadad;
 `
 
 const StyledError = styled.div``

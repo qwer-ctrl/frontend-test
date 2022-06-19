@@ -49,7 +49,11 @@ const ProgramModal = ({ showModal, setShowModal }) => {
 		dispatch(program.actions.setProgramName(data.response.programName))
 		dispatch(program.actions.setProgramType(data.response.programType))
 		dispatch(program.actions.setProgramId(data.response._id))
-		dispatch(program.actions.setProgramName(data.response.exercise))
+		// if (data.response.exercise) {
+		// 	dispatch(program.actions.setExercise(data.response.exercise))
+		// } else {
+		// 	dispatch(program.actions.setExercise([]))
+		// }
 		setProgramId(data.response._id)
 		console.log('hello', data.response._id)
 		navigate(`/addprogram/${data.response._id}`) //<---------------------change?
@@ -88,7 +92,7 @@ const ProgramModal = ({ showModal, setShowModal }) => {
 								})
 									.then((res) => res.json())
 									.then((data) => {
-										console.log("data from program modal post", data)
+										console.log('data from program modal post', data)
 										handleData(data)
 									})
 									.catch((err) => {
@@ -97,25 +101,28 @@ const ProgramModal = ({ showModal, setShowModal }) => {
 									.finally(() => {
 										setSubmitting(false)
 										resetForm()
-										window.location.reload()
+										// window.location.reload()
 									})
 							}}
 						>
 							{({ isSubmitting }) => (
 								<StyledForm>
-									<StyledInput label='Program name' name='programName' type='text' width="" />
+									<StyledInput label='Program name' name='programName' type='text' width='' />
 
 									<MyCheckbox label='Weights' name='programType' value='weights' />
 
 									<MyCheckbox label='Cardio' name='programType' value='cardio' />
 
 									<StyledButton
-									background="var(--primary)"
-									margin="1em 0 0"
-									padding="6px 18px"
-									boxShadow="0px 10px 13px -7px #808080"
-									fontSize="10px"
-									type='submit'>Add program</StyledButton>
+										background='var(--primary)'
+										margin='1em 0 0'
+										padding='6px 18px'
+										boxShadow='0px 10px 13px -7px #808080'
+										fontSize='10px'
+										type='submit'
+									>
+										Add program
+									</StyledButton>
 								</StyledForm>
 							)}
 						</Formik>
@@ -143,7 +150,7 @@ const StyledInput = styled(MyTextInput)`
 	border: none;
 	border-radius: 10px;
 	padding: 6px 10px;
-	box-shadow: inset 0px 4px 4px 0px #ADADAd;
+	box-shadow: inset 0px 4px 4px 0px #adadad;
 `
 
 const StyledError = styled.div``

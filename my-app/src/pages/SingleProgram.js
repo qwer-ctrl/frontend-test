@@ -43,7 +43,7 @@ const SingleProgram = () => {
 		fetch(API_URL(`myprogram/${programId}`), options)
 			.then((res) => res.json())
 			.then((data) => {
-				console.log("data from single program fetch", data)
+				console.log('data from single program fetch', data)
 				dispatch(ui.actions.setLoading(true))
 				setProgramExercise(data.response.exercise)
 				setProgramName(data.response.programName)
@@ -103,79 +103,97 @@ const SingleProgram = () => {
 	) : (
 		<OuterWrapper>
 			<Header />
-			<InnerWrapper margin="25vh auto 4rem">
+			<InnerWrapper margin='25vh auto 4rem'>
 				<h1>{programName}</h1>
 				<ButtonContainer justifyContent='space-evenly'>
-					<StyledButton 
-					padding="6px 18px"
-					background="var(--primary)"
-					boxShadow="0px 10px 13px -7px #808080"
-					fontSize="0.6rem"
-					onClick={() => handleUpdateProgramModal(programId)}>
+					<StyledButton
+						padding='6px 18px'
+						background='var(--primary)'
+						boxShadow='0px 10px 13px -7px #808080'
+						fontSize='0.6rem'
+						onClick={() => handleUpdateProgramModal(programId)}
+					>
 						Update program
 					</StyledButton>
 					{showUpdateProgramModal ? <UpdateProgramModal /> : null}
-					<StyledButton 	
-					padding="6px 18px"	
-					background="var(--primary)"	
-					boxShadow="0px 10px 13px -7px #808080"		
-					fontSize="0.6rem"
-					onClick={() => handleAddExerciseModal(programId)}>
+					<StyledButton
+						padding='6px 18px'
+						background='var(--primary)'
+						boxShadow='0px 10px 13px -7px #808080'
+						fontSize='0.6rem'
+						onClick={() => handleAddExerciseModal(programId)}
+					>
 						Add exercise
 					</StyledButton>
 					{showAddExerciseModal ? <AddExerciseModal /> : null}
 					<StyledButton
-					padding="6px 18px"
-					background="var(--primary)"
-					boxShadow="0px 10px 13px -7px #808080"
-					fontSize="0.6rem"
-					onClick={() => handleDeleteProgramModal(programId)}>
+						padding='6px 18px'
+						background='var(--primary)'
+						boxShadow='0px 10px 13px -7px #808080'
+						fontSize='0.6rem'
+						onClick={() => handleDeleteProgramModal(programId)}
+					>
 						Delete program
 					</StyledButton>
 					{showDeleteProgramModal ? <DeleteProgramModal /> : null}
 				</ButtonContainer>
 
 				{programExercise.map((item) => (
-					<div key={item._id}>
+					<ExerciseContainer key={item._id}>
 						<h3>{item.exercise}</h3>
-						<div>
-							{item.sets ? <p>{item.sets} sets</p> : null}
-							{item.reps ? <p>{item.reps} sets</p> : null}
-							{item.weights ? <p>{item.weights}</p> : null}
-							{item.minutes ? <p>{item.minutes} minutes</p> : null}
-							{item.seconds ? <p>{item.seconds} seconds</p> : null}
-							{item.duration ? <p>{item.duration}</p> : null}
-							{item.exerciseLength ? <p>{item.exerciseLength}</p> : null}
-							{item.comments ? <p>comments: {item.comments}</p> : null}
-							{item.exerciseLink ? <p>link: <a href={item.exerciseLink} target="_blank" rel="noopener noreferrer">{item.exerciseLink}</a></p> : null}
-						</div>
+						{/* <div> */}
+						{item.sets ? <p>{item.sets} sets</p> : null}
+						{item.reps ? <p>{item.reps} sets</p> : null}
+						{item.weights ? <p>{item.weights}</p> : null}
+						{item.minutes ? <p>{item.minutes} minutes</p> : null}
+						{item.seconds ? <p>{item.seconds} seconds</p> : null}
+						{item.duration ? <p>{item.duration}</p> : null}
+						{item.exerciseLength ? <p>{item.exerciseLength}</p> : null}
+						{item.comments ? <p>comments: {item.comments}</p> : null}
+						{item.exerciseLink ? (
+							<p>
+								link:{' '}
+								<a href={item.exerciseLink} target='_blank' rel='noopener noreferrer'>
+									{item.exerciseLink}
+								</a>
+							</p>
+						) : null}
+						{/* </div> */}
 
 						<label htmlFor='checkbox'></label>
 						<input id='checkbox' type='checkbox' value={item._id} onChange={handleChecked} />
 
 						<ButtonContainer justifyContent='flex-start'>
 							<StyledButton
-							background="var(--primary)"
-							margin="1em 0 0"
-							padding="6px 18px"
-							boxShadow="0px 10px 13px -7px #808080"
-							backgroundHover="var(--accentgreen)"
-							fontSize="10px"
-							onClick={() => handleEditExerciseModal(item._id)}>Edit exercise</StyledButton>
+								background='var(--primary)'
+								margin='1em 0 0'
+								padding='6px 18px'
+								boxShadow='0px 10px 13px -7px #808080'
+								backgroundHover='var(--accentgreen)'
+								fontSize='10px'
+								onClick={() => handleEditExerciseModal(item._id)}
+							>
+								Edit exercise
+							</StyledButton>
 							{showEditExerciseModal ? <EditExerciseModal /> : null}
 							<StyledButton
-							background="var(--primary)"
-							margin="1em 0 0"
-							padding="6px 18px"
-							boxShadow="0px 10px 13px -7px #808080"
-							backgroundHover="var(--accentgreen)"
-							fontSize="10px"
-							onClick={() => handleDeleteExerciseModal(item._id)}>Delete exercise</StyledButton>
+								background='var(--primary)'
+								margin='1em 0 0'
+								padding='6px 18px'
+								boxShadow='0px 10px 13px -7px #808080'
+								backgroundHover='var(--accentgreen)'
+								fontSize='10px'
+								onClick={() => handleDeleteExerciseModal(item._id)}
+							>
+								Delete exercise
+							</StyledButton>
 							{showDeleteExerciseModal ? <DeleteExerciseModal /> : null}
 						</ButtonContainer>
-					</div>
+					</ExerciseContainer>
 				))}
-				<StyledButton padding="6px 8px" background="var(--primary)" fontSize="0.6rem" onClick={handleGoBack}>Go back</StyledButton>
+				<StyledButton padding='6px 8px' background='var(--primary)' fontSize='0.6rem' onClick={handleGoBack}>
+					Go back
+				</StyledButton>
 			</InnerWrapper>
 			<Timer />
 			<Footer />
@@ -184,6 +202,17 @@ const SingleProgram = () => {
 }
 
 export default SingleProgram
+
+const ExerciseContainer = styled.div`
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	justify-content: space-evenly;
+	padding: 1rem 2rem;
+	border-radius: 15px;
+	box-shadow: 0px 6px 13px 0px #adadad;
+	margin: 2rem;
+`
 
 const ButtonContainer = styled.div`
 	display: flex;

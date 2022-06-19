@@ -15,8 +15,8 @@ import ProgramModal from '../components/ProgramModal'
 import SignOut from '../components/SignOut'
 import { OuterWrapper, InnerWrapper } from '../styles/GlobalStyles'
 import { StyledButton } from '../styles/ButtonStyles'
-import gymImage from "../styles/images/gym.png"
-import cardioImage from "../styles/images/cardio.png"
+import gymImage from '../styles/images/gym.png'
+import cardioImage from '../styles/images/cardio.png'
 // import yogaImage from "../styles/images/yoga.png"
 
 const MyPage = () => {
@@ -24,7 +24,7 @@ const MyPage = () => {
 	const accessToken = useSelector((store) => store.user.accessToken)
 	const userId = useSelector((store) => store.user.userId)
 	const userHasProgram = useSelector((store) => store.user.program)
-	console.log("userHasProgram", userHasProgram)
+	console.log('userHasProgram', userHasProgram)
 	const isLoading = useSelector((store) => store.ui.isLoading)
 	const navigate = useNavigate()
 	const dispatch = useDispatch()
@@ -68,7 +68,7 @@ const MyPage = () => {
 					dispatch(program.actions.setError(null))
 				} else {
 					dispatch(program.actions.setError(data.response.success))
-					dispatch(user.actions.setProgram([]))
+					dispatch(user.actions.setProgram(null))
 				}
 			})
 			.catch((error) => console.log(error))
@@ -91,23 +91,25 @@ const MyPage = () => {
 		<>
 			<OuterWrapper>
 				<Header />
-				<InnerWrapper margin="25vh auto 4rem">
+				<InnerWrapper margin='25vh auto 4rem'>
 					{(!userHasProgram || userHasProgram.length < 1) && <EmptyState />}
 					{userHasProgram.length > 0 && (
 						<MainContainer>
 							{userHasProgram.map((prog) => (
 								<StyledLink key={prog._id} to={`/singleprogram/${prog._id}`}>
 									<ProgramContainer key={prog._id}>
-										<StyledImage src={prog.programType === "weights" ? gymImage : cardioImage} />
+										<StyledImage src={prog.programType === 'weights' ? gymImage : cardioImage} />
 										<StyledButton
-											width="115px" 
-											padding="3px"
-											margin="0"
-											background="transparent"
-											textDecoration="none"
-											boxShadow="none"
+											width='115px'
+											padding='3px'
+											margin='0'
+											background='transparent'
+											textDecoration='none'
+											boxShadow='none'
 											// onClick={() => handleProgram(prog._id)}
-											>{prog.programName}</StyledButton>
+										>
+											{prog.programName}
+										</StyledButton>
 									</ProgramContainer>
 								</StyledLink>
 							))}
