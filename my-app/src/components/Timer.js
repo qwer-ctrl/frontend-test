@@ -4,12 +4,12 @@ import styled from 'styled-components'
 import { StyledButton } from '../styles/ButtonStyles'
 
 const Timer = () => {
-	const [addRounds, setAddRounds] = useState(0)
+	const [addRounds, setAddRounds] = useState(1)
 	const [addWorkingSeconds, setAddWorkingSeconds] = useState(0)
 	const [addRestSeconds, setAddRestSeconds] = useState(0)
 	const [workingSeconds, setWorkingSeconds] = useState(0)
 	const [restSeconds, setRestSeconds] = useState(0)
-	const [rounds, setRounds] = useState(0)
+	const [rounds, setRounds] = useState(1)
 	const [runTimer, setRunTimer] = useState(false)
 
 	useEffect(() => {
@@ -18,10 +18,11 @@ const Timer = () => {
 				setWorkingSeconds((workingSeconds) => workingSeconds - 1)
 			}, 1000)
 			return () => clearInterval(workInterval)
-		} else if ((addWorkingSeconds > 0 && !runTimer) || (addRestSeconds > 0 && !runTimer)) {
+		} else if ((addWorkingSeconds > 0 && !runTimer) || (addRestSeconds > 0 && !runTimer) || (addRounds > 0 && !runTimer)) {
 			setTimeout(() => {
 				setWorkingSeconds(addWorkingSeconds)
 				setRestSeconds(addRestSeconds)
+				setRounds(addRounds)
 			})
 		} else if (restSeconds > 0 && runTimer) {
 			const restInterval = setInterval(() => {
@@ -34,10 +35,6 @@ const Timer = () => {
 				setWorkingSeconds(addWorkingSeconds)
 				setRestSeconds(addRestSeconds)
 			}, 1000)
-		} else if (addRounds > 0 && !runTimer) {
-			setTimeout(() => {
-				setRounds(addRounds)
-			})
 		} else if (workingSeconds === 0 && restSeconds === 0 && rounds === 0) {
 			clearInterval()
 			setAddRestSeconds(0)
@@ -89,6 +86,10 @@ const Timer = () => {
 					padding="6px 18px"
 					margin="3px 0 0"
 					onClick={() => setRunTimer(true)}>Start</StyledButton>
+					<StyledButton 
+					padding="6px 18px"
+					margin="3px 0 0"
+					onClick={() => setRunTimer(false)}>Stop</StyledButton>
 				</TimerClock>
 
 				{workingSeconds === 0 && restSeconds === 0 && rounds === 0 && <p>Good job!</p>}
