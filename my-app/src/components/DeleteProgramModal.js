@@ -13,7 +13,6 @@ import { API_URL } from '../utils/utils'
 const DeleteProgramModal = () => {
 	const programId = useSelector((store) => store.ui.currentModalId)
 	const showModal = useSelector((store) => store.ui.showDeleteProgramModal)
-	const userId = useSelector((store) => store.user.userId)
 	const navigate = useNavigate()
 	const dispatch = useDispatch()
 

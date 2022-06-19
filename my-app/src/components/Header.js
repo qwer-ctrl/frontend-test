@@ -2,7 +2,6 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 import styled from 'styled-components/macro'
 
-import user from '../reducers/user'
 import { HeadingOne } from '../styles/GlobalStyles'
 
 const Header = () => {
