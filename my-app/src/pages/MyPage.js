@@ -102,6 +102,7 @@ const MyPage = () => {
 										<StyledButton
 											width="115px" 
 											padding="3px"
+											margin="0"
 											background="transparent"
 											textDecoration="none"
 											boxShadow="none"
@@ -129,7 +130,7 @@ export default MyPage
 const MainContainer = styled.div`
 	display: grid;
 	grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-	grid-template-rows: repeat(auto-fit, minmax(135px, 135px));
+	// grid-template-rows: repeat(auto-fit, minmax(135px, 135px));
 	grid-gap: 1rem;
 	max-height: 70vh;
 	overflow-y: scroll;
@@ -150,14 +151,11 @@ const ProgramContainer = styled.div`
 	justify-content: space-evenly;
 	border-radius: 15px;
 	box-shadow: 0px 6px 13px 0px #adadad;
-	margin: 5px;
-	height: 90%;
-	width: auto;
 `
 
 const StyledImage = styled.img`
-	width: 125px;
-	height: auto;
+	width: 110px;
+	height: 110px;
 `
 
 const ButtonContainer = styled.div`
