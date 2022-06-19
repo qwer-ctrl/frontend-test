@@ -8,7 +8,7 @@ const Footer = () => {
 	return (
 		<>
 			<FooterContainer>
-				<NavLink to='/mypage/:userId'>👤</NavLink>
+				<NavLink to='/mypage'>👤</NavLink>
 				<StyledImage src={clockImage} />
 			</FooterContainer>
 		</>
