@@ -6,15 +6,17 @@ export const GlobalStyle = createGlobalStyle`
 		--primary: #8DB9BC;
 		//  #6EB3B8;
 		--secondary: #D6EAE3;
+		--accentlilac: #a486fe;
+		--accentgreen: #9de9a4;
 		--white: #FFFFFF;
 		--black: #202020;
 		--gray: #F4F4F4;
 		padding: 0; 
 		margin: 0;
-   	box-sizing: border-box;
+   		box-sizing: border-box;
 		font-family: 'Jost', sans-serif;
-  	-webkit-font-smoothing: antialiased;
-  	-moz-osx-font-smoothing: grayscale;
+  		-webkit-font-smoothing: antialiased;
+  		-moz-osx-font-smoothing: grayscale;
   }
 `
 
@@ -27,7 +29,7 @@ export const OuterWrapper = styled.main`
 
 export const InnerWrapper = styled.section`
 	width: 80%;
-	margin: 25vh auto 4rem;
+	margin: ${props => props.margin};
 `
 
 export const HeadingOne = styled.h1`

@@ -16,6 +16,7 @@ import DeleteProgramModal from '../components/DeleteProgramModal'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import { OuterWrapper, InnerWrapper } from '../styles/GlobalStyles'
+import { StyledButton } from '../styles/ButtonStyles'
 
 const SingleProgram = () => {
 	const { programId } = useParams()
@@ -102,14 +103,35 @@ const SingleProgram = () => {
 	) : (
 		<OuterWrapper>
 			<Header />
-			<InnerWrapper>
+			<InnerWrapper margin="25vh auto 4rem">
 				<h1>{programName}</h1>
 				<ButtonContainer justifyContent='space-evenly'>
-					<StyledButton onClick={() => handleUpdateProgramModal(programId)}>Update program</StyledButton>
+					<StyledButton 
+					padding="6px 18px"
+					background="var(--primary)"
+					boxShadow="0px 10px 13px -7px #808080"
+					fontSize="0.6rem"
+					onClick={() => handleUpdateProgramModal(programId)}>
+						Update program
+					</StyledButton>
 					{showUpdateProgramModal ? <UpdateProgramModal /> : null}
-					<StyledButton onClick={() => handleAddExerciseModal(programId)}>Add exercise</StyledButton>
+					<StyledButton 	
+					padding="6px 18px"	
+					background="var(--primary)"	
+					boxShadow="0px 10px 13px -7px #808080"		
+					fontSize="0.6rem"
+					onClick={() => handleAddExerciseModal(programId)}>
+						Add exercise
+					</StyledButton>
 					{showAddExerciseModal ? <AddExerciseModal /> : null}
-					<StyledButton onClick={() => handleDeleteProgramModal(programId)}>Delete program</StyledButton>
+					<StyledButton
+					padding="6px 18px"
+					background="var(--primary)"
+					boxShadow="0px 10px 13px -7px #808080"
+					fontSize="0.6rem"
+					onClick={() => handleDeleteProgramModal(programId)}>
+						Delete program
+					</StyledButton>
 					{showDeleteProgramModal ? <DeleteProgramModal /> : null}
 				</ButtonContainer>
 
@@ -132,14 +154,26 @@ const SingleProgram = () => {
 						<input id='checkbox' type='checkbox' value={item._id} onChange={handleChecked} />
 
 						<ButtonContainer justifyContent='flex-start'>
-							<StyledButton onClick={() => handleEditExerciseModal(item._id)}>Edit exercise</StyledButton>
+							<StyledButton
+							background="var(--primary)"
+							margin="1em 0 0"
+							padding="6px 18px"
+							boxShadow="0px 10px 13px -7px #808080"
+							fontSize="10px"
+							onClick={() => handleEditExerciseModal(item._id)}>Edit exercise</StyledButton>
 							{showEditExerciseModal ? <EditExerciseModal /> : null}
-							<StyledButton onClick={() => handleDeleteExerciseModal(item._id)}>Delete exercise</StyledButton>
+							<StyledButton
+							background="var(--primary)"
+							margin="1em 0 0"
+							padding="6px 18px"
+							boxShadow="0px 10px 13px -7px #808080"
+							fontSize="10px"
+							onClick={() => handleDeleteExerciseModal(item._id)}>Delete exercise</StyledButton>
 							{showDeleteExerciseModal ? <DeleteExerciseModal /> : null}
 						</ButtonContainer>
 					</div>
 				))}
-				<StyledButton onClick={handleGoBack}>Go back</StyledButton>
+				<StyledButton padding="6px 8px" background="var(--primary)" fontSize="0.6rem" onClick={handleGoBack}>Go back</StyledButton>
 			</InnerWrapper>
 			<Timer />
 			<Footer />
@@ -156,4 +190,4 @@ const ButtonContainer = styled.div`
 	gap: 1rem;
 `
 
-const StyledButton = styled.button``
+// const StyledButton = styled.button``

@@ -9,18 +9,18 @@ import LoadingAnimation from '../components/LoadingAnimation'
 import { API_URL } from '../utils/utils'
 import user from '../reducers/user'
 import { OuterWrapper, InnerWrapper } from '../styles/GlobalStyles'
-import Header from '../components/Header'
-import Footer from '../components/Footer'
-// import MyPage from './MyPage'
+import { StyledButton } from '../styles/ButtonStyles'
+import loginImage from "../styles/images/login-image.png"
+
 
 const MyTextInput = ({ label, ...props }) => {
 	const [field, meta] = useField(props)
 	return (
-		<>
+		<InputContainer>
 			<label htmlFor={props.id || props.name}>{label}</label>
 			<input className='text-input' {...field} {...props} />
 			{meta.touched && meta.error ? <StyledError className='error'>{meta.error}</StyledError> : null}
-		</>
+		</InputContainer>
 	)
 }
 
@@ -84,11 +84,13 @@ const Login = () => {
 
 	return (
 		<OuterWrapper>
-			<Header />
-			<InnerWrapper>
-				{/* <StyledLoginSection>
-                    <StyledLoginWrapper> */}
-				{mode === 'login' ? <StyledTitle>Login here</StyledTitle> : <StyledTitle>Register here</StyledTitle>}
+			<InnerWrapper margin="0 auto">
+				<StyledImage src={loginImage} />
+
+				<TitleContainer>
+					{mode === 'login' ? <StyledTitle>Login and start moving!</StyledTitle> : <StyledTitle>Register for Flex 'n Joy!</StyledTitle>}
+					{mode === "register" ? <p>Flex 'n Joy gives you the opportunity to bring your workouts with you wherever you go, easily and effectively!</p> : null}
+				</TitleContainer>
 
 				<Formik
 					initialValues={{ username: '', password: '', confirmPassword: '', email: '' }}
@@ -135,39 +137,122 @@ const Login = () => {
 							) : null}
 
 							{mode === 'login' ? (
-								<StyledButton type='submit'>Login</StyledButton>
+								<StyledButton
+								background="var(--primary)"
+								margin="1em 0 0"
+								padding="6px 18px"
+								boxShadow="0px 10px 13px -7px #808080"
+								fontSize="10px"
+								type='submit'>Login</StyledButton>
 							) : (
-								<StyledButton type='submit'>Register</StyledButton>
+								<StyledButton
+								background="var(--primary)"
+								margin="1em 0 0"
+								padding="6px 18px"
+								boxShadow="0px 10px 13px -7px #808080"
+								fontSize="10px"
+								type='submit'>Register</StyledButton>
 							)}
 
 							{mode === 'login' ? (
-								<StyledButton type='button' onClick={() => setMode('register')}>
+								<StyledButton
+								background="transparent"
+								margin="1em 0 0"
+								padding="6px 18px"
+								boxShadow="0px 10px 13px -7px #808080"
+								textDecoration="underline"
+								fontSize="10px"
+								type='button' onClick={() => setMode('register')}>
 									Not a member yet? Register here
 								</StyledButton>
 							) : (
-								<StyledButton type='button' onClick={() => setMode('login')}>
+								<StyledButton
+								background="transparent"
+								margin="1em 0 0"
+								padding="6px 18px"
+								boxShadow="0px 10px 13px -7px #808080"
+								textDecoration="underline"
+								fontSize="10px"
+								type='button' onClick={() => setMode('login')}>
 									Already a member? Login here
 								</StyledButton>
 							)}
 						</StyledForm>
 					)}
 				</Formik>
-				{/* </StyledLoginWrapper>
-                </StyledLoginSection> */}
 			</InnerWrapper>
-			<Footer />
 		</OuterWrapper>
 	)
 }
 
 export default Login
 
+const TitleContainer = styled.div`
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	margin-bottom: 2rem;
+`
+
+const StyledImage = styled.img`
+	width: 300px;
+	height: auto;
+`
+
 const StyledTitle = styled.h1``
 
-const StyledForm = styled(Form)``
+const StyledForm = styled(Form)`
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	background: var(--secondary);
+	padding: 2rem;
+	border-radius: 6px;
+	box-shadow: 0px 10px 13px 0px #808080;
+`
+const InputContainer = styled.div`
+	display: flex;
+	flex-direction: column;
 
-const StyledInput = styled(MyTextInput)``
+	label {
+		justify-content: flex-start;
+	}
+`
 
-const StyledError = styled.div``
+const StyledInput = styled(MyTextInput)`
+	max-width: 150px;
+	margin: 0.5rem 0;
+	text-align: center;
+	border: none;
+	border-radius: 10px;
+	padding: 6px 10px;
+	box-shadow: inset 0px 4px 4px 0px #ADADAd;
 
-const StyledButton = styled.button``
+	&:focus {
+		outline: none;
+		border: 2px solid var(--accentgreen);
+	}
+`
+
+const StyledError = styled.div`
+	margin-bottom: 1.5rem;
+	text-align: center;
+	color: var(--accentlilac);
+`
+
+// const StyledSecondaryButton = styled.button`
+// 	border-radius: 15px;
+// 	font-family: 'poppins';
+// 	text-transform: uppercase;
+// 	background: transparent;
+// 	border: none;
+// 	padding: 6px 18px;
+// 	margin-top: 1em;
+
+// 	&:hover {
+// 		text-decoration: underline;
+// 	}
+// `

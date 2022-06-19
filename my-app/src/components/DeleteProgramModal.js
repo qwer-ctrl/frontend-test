@@ -1,6 +1,7 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+import styled from 'styled-components/macro'
 
 import { ModalContainer, StyledModal, CloseButton } from '../styles/ModalStyles'
 import { StyledButton } from '../styles/ButtonStyles'
@@ -43,8 +44,14 @@ const DeleteProgramModal = () => {
 				<ModalContainer>
 					<StyledModal>
 						<CloseButton onClick={closeModal}>x</CloseButton>
-						<h1>Are you sure you want to delete the program?</h1>
-						<StyledButton onClick={() => handleProgramDeletion()}>Delete</StyledButton>
+						<StyledTitle>Are you sure you want to delete the program?</StyledTitle>
+						<StyledButton
+						background="var(--primary)"
+						margin="1em 0 0"
+						padding="6px 18px"
+						boxShadow="0px 10px 13px -7px #808080"
+						fontSize="10px"
+						onClick={() => handleProgramDeletion()}>Delete</StyledButton>
 					</StyledModal>
 				</ModalContainer>
 			) : null}
@@ -53,3 +60,9 @@ const DeleteProgramModal = () => {
 }
 
 export default DeleteProgramModal
+
+const StyledTitle = styled.h1`
+	font-size: 1.2rem;
+	text-align: center;
+	margin-top: 1rem;
+`

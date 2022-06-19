@@ -13,7 +13,7 @@ const NotFound = () => {
 
 	return (
 		<OuterWrapper>
-			<InnerWrapper>
+			<InnerWrapper margin="0 auto">
 				<h1>Not found..</h1>
 				<button onClick={() => handleGoBack()}>Go Back</button>
 			</InnerWrapper>

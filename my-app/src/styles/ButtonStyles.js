@@ -1,12 +1,20 @@
 import styled from 'styled-components/macro'
 
 export const StyledButton = styled.button`
-	border-radius: 20px;
-	background: var(--primary);
+	width: ${props => props.width};
+	border-radius: 15px;
+	background: ${props => props.background};
 	font-family: 'poppins';
 	text-transform: uppercase;
 	border: none;
-	padding: 6px 18px;
-	margin-top: 1em;
-	box-shadow: 2px 3px 2px #888888; /* <---------Change*/
+	padding: ${props => props.padding};
+	margin: ${props => props.margin};
+	box-shadow: ${props => props.boxShadow}; <-------change
+	font-size: 0.5rem;
+	// font-size: ${props => props.fontSize};
+
+	&:hover {
+		background: var(--accentgreen);
+		text-decoration: ${props => props.textDecoration};
+	}
 `

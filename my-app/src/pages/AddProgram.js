@@ -216,7 +216,7 @@ const AddProgram = () => {
 	) : (
 		<OuterWrapper>
 			<Header />
-			<InnerWrapper>
+			<InnerWrapper margin="25vh auto 4rem">
 				<MainContainer>
 					{userHasExercise ? <h1>{programName}!</h1> : <EmptyState />}
 

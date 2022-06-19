@@ -21,6 +21,17 @@ export default SignOut
 
 const SignOutButton = styled.button`
 	width: 150px;
-	padding: 5px;
-	margin: 5px;
+	border-radius: 15px;
+	background: var(--primary);
+	font-family: 'poppins';
+	text-transform: uppercase;
+	border: none;
+	padding: 6px 15px;
+	margin-top: 1em;
+	box-shadow: 0px 10px 13px -7px #808080; <-------change
+	font-size: 0.5rem;
+
+	&:hover {
+		background: var(--accentgreen);
+	}
 `

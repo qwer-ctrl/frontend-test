@@ -1,25 +1,30 @@
 import React, { useEffect, useState, useCallback } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import styled from 'styled-components/macro'
 
 import { API_URL } from '../utils/utils'
 import user from '../reducers/user'
 import { program } from '../reducers/program'
 import ui from '../reducers/ui'
+import Header from '../components/Header'
+import Footer from '../components/Footer'
 import LoadingAnimation from '../components/LoadingAnimation'
+import EmptyState from '../components/EmptyState'
 import ProgramModal from '../components/ProgramModal'
 import SignOut from '../components/SignOut'
-import EmptyState from '../components/EmptyState'
-import Header from '../components/Header'
 import { OuterWrapper, InnerWrapper } from '../styles/GlobalStyles'
-import Footer from '../components/Footer'
+import { StyledButton } from '../styles/ButtonStyles'
+import gymImage from "../styles/images/gym.png"
+import cardioImage from "../styles/images/cardio.png"
+// import yogaImage from "../styles/images/yoga.png"
 
 const MyPage = () => {
 	const [showModal, setShowModal] = useState(false)
 	const accessToken = useSelector((store) => store.user.accessToken)
 	const userId = useSelector((store) => store.user.userId)
 	const userHasProgram = useSelector((store) => store.user.program)
+	console.log("userHasProgram", userHasProgram)
 	const isLoading = useSelector((store) => store.ui.isLoading)
 	const navigate = useNavigate()
 	const dispatch = useDispatch()
@@ -74,9 +79,10 @@ const MyPage = () => {
 		fetchPrograms()
 	}, [fetchPrograms])
 
-	const handleProgram = (programId) => {
-		navigate(`/singleprogram/${programId}`)
-	}
+	// const handleProgram = (programId) => {
+	// 	navigate(`/singleprogram/${programId}`)
+	// }
+
 	//console.log('programs', programs)
 
 	return isLoading ? (
@@ -85,21 +91,30 @@ const MyPage = () => {
 		<>
 			<OuterWrapper>
 				<Header />
-				<InnerWrapper>
+				<InnerWrapper margin="25vh auto 4rem">
 					{(!userHasProgram || userHasProgram.length < 1) && <EmptyState />}
 					{userHasProgram.length > 0 && (
 						<MainContainer>
 							{userHasProgram.map((prog) => (
-								<ProgramContainer key={prog._id}>
-									<StyledImage src='' />
-									<button onClick={() => handleProgram(prog._id)}>{prog.programName}</button>
-								</ProgramContainer>
+								<StyledLink key={prog._id} to={`/singleprogram/${prog._id}`}>
+									<ProgramContainer key={prog._id}>
+										<StyledImage src={prog.programType === "weights" ? gymImage : cardioImage} />
+										<StyledButton
+											width="115px" 
+											padding="3px"
+											background="transparent"
+											textDecoration="none"
+											boxShadow="none"
+											// onClick={() => handleProgram(prog._id)}
+											>{prog.programName}</StyledButton>
+									</ProgramContainer>
+								</StyledLink>
 							))}
 						</MainContainer>
 					)}
 					<ButtonContainer>
 						<ProgramModal showModal={showModal} setShowModal={setShowModal} />
-						<AddProgramButton onClick={openModal}>+ </AddProgramButton>
+						<AddProgramButton onClick={openModal}>+</AddProgramButton>
 						<SignOut />
 					</ButtonContainer>
 				</InnerWrapper>
@@ -113,21 +128,38 @@ export default MyPage
 
 const MainContainer = styled.div`
 	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+	grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+	grid-template-rows: repeat(auto-fit, minmax(135px, 135px));
 	grid-gap: 1rem;
-	height: 70vh;
+	max-height: 70vh;
 	overflow-y: scroll;
+	padding: 10px;
+`
+const StyledLink = styled(Link)`
+	text-decoration: none;
+
+	&:hover {
+		cursor: pointer;
+	}
 `
 
 const ProgramContainer = styled.div`
 	display: flex;
 	flex-direction: column;
+	align-items: center;
+	justify-content: space-evenly;
+	border-radius: 15px;
+	box-shadow: 0px 6px 13px 0px #adadad;
+	margin: 5px;
+	height: 90%;
+	width: auto;
 `
+
 const StyledImage = styled.img`
-	width: 100%;
-	height: 100px;
-	margin: 0 0 2rem;
+	width: 125px;
+	height: auto;
 `
+
 const ButtonContainer = styled.div`
 	display: flex;
 	justify-content: flex-start;
@@ -145,4 +177,8 @@ const AddProgramButton = styled.button`
 	bottom: 2.5vh;
 	left: calc(50% - 30px);
 	z-index: 10;
+
+	&:hover {
+		background: var(--accentgreen);
+	}
 `

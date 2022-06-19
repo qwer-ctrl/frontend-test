@@ -5,10 +5,10 @@ import { Formik, Form, useField } from 'formik'
 import * as Yup from 'yup'
 
 import { program } from '../reducers/program'
-import { StyledModal, ModalContainer, CloseButton } from '../styles/ModalStyles'
-import { StyledButton } from '../styles/ButtonStyles'
 import ui from '../reducers/ui'
 import { API_URL } from '../utils/utils'
+import { StyledModal, ModalContainer, CloseButton } from '../styles/ModalStyles'
+import { StyledButton } from '../styles/ButtonStyles'
 
 const MyTextInput = ({ label, ...props }) => {
 	const [field, meta] = useField(props)
@@ -123,38 +123,16 @@ const UpdateProgramModal = () => {
 
 									<MyCheckbox label='Cardio' name='programType' value='cardio' />
 
-									<StyledButton type='submit'>Update program</StyledButton>
+									<StyledButton
+									background="var(--primary)"
+									margin="1em 0 0"
+									padding="6px 18px"
+									boxShadow="0px 10px 13px -7px #808080"
+									fontSize="10px"
+									type='submit'>Update program</StyledButton>
 								</StyledForm>
 							)}
 						</Formik>
-						{/* <form onSubmit={handleProgramSubmit}>
-							<label htmlFor='programname'>Program name</label>
-							<input
-								name='programname'
-								type='text'
-								onChange={handleProgramName}
-								placeholder={exerciseContent.programName}
-								required
-							/>
-							<label htmlFor='weights'>Weights</label>
-							<input
-								type='radio'
-								name='weights'
-								value='weights'
-								checked={programType === 'weights'}
-								onChange={handleProgramType}
-								required
-							/>
-							<label htmlFor='cardio'>Cardio</label>
-							<input
-								type='radio'
-								name='cardio'
-								value='cardio'
-								checked={programType === 'cardio'}
-								onChange={handleProgramType}
-							/>
-							<StyledButton type='submit'>Update program</StyledButton>
-						</form> */}
 					</StyledModal>
 				</ModalContainer>
 			) : null}
@@ -180,7 +158,7 @@ const StyledInput = styled(MyTextInput)`
 	border: none;
 	border-radius: 10px;
 	padding: 6px 10px;
-	box-shadow: inset 0px 4px 4px 0px #ADADAd;
+	box-shadow: inset 0px 4px 4px 0px #adadad;
 `
 
 const StyledError = styled.div``

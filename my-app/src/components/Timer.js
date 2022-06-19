@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 
+import { StyledButton } from '../styles/ButtonStyles'
+
 const Timer = () => {
 	const [addRounds, setAddRounds] = useState(0)
 	const [addWorkingSeconds, setAddWorkingSeconds] = useState(0)
@@ -48,36 +50,49 @@ const Timer = () => {
 	const getBackground = () => {
 		let color
 		if (workingSeconds < 1) {
-			color = 'green'
+			color = 'var(--accentgreen)'
 		} else {
-			color = 'red'
+			color = 'var(--accentlilac)'
 		}
 		return color
 	}
 
 	return (
 		<TimerContainer>
-			<TimerBox style={{ backgroundColor: getBackground() }}>
-				<p>
-					{rounds}/{addRounds}
-				</p>
-				<p>{workingSeconds}</p>
-				<p>{restSeconds}</p>
+			<TimerBox background={getBackground()}>
+				<SetContainer>
+					<StyledTitle>Set your rounds:</StyledTitle>
+					<StyledButton onClick={() => setAddRounds(addRounds - 1)}>-</StyledButton>
+					<Rounds>{addRounds}round</Rounds>
+					<StyledButton onClick={() => setAddRounds(addRounds + 1)}>+</StyledButton>
+				</SetContainer>
+				
+				<SetContainer>
+					<StyledTitle>Set your working time:</StyledTitle>
+					<StyledButton onClick={() => setAddWorkingSeconds(addWorkingSeconds - 1)}>-</StyledButton>
+					<Seconds>{addWorkingSeconds}worksec</Seconds>
+					<StyledButton onClick={() => setAddWorkingSeconds(addWorkingSeconds + 1)}>+</StyledButton>
+				</SetContainer>
+				
+				<SetContainer>
+					<StyledTitle>Set your resting time:</StyledTitle>
+					<StyledButton onClick={() => setAddRestSeconds(addRestSeconds - 1)}>-</StyledButton>
+					<Seconds>{addRestSeconds}restsec</Seconds>
+					<StyledButton onClick={() => setAddRestSeconds(addRestSeconds + 1)}>+</StyledButton>
+				</SetContainer>
+
+				<TimerClock>
+					<p>{rounds} rounds / {addRounds} rounds</p>
+					<p>{workingSeconds} working seconds</p>
+					<p>{restSeconds} resting seconds</p>
+					<StyledButton 
+					padding="6px 18px"
+					margin="3px 0 0"
+					onClick={() => setRunTimer(true)}>Start</StyledButton>
+				</TimerClock>
+
 				{workingSeconds === 0 && restSeconds === 0 && rounds === 0 && <p>Good job!</p>}
-			</TimerBox>
-			<StartButton onClick={() => setRunTimer(true)}>Start</StartButton>
-
-			<MinusRoundsButton onClick={() => setAddRounds(addRounds - 1)}>-</MinusRoundsButton>
-			<Rounds>{addRounds}round</Rounds>
-			<PlusRoundsButton onClick={() => setAddRounds(addRounds + 1)}>+</PlusRoundsButton>
-
-			<MinusSecondsButton onClick={() => setAddWorkingSeconds(addWorkingSeconds - 1)}>-</MinusSecondsButton>
-			<Seconds>{addWorkingSeconds}worksec</Seconds>
-			<PlusSecondsButton onClick={() => setAddWorkingSeconds(addWorkingSeconds + 1)}>+</PlusSecondsButton>
-
-			<MinusSecondsButton onClick={() => setAddRestSeconds(addRestSeconds - 1)}>-</MinusSecondsButton>
-			<Seconds>{addRestSeconds}restsec</Seconds>
-			<PlusSecondsButton onClick={() => setAddRestSeconds(addRestSeconds + 1)}>+</PlusSecondsButton>
+			</TimerBox>			
 		</TimerContainer>
 	)
 }
@@ -88,25 +103,44 @@ const TimerContainer = styled.div`
 	display: flex;
 	justify-content: space-evenly;
 	align-items: center;
+	margin: 0 0 6rem;
 `
 
 const TimerBox = styled.div`
 	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	gap: 2rem;
+	width: fit-content;
+	height: fit-content;
+	// border: 1px solid;
+	padding: 20px;
+	border-radius: 15px;
+	box-shadow: 0px 10px 13px 0px #adadad;
+	background: ${props => props.background};
+`
+
+const StyledTitle = styled.h1`
+	font-size: 1rem;
+	margin-bottom: 5px;
+`
+
+const SetContainer = styled.div`
+	display: flex;
+	flex-direction: column;
+	text-align: center;
+	gap: 3px;
+`
+
+const TimerClock = styled.div`
+	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	border: 1px solid;
-	padding: 20px;
+	gap: 5px;
 `
-
-const StartButton = styled.button``
 
 const Rounds = styled.p``
 
-const PlusRoundsButton = styled.button``
-
-const MinusRoundsButton = styled.button``
-
 const Seconds = styled.p``
-const MinusSecondsButton = styled.button``
-const PlusSecondsButton = styled.button``

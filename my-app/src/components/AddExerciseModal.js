@@ -132,6 +132,11 @@ const StyledForm = styled(Form)`
 const StyledInput = styled(MyTextInput)`
 	max-width: 200px;
 	margin: 5px 0 5px;
+	text-align: center;
+	border: none;
+	border-radius: 10px;
+	padding: 6px 10px;
+	box-shadow: inset 0px 4px 4px 0px #ADADAd;
 `
 
 const StyledError = styled.div``

@@ -14,11 +14,11 @@ import LoadingAnimation from '../components/LoadingAnimation'
 const MyTextInput = ({ label, ...props }) => {
 	const [field, meta] = useField(props)
 	return (
-		<>
+		<InputContainer>
 			<label htmlFor={props.id || props.name}>{label}</label>
 			<input className='text-input' {...field} {...props} />
 			{meta.touched && meta.error ? <StyledError className='error'>{meta.error}</StyledError> : null}
-		</>
+		</InputContainer>
 	)
 }
 
@@ -117,7 +117,7 @@ const EditExerciseModal = () => {
 							{({ isSubmitting }) => (
 								<StyledForm>
 									{isSubmitting && <LoadingAnimation />}
-									<h1>{exerciseContent.exercise}</h1>
+									<StyledTitle>{exerciseContent.exercise}</StyledTitle>
 									<StyledInput label='Sets' name='sets' type='text' placeholder={exerciseContent.sets} />
 									<StyledInput label='Reps' name='reps' type='text' placeholder={exerciseContent.reps} />
 									<StyledInput
@@ -162,7 +162,13 @@ const EditExerciseModal = () => {
 										type='text'
 										placeholder={exerciseContent.exerciseLink}
 									/>
-									<StyledButton type='submit'>Update exercise</StyledButton>
+									<StyledButton
+									background="var(--primary)"
+									margin="1em 0 0"
+									padding="6px 18px"
+									boxShadow="0px 10px 13px -7px #808080"
+									fontSize="10px"
+									type='submit'>Update exercise</StyledButton>
 								</StyledForm>
 							)}
 						</Formik>
@@ -175,13 +181,38 @@ const EditExerciseModal = () => {
 
 export default EditExerciseModal
 
+const StyledTitle = styled.h1`
+	margin-bottom: 1rem;
+`
+
 const StyledForm = styled(Form)`
 	display: flex;
 	flex-direction: column;
 `
 
+const InputContainer = styled.div`
+	display: flex;
+	flex-direction: column;
+
+	label {
+		justify-content: flex-start;
+	}
+`
+
 const StyledInput = styled(MyTextInput)`
-	max-width: 200px;
-	margin: 5px 0 5px;
+	// max-width: 200px;
+	// margin: 5px 0 5px;
+	max-width: 150px;
+	margin: 0.5rem 0;
+	text-align: center;
+	border: none;
+	border-radius: 10px;
+	padding: 6px 10px;
+	box-shadow: inset 0px 4px 4px 0px #ADADAd;
+
+	&:focus {
+		outline: none;
+		border: 2px solid var(--accentgreen);
+	}
 `
 const StyledError = styled.div``

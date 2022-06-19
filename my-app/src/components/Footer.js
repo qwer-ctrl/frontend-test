@@ -2,12 +2,14 @@ import React from 'react'
 import { NavLink } from 'react-router-dom'
 import styled from 'styled-components/macro'
 
+import clockImage from "../styles/images/clock-two.png"
+
 const Footer = () => {
 	return (
 		<>
 			<FooterContainer>
 				<NavLink to='/mypage/:userId'>👤</NavLink>
-				<p>🕒</p>
+				<StyledImage src={clockImage} />
 			</FooterContainer>
 		</>
 	)
@@ -27,4 +29,9 @@ const FooterContainer = styled.footer`
 	bottom: 0;
 	left: 0;
 	right: 0;
+`
+
+const StyledImage = styled.img`
+	width: 50px;
+	height: 50px;
 `

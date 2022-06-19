@@ -1,12 +1,34 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 import styled from 'styled-components/macro'
+
+import user from '../reducers/user'
 import { HeadingOne } from '../styles/GlobalStyles'
 
 const Header = () => {
+	const userName = useSelector((store) => store.user.username)
+	console.log("userName", userName)
+
+	const date = new Date()
+	let time = date.getHours()
+
+	const showGreeting = () => {
+		if (time>=6 && time<12) {
+			return "Good morning"
+		} else if (time>=12 && time<18) {
+			return "Good afternoon"
+		} else if (time>=18 && time<24) {
+			return "Good evening"
+		} else {
+			return "Good night"
+		}
+	}
+
+
 	return (
 		<>
 			<HeaderContainer>
-				<HeadingOne>I'm a header!</HeadingOne>
+				<HeadingOne>{showGreeting()} {userName}!</HeadingOne>
 			</HeaderContainer>
 		</>
 	)

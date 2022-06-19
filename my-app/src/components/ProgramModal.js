@@ -108,7 +108,13 @@ const ProgramModal = ({ showModal, setShowModal }) => {
 
 									<MyCheckbox label='Cardio' name='programType' value='cardio' />
 
-									<StyledButton type='submit'>Add program</StyledButton>
+									<StyledButton
+									background="var(--primary)"
+									margin="1em 0 0"
+									padding="6px 18px"
+									boxShadow="0px 10px 13px -7px #808080"
+									fontSize="10px"
+									type='submit'>Add program</StyledButton>
 								</StyledForm>
 							)}
 						</Formik>
