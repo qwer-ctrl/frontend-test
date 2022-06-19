@@ -30,6 +30,10 @@ export const OuterWrapper = styled.main`
 export const InnerWrapper = styled.section`
 	width: 80%;
 	margin: ${props => props.margin};
+
+	@media screen and (min-width: 768px) {
+		width: 60%;
+	}
 `
 
 export const HeadingOne = styled.h1`

@@ -15,15 +15,27 @@ import EmptyState from '../components/EmptyState'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import { OuterWrapper, InnerWrapper } from '../styles/GlobalStyles'
+import { StyledButton } from '../styles/ButtonStyles'
 
 const MyTextInput = ({ label, ...props }) => {
 	const [field, meta] = useField(props)
 	return (
-		<>
+		<InputContainer>
 			<label htmlFor={props.id || props.name}>{label}</label>
 			<input className='text-input' {...field} {...props} />
 			{meta.touched && meta.error ? <StyledError className='error'>{meta.error}</StyledError> : null}
-		</>
+		</InputContainer>
+	)
+}
+
+const MyTextArea = ({ label, ...props }) => {
+	const [field, meta] = useField(props)
+	return (
+		<InputContainer>
+			<label htmlFor={props.id || props.name}>{label}</label>
+			<textarea className='text-input' {...field} {...props} />
+			{meta.touched && meta.error ? <StyledError className='error'>{meta.error}</StyledError> : null}
+		</InputContainer>
 	)
 }
 
@@ -217,137 +229,219 @@ const AddProgram = () => {
 		<OuterWrapper>
 			<Header />
 			<InnerWrapper margin="25vh auto 4rem">
-				<MainContainer>
-					{userHasExercise ? <h1>{programName}!</h1> : <EmptyState />}
+				{userHasExercise ? <h1>{programName}!</h1> : <EmptyState />}
 
-					<Formik
-						initialValues={{
-							exercise: '',
-							sets: '',
-							reps: '',
-							weights: '',
-							exerciseLink: '',
-							seconds: '',
-							minutes: '',
-							duration: '',
-							exerciseLength: '',
-							feeling: '',
-							comments: '',
-						}}
-						validationSchema={Schema}
-						onSubmit={(values, { setSubmitting, resetForm }) => {
-							fetch(API_URL(`exercise/${programId}`), {
-								method: 'POST',
-								headers: {
-									'Content-Type': 'application/json',
-								},
-								body: JSON.stringify({
-									exercise: values.exercise,
-									sets: values.sets,
-									reps: values.reps,
-									weights: values.weights,
-									comments: values.comments,
-									exerciseLink: values.exerciseLink,
-									seconds: values.seconds,
-									minutes: values.minutes,
-									duration: values.duration,
-									exerciseLength: values.exerciseLength,
-								}),
+				<Formik
+					initialValues={{
+						exercise: '',
+						sets: '',
+						reps: '',
+						weights: '',
+						exerciseLink: '',
+						seconds: '',
+						minutes: '',
+						duration: '',
+						exerciseLength: '',
+						feeling: '',
+						comments: '',
+					}}
+					validationSchema={Schema}
+					onSubmit={(values, { setSubmitting, resetForm }) => {
+						fetch(API_URL(`exercise/${programId}`), {
+							method: 'POST',
+							headers: {
+								'Content-Type': 'application/json',
+							},
+							body: JSON.stringify({
+								exercise: values.exercise,
+								sets: values.sets,
+								reps: values.reps,
+								weights: values.weights,
+								comments: values.comments,
+								exerciseLink: values.exerciseLink,
+								seconds: values.seconds,
+								minutes: values.minutes,
+								duration: values.duration,
+								exerciseLength: values.exerciseLength,
+							}),
+						})
+							.then((res) => res.json())
+							.then((data) => {
+								handleData(data)
 							})
-								.then((res) => res.json())
-								.then((data) => {
-									handleData(data)
-								})
-								.catch((err) => {
-									console.log(err)
-								})
-								.finally(() => {
-									setSubmitting(false)
-									resetForm()
-									// window.location.reload()
-								})
-						}}
-					>
-						{({ isSubmitting }) => (
-							<StyledForm>
-								{isSubmitting && <LoadingAnimation />}
-								<StyledInput label='Exercise name' name='exercise' type='text' />
+							.catch((err) => {
+								console.log(err)
+							})
+							.finally(() => {
+								setSubmitting(false)
+								resetForm()
+								window.location.reload()
+							})
+					}}
+				>
+					{({ isSubmitting }) => (
+						<StyledForm>
+							{isSubmitting && <LoadingAnimation />}
 
-								<StyledButton onClick={handleSetsState} type='button'>
+							<StyledInput label='Exercise name' name='exercise' type='text' />
+
+							<MetricsButtonContainer>
+								<StyledButton
+								width="fit-content"
+								background="var(--primary)"
+								margin="1em 0 0"
+								padding="6px 18px"
+								boxShadow="0px 10px 13px -7px #808080"
+								fontSize="10px"
+								onClick={handleSetsState} type='button'>
 									Sets
 								</StyledButton>
-								{displaySets ? <StyledInput label='Sets' name='sets' type='text' /> : null}
 
-								<StyledButton onClick={handleRepsState} type='button'>
+								<StyledButton
+								width="fit-content"
+								background="var(--primary)"
+								margin="1em 0 0"
+								padding="6px 18px"
+								boxShadow="0px 10px 13px -7px #808080"
+								fontSize="10px" 
+								onClick={handleRepsState} type='button'>
 									Reps
 								</StyledButton>
-								{displayReps ? <StyledInput label='Reps' name='reps' type='text' /> : null}
 
-								<StyledButton onClick={handleWeightsState} type='button'>
+								<StyledButton 
+								width="fit-content"
+								background="var(--primary)"
+								margin="1em 0 0"
+								padding="6px 18px"
+								boxShadow="0px 10px 13px -7px #808080"
+								fontSize="10px"
+								onClick={handleWeightsState} type='button'>
 									Weights
 								</StyledButton>
-								{displayWeights ? <StyledInput label='Weights' name='weights' type='text' /> : null}
 
-								<StyledButton onClick={handleMinutesState} type='button'>
+								<StyledButton
+								width="fit-content"
+								background="var(--primary)"
+								margin="1em 0 0"
+								padding="6px 18px"
+								boxShadow="0px 10px 13px -7px #808080"
+								fontSize="10px" 
+								onClick={handleMinutesState} type='button'>
 									Minutes
 								</StyledButton>
-								{displayMinutes ? <StyledInput label='Minutes' name='minutes' type='text' /> : null}
 
-								<StyledButton onClick={handleSecondsState} type='button'>
+								<StyledButton
+								width="fit-content"
+								background="var(--primary)"
+								margin="1em 0 0"
+								padding="6px 18px"
+								boxShadow="0px 10px 13px -7px #808080"
+								fontSize="10px" 
+								onClick={handleSecondsState} type='button'>
 									Seconds
 								</StyledButton>
-								{displaySeconds ? <StyledInput label='Seconds' name='seconds' type='text' /> : null}
 
-								<StyledButton onClick={handleDurationState} type='button'>
+								<StyledButton
+								width="fit-content"
+								background="var(--primary)"
+								margin="1em 0 0"
+								padding="6px 18px"
+								boxShadow="0px 10px 13px -7px #808080"
+								fontSize="10px" 
+								onClick={handleDurationState} type='button'>
 									Duration
 								</StyledButton>
-								{displayDuration ? <StyledInput label='Duration' name='duration' type='text' /> : null}
 
-								<StyledButton onClick={handleExerciseLengthState} type='button'>
+								<StyledButton
+								width="fit-content"
+								background="var(--primary)"
+								margin="1em 0 0"
+								padding="6px 18px"
+								boxShadow="0px 10px 13px -7px #808080"
+								fontSize="10px" 
+								onClick={handleExerciseLengthState} type='button'>
 									Length
 								</StyledButton>
-								{displayExerciseLength ? (
-									<StyledInput label='Length' name='exerciseLength' type='text' />
-								) : null}
+							
 
-								<StyledButton onClick={handleCommentsState} type='button'>
+								<StyledButton
+								width="fit-content"
+								background="var(--primary)"
+								margin="1em 0 0"
+								padding="6px 18px"
+								boxShadow="0px 10px 13px -7px #808080"
+								fontSize="10px" 
+								onClick={handleCommentsState} type='button'>
 									Comments
 								</StyledButton>
-								{displayComments ? <StyledInput label='Comments' name='comments' type='text' /> : null}
 
-								<StyledButton onClick={handleExerciseLinkState} type='button'>
+								<StyledButton
+								width="fit-content"
+								background="var(--primary)"
+								margin="1em 0 0"
+								padding="6px 18px"
+								boxShadow="0px 10px 13px -7px #808080"
+								fontSize="10px" 
+								onClick={handleExerciseLinkState} type='button'>
 									Link
-								</StyledButton>
+							</StyledButton>
+							</MetricsButtonContainer>
+
+							<MetricsInputContainer>
+								{displaySets ? <StyledInput label='Sets' name='sets' type='text' /> : null}
+								{displayReps ? <StyledInput label='Reps' name='reps' type='text' /> : null}
+								{displayWeights ? <StyledInput label='Weights' name='weights' type='text' /> : null}
+								{displayMinutes ? <StyledInput label='Minutes' name='minutes' type='text' /> : null}
+								{displaySeconds ? <StyledInput label='Seconds' name='seconds' type='text' /> : null}
+								{displayDuration ? <StyledInput label='Duration' name='duration' type='text' /> : null}
+								{displayExerciseLength ? (
+								<StyledInput label='Length' name='exerciseLength' type='text' />
+								) : null}
 								{displayExerciseLink ? <StyledInput label='Link' name='exerciseLink' type='text' /> : null}
-								<StyledButton type='submit'>Add exercise</StyledButton>
-							</StyledForm>
-						)}
-					</Formik>
-					<div>
-						{userHasExercise.map((item) => {
-							return (
-								<div key={item._id}>
-									<h1>{item.exercise}</h1>
-									<div>
-										{item.sets && <p>Sets: {item.sets}</p>}
-										{item.reps && <p>Reps: {item.reps}</p>}
-										{item.weights && <p>Weights: {item.weights}</p>}
-										{item.minutes && <p>Minutes: {item.minutes}</p>}
-										{item.seconds && <p>Seconds: {item.seconds}</p>}
-										{item.duration && <p>Duration: {item.duration}</p>}
-										{item.length && <p>Distance: {item.length} </p>}
-										{item.comments && <p>Comment: {item.comments}</p>}
-										{item.link && <p>Link: {item.link}</p>}
-									</div>
-								</div>
-							)
-						})}
-					</div>
-					<ButtonContainer>
-						<StyledButton onClick={handleGoBack}>Done with program, go back to main</StyledButton>
-						<SignOut />
-					</ButtonContainer>
-				</MainContainer>
+								{displayComments ? <StyledCommentInput label='Comments' name='comments' type='text' rows="3" /> : null}
+							</MetricsInputContainer>
+
+							<StyledButton
+							background="var(--primary)"
+							margin="1em 0 0"
+							padding="6px 18px"
+							boxShadow="0px 10px 13px -7px #808080"
+							fontSize="10px" 
+							type='submit'>Add exercise</StyledButton>
+						</StyledForm>
+					)}
+				</Formik>
+				<ExerciseGrid>
+					{userHasExercise.map((item) => {
+						return (
+							<ExerciseContainer key={item._id}>
+								<h1>{item.exercise}</h1>
+								{/* <div> */}
+									{item.sets && <p>Sets: {item.sets}</p>}
+									{item.reps && <p>Reps: {item.reps}</p>}
+									{item.weights && <p>Weights: {item.weights}</p>}
+									{item.minutes && <p>Minutes: {item.minutes}</p>}
+									{item.seconds && <p>Seconds: {item.seconds}</p>}
+									{item.duration && <p>Duration: {item.duration}</p>}
+									{item.length && <p>Distance: {item.length} </p>}
+									{item.comments && <p>Comment: {item.comments}</p>}
+									{item.link && <p>Link: {item.link}</p>}
+								{/* </div> */}
+							</ExerciseContainer>
+						)
+					})}
+				</ExerciseGrid>
+				<ButtonContainer>
+					<StyledButton 
+					width="150px"
+					background="var(--primary)"
+					margin="1em 0 0"
+					padding="6px 18px"
+					boxShadow="0px 10px 13px -7px #808080"
+					fontSize="10px"
+					onClick={handleGoBack}>Done, go back!</StyledButton>
+					<SignOut />
+				</ButtonContainer>
 			</InnerWrapper>
 			<Footer />
 		</OuterWrapper>
@@ -356,40 +450,115 @@ const AddProgram = () => {
 
 export default AddProgram
 
-const MainContainer = styled.section`
-	text-align: center;
-`
 
 const StyledForm = styled(Form)`
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
-	align-items: center;
-	margin: 2rem 0 0;
+	align-items: flex-start;
+	margin: 2rem 0 3rem;
+	background: var(--secondary);
+	padding: 2rem;
+	gap: 2rem;
+	border-radius: 6px;
+	box-shadow: 0px 10px 13px 0px #808080;
+
+	@media screen and (min-width: 768px) {
+		padding: 3rem;
+	}
+`
+
+const InputContainer = styled.div`
+	display: flex;
+	flex-direction: column;
+
+	label {
+		justify-content: flex-start;
+	}
 `
 
 const StyledInput = styled(MyTextInput)`
 	max-width: 150px;
 	margin: 0.5rem 0;
 	text-align: center;
+	border: none;
+	border-radius: 10px;
+	padding: 6px 10px;
+	box-shadow: inset 0px 4px 4px 0px #ADADAd;
+
+	&:focus {
+		outline: none;
+		border: 2px solid var(--accentgreen);
+	}
 `
 
-// const StyledCheckbox = styled(MyCheckbox)``
+const StyledCommentInput = styled(MyTextArea)`
+	max-width: 150px;
+	margin: 0.5rem 0;
+	text-align: center;
+	border: none;
+	border-radius: 10px;
+	padding: 6px 10px;
+	box-shadow: inset 0px 4px 4px 0px #ADADAd;
+
+	&:focus {
+		outline: none;
+		border: 2px solid var(--accentgreen);
+	}
+`
+
+const MetricsButtonContainer = styled.div`
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	width: 100%;
+	margin-bottom: 1rem;
+`
+
+const MetricsInputContainer = styled.div`
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+	width: 100%;
+	column-gap: 10px;
+
+	@media screen and (min-width: 768px) {
+		grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+	}
+`
 
 const ButtonContainer = styled.div`
+	width: 100%;
 	display: flex;
-	justify-content: flex-start;
-	margin: 2rem 0;
+	justify-content: space-evenly;
+	margin: 2rem 0 6rem;
 	gap: 1rem;
 `
 
-const StyledError = styled.div``
+const StyledError = styled.div`
+	margin-bottom: 1.5rem;
+	text-align: center;
+	color: var(--accentlilac);`
 
-const StyledButton = styled.button`
-	width: 150px;
-	margin: 5px;
-	padding: 5px;
+const ExerciseGrid = styled.article`
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
 `
+
+const ExerciseContainer = styled.div`
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	justify-content: space-evenly;
+	padding: 1rem 2rem;
+	border-radius: 15px;
+	box-shadow: 0px 6px 13px 0px #adadad;
+`
+
+// const StyledButton = styled.button`
+// 	width: 150px;
+// 	margin: 5px;
+// 	padding: 5px;
+// `
 
 //-------------------------------------------- code for trying to have multiple sets --------------------------//
 
