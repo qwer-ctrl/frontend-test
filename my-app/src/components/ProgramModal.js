@@ -46,9 +46,10 @@ const ProgramModal = ({ showModal, setShowModal }) => {
 	}
 
 	const handleData = (data) => {
-		dispatch(program.actions.setProgramName(data.response))
-		dispatch(program.actions.setProgramType(data.response))
-		dispatch(program.actions.setProgramId(data.response))
+		dispatch(program.actions.setProgramName(data.response.programName))
+		dispatch(program.actions.setProgramType(data.response.programType))
+		dispatch(program.actions.setProgramId(data.response._id))
+		dispatch(program.actions.setProgramName(data.response.exercise))
 		setProgramId(data.response._id)
 		console.log('hello', data.response._id)
 		navigate(`/addprogram/${data.response._id}`) //<---------------------change?
@@ -87,7 +88,7 @@ const ProgramModal = ({ showModal, setShowModal }) => {
 								})
 									.then((res) => res.json())
 									.then((data) => {
-										console.log(data)
+										console.log("data from program modal post", data)
 										handleData(data)
 									})
 									.catch((err) => {

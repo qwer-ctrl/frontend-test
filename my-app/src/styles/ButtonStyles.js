@@ -11,10 +11,11 @@ export const StyledButton = styled.button`
 	margin: ${props => props.margin};
 	box-shadow: ${props => props.boxShadow}; <-------change
 	font-size: 0.5rem;
+	color: var(--black);
 	// font-size: ${props => props.fontSize};
 
 	&:hover {
-		background: var(--accentgreen);
+		background: ${props => props.backgroundHover};
 		text-decoration: ${props => props.textDecoration};
 	}
 `

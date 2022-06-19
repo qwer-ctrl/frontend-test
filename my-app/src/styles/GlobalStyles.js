@@ -30,6 +30,10 @@ export const OuterWrapper = styled.main`
 export const InnerWrapper = styled.section`
 	width: 80%;
 	margin: ${props => props.margin};
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
 
 	@media screen and (min-width: 768px) {
 		width: 60%;

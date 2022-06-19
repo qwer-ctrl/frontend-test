@@ -38,7 +38,7 @@ const Login = () => {
 			dispatch(user.actions.setUserId(data.userId))
 			dispatch(user.actions.setAccessToken(data.accessToken))
 			dispatch(user.actions.setUserName(data.username))
-			if (data.program) {
+			if (data.program.length > 0) {
 				dispatch(user.actions.setProgram(data.program))
 			} else {
 				dispatch(user.actions.setProgram([]))
@@ -142,6 +142,7 @@ const Login = () => {
 								margin="1em 0 0"
 								padding="6px 18px"
 								boxShadow="0px 10px 13px -7px #808080"
+								backgroundHover="var(--accentgreen)"
 								fontSize="10px"
 								type='submit'>Login</StyledButton>
 							) : (
@@ -150,6 +151,7 @@ const Login = () => {
 								margin="1em 0 0"
 								padding="6px 18px"
 								boxShadow="0px 10px 13px -7px #808080"
+								backgroundHover="var(--accentgreen)"
 								fontSize="10px"
 								type='submit'>Register</StyledButton>
 							)}
@@ -159,7 +161,7 @@ const Login = () => {
 								background="transparent"
 								margin="1em 0 0"
 								padding="6px 18px"
-								boxShadow="0px 10px 13px -7px #808080"
+								boxShadow="none"
 								textDecoration="underline"
 								fontSize="10px"
 								type='button' onClick={() => setMode('register')}>
@@ -170,7 +172,7 @@ const Login = () => {
 								background="transparent"
 								margin="1em 0 0"
 								padding="6px 18px"
-								boxShadow="0px 10px 13px -7px #808080"
+								boxShadow="none"
 								textDecoration="underline"
 								fontSize="10px"
 								type='button' onClick={() => setMode('login')}>
@@ -199,6 +201,7 @@ const TitleContainer = styled.div`
 const StyledImage = styled.img`
 	width: 300px;
 	height: auto;
+	margin: 1rem 0 0;
 `
 
 const StyledTitle = styled.h1``

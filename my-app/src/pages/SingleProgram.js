@@ -159,6 +159,7 @@ const SingleProgram = () => {
 							margin="1em 0 0"
 							padding="6px 18px"
 							boxShadow="0px 10px 13px -7px #808080"
+							backgroundHover="var(--accentgreen)"
 							fontSize="10px"
 							onClick={() => handleEditExerciseModal(item._id)}>Edit exercise</StyledButton>
 							{showEditExerciseModal ? <EditExerciseModal /> : null}
@@ -167,6 +168,7 @@ const SingleProgram = () => {
 							margin="1em 0 0"
 							padding="6px 18px"
 							boxShadow="0px 10px 13px -7px #808080"
+							backgroundHover="var(--accentgreen)"
 							fontSize="10px"
 							onClick={() => handleDeleteExerciseModal(item._id)}>Delete exercise</StyledButton>
 							{showDeleteExerciseModal ? <DeleteExerciseModal /> : null}

@@ -58,6 +58,7 @@ const AddProgram = () => {
 	console.log('exercise from store?', userHasExercise)
 	const navigate = useNavigate()
 	const dispatch = useDispatch()
+	console.log(programId)
 
 	const fetchProgram = useCallback(() => {
 		const options = {
@@ -292,6 +293,7 @@ const AddProgram = () => {
 								margin="1em 0 0"
 								padding="6px 18px"
 								boxShadow="0px 10px 13px -7px #808080"
+								backgroundHover="var(--accentgreen)"
 								fontSize="10px"
 								onClick={handleSetsState} type='button'>
 									Sets
@@ -303,6 +305,7 @@ const AddProgram = () => {
 								margin="1em 0 0"
 								padding="6px 18px"
 								boxShadow="0px 10px 13px -7px #808080"
+								backgroundHover="var(--accentgreen)"
 								fontSize="10px" 
 								onClick={handleRepsState} type='button'>
 									Reps
@@ -314,6 +317,7 @@ const AddProgram = () => {
 								margin="1em 0 0"
 								padding="6px 18px"
 								boxShadow="0px 10px 13px -7px #808080"
+								backgroundHover="var(--accentgreen)"
 								fontSize="10px"
 								onClick={handleWeightsState} type='button'>
 									Weights
@@ -325,6 +329,7 @@ const AddProgram = () => {
 								margin="1em 0 0"
 								padding="6px 18px"
 								boxShadow="0px 10px 13px -7px #808080"
+								backgroundHover="var(--accentgreen)"
 								fontSize="10px" 
 								onClick={handleMinutesState} type='button'>
 									Minutes
@@ -336,6 +341,7 @@ const AddProgram = () => {
 								margin="1em 0 0"
 								padding="6px 18px"
 								boxShadow="0px 10px 13px -7px #808080"
+								backgroundHover="var(--accentgreen)"
 								fontSize="10px" 
 								onClick={handleSecondsState} type='button'>
 									Seconds
@@ -347,6 +353,7 @@ const AddProgram = () => {
 								margin="1em 0 0"
 								padding="6px 18px"
 								boxShadow="0px 10px 13px -7px #808080"
+								backgroundHover="var(--accentgreen)"
 								fontSize="10px" 
 								onClick={handleDurationState} type='button'>
 									Duration
@@ -358,6 +365,7 @@ const AddProgram = () => {
 								margin="1em 0 0"
 								padding="6px 18px"
 								boxShadow="0px 10px 13px -7px #808080"
+								backgroundHover="var(--accentgreen)"
 								fontSize="10px" 
 								onClick={handleExerciseLengthState} type='button'>
 									Length
@@ -370,6 +378,7 @@ const AddProgram = () => {
 								margin="1em 0 0"
 								padding="6px 18px"
 								boxShadow="0px 10px 13px -7px #808080"
+								backgroundHover="var(--accentgreen)"
 								fontSize="10px" 
 								onClick={handleCommentsState} type='button'>
 									Comments
@@ -381,6 +390,7 @@ const AddProgram = () => {
 								margin="1em 0 0"
 								padding="6px 18px"
 								boxShadow="0px 10px 13px -7px #808080"
+								backgroundHover="var(--accentgreen)"
 								fontSize="10px" 
 								onClick={handleExerciseLinkState} type='button'>
 									Link
@@ -406,6 +416,7 @@ const AddProgram = () => {
 							margin="1em 0 0"
 							padding="6px 18px"
 							boxShadow="0px 10px 13px -7px #808080"
+							backgroundHover="var(--accentgreen)"
 							fontSize="10px" 
 							type='submit'>Add exercise</StyledButton>
 						</StyledForm>
@@ -416,7 +427,6 @@ const AddProgram = () => {
 						return (
 							<ExerciseContainer key={item._id}>
 								<h1>{item.exercise}</h1>
-								{/* <div> */}
 									{item.sets && <p>Sets: {item.sets}</p>}
 									{item.reps && <p>Reps: {item.reps}</p>}
 									{item.weights && <p>Weights: {item.weights}</p>}
@@ -426,7 +436,6 @@ const AddProgram = () => {
 									{item.length && <p>Distance: {item.length} </p>}
 									{item.comments && <p>Comment: {item.comments}</p>}
 									{item.link && <p>Link: {item.link}</p>}
-								{/* </div> */}
 							</ExerciseContainer>
 						)
 					})}
@@ -438,6 +447,7 @@ const AddProgram = () => {
 					margin="1em 0 0"
 					padding="6px 18px"
 					boxShadow="0px 10px 13px -7px #808080"
+					backgroundHover="var(--accentgreen)"
 					fontSize="10px"
 					onClick={handleGoBack}>Done, go back!</StyledButton>
 					<SignOut />

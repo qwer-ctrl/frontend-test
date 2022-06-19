@@ -128,6 +128,7 @@ const MyPage = () => {
 export default MyPage
 
 const MainContainer = styled.div`
+	width: 100%;
 	display: grid;
 	grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
 	// grid-template-rows: repeat(auto-fit, minmax(135px, 135px));
