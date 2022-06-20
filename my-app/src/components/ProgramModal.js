@@ -49,11 +49,7 @@ const ProgramModal = ({ showModal, setShowModal }) => {
 		dispatch(program.actions.setProgramName(data.response.programName))
 		dispatch(program.actions.setProgramType(data.response.programType))
 		dispatch(program.actions.setProgramId(data.response._id))
-		// if (data.response.exercise) {
-		// 	dispatch(program.actions.setExercise(data.response.exercise))
-		// } else {
-		// 	dispatch(program.actions.setExercise([]))
-		// }
+		dispatch(program.actions.setExercise([]))
 		setProgramId(data.response._id)
 		console.log('hello', data.response._id)
 		navigate(`/addprogram/${data.response._id}`) //<---------------------change?

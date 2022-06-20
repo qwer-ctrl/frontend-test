@@ -44,7 +44,7 @@ const AddProgram = () => {
 	// const userId = useSelector((store) => store.user.userId)
 	const [programName, setProgramName] = useState('')
 	// const [exerciseId, setExerciseId] = useState('')
-	const [exerciseContent, setExerciseContent] = useState([])
+	const [exerciseContent, setExerciseContent] = useState({})
 	const [displaySets, setDisplaySets] = useState(false)
 	const [displayReps, setDisplayReps] = useState(false)
 	const [displayWeights, setDisplayWeights] = useState(false)
@@ -157,8 +157,8 @@ const AddProgram = () => {
 	const handleData = (data) => {
 		// setExerciseId(data.response._id)
 		console.log('data from post request in add program', data)
-		// setExerciseContent(data.response)
-		dispatch(program.actions.setExercise(data.response))
+		setExerciseContent(data.response)
+		dispatch(program.actions.setExercise(exerciseContent))
 		console.log('exercise content', exerciseContent)
 		// if (data.success) {
 		// 	batch(() => {
@@ -233,7 +233,7 @@ const AddProgram = () => {
 		<OuterWrapper>
 			<Header />
 			<InnerWrapper margin='25vh auto 4rem'>
-				{userHasExercise ? <h1>{programName}!</h1> : <EmptyState />}
+				{/* {userHasExercise ? <h1>{programName}!</h1> : <EmptyState />} */}
 
 				<Formik
 					initialValues={{
@@ -448,8 +448,8 @@ const AddProgram = () => {
 						</StyledForm>
 					)}
 				</Formik>
-				{/* {userHasExercise && ( */}
-				{/* <ExerciseGrid>
+				{/* {userHasExercise && (
+				<ExerciseGrid>
 					{userHasExercise.map((exercise) => (
 						<ExerciseContainer key={exercise._id}>
 							<h1>{exercise.exercise}</h1>
@@ -464,8 +464,8 @@ const AddProgram = () => {
 							{exercise.link && <p>Link: {exercise.link}</p>}
 						</ExerciseContainer>
 					))}
-				</ExerciseGrid> */}
-				{/* )} */}
+				</ExerciseGrid>
+				 )}  */}
 				<ButtonContainer>
 					<StyledButton
 						width='150px'

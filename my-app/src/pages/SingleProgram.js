@@ -23,6 +23,7 @@ const SingleProgram = () => {
 	const [programName, setProgramName] = useState('')
 	const [programExercise, setProgramExercise] = useState([])
 	const [checked, setChecked] = useState([])
+	const [percent, setPercent] = useState(0);
 
 	const isLoading = useSelector((store) => store.ui.isLoading)
 	const showDeleteProgramModal = useSelector((store) => store.ui.showDeleteProgramModal)
@@ -88,15 +89,24 @@ const SingleProgram = () => {
 		navigate('/')
 	}
 
+	let updatedList = [...checked]
+
 	const handleChecked = (event) => {
-		let updatedList = [...checked]
+		
 		if (event.target.checked) {
 			updatedList = [...checked, event.target.value]
 		} else {
 			updatedList.splice(checked.indexOf(event.target.value), 1)
 		}
 		setChecked(updatedList)
+		console.log(updatedList.lenght, programExercise.lenght)
+		const progressbar = (updatedList.length/programExercise.length) * 100
+		setPercent(progressbar)
 	}
+
+	const progress = updatedList.length
+
+	const maxValue = programExercise.length
 
 	return isLoading ? (
 		<LoadingAnimation />
@@ -137,6 +147,12 @@ const SingleProgram = () => {
 					</StyledButton>
 					{showDeleteProgramModal ? <DeleteProgramModal /> : null}
 				</ButtonContainer>
+
+				<Container>
+        <Background />
+        <Progress percent={percent} />
+      </Container>
+				{progress}/{maxValue}
 
 				{programExercise.map((item) => (
 					<ExerciseContainer key={item._id}>
@@ -220,5 +236,31 @@ const ButtonContainer = styled.div`
 	margin: 1rem 0;
 	gap: 1rem;
 `
+const Container = styled.div`
+  height: 12px;
+  width: 100%;
+	max-width: 300px;
+  position: relative;
+	z-index: -1;
+`;
 
+const BaseBox = styled.div`
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  border-radius: 3px;
+  transition: width 2s ease-in-out;
+`
+
+const Background = styled(BaseBox)`
+  background: grey;
+  width: 100%;
+	max-width: 300px;
+`
+
+const Progress = styled(BaseBox)`
+  background: var(--accentlilac);
+  width: ${({ percent }) => percent}%;
+`
 // const StyledButton = styled.button``
