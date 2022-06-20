@@ -18,13 +18,7 @@ export const program = createSlice({
 			store.programName = action.payload
 		},
 		setExercise: (store, action) => {
-			console.log("action payload from program reducer", action.payload)
-
 			store.exercise = action.payload
-			// return {
-			// 	...store,
-			// 	store.exercise: [action.payload, ...store.exercise]
-			// }
 		},
 		setCreatedAt: (store, action) => {
 			store.createdAt = action.payload

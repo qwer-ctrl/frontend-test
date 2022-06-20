@@ -43,8 +43,9 @@ const AddProgram = () => {
 	const { programId } = useParams()
 	// const userId = useSelector((store) => store.user.userId)
 	const [programName, setProgramName] = useState('')
-	// const [exerciseId, setExerciseId] = useState('')
-	const [exerciseContent, setExerciseContent] = useState({})
+	const [exerciseId, setExerciseId] = useState('')
+	const [exerciseContent, setExerciseContent] = useState([])
+	console.log("exerciseContent", exerciseContent)
 	const [displaySets, setDisplaySets] = useState(false)
 	const [displayReps, setDisplayReps] = useState(false)
 	const [displayWeights, setDisplayWeights] = useState(false)
@@ -55,8 +56,8 @@ const AddProgram = () => {
 	const [displayExerciseLength, setDisplayExerciseLength] = useState(false)
 	const [displayExerciseLink, setDisplayExerciseLink] = useState(false)
 	const isLoading = useSelector((store) => store.ui.isLoading)
-	const userHasExercise = useSelector((store) => store.program.exercise)
-	console.log('exercise from store?', userHasExercise)
+	// const userHasExercise = useSelector((store) => store.program.exercise)
+	// console.log('exercise from store?', userHasExercise)
 	const navigate = useNavigate()
 	const dispatch = useDispatch()
 	console.log(programId)
@@ -76,6 +77,7 @@ const AddProgram = () => {
 				console.log('data from program fetch', data)
 				if (data.success) {
 					setProgramName(data.response.programName)
+					setExerciseContent(data.response.exercise)
 				} else {
 					dispatch(exercise.actions.setError(data.response))
 				}
@@ -87,57 +89,6 @@ const AddProgram = () => {
 		fetchProgram()
 	}, [fetchProgram])
 
-	// useEffect(() => {
-	// 	if (exerciseId) {
-	// 		const options = {
-	// 			method: 'GET',
-	// 			headers: {
-	// 				'Content-Type': 'application/json',
-	// 			},
-	// 		}
-
-	// 		fetch(API_URL(`exercise/${exerciseId}`), options)
-	// 			.then((res) => res.json())
-	// 			.then((data) => {
-	// 				dispatch(ui.actions.setLoading(true))
-	// 				console.log('data from exercise fetch', data)
-	// 				if (data.success) {
-	// 					batch(() => {
-	// 						dispatch(exercise.actions.setError(null))
-	// 						dispatch(exercise.actions.setExercise(data.response.exercise))
-	// 						dispatch(exercise.actions.setSets(data.response.sets))
-	// 						dispatch(exercise.actions.setReps(data.response.reps))
-	// 						dispatch(exercise.actions.setWeights(data.response.weights))
-	// 						dispatch(exercise.actions.setComments(data.response.comments))
-	// 						dispatch(exercise.actions.setSeconds(data.response.seconds))
-	// 						dispatch(exercise.actions.setMinutes(data.response.minutes))
-	// 						dispatch(exercise.actions.setDuration(data.response.duration))
-	// 						dispatch(exercise.actions.setExerciseLength(data.response.exerciseLength))
-	// 						dispatch(exercise.actions.setExerciseLink(data.response.exerciseLink))
-	// 						dispatch(exercise.actions.setCreatedAt(data.response.createdAt))
-	// 						dispatch(exercise.actions.setExerciseId(data.response._id))
-	// 					})
-	// 				} else {
-	// 					batch(() => {
-	// 						dispatch(exercise.actions.setError(data.response))
-	// 						dispatch(exercise.actions.setExercise(null))
-	// 						dispatch(exercise.actions.setSets(null))
-	// 						dispatch(exercise.actions.setReps(null))
-	// 						dispatch(exercise.actions.setWeights(null))
-	// 						dispatch(exercise.actions.setComments(null))
-	// 						dispatch(exercise.actions.setSeconds(null))
-	// 						dispatch(exercise.actions.setMinutes(null))
-	// 						dispatch(exercise.actions.setDuration(null))
-	// 						dispatch(exercise.actions.setExerciseLength(null))
-	// 						dispatch(exercise.actions.setExerciseLink(null))
-	// 						dispatch(exercise.actions.setCreatedAt(null))
-	// 						dispatch(exercise.actions.setExerciseId(null))
-	// 					})
-	// 				}
-	// 			})
-	// 			.finally(() => dispatch(ui.actions.setLoading(false)))
-	// 	}
-	// }, [exerciseId, dispatch])
 
 	const Schema = Yup.object().shape({
 		exercise: Yup.string()
@@ -155,44 +106,7 @@ const AddProgram = () => {
 	})
 
 	const handleData = (data) => {
-		// setExerciseId(data.response._id)
-		console.log('data from post request in add program', data)
-		setExerciseContent(data.response)
-		dispatch(program.actions.setExercise(exerciseContent))
-		console.log('exercise content', exerciseContent)
-		// if (data.success) {
-		// 	batch(() => {
-		// 		dispatch(exercise.actions.setError(null))
-		// 		dispatch(exercise.actions.setExercise(data.response.exercise))
-		// 		dispatch(exercise.actions.setSets(data.response.sets))
-		// 		dispatch(exercise.actions.setReps(data.response.reps))
-		// 		dispatch(exercise.actions.setWeights(data.response.weights))
-		// 		dispatch(exercise.actions.setComments(data.response.comments))
-		// 		dispatch(exercise.actions.setSeconds(data.response.seconds))
-		// 		dispatch(exercise.actions.setMinutes(data.response.minutes))
-		// 		dispatch(exercise.actions.setDuration(data.response.duration))
-		// 		dispatch(exercise.actions.setExerciseLength(data.response.exerciseLength))
-		// 		dispatch(exercise.actions.setExerciseLink(data.response.exerciseLink))
-		// 		dispatch(exercise.actions.setCreatedAt(data.response.createdAt))
-		// 		dispatch(exercise.actions.setExerciseId(data.response._id))
-		// 	})
-		// } else {
-		// 	batch(() => {
-		// 		dispatch(exercise.actions.setError(data.response))
-		// 		dispatch(exercise.actions.setExercise(null))
-		// 		dispatch(exercise.actions.setSets(null))
-		// 		dispatch(exercise.actions.setReps(null))
-		// 		dispatch(exercise.actions.setWeights(null))
-		// 		dispatch(exercise.actions.setComments(null))
-		// 		dispatch(exercise.actions.setSeconds(null))
-		// 		dispatch(exercise.actions.setMinutes(null))
-		// 		dispatch(exercise.actions.setDuration(null))
-		// 		dispatch(exercise.actions.setExerciseLength(null))
-		// 		dispatch(exercise.actions.setExerciseLink(null))
-		// 		dispatch(exercise.actions.setCreatedAt(null))
-		// 		dispatch(exercise.actions.setExerciseId(null))
-		// 	})
-		// }
+		setExerciseId(data.response._id)
 	}
 
 	const handleSetsState = () => {
@@ -233,7 +147,7 @@ const AddProgram = () => {
 		<OuterWrapper>
 			<Header />
 			<InnerWrapper margin='25vh auto 4rem'>
-				{/* {userHasExercise ? <h1>{programName}!</h1> : <EmptyState />} */}
+				{exerciseContent ? <h1>{programName}!</h1> : <EmptyState />}
 
 				<Formik
 					initialValues={{
@@ -280,7 +194,7 @@ const AddProgram = () => {
 							.finally(() => {
 								setSubmitting(false)
 								resetForm()
-								// window.location.reload()
+								window.location.reload()
 							})
 					}}
 				>
@@ -448,24 +362,24 @@ const AddProgram = () => {
 						</StyledForm>
 					)}
 				</Formik>
-				{/* {userHasExercise && (
+				{/* {exerciseContent && ( */}
 				<ExerciseGrid>
-					{userHasExercise.map((exercise) => (
+					{exerciseContent.map((exercise) => (
 						<ExerciseContainer key={exercise._id}>
 							<h1>{exercise.exercise}</h1>
-							{exercise.sets && <p>Sets: {exercise.sets}</p>}
-							{exercise.reps && <p>Reps: {exercise.reps}</p>}
-							{exercise.weights && <p>Weights: {exercise.weights}</p>}
-							{exercise.minutes && <p>Minutes: {exercise.minutes}</p>}
-							{exercise.seconds && <p>Seconds: {exercise.seconds}</p>}
-							{exercise.duration && <p>Duration: {exercise.duration}</p>}
-							{exercise.exerciseLength && <p>Distance: {exercise.exerciseLength} </p>}
-							{exercise.comments && <p>Comment: {exercise.comments}</p>}
-							{exercise.link && <p>Link: {exercise.link}</p>}
+							{exerciseContent.sets && <p>Sets: {exerciseContent.sets}</p>}
+							{exerciseContent.reps && <p>Reps: {exerciseContent.reps}</p>}
+							{exerciseContent.weights && <p>Weights: {exerciseContent.weights}</p>}
+							{exerciseContent.minutes && <p>Minutes: {exerciseContent.minutes}</p>}
+							{exerciseContent.seconds && <p>Seconds: {exerciseContent.seconds}</p>}
+							{exerciseContent.duration && <p>Duration: {exerciseContent.duration}</p>}
+							{exerciseContent.exerciseLength && <p>Distance: {exerciseContent.exerciseLength} </p>}
+							{exerciseContent.comments && <p>Comment: {exerciseContent.comments}</p>}
+							{exerciseContent.link && <p>Link: {exerciseContent.link}</p>}
 						</ExerciseContainer>
 					))}
 				</ExerciseGrid>
-				 )}  */}
+				 {/* )}  */}
 				<ButtonContainer>
 					<StyledButton
 						width='150px'
@@ -584,6 +498,7 @@ const ExerciseGrid = styled.article`
 `
 
 const ExerciseContainer = styled.div`
+	height: 100px;
 	display: flex;
 	flex-direction: column;
 	align-items: flex-start;

@@ -35,8 +35,8 @@ const MyCheckbox = ({ label, ...props }) => {
 
 const ProgramModal = ({ showModal, setShowModal }) => {
 	//refactor to use store instead of sending props to MyPage..
-	const [programId, setProgramId] = useState('')
-	console.log(programId)
+	// const [programId, setProgramId] = useState('')
+	// console.log(programId)
 	const userId = useSelector((store) => store.user.userId)
 	const navigate = useNavigate()
 	const dispatch = useDispatch()
@@ -49,10 +49,11 @@ const ProgramModal = ({ showModal, setShowModal }) => {
 		dispatch(program.actions.setProgramName(data.response.programName))
 		dispatch(program.actions.setProgramType(data.response.programType))
 		dispatch(program.actions.setProgramId(data.response._id))
-		dispatch(program.actions.setExercise([]))
-		setProgramId(data.response._id)
+		// dispatch(program.actions.setExercise([]))
+		// setProgramId(data.response._id)
 		console.log('hello', data.response._id)
 		navigate(`/addprogram/${data.response._id}`) //<---------------------change?
+		// navigate(`/addprogram/${programId}`)
 	}
 
 	const Schema = Yup.object().shape({
@@ -97,7 +98,7 @@ const ProgramModal = ({ showModal, setShowModal }) => {
 									.finally(() => {
 										setSubmitting(false)
 										resetForm()
-										// window.location.reload()
+										window.location.reload()
 									})
 							}}
 						>
