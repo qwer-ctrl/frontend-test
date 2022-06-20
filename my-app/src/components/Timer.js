@@ -18,13 +18,21 @@ const Timer = () => {
 				setWorkingSeconds((workingSeconds) => workingSeconds - 1)
 			}, 1000)
 			return () => clearInterval(workInterval)
-		} else if ((addWorkingSeconds > 0 && !runTimer) || (addRestSeconds > 0 && !runTimer) || (addRounds > 0 && !runTimer)) {
+		} 
+		else if ((addWorkingSeconds < 0 && !runTimer) || (addRestSeconds < 0 && !runTimer) || (addRounds < 0 && !runTimer)) {
+			setTimeout(() => {
+				setWorkingSeconds(0)
+				setRestSeconds(0)
+				setRounds(0)
+			})
+		} 
+		else if ((addWorkingSeconds >= 0 && !runTimer) || (addRestSeconds >= 0 && !runTimer) || (addRounds >= 0 && !runTimer)) {
 			setTimeout(() => {
 				setWorkingSeconds(addWorkingSeconds)
 				setRestSeconds(addRestSeconds)
 				setRounds(addRounds)
 			})
-		} else if (restSeconds > 0 && runTimer) {
+		}	 else if (restSeconds > 0 && runTimer) {
 			const restInterval = setInterval(() => {
 				setRestSeconds((restSeconds) => restSeconds - 1)
 			}, 1000)
@@ -93,6 +101,10 @@ const Timer = () => {
 				</TimerClock>
 
 				{workingSeconds === 0 && restSeconds === 0 && rounds === 0 && <p>Good job!</p>}
+				{/* {addRestSeconds < 0 && <p>Not allowed</p>}
+				{addWorkingSeconds < 0 && <p>Not allowed</p>}
+				{addRounds < 0 && <p>Not allowed</p>} */}
+				{(addRestSeconds < 0 || addRounds < 0 || addWorkingSeconds < 0) && <p>Not allowed set values under 0</p>}
 			</TimerBox>			
 		</TimerContainer>
 	)
