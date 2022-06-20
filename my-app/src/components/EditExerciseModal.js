@@ -215,4 +215,8 @@ const StyledInput = styled(MyTextInput)`
 		border: 2px solid var(--accentgreen);
 	}
 `
-const StyledError = styled.div``
+const StyledError = styled.div`
+	margin-bottom: 1.5rem;
+	text-align: center;
+	color: var(--accentlilac);
+`

@@ -14,15 +14,23 @@ const SignOut = () => {
 		navigate('/')
 	}
 
-	return <SignOutButton onClick={() => removeToken()}>Sign out </SignOutButton>
+	return (
+		<>
+			<SignOutButton onClick={() => removeToken()}>Sign out </SignOutButton>
+		</>
+	)
 }
 
 export default SignOut
 
+// const ButtonContainer = styled.div`
+// 	position: relative;
+// `
+
 const SignOutButton = styled.button`
-	width: 150px;
+	width: 100px;
 	border-radius: 15px;
-	background: var(--primary);
+	background: var(--secondary);
 	font-family: 'poppins';
 	text-transform: uppercase;
 	border: none;
@@ -30,6 +38,11 @@ const SignOutButton = styled.button`
 	margin-top: 1em;
 	box-shadow: 0px 10px 13px -7px #808080; <-------change
 	font-size: 0.5rem;
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	color: var(--black);
+	font-weight: bold;
 
 	&:hover {
 		background: var(--accentgreen);

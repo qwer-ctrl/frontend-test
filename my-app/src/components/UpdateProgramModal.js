@@ -161,4 +161,8 @@ const StyledInput = styled(MyTextInput)`
 	box-shadow: inset 0px 4px 4px 0px #adadad;
 `
 
-const StyledError = styled.div``
+const StyledError = styled.div`
+	margin-bottom: 1.5rem;
+	text-align: center;
+	color: var(--accentlilac);
+`

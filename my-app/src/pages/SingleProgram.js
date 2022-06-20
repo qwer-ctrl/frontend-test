@@ -8,7 +8,8 @@ import DeleteExerciseModal from '../components/DeleteExerciseModal'
 import { API_URL } from '../utils/utils'
 import ui from '../reducers/ui'
 import Timer from '../components/Timer'
-import LoadingAnimation from '../components/LoadingAnimation'
+import AllDoneLoader from '../components/AllDoneLoader'
+// import LoadingAnimation from '../components/LoadingAnimation'
 import AddExerciseModal from '../components/AddExerciseModal'
 import UpdateProgramModal from '../components/UpdateProgramModal'
 import DeleteProgramModal from '../components/DeleteProgramModal'
@@ -99,7 +100,7 @@ const SingleProgram = () => {
 			updatedList.splice(checked.indexOf(event.target.value), 1)
 		}
 		setChecked(updatedList)
-		console.log(updatedList.lenght, programExercise.lenght)
+		console.log(updatedList.length, programExercise.length)
 		const progressbar = (updatedList.length/programExercise.length) * 100
 		setPercent(progressbar)
 	}
@@ -109,9 +110,10 @@ const SingleProgram = () => {
 	const maxValue = programExercise.length
 
 	return isLoading ? (
-		<LoadingAnimation />
+		<AllDoneLoader /> 
 	) : (
 		<OuterWrapper>
+			{/* <AllDoneLoader /> */}
 			<Header />
 			<InnerWrapper margin='25vh auto 4rem'>
 				<h1>{programName}</h1>
@@ -148,16 +150,15 @@ const SingleProgram = () => {
 					{showDeleteProgramModal ? <DeleteProgramModal /> : null}
 				</ButtonContainer>
 
-				<Container>
-        <Background />
-        <Progress percent={percent} />
-      </Container>
+				<ProgressContainer>
+        			<Background />
+        			<Progress percent={percent} />
+      			</ProgressContainer>
 				{progress}/{maxValue}
 
 				{programExercise.map((item) => (
 					<ExerciseContainer key={item._id}>
 						<h3>{item.exercise}</h3>
-						{/* <div> */}
 						{item.sets ? <p>{item.sets} sets</p> : null}
 						{item.reps ? <p>{item.reps} sets</p> : null}
 						{item.weights ? <p>{item.weights}</p> : null}
@@ -168,13 +169,12 @@ const SingleProgram = () => {
 						{item.comments ? <p>comments: {item.comments}</p> : null}
 						{item.exerciseLink ? (
 							<p>
-								link:{' '}
+								link:
 								<a href={item.exerciseLink} target='_blank' rel='noopener noreferrer'>
 									{item.exerciseLink}
 								</a>
 							</p>
 						) : null}
-						{/* </div> */}
 
 						<label htmlFor='checkbox'></label>
 						<input id='checkbox' type='checkbox' value={item._id} onChange={handleChecked} />
@@ -236,31 +236,32 @@ const ButtonContainer = styled.div`
 	margin: 1rem 0;
 	gap: 1rem;
 `
-const Container = styled.div`
-  height: 12px;
-  width: 100%;
+const ProgressContainer = styled.div`
+	height: 12px;
+	width: 100%;
 	max-width: 300px;
-  position: relative;
+	position: relative;
 	z-index: -1;
-`;
+	margin: 1rem 0 0.5rem;
+`
 
 const BaseBox = styled.div`
-  height: 100%;
-  position: absolute;
-  left: 0;
-  top: 0;
-  border-radius: 3px;
-  transition: width 2s ease-in-out;
+	height: 100%;
+	position: absolute;
+	left: 0;
+	top: 0;
+	border-radius: 3px;
+	transition: width 2s ease-in-out;
 `
 
 const Background = styled(BaseBox)`
-  background: grey;
-  width: 100%;
+	background: var(--grey);
+	width: 100%;
 	max-width: 300px;
 `
 
 const Progress = styled(BaseBox)`
-  background: var(--accentlilac);
-  width: ${({ percent }) => percent}%;
+	background: var(--accentlilac);
+	width: ${({ percent }) => percent}%;
 `
 // const StyledButton = styled.button``

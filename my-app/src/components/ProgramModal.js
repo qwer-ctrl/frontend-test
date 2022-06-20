@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { program } from '../reducers/program'
@@ -34,9 +34,6 @@ const MyCheckbox = ({ label, ...props }) => {
 }
 
 const ProgramModal = ({ showModal, setShowModal }) => {
-	//refactor to use store instead of sending props to MyPage..
-	// const [programId, setProgramId] = useState('')
-	// console.log(programId)
 	const userId = useSelector((store) => store.user.userId)
 	const navigate = useNavigate()
 	const dispatch = useDispatch()
@@ -49,11 +46,8 @@ const ProgramModal = ({ showModal, setShowModal }) => {
 		dispatch(program.actions.setProgramName(data.response.programName))
 		dispatch(program.actions.setProgramType(data.response.programType))
 		dispatch(program.actions.setProgramId(data.response._id))
-		// dispatch(program.actions.setExercise([]))
-		// setProgramId(data.response._id)
 		console.log('hello', data.response._id)
 		navigate(`/addprogram/${data.response._id}`) //<---------------------change?
-		// navigate(`/addprogram/${programId}`)
 	}
 
 	const Schema = Yup.object().shape({
@@ -150,4 +144,8 @@ const StyledInput = styled(MyTextInput)`
 	box-shadow: inset 0px 4px 4px 0px #adadad;
 `
 
-const StyledError = styled.div``
+const StyledError = styled.div`
+	margin-bottom: 1.5rem;
+	text-align: center;
+	color: var(--accentlilac);
+`

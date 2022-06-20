@@ -8,6 +8,7 @@ import MyPage from './pages/MyPage'
 import AddProgram from './pages/AddProgram'
 import SingleProgram from './pages/SingleProgram'
 import NotFound from './pages/NotFound'
+import ProfilePage from './pages/ProfilePage'
 
 import user from './reducers/user'
 import { program } from './reducers/program'
@@ -46,6 +47,7 @@ export const App = () => {
 					<Route path='/mypage' element={<MyPage />}></Route>
 					<Route path='/addprogram/:programId' element={<AddProgram />}></Route>
 					<Route path='/singleprogram/:programId' element={<SingleProgram />}></Route>
+					<Route path='/profilepage' element={<ProfilePage />}></Route>
 					{/* <Route path='/login' element={<Login />}></Route> */}
 					<Route path='*' element={<NotFound />}></Route>
 				</Routes>

@@ -1,12 +1,12 @@
 import React, { useEffect, useState, useCallback } from 'react'
-import { useSelector, useDispatch, batch } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
 import { Formik, Form, useField } from 'formik'
 import * as Yup from 'yup'
 import styled from 'styled-components/macro'
 
 import { API_URL } from '../utils/utils'
-import { program } from '../reducers/program'
+// import { program } from '../reducers/program'
 import exercise from '../reducers/exercise'
 import ui from '../reducers/ui'
 import LoadingAnimation from '../components/LoadingAnimation'
@@ -14,7 +14,7 @@ import SignOut from '../components/SignOut'
 import EmptyState from '../components/EmptyState'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
-import { OuterWrapper, InnerWrapper } from '../styles/GlobalStyles'
+import { OuterWrapper, InnerWrapper, HeadingOne } from '../styles/GlobalStyles'
 import { StyledButton } from '../styles/ButtonStyles'
 
 const MyTextInput = ({ label, ...props }) => {
@@ -41,11 +41,8 @@ const MyTextArea = ({ label, ...props }) => {
 
 const AddProgram = () => {
 	const { programId } = useParams()
-	// const userId = useSelector((store) => store.user.userId)
 	const [programName, setProgramName] = useState('')
-	const [exerciseId, setExerciseId] = useState('')
 	const [exerciseContent, setExerciseContent] = useState([])
-	console.log("exerciseContent", exerciseContent)
 	const [displaySets, setDisplaySets] = useState(false)
 	const [displayReps, setDisplayReps] = useState(false)
 	const [displayWeights, setDisplayWeights] = useState(false)
@@ -56,11 +53,8 @@ const AddProgram = () => {
 	const [displayExerciseLength, setDisplayExerciseLength] = useState(false)
 	const [displayExerciseLink, setDisplayExerciseLink] = useState(false)
 	const isLoading = useSelector((store) => store.ui.isLoading)
-	// const userHasExercise = useSelector((store) => store.program.exercise)
-	// console.log('exercise from store?', userHasExercise)
 	const navigate = useNavigate()
 	const dispatch = useDispatch()
-	console.log(programId)
 
 	const fetchProgram = useCallback(() => {
 		const options = {
@@ -74,7 +68,6 @@ const AddProgram = () => {
 		fetch(API_URL(`myprogram/${programId}`), options)
 			.then((res) => res.json())
 			.then((data) => {
-				console.log('data from program fetch', data)
 				if (data.success) {
 					setProgramName(data.response.programName)
 					setExerciseContent(data.response.exercise)
@@ -104,10 +97,6 @@ const AddProgram = () => {
 		exerciseLength: Yup.string(),
 		exerciseLink: Yup.string(),
 	})
-
-	const handleData = (data) => {
-		setExerciseId(data.response._id)
-	}
 
 	const handleSetsState = () => {
 		setDisplaySets(!displaySets)
@@ -147,7 +136,7 @@ const AddProgram = () => {
 		<OuterWrapper>
 			<Header />
 			<InnerWrapper margin='25vh auto 4rem'>
-				{exerciseContent ? <h1>{programName}!</h1> : <EmptyState />}
+				{exerciseContent ? <HeadingOne fontSize="2rem">{programName}!</HeadingOne> : <EmptyState />}
 
 				<Formik
 					initialValues={{
@@ -186,7 +175,6 @@ const AddProgram = () => {
 							.then((res) => res.json())
 							.then((data) => {
 								console.log('data from add exercise post request', data)
-								handleData(data)
 							})
 							.catch((err) => {
 								console.log(err)
@@ -362,24 +350,24 @@ const AddProgram = () => {
 						</StyledForm>
 					)}
 				</Formik>
-				{/* {exerciseContent && ( */}
+				{exerciseContent && (
 				<ExerciseGrid>
 					{exerciseContent.map((exercise) => (
 						<ExerciseContainer key={exercise._id}>
-							<h1>{exercise.exercise}</h1>
-							{exerciseContent.sets && <p>Sets: {exerciseContent.sets}</p>}
-							{exerciseContent.reps && <p>Reps: {exerciseContent.reps}</p>}
-							{exerciseContent.weights && <p>Weights: {exerciseContent.weights}</p>}
-							{exerciseContent.minutes && <p>Minutes: {exerciseContent.minutes}</p>}
-							{exerciseContent.seconds && <p>Seconds: {exerciseContent.seconds}</p>}
-							{exerciseContent.duration && <p>Duration: {exerciseContent.duration}</p>}
-							{exerciseContent.exerciseLength && <p>Distance: {exerciseContent.exerciseLength} </p>}
-							{exerciseContent.comments && <p>Comment: {exerciseContent.comments}</p>}
-							{exerciseContent.link && <p>Link: {exerciseContent.link}</p>}
+							<HeadingOne fontSize="1.5rem">{exercise.exercise}</HeadingOne>
+							{exercise.sets && <p>Sets: {exercise.sets}</p>}
+							{exercise.reps && <p>Reps: {exercise.reps}</p>}
+							{exercise.weights && <p>Weights: {exercise.weights}</p>}
+							{exercise.minutes && <p>Minutes: {exercise.minutes}</p>}
+							{exercise.seconds && <p>Seconds: {exercise.seconds}</p>}
+							{exercise.duration && <p>Duration: {exercise.duration}</p>}
+							{exercise.exerciseLength && <p>Distance: {exercise.exerciseLength} </p>}
+							{exercise.comments && <p>Comment: {exercise.comments}</p>}
+							{exercise.exerciseLink && <p>Link: <a href={exercise.exerciseLink} target='_blank' rel='noopener noreferrer'>{exercise.exerciseLink}</a></p>}
 						</ExerciseContainer>
 					))}
 				</ExerciseGrid>
-				 {/* )}  */}
+				)}
 				<ButtonContainer>
 					<StyledButton
 						width='150px'
@@ -493,12 +481,14 @@ const StyledError = styled.div`
 `
 
 const ExerciseGrid = styled.article`
+	width: 100%;
 	display: grid;
 	grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+	gap: 1rem;
 `
 
 const ExerciseContainer = styled.div`
-	height: 100px;
+	height: 200px;
 	display: flex;
 	flex-direction: column;
 	align-items: flex-start;
@@ -508,11 +498,6 @@ const ExerciseContainer = styled.div`
 	box-shadow: 0px 6px 13px 0px #adadad;
 `
 
-// const StyledButton = styled.button`
-// 	width: 150px;
-// 	margin: 5px;
-// 	padding: 5px;
-// `
 
 //-------------------------------------------- code for trying to have multiple sets --------------------------//
 

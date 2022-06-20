@@ -10,13 +10,13 @@ export const GlobalStyle = createGlobalStyle`
 		--accentgreen: #9de9a4;
 		--white: #FFFFFF;
 		--black: #202020;
-		--gray: #F4F4F4;
+		--grey: #F4F4F4;
 		padding: 0; 
 		margin: 0;
    		box-sizing: border-box;
 		font-family: 'Jost', sans-serif;
   		-webkit-font-smoothing: antialiased;
-  		-moz-osx-font-smoothing: grayscale;
+  		-moz-osx-font-smoothing: greyscale;
   }
 `
 
@@ -34,6 +34,7 @@ export const InnerWrapper = styled.section`
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
+	
 
 	@media screen and (min-width: 768px) {
 		width: 60%;
@@ -42,6 +43,13 @@ export const InnerWrapper = styled.section`
 
 export const HeadingOne = styled.h1`
 	font-family: 'Poppins', sans-serif;
+	font-size: ${props => props.fontSize};
+	color: ${props => props.color};
+	width: ${props => props.width};
+	text-transform: ${props => props.textTransform};
+	padding: ${props => props.padding};
+	margin: ${props => props.margin};
+	text-align: ${props => props.textAlign};
 `
 
 

@@ -12,7 +12,8 @@ export const StyledButton = styled.button`
 	box-shadow: ${props => props.boxShadow}; <-------change
 	font-size: 0.5rem;
 	color: var(--black);
-	// font-size: ${props => props.fontSize};
+	font-size: ${props => props.fontSize};
+	// font-weight: bold;
 
 	&:hover {
 		background: ${props => props.backgroundHover};

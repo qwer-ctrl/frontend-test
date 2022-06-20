@@ -110,6 +110,7 @@ const Login = () => {
 								setMode('login')
 							})
 							.catch((err) => {
+								console.log(err)
 								handleLoginFailure(err)
 							})
 							.finally(() => {
@@ -245,17 +246,3 @@ const StyledError = styled.div`
 	text-align: center;
 	color: var(--accentlilac);
 `
-
-// const StyledSecondaryButton = styled.button`
-// 	border-radius: 15px;
-// 	font-family: 'poppins';
-// 	text-transform: uppercase;
-// 	background: transparent;
-// 	border: none;
-// 	padding: 6px 18px;
-// 	margin-top: 1em;
-
-// 	&:hover {
-// 		text-decoration: underline;
-// 	}
-// `

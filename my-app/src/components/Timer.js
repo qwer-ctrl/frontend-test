@@ -127,11 +127,15 @@ const TimerBox = styled.div`
 	gap: 2rem;
 	width: fit-content;
 	height: fit-content;
-	// border: 1px solid;
-	padding: 20px;
+	padding: 30px;
 	border-radius: 15px;
 	box-shadow: 0px 10px 13px 0px #adadad;
 	background: ${props => props.background};
+
+	// @media screen and (min-width: 768px) {
+	// 	width: 500px;
+	// 	height: fit-content;
+	// }
 `
 
 const StyledTitle = styled.h1`
