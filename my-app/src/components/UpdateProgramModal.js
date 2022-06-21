@@ -43,7 +43,6 @@ const UpdateProgramModal = () => {
 		dispatch(ui.actions.setShowUpdateProgramModal(false))
 	}
 
-
 	useEffect(() => {
 		const options = {
 			method: 'GET',
@@ -61,8 +60,6 @@ const UpdateProgramModal = () => {
 		// .finally(() => dispatch(ui.actions.setLoading(false)))
 	}, [programId])
 
-
-
 	const handleData = (data) => {
 		dispatch(program.actions.setProgramName(data.response.programName))
 		dispatch(program.actions.setProgramType(data.response.programType))
@@ -71,8 +68,7 @@ const UpdateProgramModal = () => {
 	}
 
 	const Schema = Yup.object().shape({
-		programName: Yup.string()
-			.max(20, 'The name can contain maximum 20 letters'),
+		programName: Yup.string().max(20, 'The name can contain maximum 20 letters'),
 		programType: Yup.string(),
 	})
 
@@ -101,7 +97,7 @@ const UpdateProgramModal = () => {
 								})
 									.then((res) => res.json())
 									.then((data) => {
-										console.log("data from update program modal post", data)
+										console.log('data from update program modal post', data)
 										handleData(data)
 									})
 									.catch((err) => {
@@ -117,19 +113,29 @@ const UpdateProgramModal = () => {
 						>
 							{({ isSubmitting }) => (
 								<StyledForm>
-									<StyledInput label='Program name' name='programName' type='text' placeholder={exerciseContent.programName} />
+									<StyledInput
+										label='Program name'
+										name='programName'
+										type='text'
+										placeholder={exerciseContent.programName}
+									/>
 
 									<MyCheckbox label='Weights' name='programType' value='weights' />
 
 									<MyCheckbox label='Cardio' name='programType' value='cardio' />
 
 									<StyledButton
-									background="var(--primary)"
-									margin="1em 0 0"
-									padding="6px 18px"
-									boxShadow="0px 10px 13px -7px #808080"
-									fontSize="10px"
-									type='submit'>Update program</StyledButton>
+										background='var(--primary)'
+										margin='1em 0 0'
+										padding='6px 18px'
+										boxShadow='0px 10px 13px -7px #808080'
+										fontSize='10px'
+										backgroundHover='var(--tertiary)'
+										color='var(--secondary)'
+										type='submit'
+									>
+										Update program
+									</StyledButton>
 								</StyledForm>
 							)}
 						</Formik>
@@ -141,7 +147,6 @@ const UpdateProgramModal = () => {
 }
 
 export default UpdateProgramModal
-
 
 const StyledForm = styled(Form)`
 	display: flex;
@@ -162,7 +167,7 @@ const StyledInput = styled(MyTextInput)`
 
 	&:focus {
 		outline: none;
-		border: 2px solid var(--accentgreen);
+		border-bottom: 3px solid var(--tertiary);
 	}
 `
 

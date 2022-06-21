@@ -163,12 +163,15 @@ const EditExerciseModal = () => {
 										placeholder={exerciseContent.exerciseLink}
 									/>
 									<StyledButton
-									background="var(--primary)"
-									margin="1em 0 0"
-									padding="6px 18px"
-									boxShadow="0px 10px 13px -7px #808080"
-									fontSize="10px"
-									type='submit'>Update exercise</StyledButton>
+										background='var(--primary)'
+										margin='1em 0 0'
+										padding='6px 18px'
+										boxShadow='0px 10px 13px -7px #808080'
+										fontSize='10px'
+										type='submit'
+									>
+										Update exercise
+									</StyledButton>
 								</StyledForm>
 							)}
 						</Formik>
@@ -204,9 +207,9 @@ const StyledInput = styled(MyTextInput)`
 	margin: 0.5rem 0;
 	text-align: center;
 	border: none;
-	border-radius: 10px;
+	border-radius: 15px;
 	padding: 6px 10px;
-	box-shadow: inset 0px 4px 4px 0px #ADADAd;
+	box-shadow: inset 0px 4px 4px 0px #adadad;
 
 	&:focus {
 		outline: none;

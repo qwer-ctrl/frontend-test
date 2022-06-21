@@ -23,7 +23,7 @@ const SingleProgram = () => {
 	const [programName, setProgramName] = useState('')
 	const [programExercise, setProgramExercise] = useState([])
 	const [checked, setChecked] = useState([])
-	const [percent, setPercent] = useState(0);
+	const [percent, setPercent] = useState(0)
 
 	const isLoading = useSelector((store) => store.ui.isLoading)
 	const showDeleteProgramModal = useSelector((store) => store.ui.showDeleteProgramModal)
@@ -91,7 +91,6 @@ const SingleProgram = () => {
 	let updatedList = [...checked]
 
 	const handleChecked = (event) => {
-		
 		if (event.target.checked) {
 			updatedList = [...checked, event.target.value]
 		} else {
@@ -99,7 +98,7 @@ const SingleProgram = () => {
 		}
 		setChecked(updatedList)
 		console.log(updatedList.length, programExercise.length)
-		const progressbar = (updatedList.length/programExercise.length) * 100
+		const progressbar = (updatedList.length / programExercise.length) * 100
 		setPercent(progressbar)
 	}
 
@@ -108,16 +107,16 @@ const SingleProgram = () => {
 	const maxValue = programExercise.length
 
 	return isLoading ? (
-		<AllDoneLoader /> 
+		<AllDoneLoader />
 	) : (
 		<OuterWrapper>
 			{/* <AllDoneLoader /> */}
 			<Header />
 			<InnerWrapper margin='25vh auto 4rem'>
-
-				<HeadingOne fontSize="1.5rem" color="var(--accentgreen)" margin="0 0 0.5rem">{programName}</HeadingOne>
-				
-				<ButtonContainer justifyContent='space-evenly' flexDirection="row">
+				<HeadingOne fontSize='1.5rem' color='var(--tertiary)' margin='0 0 0.5rem'>
+					{programName}
+				</HeadingOne>
+				<ButtonContainer justifyContent='space-evenly' flexDirection='row'>
 					<StyledButton
 						padding='5px 15px'
 						background='var(--primary)'
@@ -146,58 +145,58 @@ const SingleProgram = () => {
 					</StyledButton>
 					{showDeleteProgramModal ? <DeleteProgramModal /> : null}
 				</ButtonContainer>
-
 				<ProgressContainer>
-        			<Background />
-        			<Progress percent={percent} />
-      			</ProgressContainer>
+					<Background />
+					<Progress percent={percent} />
+				</ProgressContainer>
 				{progress}/{maxValue}
-
 				<ExerciseGrid>
 					{programExercise.map((item) => (
 						<ExerciseWrapper key={item._id}>
-								<HeadingThree>{item.exercise}</HeadingThree>
-								<ExerciseContainer>
-									{item.sets ? <p>{item.sets} sets</p> : null}
-									{item.reps ? <p>{item.reps} sets</p> : null}
-									{item.weights ? <p>{item.weights}</p> : null}
-									{item.minutes ? <p>{item.minutes} minutes</p> : null}
-									{item.seconds ? <p>{item.seconds} seconds</p> : null}
-									{item.duration ? <p>{item.duration}</p> : null}
-									{item.exerciseLength ? <p>{item.exerciseLength}</p> : null}
-									{item.comments ? <p>comments: {item.comments}</p> : null}
-									{item.exerciseLink ? (
-										<p>
-											link:
-											<a href={item.exerciseLink} target='_blank' rel='noopener noreferrer'>
-												{item.exerciseLink}
-											</a>
-										</p>
-									) : null}
+							<HeadingThree>{item.exercise}</HeadingThree>
+							<ExerciseContainer>
+								{item.sets ? <p>{item.sets} sets</p> : null}
+								{item.reps ? <p>{item.reps} sets</p> : null}
+								{item.weights ? <p>{item.weights}</p> : null}
+								{item.minutes ? <p>{item.minutes} minutes</p> : null}
+								{item.seconds ? <p>{item.seconds} seconds</p> : null}
+								{item.duration ? <p>{item.duration}</p> : null}
+								{item.exerciseLength ? <p>{item.exerciseLength}</p> : null}
+								{item.comments ? <p>comments: {item.comments}</p> : null}
+								{item.exerciseLink ? (
+									<p>
+										link:
+										<a href={item.exerciseLink} target='_blank' rel='noopener noreferrer'>
+											{item.exerciseLink}
+										</a>
+									</p>
+								) : null}
 
-									<label htmlFor='checkbox'></label>
-									<input id='checkbox' type='checkbox' value={item._id} onChange={handleChecked} />
-								</ExerciseContainer>
-							<ButtonContainer justifyContent='center' flexDirection="row">
+								<label htmlFor='checkbox'></label>
+								<StyledCheckbox id='checkbox' type='checkbox' value={item._id} onChange={handleChecked} />
+							</ExerciseContainer>
+							<ButtonContainer justifyContent='center' flexDirection='row'>
 								<StyledButton
-									width="65px"
+									width='65px'
 									background='var(--primary)'
 									margin='0'
 									padding='5px 10px'
 									boxShadow='0px 10px 13px -7px #808080'
-									backgroundHover='var(--accentgreen)'
+									backgroundHover='var(--tertiary)'
+									color='var(--secondary)'
 									onClick={() => handleEditExerciseModal(item._id)}
 								>
 									Edit
 								</StyledButton>
 								{showEditExerciseModal ? <EditExerciseModal /> : null}
 								<StyledButton
-									width="65px"
+									width='65px'
 									background='var(--primary)'
 									margin='0'
 									padding='5px 10px'
 									boxShadow='0px 10px 13px -7px #808080'
-									backgroundHover='var(--accentgreen)'
+									backgroundHover='var(--tertiary)'
+									color='var(--secondary)'
 									onClick={() => handleDeleteExerciseModal(item._id)}
 								>
 									Delete
@@ -207,7 +206,6 @@ const SingleProgram = () => {
 						</ExerciseWrapper>
 					))}
 				</ExerciseGrid>
-
 				{/* <StyledButton padding='6px 8px' background='var(--primary)' fontSize='0.6rem' onClick={handleGoBack}>
 					Go back
 				</StyledButton> */}
@@ -239,9 +237,8 @@ const ExerciseWrapper = styled.article`
 
 const HeadingThree = styled.h3`
 	font-size: 1rem;
-	color: var(--accentgreen);
+	color: var(--tertiary);
 `
-
 
 const ExerciseContainer = styled.div`
 	display: flex;
@@ -254,15 +251,15 @@ const ExerciseContainer = styled.div`
 	p {
 		font-size: 0.7rem;
 	}
-
-	input {
-		margin-top: 0.5rem;
-	}
+`
+const StyledCheckbox = styled.input`
+	accent-color: var(--tertiary);
+	margin-top: 0.5rem;
 `
 
 const ButtonContainer = styled.div`
 	display: flex;
-	flex-direction: ${props => props.flexDirection};
+	flex-direction: ${(props) => props.flexDirection};
 	justify-content: ${(props) => props.justifyContent};
 	margin: 0.5rem 0;
 	gap: 5px;

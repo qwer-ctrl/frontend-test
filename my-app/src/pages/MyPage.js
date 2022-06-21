@@ -16,7 +16,7 @@ import { OuterWrapper, InnerWrapper } from '../styles/GlobalStyles'
 import { StyledButton } from '../styles/ButtonStyles'
 import gymImage from '../styles/images/gym.png'
 import cardioImage from '../styles/images/cardio.png'
-import plusIcon from "../styles/images/plus-sign.png"
+import plusIcon from '../styles/images/plus-sign.png'
 
 const MyPage = () => {
 	const [showModal, setShowModal] = useState(false)
@@ -90,7 +90,7 @@ const MyPage = () => {
 		<>
 			<OuterWrapper>
 				<Header />
-				<InnerWrapper margin='18vh auto 4rem' desktopMargin="26vh auto 0">
+				<InnerWrapper margin='18vh auto 4rem' desktopMargin='26vh auto 0'>
 					{(!userHasProgram || userHasProgram.length < 1) && <EmptyState />}
 					{userHasProgram.length > 0 && (
 						<MainContainer>
@@ -116,7 +116,9 @@ const MyPage = () => {
 					)}
 					<ButtonContainer>
 						<ProgramModal showModal={showModal} setShowModal={setShowModal} />
-						<AddProgramButton onClick={openModal}><StyledPlusIcon src={plusIcon} /></AddProgramButton>
+						<AddProgramButton onClick={openModal}>
+							<StyledPlusIcon src={plusIcon} />
+						</AddProgramButton>
 					</ButtonContainer>
 				</InnerWrapper>
 				<Footer />
@@ -135,6 +137,7 @@ const MainContainer = styled.div`
 	max-height: 70vh;
 	overflow-y: scroll;
 	padding: 7px;
+	justify-content: center;
 
 	@media screen and (min-width: 768px) {
 		grid-template-columns: repeat(auto-fit, minmax(120px, 0.25fr));
@@ -158,8 +161,8 @@ const ProgramContainer = styled.div`
 `
 
 const StyledImage = styled.img`
-	width: 110px;
-	height: 110px;
+	height: 70px;
+	width: 70px;
 `
 
 const ButtonContainer = styled.div`
@@ -176,8 +179,8 @@ const AddProgramButton = styled.button`
 	height: 60px;
 	border: none;
 	border-radius: 50%;
-	background: var(--accentgreen);
-	bottom: 4.5vh;
+	background: var(--tertiary);
+	bottom: 5.5vh;
 	left: calc(50% - 30px);
 	z-index: 10;
 	box-shadow: 5px 0px 10px 0px #adadad;
@@ -188,9 +191,9 @@ const AddProgramButton = styled.button`
 `
 
 const StyledPlusIcon = styled.img`
-	width: 40px;
-	height: 40px;
+	width: 50px;
+	height: 50px;
 	position: fixed;
-	left: calc(50% - 18px);
-	bottom: 5.8%;
+	left: calc(50% - 25px);
+	bottom: calc(5.5vh + 5px);
 `

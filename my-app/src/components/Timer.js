@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from 'react'
-import styled from 'styled-components'
+import styled from 'styled-components/macro'
 
 import { StyledButton } from '../styles/ButtonStyles'
 
 const Timer = () => {
-	const [addRounds, setAddRounds] = useState(1)
+	const [addRounds, setAddRounds] = useState(0)
 	const [addWorkingSeconds, setAddWorkingSeconds] = useState(0)
 	const [addRestSeconds, setAddRestSeconds] = useState(0)
 	const [workingSeconds, setWorkingSeconds] = useState(0)
 	const [restSeconds, setRestSeconds] = useState(0)
-	const [rounds, setRounds] = useState(1)
+	const [rounds, setRounds] = useState(0)
 	const [runTimer, setRunTimer] = useState(false)
+	const [message, setMessage] = useState('')
+	const [godJobMessage, setGreatJobMessage] = useState('')
 
 	useEffect(() => {
 		if (workingSeconds > 0 && runTimer) {
@@ -18,21 +20,27 @@ const Timer = () => {
 				setWorkingSeconds((workingSeconds) => workingSeconds - 1)
 			}, 1000)
 			return () => clearInterval(workInterval)
-		} 
-		else if ((addWorkingSeconds < 0 && !runTimer) || (addRestSeconds < 0 && !runTimer) || (addRounds < 0 && !runTimer)) {
+		} else if (
+			(addWorkingSeconds < 0 && !runTimer) ||
+			(addRestSeconds < 0 && !runTimer) ||
+			(addRounds < 0 && !runTimer)
+		) {
 			setTimeout(() => {
 				setWorkingSeconds(0)
 				setRestSeconds(0)
 				setRounds(0)
 			})
-		} 
-		else if ((addWorkingSeconds >= 0 && !runTimer) || (addRestSeconds >= 0 && !runTimer) || (addRounds >= 0 && !runTimer)) {
+		} else if (
+			(addWorkingSeconds >= 0 && !runTimer) ||
+			(addRestSeconds >= 0 && !runTimer) ||
+			(addRounds >= 0 && !runTimer)
+		) {
 			setTimeout(() => {
 				setWorkingSeconds(addWorkingSeconds)
 				setRestSeconds(addRestSeconds)
 				setRounds(addRounds)
 			})
-		}	 else if (restSeconds > 0 && runTimer) {
+		} else if (restSeconds > 0 && runTimer) {
 			const restInterval = setInterval(() => {
 				setRestSeconds((restSeconds) => restSeconds - 1)
 			}, 1000)
@@ -49,63 +57,100 @@ const Timer = () => {
 			setAddWorkingSeconds(0)
 			setAddRounds(0)
 			setRunTimer(false)
+			setGreatJobMessage('Good job!')
 		}
 	}, [workingSeconds, runTimer, restSeconds, rounds, addWorkingSeconds, addRestSeconds, addRounds])
 
 	const getBackground = () => {
 		let color
 		if (workingSeconds < 1) {
-			color = 'var(--accentgreen)'
+			color = 'var(--primary)'
 		} else {
 			color = 'var(--accentlilac)'
 		}
 		return color
 	}
 
+	const handleRoundsDecrement = () => {
+		if (addRounds <= 0) {
+			setAddRounds(0)
+			setMessage('Must be over 0')
+		} else {
+			setAddRounds(addRounds - 1)
+			setMessage('')
+		}
+	}
+	const handleRoundsIncrement = () => {
+		setAddRounds(addRounds + 1)
+		setMessage('')
+	}
+
+	const handleWorkingTimeDecrement = () => {
+		if (addWorkingSeconds <= 0) {
+			setAddWorkingSeconds(0)
+			setMessage('Must be over 0')
+		} else {
+			setAddWorkingSeconds(addWorkingSeconds - 1)
+			setMessage('')
+		}
+	}
+	const handleWorkingTimeIncrement = () => {
+		setAddWorkingSeconds(addWorkingSeconds + 1)
+		setMessage('')
+	}
+
+	const handleRestSecondsDecrement = () => {
+		if (addRestSeconds <= 0) {
+			setAddRestSeconds(0)
+			setMessage('Must be over 0')
+		} else {
+			setAddRestSeconds(addRestSeconds - 1)
+			setMessage('')
+		}
+	}
+	const handleRestSecondsIncrement = () => {
+		setAddRestSeconds(addRestSeconds + 1)
+		setMessage('')
+	}
+
 	return (
 		<TimerContainer>
 			<TimerBox background={getBackground()}>
-				<SetContainer>
-					<StyledTitle>Set your rounds:</StyledTitle>
-					<StyledButton onClick={() => setAddRounds(addRounds - 1)}>-</StyledButton>
-					<Rounds>{addRounds}round</Rounds>
-					<StyledButton onClick={() => setAddRounds(addRounds + 1)}>+</StyledButton>
-				</SetContainer>
-				
-				<SetContainer>
-					<StyledTitle>Set your working time:</StyledTitle>
-					<StyledButton onClick={() => setAddWorkingSeconds(addWorkingSeconds - 1)}>-</StyledButton>
-					<Seconds>{addWorkingSeconds}worksec</Seconds>
-					<StyledButton onClick={() => setAddWorkingSeconds(addWorkingSeconds + 1)}>+</StyledButton>
-				</SetContainer>
-				
-				<SetContainer>
-					<StyledTitle>Set your resting time:</StyledTitle>
-					<StyledButton onClick={() => setAddRestSeconds(addRestSeconds - 1)}>-</StyledButton>
-					<Seconds>{addRestSeconds}restsec</Seconds>
-					<StyledButton onClick={() => setAddRestSeconds(addRestSeconds + 1)}>+</StyledButton>
-				</SetContainer>
-
+				{message}
 				<TimerClock>
-					<p>{rounds} rounds / {addRounds} rounds</p>
-					<p>{workingSeconds} working seconds</p>
-					<p>{restSeconds} resting seconds</p>
-					<StyledButton 
-					padding="6px 18px"
-					margin="3px 0 0"
-					onClick={() => setRunTimer(true)}>Start</StyledButton>
-					<StyledButton 
-					padding="6px 18px"
-					margin="3px 0 0"
-					onClick={() => setRunTimer(false)}>Stop</StyledButton>
+					<SetTimerContainer>
+						<TimerComponent>
+							<StyledButton onClick={handleRoundsDecrement}>-</StyledButton>
+							<TimerText>
+								{rounds} rounds / {addRounds} rounds
+							</TimerText>
+							<StyledButton onClick={handleRoundsIncrement}>+</StyledButton>
+						</TimerComponent>
+
+						<TimerComponent>
+							<StyledButton onClick={handleWorkingTimeDecrement}>-</StyledButton>
+							<TimerText>{workingSeconds} working seconds</TimerText>
+							<StyledButton onClick={handleWorkingTimeIncrement}>+</StyledButton>
+						</TimerComponent>
+
+						<TimerComponent>
+							<StyledButton onClick={handleRestSecondsDecrement}>-</StyledButton>
+							<TimerText>{restSeconds} resting seconds</TimerText>
+							<StyledButton onClick={handleRestSecondsIncrement}>+</StyledButton>
+						</TimerComponent>
+					</SetTimerContainer>
+
+					<StyledButton padding='6px 18px' margin='3px 0 0' onClick={() => setRunTimer(true)}>
+						Start
+					</StyledButton>
+					<StyledButton padding='6px 18px' margin='3px 0 0' onClick={() => setRunTimer(false)}>
+						Stop
+					</StyledButton>
 				</TimerClock>
 
-				{workingSeconds === 0 && restSeconds === 0 && rounds === 0 && <p>Good job!</p>}
-				{/* {addRestSeconds < 0 && <p>Not allowed</p>}
-				{addWorkingSeconds < 0 && <p>Not allowed</p>}
-				{addRounds < 0 && <p>Not allowed</p>} */}
-				{(addRestSeconds < 0 || addRounds < 0 || addWorkingSeconds < 0) && <p>Not allowed set values under 0</p>}
-			</TimerBox>			
+				{godJobMessage}
+				{/* {workingSeconds === 0 && restSeconds === 0 && rounds === 0 && <p>Good job!</p>} */}
+			</TimerBox>
 		</TimerContainer>
 	)
 }
@@ -121,16 +166,16 @@ const TimerContainer = styled.div`
 
 const TimerBox = styled.div`
 	display: flex;
-	flex-direction: row;
+	flex-direction: column;
 	justify-content: space-between;
 	align-items: center;
-	gap: 2rem;
+	gap: 1rem;
 	width: fit-content;
 	height: fit-content;
 	padding: 30px;
 	border-radius: 15px;
 	box-shadow: 0px 10px 13px 0px #adadad;
-	background: ${props => props.background};
+	background: ${(props) => props.background};
 
 	// @media screen and (min-width: 768px) {
 	// 	width: 500px;
@@ -157,7 +202,18 @@ const TimerClock = styled.div`
 	align-items: center;
 	gap: 5px;
 `
+const SetTimerContainer = styled.div`
+	width: 200px;
+`
 
+const TimerComponent = styled.div`
+	display: flex;
+	justify-content: space-between;
+	padding: 0.3em 0.25em;
+`
+const TimerText = styled.p`
+	margin: 0 1em;
+`
 const Rounds = styled.p``
 
 const Seconds = styled.p``
