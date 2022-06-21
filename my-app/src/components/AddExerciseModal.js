@@ -117,7 +117,6 @@ const AddExerciseModal = () => {
 										padding='6px 18px'
 										boxShadow='0px 10px 13px -7px #808080'
 										backgroundHover='var(--accentgreen)'
-										fontSize='10px'
 										type='submit'
 									>
 										Add exercise
@@ -147,6 +146,11 @@ const StyledInput = styled(MyTextInput)`
 	border-radius: 10px;
 	padding: 6px 10px;
 	box-shadow: inset 0px 4px 4px 0px #adadad;
+
+	&:focus {
+		outline: none;
+		border: 2px solid var(--accentgreen);
+	}
 `
 
 const StyledError = styled.div`

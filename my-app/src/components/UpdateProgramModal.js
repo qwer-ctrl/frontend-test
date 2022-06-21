@@ -159,6 +159,11 @@ const StyledInput = styled(MyTextInput)`
 	border-radius: 10px;
 	padding: 6px 10px;
 	box-shadow: inset 0px 4px 4px 0px #adadad;
+
+	&:focus {
+		outline: none;
+		border: 2px solid var(--accentgreen);
+	}
 `
 
 const StyledError = styled.div`

@@ -200,8 +200,6 @@ const InputContainer = styled.div`
 `
 
 const StyledInput = styled(MyTextInput)`
-	// max-width: 200px;
-	// margin: 5px 0 5px;
 	max-width: 150px;
 	margin: 0.5rem 0;
 	text-align: center;

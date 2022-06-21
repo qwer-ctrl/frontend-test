@@ -9,17 +9,16 @@ export const ModalContainer = styled.div`
   width: 100%;
   height: 100%;
   overflow: auto;
-  background: rgb(0,0,0,0.2); // <-------------- change
+  background: rgb(0,0,0,0.2);
   `
 
 export const StyledModal = styled.div`
 	margin: 20px auto;
-	padding: 2rem;
+	padding: 2rem 2rem 4rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-	// border: 1px solid #888;
 	width: 80%;
 	background: var(--secondary);
   border: none;
@@ -37,5 +36,5 @@ export const CloseButton = styled.button`
   background: var(--primary);
   border: none;
   padding: 6px 15px;
-  box-shadow: 2px 3px 2px #888888; /* <---------Change*/
+  box-shadow: 2px 3px 2px #888888;
 `

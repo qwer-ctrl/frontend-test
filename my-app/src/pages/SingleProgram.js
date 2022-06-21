@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import styled from 'styled-components/macro'
 
 import EditExerciseModal from '../components/EditExerciseModal'
@@ -13,10 +13,9 @@ import AllDoneLoader from '../components/AllDoneLoader'
 import AddExerciseModal from '../components/AddExerciseModal'
 import UpdateProgramModal from '../components/UpdateProgramModal'
 import DeleteProgramModal from '../components/DeleteProgramModal'
-// import EmptyState from '../components/EmptyState'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
-import { OuterWrapper, InnerWrapper } from '../styles/GlobalStyles'
+import { OuterWrapper, InnerWrapper, HeadingOne } from '../styles/GlobalStyles'
 import { StyledButton } from '../styles/ButtonStyles'
 
 const SingleProgram = () => {
@@ -32,7 +31,6 @@ const SingleProgram = () => {
 	const showUpdateProgramModal = useSelector((store) => store.ui.showUpdateProgramModal)
 	const showEditExerciseModal = useSelector((store) => store.ui.showEditExerciseModal)
 	const showDeleteExerciseModal = useSelector((store) => store.ui.showDeleteExerciseModal)
-	const navigate = useNavigate()
 	const dispatch = useDispatch()
 
 	const fetchProgram = useCallback(() => {
@@ -86,9 +84,9 @@ const SingleProgram = () => {
 		fetchProgram()
 	}
 
-	const handleGoBack = () => {
-		navigate('/')
-	}
+	// const handleGoBack = () => {
+	// 	navigate('/')
+	// }
 
 	let updatedList = [...checked]
 
@@ -116,33 +114,32 @@ const SingleProgram = () => {
 			{/* <AllDoneLoader /> */}
 			<Header />
 			<InnerWrapper margin='25vh auto 4rem'>
-				<h1>{programName}</h1>
-				<ButtonContainer justifyContent='space-evenly'>
+
+				<HeadingOne fontSize="1.5rem" color="var(--accentgreen)" margin="0 0 0.5rem">{programName}</HeadingOne>
+				
+				<ButtonContainer justifyContent='space-evenly' flexDirection="row">
 					<StyledButton
-						padding='6px 18px'
+						padding='5px 15px'
 						background='var(--primary)'
 						boxShadow='0px 10px 13px -7px #808080'
-						fontSize='0.6rem'
 						onClick={() => handleUpdateProgramModal(programId)}
 					>
 						Update program
 					</StyledButton>
 					{showUpdateProgramModal ? <UpdateProgramModal /> : null}
 					<StyledButton
-						padding='6px 18px'
+						padding='5px 15px'
 						background='var(--primary)'
 						boxShadow='0px 10px 13px -7px #808080'
-						fontSize='0.6rem'
 						onClick={() => handleAddExerciseModal(programId)}
 					>
 						Add exercise
 					</StyledButton>
 					{showAddExerciseModal ? <AddExerciseModal /> : null}
 					<StyledButton
-						padding='6px 18px'
+						padding='5px 15px'
 						background='var(--primary)'
 						boxShadow='0px 10px 13px -7px #808080'
-						fontSize='0.6rem'
 						onClick={() => handleDeleteProgramModal(programId)}
 					>
 						Delete program
@@ -156,60 +153,64 @@ const SingleProgram = () => {
       			</ProgressContainer>
 				{progress}/{maxValue}
 
-				{programExercise.map((item) => (
-					<ExerciseContainer key={item._id}>
-						<h3>{item.exercise}</h3>
-						{item.sets ? <p>{item.sets} sets</p> : null}
-						{item.reps ? <p>{item.reps} sets</p> : null}
-						{item.weights ? <p>{item.weights}</p> : null}
-						{item.minutes ? <p>{item.minutes} minutes</p> : null}
-						{item.seconds ? <p>{item.seconds} seconds</p> : null}
-						{item.duration ? <p>{item.duration}</p> : null}
-						{item.exerciseLength ? <p>{item.exerciseLength}</p> : null}
-						{item.comments ? <p>comments: {item.comments}</p> : null}
-						{item.exerciseLink ? (
-							<p>
-								link:
-								<a href={item.exerciseLink} target='_blank' rel='noopener noreferrer'>
-									{item.exerciseLink}
-								</a>
-							</p>
-						) : null}
+				<ExerciseGrid>
+					{programExercise.map((item) => (
+						<ExerciseWrapper key={item._id}>
+								<HeadingThree>{item.exercise}</HeadingThree>
+								<ExerciseContainer>
+									{item.sets ? <p>{item.sets} sets</p> : null}
+									{item.reps ? <p>{item.reps} sets</p> : null}
+									{item.weights ? <p>{item.weights}</p> : null}
+									{item.minutes ? <p>{item.minutes} minutes</p> : null}
+									{item.seconds ? <p>{item.seconds} seconds</p> : null}
+									{item.duration ? <p>{item.duration}</p> : null}
+									{item.exerciseLength ? <p>{item.exerciseLength}</p> : null}
+									{item.comments ? <p>comments: {item.comments}</p> : null}
+									{item.exerciseLink ? (
+										<p>
+											link:
+											<a href={item.exerciseLink} target='_blank' rel='noopener noreferrer'>
+												{item.exerciseLink}
+											</a>
+										</p>
+									) : null}
 
-						<label htmlFor='checkbox'></label>
-						<input id='checkbox' type='checkbox' value={item._id} onChange={handleChecked} />
+									<label htmlFor='checkbox'></label>
+									<input id='checkbox' type='checkbox' value={item._id} onChange={handleChecked} />
+								</ExerciseContainer>
+							<ButtonContainer justifyContent='center' flexDirection="row">
+								<StyledButton
+									width="65px"
+									background='var(--primary)'
+									margin='0'
+									padding='5px 10px'
+									boxShadow='0px 10px 13px -7px #808080'
+									backgroundHover='var(--accentgreen)'
+									onClick={() => handleEditExerciseModal(item._id)}
+								>
+									Edit
+								</StyledButton>
+								{showEditExerciseModal ? <EditExerciseModal /> : null}
+								<StyledButton
+									width="65px"
+									background='var(--primary)'
+									margin='0'
+									padding='5px 10px'
+									boxShadow='0px 10px 13px -7px #808080'
+									backgroundHover='var(--accentgreen)'
+									onClick={() => handleDeleteExerciseModal(item._id)}
+								>
+									Delete
+								</StyledButton>
+								{showDeleteExerciseModal ? <DeleteExerciseModal /> : null}
+							</ButtonContainer>
+						</ExerciseWrapper>
+					))}
+				</ExerciseGrid>
 
-						<ButtonContainer justifyContent='flex-start'>
-							<StyledButton
-								background='var(--primary)'
-								margin='1em 0 0'
-								padding='6px 18px'
-								boxShadow='0px 10px 13px -7px #808080'
-								backgroundHover='var(--accentgreen)'
-								fontSize='10px'
-								onClick={() => handleEditExerciseModal(item._id)}
-							>
-								Edit exercise
-							</StyledButton>
-							{showEditExerciseModal ? <EditExerciseModal /> : null}
-							<StyledButton
-								background='var(--primary)'
-								margin='1em 0 0'
-								padding='6px 18px'
-								boxShadow='0px 10px 13px -7px #808080'
-								backgroundHover='var(--accentgreen)'
-								fontSize='10px'
-								onClick={() => handleDeleteExerciseModal(item._id)}
-							>
-								Delete exercise
-							</StyledButton>
-							{showDeleteExerciseModal ? <DeleteExerciseModal /> : null}
-						</ButtonContainer>
-					</ExerciseContainer>
-				))}
-				<StyledButton padding='6px 8px' background='var(--primary)' fontSize='0.6rem' onClick={handleGoBack}>
+				{/* <StyledButton padding='6px 8px' background='var(--primary)' fontSize='0.6rem' onClick={handleGoBack}>
 					Go back
-				</StyledButton>
+				</StyledButton> */}
 			</InnerWrapper>
 			<Timer />
 			<Footer />
@@ -219,22 +220,52 @@ const SingleProgram = () => {
 
 export default SingleProgram
 
+const ExerciseGrid = styled.section`
+	width: 100%;
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(140px, 0.5fr));
+	gap: 5px;
+	margin-top: 1rem;
+`
+
+const ExerciseWrapper = styled.article`
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	border-radius: 6px;
+	box-shadow: 0px 6px 13px 0px #adadad;
+	padding: 0.8rem;
+`
+
+const HeadingThree = styled.h3`
+	font-size: 1rem;
+	color: var(--accentgreen);
+`
+
+
 const ExerciseContainer = styled.div`
 	display: flex;
 	flex-direction: column;
 	align-items: flex-start;
-	justify-content: space-evenly;
-	padding: 1rem 2rem;
-	border-radius: 15px;
-	box-shadow: 0px 6px 13px 0px #adadad;
-	margin: 2rem;
+	// justify-content: space-evenly;
+	padding: 10px;
+	// margin: 2rem;
+
+	p {
+		font-size: 0.7rem;
+	}
+
+	input {
+		margin-top: 0.5rem;
+	}
 `
 
 const ButtonContainer = styled.div`
 	display: flex;
+	flex-direction: ${props => props.flexDirection};
 	justify-content: ${(props) => props.justifyContent};
-	margin: 1rem 0;
-	gap: 1rem;
+	margin: 0.5rem 0;
+	gap: 5px;
 `
 const ProgressContainer = styled.div`
 	height: 12px;

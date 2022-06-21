@@ -2,14 +2,14 @@ import React from 'react'
 import { NavLink } from 'react-router-dom'
 import styled from 'styled-components/macro'
 
-import clockImage from "../styles/images/clock-two.png"
+import homeIcon from "../styles/images/home-icon.png"
 import userIcon from "../styles/images/user-icon.png"
 
 const Footer = () => {
 	return (
 		<>
 			<FooterContainer>
-				<StyledImage src={clockImage} />
+				<NavLink to="/"><StyledImage src={homeIcon} /></NavLink>
 				<NavLink to='/profilepage'><StyledUserImage src={userIcon} /></NavLink>
 			</FooterContainer>
 		</>
@@ -22,23 +22,23 @@ const FooterContainer = styled.footer`
 	display: flex;
 	justify-content: space-around;
 	align-items: center;
-	background-color: #D6EAE3;
-	//  #e8e8e8;
+	background-image: linear-gradient(to right bottom, #d6eae3, #dceeed, #e4f2f4, #edf5f9, #f6f9fc, #f6f9fc, #f6f9fc, #f6f9fc, #edf5f9, #e4f2f4, #dceeed, #d6eae3);	//  #e8e8e8;
 	cursor: pointer;
 	margin-top: 12vh;
-	height: 9vh;
+	height: 10vh;
 	position: fixed;
 	bottom: 0;
 	left: 0;
 	right: 0;
+	box-shadow: 5px 0px 10px 0px #adadad;
 `
 
 const StyledImage = styled.img`
-	width: 50px;
-	height: 50px;
+	width: 30px;
+	height: 30px;
 `
 
 const StyledUserImage = styled.img`
-	width: 60px;
-	height: 60px;
+	width: 30px;
+	height: 30px;
 `

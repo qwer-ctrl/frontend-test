@@ -9,10 +9,10 @@ export const StyledButton = styled.button`
 	border: none;
 	padding: ${props => props.padding};
 	margin: ${props => props.margin};
-	box-shadow: ${props => props.boxShadow}; <-------change
-	font-size: 0.5rem;
+	box-shadow: ${props => props.boxShadow};
+	font-size: 0.7rem;
 	color: var(--black);
-	font-size: ${props => props.fontSize};
+	// font-size: ${props => props.fontSize};
 	// font-weight: bold;
 
 	&:hover {

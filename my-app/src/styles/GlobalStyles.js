@@ -38,6 +38,7 @@ export const InnerWrapper = styled.section`
 
 	@media screen and (min-width: 768px) {
 		width: 60%;
+		margin: ${props => props.desktopMargin};
 	}
 `
 
@@ -50,6 +51,11 @@ export const HeadingOne = styled.h1`
 	padding: ${props => props.padding};
 	margin: ${props => props.margin};
 	text-align: ${props => props.textAlign};
+
+	@media screen and (min-width: 768px) {
+		width: ${props => props.desktopWidth};
+
+	}
 `
 
 
