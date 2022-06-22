@@ -151,7 +151,8 @@ const StyledInput = styled(MyTextInput)`
 
 	&:focus {
 		outline: none;
-		border-bottom: 3px solid var(--tertiary);
+		border-bottom: 3px solid var(--primary);
+		// border-bottom: 3px solid var(--tertiary);
 	}
 `
 

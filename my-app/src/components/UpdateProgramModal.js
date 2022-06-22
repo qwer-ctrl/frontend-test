@@ -68,7 +68,8 @@ const UpdateProgramModal = () => {
 	}
 
 	const Schema = Yup.object().shape({
-		programName: Yup.string().max(20, 'The name can contain maximum 20 letters'),
+		programName: Yup.string()
+		.max(20, 'The name can contain maximum 20 letters'),
 		programType: Yup.string(),
 	})
 
@@ -120,18 +121,19 @@ const UpdateProgramModal = () => {
 										placeholder={exerciseContent.programName}
 									/>
 
-									<MyCheckbox label='Weights' name='programType' value='weights' />
+								<CheckboxContainer>
+									<StyledCheckbox label='Weights' name='programType' value='weights' />
 
-									<MyCheckbox label='Cardio' name='programType' value='cardio' />
+									<StyledCheckbox label='Cardio' name='programType' value='cardio' />
+								</CheckboxContainer>
 
 									<StyledButton
 										background='var(--primary)'
-										margin='1em 0 0'
+										margin='1.5rem 0 0'
 										padding='6px 18px'
 										boxShadow='0px 10px 13px -7px #808080'
-										fontSize='10px'
 										backgroundHover='var(--tertiary)'
-										color='var(--secondary)'
+										colorHover='var(--secondary)'
 										type='submit'
 									>
 										Update program
@@ -167,7 +169,25 @@ const StyledInput = styled(MyTextInput)`
 
 	&:focus {
 		outline: none;
-		border-bottom: 3px solid var(--tertiary);
+		border: 2px solid var(--primary);
+		// border-bottom: 3px solid var(--tertiary);
+	}
+`
+
+const CheckboxContainer = styled.div`
+	display: flex;
+	gap: 1em;
+	margin-top: 1rem;
+`
+
+const StyledCheckbox = styled(MyCheckbox)`
+	margin: 3px;
+	accent-color: var(--tertiary);
+
+	&:hover,
+	&:focus {
+		outline: 2px solid var(--primary);
+		// border: ;
 	}
 `
 

@@ -7,7 +7,7 @@ export const GlobalStyle = createGlobalStyle`
 		--secondary: #D6EAE3;
 		--tertiary: #37767A;
 		--background: #e4f1ed;
-		--accentlilac: #a486fe;
+		--accentlilac: #D1C2FE;
 		--accentgreen: #9de9a4;
 		--white: #FFFFFF;
 		--black: #202020;
@@ -55,5 +55,6 @@ export const HeadingOne = styled.h1`
 
 	@media screen and (min-width: 768px) {
 		width: ${(props) => props.desktopWidth};
+		font-size: ${props => props.desktopFontSize};
 	}
 `

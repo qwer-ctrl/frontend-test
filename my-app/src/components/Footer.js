@@ -61,4 +61,12 @@ const StyledActiveLink = styled(NavLink)`
 	&.active {
 		border-bottom: 1px solid #37767a;
 	}
+
+	&:hover,
+	&:focus {
+		outline: none;
+		filter: invert(100%);
+		// border: 2px solid var(--primary);
+
+	}
 `

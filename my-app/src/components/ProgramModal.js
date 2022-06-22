@@ -160,9 +160,16 @@ const StyledInput = styled(MyTextInput)`
 const CheckboxContainer = styled.div`
 	display: flex;
 	gap: 1em;
+	align-items: baseline;
 `
+
 const StyledCheckbox = styled(MyCheckbox)`
 	accent-color: var(--tertiary);
+
+	&:hover,
+	&:focus {
+		outline: 2px solid var(--primary);
+	}
 `
 
 const StyledError = styled.div`

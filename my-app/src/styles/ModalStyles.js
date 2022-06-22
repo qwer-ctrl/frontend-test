@@ -40,4 +40,9 @@ export const CloseButton = styled.button`
 	padding: 6px 15px;
 	box-shadow: 2px 3px 2px #888888;
 	box-shadow: 1px 3px 4px 0px #808080;
+	&:hover,
+	&:focus {
+		outline: none;
+		background: var(--tertiary);
+	}
 `

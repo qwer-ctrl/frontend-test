@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components/macro'
 
-import { StyledButton } from '../styles/ButtonStyles'
+import { HeadingOne } from '../styles/GlobalStyles'
+import { StyledButton, TimerButton } from '../styles/ButtonStyles'
 
 const Timer = () => {
 	const [addRounds, setAddRounds] = useState(0)
@@ -58,6 +59,9 @@ const Timer = () => {
 			setAddRounds(0)
 			setRunTimer(false)
 			setGreatJobMessage('Good job!')
+			setTimeout(() => {
+				setGreatJobMessage('')
+			}, 3000)
 		}
 	}, [workingSeconds, runTimer, restSeconds, rounds, addWorkingSeconds, addRestSeconds, addRounds])
 
@@ -112,39 +116,51 @@ const Timer = () => {
 		setAddRestSeconds(addRestSeconds + 1)
 		setMessage('')
 	}
+	const restartButton = () => {
+		setAddWorkingSeconds(0)
+		setAddRounds(0)
+		setAddRestSeconds(0)
+	}
 
 	return (
 		<TimerContainer>
 			<TimerBox background={getBackground()}>
+			<HeadingOne fontSize='1.5em'>Timer</HeadingOne>
 				{message}
 				<TimerClock>
 					<SetTimerContainer>
 						<TimerComponent>
-							<StyledButton onClick={handleRoundsDecrement}>-</StyledButton>
+							<TimerButton onClick={handleRoundsDecrement}>-</TimerButton>
 							<TimerText>
-								{rounds} rounds / {addRounds} rounds
+								{rounds} / {addRounds} rounds
 							</TimerText>
-							<StyledButton onClick={handleRoundsIncrement}>+</StyledButton>
+							<TimerButton onClick={handleRoundsIncrement}>+</TimerButton>
 						</TimerComponent>
 
 						<TimerComponent>
-							<StyledButton onClick={handleWorkingTimeDecrement}>-</StyledButton>
-							<TimerText>{workingSeconds} working seconds</TimerText>
-							<StyledButton onClick={handleWorkingTimeIncrement}>+</StyledButton>
+							<TimerButton onClick={handleWorkingTimeDecrement}>-</TimerButton>
+							<TimerText>{workingSeconds} working sec</TimerText>
+							<TimerButton onClick={handleWorkingTimeIncrement}>+</TimerButton>
 						</TimerComponent>
 
 						<TimerComponent>
-							<StyledButton onClick={handleRestSecondsDecrement}>-</StyledButton>
-							<TimerText>{restSeconds} resting seconds</TimerText>
-							<StyledButton onClick={handleRestSecondsIncrement}>+</StyledButton>
+							<TimerButton onClick={handleRestSecondsDecrement}>-</TimerButton>
+							<TimerText>{restSeconds} resting sec</TimerText>
+							<TimerButton onClick={handleRestSecondsIncrement}>+</TimerButton>
 						</TimerComponent>
 					</SetTimerContainer>
 
-					<StyledButton padding='6px 18px' margin='3px 0 0' onClick={() => setRunTimer(true)}>
+					<StyledButton backgroundHover='var(--tertiary)'
+									color='var(--white)' padding='6px 18px' margin='3px 0 0' onClick={() => setRunTimer(true)}>
 						Start
 					</StyledButton>
-					<StyledButton padding='6px 18px' margin='3px 0 0' onClick={() => setRunTimer(false)}>
+					<StyledButton backgroundHover='var(--tertiary)'
+									color='var(--white)' padding='6px 18px' margin='3px 0 0' onClick={() => setRunTimer(false)}>
 						Stop
+					</StyledButton>
+					<StyledButton backgroundHover='var(--tertiary)'
+									color='var(--white)' padding='6px 18px' margin='3px 0 0' onClick={() => restartButton()}>
+						Restart
 					</StyledButton>
 				</TimerClock>
 

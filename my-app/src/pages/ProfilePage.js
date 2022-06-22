@@ -52,7 +52,7 @@ const ProfilePage = () => {
 			<Header />
 			<InnerWrapper margin='23vh auto 4rem' >
                 <StyledImage src={profileImage} />	
-                <HeadingOne fontSize="2rem" color="#8DB9BC" textAlign="center">Update your username</HeadingOne>			
+                <HeadingOne fontSize="2rem" color="var(--tertiary)" textAlign="center">Update your username</HeadingOne>			
                 <Formik
                     initialValues={{
                         username: userName,
@@ -112,7 +112,7 @@ const ProfilePage = () => {
 export default ProfilePage
 
 const StyledImage = styled.img`
-    width: 300px;
+    width: 100px;
     height: auto;
 `
 
@@ -126,7 +126,7 @@ const StyledForm = styled(Form)`
 `
 
 const StyledLabel = styled.label`
-    color: var(--accentlilac);
+    color: var(--black);
 `
 
 const StyledInput = styled(MyTextInput)`
@@ -140,7 +140,8 @@ const StyledInput = styled(MyTextInput)`
 
     &:focus {
 		outline: none;
-		border-bottom: 3px solid var(--tertiary);
+		border-bottom: 3px solid var(--primary);
+        // border-bottom: 3px solid var(--tertiary);
 	}
 `
 

@@ -2,22 +2,14 @@ import React from 'react'
 import styled from 'styled-components/macro'
 import Lottie from 'lottie-react'
 
-import animationData from '../lotties/purple-loader.json'
+import CheckLoader from '../lotties/purple-loader.json'
 
 const AllDoneLoader = () => {
-	const defaultOptions = {
-		loop: true,
-		autoplay: true,
-		animationData,
-		rendererSettings: {
-			preserveAspectRatio: 'xMidYMid slice',
-		},
-	}
 
 	return (
 		<>
 			<LoaderContainer>
-				<Lottie options={defaultOptions} width={300} height={300} />
+				<Lottie animationData={CheckLoader} />
 			</LoaderContainer>
 		</>
 	)

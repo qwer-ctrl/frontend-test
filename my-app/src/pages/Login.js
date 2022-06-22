@@ -25,11 +25,10 @@ const MyTextInput = ({ label, ...props }) => {
 
 const Login = () => {
 	const [mode, setMode] = useState('login')
-	const [error, setError] = useState(false)
+	console.log("mode", mode)
 	const dispatch = useDispatch()
 	const navigate = useNavigate()
 	const userId = useSelector((store) => store.user.userId)
-	const errorMessage = useSelector((store) => store.user.error)
 	console.log('userId', userId)
 	const accessToken = useSelector((store) => store.user.accessToken)
 
@@ -46,6 +45,7 @@ const Login = () => {
 			}
 			dispatch(user.actions.setError(null))
 		})
+		
 	}
 
 	const handleLoginFailure = (data) => {
@@ -85,7 +85,7 @@ const Login = () => {
 
 	return (
 		<OuterWrapper>
-			<InnerWrapper margin='0 auto'>
+			<InnerWrapper margin='0 auto 2rem'>
 				<StyledImage src={loginImage} />
 
 				<TitleContainer>
@@ -115,17 +115,14 @@ const Login = () => {
 						})
 							.then((res) => res.json())
 							.then((data) => {
-								console.log('data passed to function from fetch in', data.response)
-								// if (data.success) {
 								handleLoginSuccess(data)
-								setMode('login')
-								// } else {
-								// 	handleLoginFailure(data)
-								// 	setError(true)
-								// }
+								if (mode === "register") {
+									setMode("login")
+								}
+								console.log("mode inside fetch", mode)
 							})
 							.catch((error) => {
-								console.log('error', error)
+								handleLoginFailure(error)
 							})
 							.finally(() => {
 								setSubmitting(false)
@@ -146,7 +143,6 @@ const Login = () => {
                                     /> */}
 
 							<StyledInput label='Password' name='password' type='password' />
-							{error && errorMessage}
 							{mode === 'register' ? (
 								<StyledInput label='Confirm password' name='confirmPassword' type='password' />
 							) : null}
@@ -159,7 +155,6 @@ const Login = () => {
 									boxShadow='0px 10px 13px -7px #808080'
 									backgroundHover='var(--tertiary)'
 									color='var(--white)'
-									fontSize='10px'
 									type='submit'
 								>
 									Login
@@ -172,7 +167,6 @@ const Login = () => {
 									boxShadow='0px 10px 13px -7px #808080'
 									backgroundHover='var(--tertiary)'
 									color='var(--white)'
-									fontSize='10px'
 									type='submit'
 								>
 									Register
@@ -186,7 +180,6 @@ const Login = () => {
 									padding='6px 18px'
 									boxShadow='none'
 									textDecoration='underline'
-									fontSize='10px'
 									type='button'
 									onClick={() => setMode('register')}
 								>
@@ -199,7 +192,6 @@ const Login = () => {
 									padding='6px 18px'
 									boxShadow='none'
 									textDecoration='underline'
-									fontSize='10px'
 									type='button'
 									onClick={() => setMode('login')}
 								>
@@ -264,7 +256,8 @@ const StyledInput = styled(MyTextInput)`
 
 	&:focus {
 		outline: none;
-		border-bottom: 3px solid var(--tertiary);
+		// border-bottom: 3px solid var(--tertiary);
+		border-bottom: 3px solid var(--primary);
 	}
 `
 

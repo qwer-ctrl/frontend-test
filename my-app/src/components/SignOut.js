@@ -5,6 +5,7 @@ import styled from 'styled-components/macro'
 
 import user from '../reducers/user'
 import signOutIcon from "../styles/images/sign-out.png"
+import signOutHoverIcon from "../styles/images/sign-out-hover.png"
 
 const SignOut = () => {
 	const navigate = useNavigate()
@@ -45,12 +46,14 @@ const SignOutButton = styled.button`
 	color: var(--black);
 	font-weight: bold;
 
-	&:hover {
-		background: var(--accentgreen);
+	&:hover,
+	&:focus {
+		filter: invert(100%);
+		outline: none;
 	}
 `
 
 const StyledImage = styled.img` 
-	width: 40px;
-	height: 40px;
+	width: 35px;
+	height: 35px;
 `

@@ -50,42 +50,7 @@ const HeaderContainer = styled.header`
 	justify-content: center;
 	align-items: center;
 	text-align: center;
-	// background-image: linear-gradient(
-	// 	to left bottom,
-	// 	#9de9a4,
-	// 	#8de2b0,
-	// 	#84daba,
-	// 	#81d1bf,
-	// 	#84c7c1,
-	// 	#84c8c4,
-	// 	#84c8c8,
-	// 	#85c9cb,
-	// 	#7ed5d6,
-	// 	#75e2e0,
-	// 	#6beee9,
-	// 	#5ffbf1
-	// );
-	// background-image: linear-gradient(
-	// 	to right top,
-	// 	#d6eae3,
-	// 	#c8e1da,
-	// 	#bad7d2,
-	// 	#adcecb,
-	// 	#9fc5c4,
-	// 	#97c6c6,
-	// 	#8ec8c8,
-	// 	#85c9cb,
-	// 	#7ed5d6,
-	// 	#75e2e0,
-	// 	#6beee9,
-	// 	#5ffbf1
-	// );
 	background: var(--background);
-	// #f0f7f5;
-	// border-bottom-left-radius: 70px;
-	// box-shadow: 0px 10px 13px -7px #808080;
-	//box-shadow: 3px -8px 12px 4px #606060;
-	//box-shadow: 0px 0px 8px -1px #adadad;
 	// height: 17vh;
 	height: 15vh;
 	position: fixed;

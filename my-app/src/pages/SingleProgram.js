@@ -111,7 +111,8 @@ const SingleProgram = () => {
 	) : (
 		<OuterWrapper>
 			<Header />
-			<InnerWrapper margin='25vh auto 4rem'>
+			{/* <AllDoneLoader /> */}
+			<InnerWrapper margin='18vh auto 4rem' desktopMargin='25vh auto 4rem'>
 				<HeadingOne fontSize='1.5rem' color='var(--tertiary)' margin='0 0 0.5rem'>
 					{programName}
 				</HeadingOne>
@@ -120,6 +121,8 @@ const SingleProgram = () => {
 						padding='5px 15px'
 						background='var(--primary)'
 						boxShadow='0px 10px 13px -7px #808080'
+						backgroundHover='var(--tertiary)'
+						color='var(--white)'
 						onClick={() => handleUpdateProgramModal(programId)}
 					>
 						Update program
@@ -129,6 +132,8 @@ const SingleProgram = () => {
 						padding='5px 15px'
 						background='var(--primary)'
 						boxShadow='0px 10px 13px -7px #808080'
+						backgroundHover='var(--tertiary)'
+						color='var(--white)'
 						onClick={() => handleAddExerciseModal(programId)}
 					>
 						Add exercise
@@ -138,6 +143,8 @@ const SingleProgram = () => {
 						padding='5px 15px'
 						background='var(--primary)'
 						boxShadow='0px 10px 13px -7px #808080'
+						backgroundHover='var(--tertiary)'
+						color='var(--white)'
 						onClick={() => handleDeleteProgramModal(programId)}
 					>
 						Delete program
@@ -152,17 +159,27 @@ const SingleProgram = () => {
 				<ExerciseGrid>
 					{programExercise.map((item) => (
 						<ExerciseWrapper key={item._id}>
+							<HeaderAndCheck>
 							<HeadingThree>{item.exercise}</HeadingThree>
+							<label htmlFor='checkbox'></label>
 							<StyledCheckbox id='checkbox' type='checkbox' value={item._id} onChange={handleChecked} />
+							</HeaderAndCheck>
+							<ExerciseContentContainer>
 							<ExerciseContainer>
+								<MetricsContainer>
 								{item.sets ? <p>{item.sets} sets</p> : null}
 								{item.reps ? <p>{item.reps} sets</p> : null}
 								{item.weights ? <p>{item.weights}</p> : null}
+								</MetricsContainer>
+								<MetricsContainer>
 								{item.minutes ? <p>{item.minutes} minutes</p> : null}
 								{item.seconds ? <p>{item.seconds} seconds</p> : null}
+								</MetricsContainer>
+								<MetricsContainer>
 								{item.duration ? <p>{item.duration}</p> : null}
 								{item.exerciseLength ? <p>{item.exerciseLength}</p> : null}
-								{item.comments ? <p>comments: {item.comments}</p> : null}
+								</MetricsContainer>
+								<MetricsContainer>
 								{item.exerciseLink ? (
 									<p>
 										link:
@@ -171,9 +188,13 @@ const SingleProgram = () => {
 										</a>
 									</p>
 								) : null}
-
-								<label htmlFor='checkbox'></label>
+								</MetricsContainer> 
+								<MetricsContainer>
+								{item.comments ? <p>comments: {item.comments}</p> : null}
+								</MetricsContainer> 
+							 
 							</ExerciseContainer>
+							</ExerciseContentContainer>
 							<ButtonContainer justifyContent='center' flexDirection='row'>
 								<StyledButton
 									width='65px'
@@ -182,7 +203,7 @@ const SingleProgram = () => {
 									padding='5px 10px'
 									boxShadow='0px 10px 13px -7px #808080'
 									backgroundHover='var(--tertiary)'
-									color='var(--secondary)'
+									color='var(--white)'
 									onClick={() => handleEditExerciseModal(item._id)}
 								>
 									Edit
@@ -195,7 +216,7 @@ const SingleProgram = () => {
 									padding='5px 10px'
 									boxShadow='0px 10px 13px -7px #808080'
 									backgroundHover='var(--tertiary)'
-									color='var(--secondary)'
+									color='var(--white)'
 									onClick={() => handleDeleteExerciseModal(item._id)}
 								>
 									Delete
@@ -218,11 +239,17 @@ const SingleProgram = () => {
 export default SingleProgram
 
 const ExerciseGrid = styled.section`
-	// width: 100%;
+	width: 100%;
 	// display: grid;
 	// grid-template-columns: repeat(auto-fit, minmax(200px, 0.5fr));
 	// gap: 5px;
 	// margin-top: 1rem;
+`
+
+const HeaderAndCheck = styled.div`
+	display: flex; 
+	justify-content: space-between;
+  align-items: flex-start;
 `
 
 const ExerciseWrapper = styled.article`
@@ -232,6 +259,7 @@ const ExerciseWrapper = styled.article`
 	border-radius: 6px;
 	box-shadow: 0px 6px 13px 0px #adadad;
 	padding: 0.8rem;
+	margin-top: 1rem;
 
 	// @media screen and (min-width: 768px) {
 	// 	 {
@@ -247,16 +275,17 @@ const HeadingThree = styled.h3`
 
 const ExerciseContainer = styled.div`
 	display: flex;
-	flex-direction: column;
+	flex-direction: row;
 	align-items: flex-start;
 	// justify-content: space-evenly;
-	padding: 10px;
+	// padding: 10px;
 	// margin: 2rem;
 
 	p {
-		font-size: 0.7rem;
+		font-size: 0.9rem;
 		max-width: 17ch;
 		overflow-wrap: break-word;
+		padding-right: 0.5em;
 
 		@media screen and (min-width: 768px) {
 			 {
@@ -264,11 +293,19 @@ const ExerciseContainer = styled.div`
 				max-width: 25ch;
 			}
 		}
-
 `
+const MetricsContainer = styled.div`
+		display: flex;
+`
+
 const StyledCheckbox = styled.input`
 	accent-color: var(--tertiary);
 	margin-top: 0.5rem;
+
+	&:hover,
+	&:focus {
+		outline: 2px solid var(--primary);
+	}
 `
 
 const ButtonContainer = styled.div`
@@ -306,4 +343,9 @@ const Progress = styled(BaseBox)`
 	background: var(--accentlilac);
 	width: ${({ percent }) => percent}%;
 `
-// const StyledButton = styled.button``
+const ExerciseContentContainer = styled.section`
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+	width: 100%;
+	column-gap: 5px;
+`

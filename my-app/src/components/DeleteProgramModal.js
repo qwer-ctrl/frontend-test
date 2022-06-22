@@ -46,10 +46,10 @@ const DeleteProgramModal = () => {
 						<StyledTitle>Are you sure you want to delete the program?</StyledTitle>
 						<StyledButton
 						background="var(--primary)"
-						margin="1em 0 0"
+						margin="1.5em 0 0"
 						padding="6px 18px"
 						boxShadow="0px 10px 13px -7px #808080"
-						fontSize="10px"
+						backgroundHover="var(--tertiary)"
 						onClick={() => handleProgramDeletion()}>Delete</StyledButton>
 					</StyledModal>
 				</ModalContainer>

@@ -14,8 +14,8 @@ import EmptyState from '../components/EmptyState'
 import ProgramModal from '../components/ProgramModal'
 import { OuterWrapper, InnerWrapper } from '../styles/GlobalStyles'
 import { StyledButton } from '../styles/ButtonStyles'
-import gymImage from '../styles/images/gym.png'
-import cardioImage from '../styles/images/cardio.png'
+import gymImage from '../styles/images/gym-two.png'
+import cardioImage from '../styles/images/cardio-two.png'
 import plusIcon from '../styles/images/plus-sign.png'
 
 const MyPage = () => {
@@ -31,16 +31,6 @@ const MyPage = () => {
 	const openModal = () => {
 		setShowModal((prev) => !prev)
 	}
-
-	// const onProgramClick = () => {
-	//     const inputOptions = new Promise((resolve) => {
-	//       setTimeout(() => {
-	//         resolve({
-	//           "weights": "Weights",
-	//           "cardio": "Cardio"
-	//         })
-	//       }, 1000)
-	//     })
 
 	useEffect(() => {
 		if (!accessToken) {
@@ -78,11 +68,6 @@ const MyPage = () => {
 		fetchPrograms()
 	}, [fetchPrograms])
 
-	// const handleProgram = (programId) => {
-	// 	navigate(`/singleprogram/${programId}`)
-	// }
-
-	//console.log('programs', programs)
 
 	return isLoading ? (
 		<LoadingAnimation />
@@ -146,8 +131,11 @@ const MainContainer = styled.div`
 const StyledLink = styled(Link)`
 	text-decoration: none;
 
-	&:hover {
+	&:hover,
+	&:focus {
 		cursor: pointer;
+		outline: none;
+		border-top: 2px solid var(--primary);
 	}
 `
 
@@ -185,7 +173,9 @@ const AddProgramButton = styled.button`
 	z-index: 10;
 	box-shadow: 5px 0px 10px 0px #adadad;
 
-	&:hover {
+	&:hover,
+	&:focus {
+		outline: none;
 		background: var(--primary);
 	}
 `
