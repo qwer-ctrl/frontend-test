@@ -110,7 +110,6 @@ const SingleProgram = () => {
 		<AllDoneLoader />
 	) : (
 		<OuterWrapper>
-			{/* <AllDoneLoader /> */}
 			<Header />
 			<InnerWrapper margin='25vh auto 4rem'>
 				<HeadingOne fontSize='1.5rem' color='var(--tertiary)' margin='0 0 0.5rem'>
@@ -265,7 +264,7 @@ const ExerciseContainer = styled.div`
 				max-width: 25ch;
 			}
 		}
-	}
+
 `
 const StyledCheckbox = styled.input`
 	accent-color: var(--tertiary);

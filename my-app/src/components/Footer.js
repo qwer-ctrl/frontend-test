@@ -9,10 +9,10 @@ const Footer = () => {
 	return (
 		<>
 			<FooterContainer>
-				<StyledActiveLink to='/mypage' activeClassName='selected'>
+				<StyledActiveLink to='/mypage' activeclassname='selected'>
 					<StyledImage src={homeIcon} />
 				</StyledActiveLink>
-				<StyledActiveLink to='/profilepage' activeClassName='selected'>
+				<StyledActiveLink to='/profilepage' activeclassname='selected'>
 					<StyledUserImage src={userIcon} />
 				</StyledActiveLink>
 
