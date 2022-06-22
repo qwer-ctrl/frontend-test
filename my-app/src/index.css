@@ -17,3 +17,8 @@ code {
 a {
 	text-decoration: none;
 }
+
+label {
+	font-weight: 600;
+	text-transform: uppercase;
+}

@@ -12,6 +12,7 @@ import { OuterWrapper, InnerWrapper } from '../styles/GlobalStyles'
 import { StyledButton } from '../styles/ButtonStyles'
 import loginImage from '../styles/images/login-image.png'
 
+
 const MyTextInput = ({ label, ...props }) => {
 	const [field, meta] = useField(props)
 	return (
@@ -25,9 +26,11 @@ const MyTextInput = ({ label, ...props }) => {
 
 const Login = () => {
 	const [mode, setMode] = useState('login')
+	const [error, setError] = useState(false)
 	const dispatch = useDispatch()
 	const navigate = useNavigate()
 	const userId = useSelector((store) => store.user.userId)
+	const errorMessage = useSelector((store) => store.user.error)
 	console.log('userId', userId)
 	const accessToken = useSelector((store) => store.user.accessToken)
 
@@ -45,14 +48,14 @@ const Login = () => {
 			dispatch(user.actions.setError(null))
 		})
 	}
+
 	const handleLoginFailure = (data) => {
-		batch(() => {
+		console.log('faliure', data)
 			dispatch(user.actions.setError(data.response))
 			dispatch(user.actions.setUserId(null))
 			dispatch(user.actions.setAccessToken(null))
 			dispatch(user.actions.setUserName(null))
 			dispatch(user.actions.setProgram(null))
-		})
 	}
 
 	useEffect(() => {
@@ -87,6 +90,7 @@ const Login = () => {
 				<StyledImage src={loginImage} />
 
 				<TitleContainer>
+					
 					{mode === 'login' ? (
 						<StyledTitle>Login and start moving!</StyledTitle>
 					) : (
@@ -113,20 +117,24 @@ const Login = () => {
 						})
 							.then((res) => res.json())
 							.then((data) => {
-								console.log('data passed to function from fetch in', data)
-								handleLoginSuccess(data)
-								setMode('login')
+								console.log('data passed to function from fetch in', data.response)
+								if(data.success) {
+									handleLoginSuccess(data)
+									setMode('login')
+								} else {
+									handleLoginFailure(data)
+									setError(true)
+								}
 							})
-							.catch((err) => {
-								console.log(err)
-								handleLoginFailure(err)
+							.catch((error) => {
+								console.log('error', error)
 							})
 							.finally(() => {
 								setSubmitting(false)
 								resetForm()
 							})
 					}}
-				>
+				> 
 					{({ isSubmitting }) => (
 						<StyledForm>
 							{isSubmitting && <LoadingAnimation />}
@@ -140,7 +148,7 @@ const Login = () => {
                                     /> */}
 
 							<StyledInput label='Password' name='password' type='password' />
-
+							{error && errorMessage}
 							{mode === 'register' ? (
 								<StyledInput label='Confirm password' name='confirmPassword' type='password' />
 							) : null}
@@ -151,7 +159,8 @@ const Login = () => {
 									margin='1em 0 0'
 									padding='6px 18px'
 									boxShadow='0px 10px 13px -7px #808080'
-									backgroundHover='var(--accentgreen)'
+									backgroundHover='var(--tertiary)'
+									color='var(--white)'
 									fontSize='10px'
 									type='submit'
 								>
@@ -163,7 +172,8 @@ const Login = () => {
 									margin='1em 0 0'
 									padding='6px 18px'
 									boxShadow='0px 10px 13px -7px #808080'
-									backgroundHover='var(--accentgreen)'
+									backgroundHover='var(--tertiary)'
+									color='var(--white)'
 									fontSize='10px'
 									type='submit'
 								>
@@ -249,14 +259,14 @@ const StyledInput = styled(MyTextInput)`
 	margin: 0.5rem 0;
 	text-align: center;
 	border: none;
-	border-radius: 10px;
+	border-radius: 15px;
 	padding: 6px 10px;
 	box-shadow: inset 0px 4px 4px 0px #adadad;
 	//box-shadow: inset 2px -1px 4px 0px #adadad;
 
 	&:focus {
 		outline: none;
-		border: 2px solid var(--accentgreen);
+		border-bottom: 3px solid var(--tertiary);
 	}
 `
 

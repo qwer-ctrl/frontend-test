@@ -93,6 +93,8 @@ const ProfilePage = () => {
                             margin="1.5em 0 0"
                             padding="6px 10px"
                             boxShadow="0px 10px 13px -7px #808080"
+                            backgroundHover='var(--tertiary)'
+							color='var(--secondary)'
                             fontSize="10px"
                             type='submit'>Update username</StyledButton>
                         </StyledForm>
@@ -132,13 +134,13 @@ const StyledInput = styled(MyTextInput)`
 	margin: 0.5rem 0;
 	text-align: center;
 	border: none;
-	border-radius: 10px;
+	border-radius: 15px;
 	padding: 6px 10px;
 	box-shadow: inset 0px 4px 4px 0px #adadad;
 
     &:focus {
 		outline: none;
-		border: 2px solid var(--accentgreen);
+		border-bottom: 3px solid var(--tertiary);
 	}
 `
 
