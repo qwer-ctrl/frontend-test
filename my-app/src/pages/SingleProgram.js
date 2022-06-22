@@ -65,7 +65,6 @@ const SingleProgram = () => {
 	}
 
 	const handleAddExerciseModal = (id) => {
-		console.log(id)
 		dispatch(ui.actions.setShowAddExerciseModal(true))
 		dispatch(ui.actions.setCurrentAddExerciseModalId(id))
 		fetchProgram()
@@ -311,7 +310,7 @@ const IconButton = styled.button`
 
 	 &:hover,
 	 &:focus {
-		 outline: none;
+		 outline: ;
 
 `
 

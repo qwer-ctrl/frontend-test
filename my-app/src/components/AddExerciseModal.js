@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { Formik, Form, useField } from 'formik'
 import * as Yup from 'yup'
 
-import styled from 'styled-components'
+import styled from 'styled-components/macro'
 import { ModalContainer, StyledModal, CloseButton } from '../styles/ModalStyles'
 import { StyledButton } from '../styles/ButtonStyles'
 
@@ -101,6 +101,7 @@ const AddExerciseModal = () => {
 							{({ isSubmitting }) => (
 								<StyledForm>
 									{isSubmitting && <LoadingAnimation />}
+									<MetricsInputContainer>
 									<StyledInput label='Exercise name' name='exercise' type='text' />
 									<StyledInput label='Sets' name='sets' type='text' />
 									<StyledInput label='Reps' name='reps' type='text' />
@@ -111,6 +112,7 @@ const AddExerciseModal = () => {
 									<StyledInput label='Length' name='exerciseLength' type='text' />
 									<StyledInput label='Comments' name='comments' type='text' />
 									<StyledInput label='Link' name='exerciseLink' type='text' />
+									</MetricsInputContainer>
 									<StyledButton
 										background='var(--primary)'
 										margin='1em 0 0'
@@ -135,8 +137,8 @@ const AddExerciseModal = () => {
 export default AddExerciseModal
 
 const StyledForm = styled(Form)`
-	display: flex;
-	flex-direction: column;
+	// display: flex;
+	// flex-direction: column;
 `
 
 const StyledInput = styled(MyTextInput)`
@@ -153,6 +155,17 @@ const StyledInput = styled(MyTextInput)`
 		outline: none;
 		border-bottom: 3px solid var(--primary);
 		// border-bottom: 3px solid var(--tertiary);
+	}
+`
+
+const MetricsInputContainer = styled.div`
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+	width: 100%;
+	column-gap: 5px;
+
+	@media screen and (min-width: 768px) {
+		grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
 	}
 `
 

@@ -27,6 +27,7 @@ const EditExerciseModal = () => {
 	const exerciseId = useSelector((store) => store.ui.currentModalId)
 	const showModal = useSelector((store) => store.ui.showEditExerciseModal)
 	const dispatch = useDispatch()
+	// console.log("exercise Id from edit exercise modal", exerciseId)
 
 	const closeModal = () => {
 		dispatch(ui.actions.setShowEditExerciseModal(false))
@@ -47,7 +48,7 @@ const EditExerciseModal = () => {
 				setExerciseContent(data.response)
 			})
 		.finally(() => dispatch(ui.actions.setLoading(false)))
-	}, [exerciseId])
+	}, [exerciseId, dispatch])
 
 	const Schema = Yup.object().shape({
 		exercise: Yup.string(),

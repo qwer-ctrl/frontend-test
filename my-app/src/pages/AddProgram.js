@@ -355,7 +355,6 @@ const AddProgram = () => {
 						{exerciseContent.map((exercise) => (
 							<ExerciseContainer key={exercise._id}>
 								<HeadingOne fontSize='1.5rem'>{exercise.exercise}</HeadingOne>
-								{/* <ExerciseContentContainer> */}
 								<MetricsContentContainer>
 							<MetricsInputContainer>
 							<MetricsContainer>
@@ -384,7 +383,6 @@ const AddProgram = () => {
 									</MetricsContainer>
 								</MetricsInputContainer>
 								</MetricsContentContainer>
-								{/* </ExerciseContentContainer> */}
 							</ExerciseContainer>
 						))}
 					</ExerciseGrid>
@@ -545,12 +543,7 @@ const ExerciseContainer = styled.div`
 	border-radius: 15px;
 	box-shadow: 0px 6px 13px 0px #adadad;
 `
-const ExerciseContentContainer = styled.section`
-	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
-	width: 100%;
-	column-gap: 5px;
-`
+
 
 //-------------------------------------------- code for trying to have multiple sets --------------------------//
 
