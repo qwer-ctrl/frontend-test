@@ -431,7 +431,7 @@ const StyledInput = styled(MyTextInput)`
 	margin: 0.5rem 0;
 	text-align: center;
 	border: none;
-	border-radius: 10px;
+	border-radius: 15px;
 	padding: 6px 10px;
 	box-shadow: inset 0px 4px 4px 0px #adadad;
 
@@ -446,7 +446,7 @@ const StyledCommentInput = styled(MyTextArea)`
 	margin: 0.5rem 0;
 	text-align: center;
 	border: none;
-	border-radius: 10px;
+	border-radius: 15px;
 	padding: 6px 10px;
 	box-shadow: inset 0px 4px 4px 0px #adadad;
 

@@ -1,6 +1,7 @@
 import styled from 'styled-components/macro'
 
 export const StyledButton = styled.button`
+	color: var(--black);
 	width: ${(props) => props.width};
 	border-radius: 35px;
 	background: ${(props) => props.background};

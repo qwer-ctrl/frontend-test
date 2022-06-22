@@ -98,15 +98,15 @@ const ProgramModal = ({ showModal, setShowModal }) => {
 						>
 							{({ isSubmitting }) => (
 								<StyledForm>
-									<StyledInput label='Program name' name='programName' type='text' width='' />
-								<CheckboxContainer>
-									<StyledCheckbox label='Weights' name='programType' value='weights' />
-									<StyledCheckbox label='Cardio' name='programType' value='cardio' />
-								</CheckboxContainer>
+									<StyledInput label='Program name' name='programName' type='text' />
+									<CheckboxContainer>
+										<StyledCheckbox label='Weights' name='programType' value='weights' />
+										<StyledCheckbox label='Cardio' name='programType' value='cardio' />
+									</CheckboxContainer>
 
 									<StyledButton
 										background='var(--primary)'
-										margin='1em 0 0'
+										margin='2em 0 0'
 										padding='6px 18px'
 										boxShadow='0px 10px 13px -7px #808080'
 										fontSize='10px'
@@ -153,7 +153,6 @@ const StyledInput = styled(MyTextInput)`
 const CheckboxContainer = styled.div`
 	display: flex;
 	gap: 1em;
-	
 `
 const StyledCheckbox = styled(MyCheckbox)`
 	accent-color: var(--tertiary);

@@ -12,7 +12,6 @@ import { OuterWrapper, InnerWrapper } from '../styles/GlobalStyles'
 import { StyledButton } from '../styles/ButtonStyles'
 import loginImage from '../styles/images/login-image.png'
 
-
 const MyTextInput = ({ label, ...props }) => {
 	const [field, meta] = useField(props)
 	return (
@@ -51,11 +50,11 @@ const Login = () => {
 
 	const handleLoginFailure = (data) => {
 		console.log('faliure', data)
-			dispatch(user.actions.setError(data.response))
-			dispatch(user.actions.setUserId(null))
-			dispatch(user.actions.setAccessToken(null))
-			dispatch(user.actions.setUserName(null))
-			dispatch(user.actions.setProgram(null))
+		dispatch(user.actions.setError(data.response))
+		dispatch(user.actions.setUserId(null))
+		dispatch(user.actions.setAccessToken(null))
+		dispatch(user.actions.setUserName(null))
+		dispatch(user.actions.setProgram(null))
 	}
 
 	useEffect(() => {
@@ -90,7 +89,6 @@ const Login = () => {
 				<StyledImage src={loginImage} />
 
 				<TitleContainer>
-					
 					{mode === 'login' ? (
 						<StyledTitle>Login and start moving!</StyledTitle>
 					) : (
@@ -118,7 +116,7 @@ const Login = () => {
 							.then((res) => res.json())
 							.then((data) => {
 								console.log('data passed to function from fetch in', data.response)
-								if(data.success) {
+								if (data.success) {
 									handleLoginSuccess(data)
 									setMode('login')
 								} else {
@@ -134,7 +132,7 @@ const Login = () => {
 								resetForm()
 							})
 					}}
-				> 
+				>
 					{({ isSubmitting }) => (
 						<StyledForm>
 							{isSubmitting && <LoadingAnimation />}
