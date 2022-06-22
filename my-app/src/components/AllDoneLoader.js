@@ -1,6 +1,6 @@
 import React from "react"
 import styled from 'styled-components/macro'
-import Lottie from "react-lottie"
+import Lottie from 'lottie-react'
 
 import animationData from "../lotties/purple-loader.json"
 
