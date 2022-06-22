@@ -1,6 +1,5 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components/macro'
 import { Formik, Form, useField } from 'formik'
 import * as Yup from 'yup'
@@ -18,7 +17,7 @@ const MyTextInput = ({ label, ...props }) => {
 	const [field, meta] = useField(props)
 	return (
 		<>
-			<label htmlFor={props.id || props.name}>{label}</label>
+			<StyledLabel htmlFor={props.id || props.name}>{label}</StyledLabel>
 			<input className='text-input' {...field} {...props} />
 			{meta.touched && meta.error ? <StyledError className='error'>{meta.error}</StyledError> : null}
 		</>
@@ -29,16 +28,16 @@ const ProfilePage = () => {
 	const isLoading = useSelector((store) => store.ui.isLoading)
     const userId = useSelector((store) => store.user.userId)
     const userName = useSelector((store) => store.user.username)
-	const navigate = useNavigate()
 	const dispatch = useDispatch()
+    console.log(userName)
 
-	const handleData = () => {
-        dispatch(user.actions.setUserName)
+	const handleData = (data) => {
+        dispatch(user.actions.setUserName(data.response.username))
     }
 
-	const handleGoBack = () => {
-		navigate('/')
-	}
+	// const handleGoBack = () => {
+	// 	navigate('/')
+	// }
 
     const Schema = Yup.object().shape({
 		username: Yup.string()
@@ -51,7 +50,7 @@ const ProfilePage = () => {
 		<OuterWrapper>
 			{/* <AllDoneLoader /> */}
 			<Header />
-			<InnerWrapper margin='18vh auto 4rem' >
+			<InnerWrapper margin='23vh auto 4rem' >
                 <StyledImage src={profileImage} />	
                 <HeadingOne fontSize="2rem" color="#8DB9BC" textAlign="center">Update your username</HeadingOne>			
                 <Formik
@@ -86,12 +85,12 @@ const ProfilePage = () => {
                 >
                     {({ isSubmitting }) => (
                         <StyledForm>
-                            <StyledInput label='Username' name='username' type='text' placeholder={userName} />
+                            <StyledInput label='New username' name='username' type='text' placeholder={userName} />
 
                             <StyledButton
                             width="150px"
                             background="var(--primary)"
-                            margin="1em 0 0"
+                            margin="1.5em 0 0"
                             padding="6px 10px"
                             boxShadow="0px 10px 13px -7px #808080"
                             fontSize="10px"
@@ -99,9 +98,9 @@ const ProfilePage = () => {
                         </StyledForm>
                     )}
 				</Formik>
-                <StyledButton padding='6px 8px' background='var(--primary)' fontSize='0.6rem' margin="1rem 0 0" onClick={handleGoBack}>
+                {/* <StyledButton padding='6px 8px' background='var(--primary)' fontSize='0.6rem' margin="1rem 0 0" onClick={handleGoBack}>
 					Go back
-				</StyledButton>
+				</StyledButton> */}
 			</InnerWrapper>
 			<Footer />
 		</OuterWrapper>
@@ -111,7 +110,7 @@ const ProfilePage = () => {
 export default ProfilePage
 
 const StyledImage = styled.img`
-    width: 400px;
+    width: 300px;
     height: auto;
 `
 
@@ -121,7 +120,11 @@ const StyledForm = styled(Form)`
 	justify-content: center;
 	align-items: center;
 	margin: 1rem 0;
-    gap: 0.5rem;
+    // gap: 0.5rem;
+`
+
+const StyledLabel = styled.label`
+    color: var(--accentlilac);
 `
 
 const StyledInput = styled(MyTextInput)`
@@ -132,6 +135,11 @@ const StyledInput = styled(MyTextInput)`
 	border-radius: 10px;
 	padding: 6px 10px;
 	box-shadow: inset 0px 4px 4px 0px #adadad;
+
+    &:focus {
+		outline: none;
+		border: 2px solid var(--accentgreen);
+	}
 `
 
 const StyledError = styled.div`

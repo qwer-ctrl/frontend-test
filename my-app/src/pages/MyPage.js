@@ -12,12 +12,11 @@ import Footer from '../components/Footer'
 import LoadingAnimation from '../components/LoadingAnimation'
 import EmptyState from '../components/EmptyState'
 import ProgramModal from '../components/ProgramModal'
-import SignOut from '../components/SignOut'
 import { OuterWrapper, InnerWrapper } from '../styles/GlobalStyles'
 import { StyledButton } from '../styles/ButtonStyles'
 import gymImage from '../styles/images/gym.png'
 import cardioImage from '../styles/images/cardio.png'
-// import yogaImage from "../styles/images/yoga.png"
+import plusIcon from '../styles/images/plus-sign.png'
 
 const MyPage = () => {
 	const [showModal, setShowModal] = useState(false)
@@ -91,7 +90,7 @@ const MyPage = () => {
 		<>
 			<OuterWrapper>
 				<Header />
-				<InnerWrapper margin='25vh auto 4rem'>
+				<InnerWrapper margin='18vh auto 4rem' desktopMargin='26vh auto 0'>
 					{(!userHasProgram || userHasProgram.length < 1) && <EmptyState />}
 					{userHasProgram.length > 0 && (
 						<MainContainer>
@@ -117,8 +116,9 @@ const MyPage = () => {
 					)}
 					<ButtonContainer>
 						<ProgramModal showModal={showModal} setShowModal={setShowModal} />
-						<AddProgramButton onClick={openModal}>+</AddProgramButton>
-						<SignOut />
+						<AddProgramButton onClick={openModal}>
+							<StyledPlusIcon src={plusIcon} />
+						</AddProgramButton>
 					</ButtonContainer>
 				</InnerWrapper>
 				<Footer />
@@ -132,12 +132,16 @@ export default MyPage
 const MainContainer = styled.div`
 	width: 100%;
 	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-	// grid-template-rows: repeat(auto-fit, minmax(135px, 135px));
+	grid-template-columns: repeat(auto-fit, minmax(120px, 0.5fr));
 	grid-gap: 1rem;
 	max-height: 70vh;
 	overflow-y: scroll;
-	padding: 10px;
+	padding: 7px;
+	justify-content: center;
+
+	@media screen and (min-width: 768px) {
+		grid-template-columns: repeat(auto-fit, minmax(120px, 0.25fr));
+	}
 `
 const StyledLink = styled(Link)`
 	text-decoration: none;
@@ -152,13 +156,13 @@ const ProgramContainer = styled.div`
 	flex-direction: column;
 	align-items: center;
 	justify-content: space-evenly;
-	border-radius: 15px;
-	box-shadow: 0px 6px 13px 0px #adadad;
+	border-radius: 6px;
+	box-shadow: 0px 5px 4px 0px #adadad;
 `
 
 const StyledImage = styled.img`
-	width: 110px;
-	height: 110px;
+	height: 70px;
+	width: 70px;
 `
 
 const ButtonContainer = styled.div`
@@ -166,6 +170,7 @@ const ButtonContainer = styled.div`
 	justify-content: flex-start;
 	margin: 2rem 0;
 	gap: 1rem;
+	position: relative;
 `
 
 const AddProgramButton = styled.button`
@@ -174,12 +179,21 @@ const AddProgramButton = styled.button`
 	height: 60px;
 	border: none;
 	border-radius: 50%;
-	background: var(--primary);
-	bottom: 2.5vh;
+	background: var(--tertiary);
+	bottom: 5.5vh;
 	left: calc(50% - 30px);
 	z-index: 10;
+	box-shadow: 5px 0px 10px 0px #adadad;
 
 	&:hover {
-		background: var(--accentgreen);
+		background: var(--primary);
 	}
+`
+
+const StyledPlusIcon = styled.img`
+	width: 50px;
+	height: 50px;
+	position: fixed;
+	left: calc(50% - 25px);
+	bottom: calc(5.5vh + 5px);
 `

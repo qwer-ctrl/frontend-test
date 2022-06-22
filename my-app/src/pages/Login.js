@@ -10,8 +10,7 @@ import { API_URL } from '../utils/utils'
 import user from '../reducers/user'
 import { OuterWrapper, InnerWrapper } from '../styles/GlobalStyles'
 import { StyledButton } from '../styles/ButtonStyles'
-import loginImage from "../styles/images/login-image.png"
-
+import loginImage from '../styles/images/login-image.png'
 
 const MyTextInput = ({ label, ...props }) => {
 	const [field, meta] = useField(props)
@@ -70,7 +69,7 @@ const Login = () => {
 				.required('Password is required')
 				.min(8, 'The password must contain at least 8 characters'),
 			confirmPassword: Yup.string()
-				.required('Please, fill in your password again')
+				.required('Please, confirm password')
 				.oneOf([Yup.ref('password'), null], 'Passwords must match'),
 		})
 	} else if (mode === 'login') {
@@ -84,12 +83,21 @@ const Login = () => {
 
 	return (
 		<OuterWrapper>
-			<InnerWrapper margin="0 auto">
+			<InnerWrapper margin='0 auto'>
 				<StyledImage src={loginImage} />
 
 				<TitleContainer>
-					{mode === 'login' ? <StyledTitle>Login and start moving!</StyledTitle> : <StyledTitle>Register for Flex 'n Joy!</StyledTitle>}
-					{mode === "register" ? <p>Flex 'n Joy gives you the opportunity to bring your workouts with you wherever you go, easily and effectively!</p> : null}
+					{mode === 'login' ? (
+						<StyledTitle>Login and start moving!</StyledTitle>
+					) : (
+						<StyledTitle>Register for Flex 'n Joy!</StyledTitle>
+					)}
+					{mode === 'register' ? (
+						<p>
+							Flex 'n Joy gives you the opportunity to bring your workouts with you wherever you go, easily
+							and effectively!
+						</p>
+					) : null}
 				</TitleContainer>
 
 				<Formik
@@ -139,44 +147,54 @@ const Login = () => {
 
 							{mode === 'login' ? (
 								<StyledButton
-								background="var(--primary)"
-								margin="1em 0 0"
-								padding="6px 18px"
-								boxShadow="0px 10px 13px -7px #808080"
-								backgroundHover="var(--accentgreen)"
-								fontSize="10px"
-								type='submit'>Login</StyledButton>
+									background='var(--primary)'
+									margin='1em 0 0'
+									padding='6px 18px'
+									boxShadow='0px 10px 13px -7px #808080'
+									backgroundHover='var(--accentgreen)'
+									fontSize='10px'
+									type='submit'
+								>
+									Login
+								</StyledButton>
 							) : (
 								<StyledButton
-								background="var(--primary)"
-								margin="1em 0 0"
-								padding="6px 18px"
-								boxShadow="0px 10px 13px -7px #808080"
-								backgroundHover="var(--accentgreen)"
-								fontSize="10px"
-								type='submit'>Register</StyledButton>
+									background='var(--primary)'
+									margin='1em 0 0'
+									padding='6px 18px'
+									boxShadow='0px 10px 13px -7px #808080'
+									backgroundHover='var(--accentgreen)'
+									fontSize='10px'
+									type='submit'
+								>
+									Register
+								</StyledButton>
 							)}
 
 							{mode === 'login' ? (
 								<StyledButton
-								background="transparent"
-								margin="1em 0 0"
-								padding="6px 18px"
-								boxShadow="none"
-								textDecoration="underline"
-								fontSize="10px"
-								type='button' onClick={() => setMode('register')}>
+									background='transparent'
+									margin='1em 0 0'
+									padding='6px 18px'
+									boxShadow='none'
+									textDecoration='underline'
+									fontSize='10px'
+									type='button'
+									onClick={() => setMode('register')}
+								>
 									Not a member yet? Register here
 								</StyledButton>
 							) : (
 								<StyledButton
-								background="transparent"
-								margin="1em 0 0"
-								padding="6px 18px"
-								boxShadow="none"
-								textDecoration="underline"
-								fontSize="10px"
-								type='button' onClick={() => setMode('login')}>
+									background='transparent'
+									margin='1em 0 0'
+									padding='6px 18px'
+									boxShadow='none'
+									textDecoration='underline'
+									fontSize='10px'
+									type='button'
+									onClick={() => setMode('login')}
+								>
 									Already a member? Login here
 								</StyledButton>
 							)}
@@ -233,7 +251,8 @@ const StyledInput = styled(MyTextInput)`
 	border: none;
 	border-radius: 10px;
 	padding: 6px 10px;
-	box-shadow: inset 0px 4px 4px 0px #ADADAd;
+	box-shadow: inset 0px 4px 4px 0px #adadad;
+	//box-shadow: inset 2px -1px 4px 0px #adadad;
 
 	&:focus {
 		outline: none;

@@ -6,12 +6,10 @@ import * as Yup from 'yup'
 import styled from 'styled-components/macro'
 
 import { API_URL } from '../utils/utils'
-// import { program } from '../reducers/program'
 import exercise from '../reducers/exercise'
 import ui from '../reducers/ui'
 import LoadingAnimation from '../components/LoadingAnimation'
 import SignOut from '../components/SignOut'
-import EmptyState from '../components/EmptyState'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import { OuterWrapper, InnerWrapper, HeadingOne } from '../styles/GlobalStyles'
@@ -82,7 +80,6 @@ const AddProgram = () => {
 		fetchProgram()
 	}, [fetchProgram])
 
-
 	const Schema = Yup.object().shape({
 		exercise: Yup.string()
 			.required('Exercise name is required')
@@ -136,7 +133,11 @@ const AddProgram = () => {
 		<OuterWrapper>
 			<Header />
 			<InnerWrapper margin='25vh auto 4rem'>
-				{exerciseContent ? <HeadingOne fontSize="2rem">{programName}!</HeadingOne> : <EmptyState />}
+				{exerciseContent && (
+					<HeadingOne fontSize='2rem' color='#6EB3B8'>
+						{programName}
+					</HeadingOne>
+				)}
 
 				<Formik
 					initialValues={{
@@ -195,12 +196,12 @@ const AddProgram = () => {
 							<MetricsButtonContainer>
 								<StyledButton
 									width='fit-content'
-									background='var(--primary)'
+									background='var(--grey)'
 									margin='1em 0 0'
 									padding='6px 18px'
 									boxShadow='0px 10px 13px -7px #808080'
-									backgroundHover='var(--accentgreen)'
-									fontSize='10px'
+									backgroundHover='var(--tertiary)'
+									color='var(--secondary)'
 									onClick={handleSetsState}
 									type='button'
 								>
@@ -209,12 +210,12 @@ const AddProgram = () => {
 
 								<StyledButton
 									width='fit-content'
-									background='var(--primary)'
+									background='var(--grey)'
 									margin='1em 0 0'
 									padding='6px 18px'
 									boxShadow='0px 10px 13px -7px #808080'
-									backgroundHover='var(--accentgreen)'
-									fontSize='10px'
+									backgroundHover='var(--tertiary)'
+									color='var(--secondary)'
 									onClick={handleRepsState}
 									type='button'
 								>
@@ -223,12 +224,12 @@ const AddProgram = () => {
 
 								<StyledButton
 									width='fit-content'
-									background='var(--primary)'
+									background='var(--grey)'
 									margin='1em 0 0'
 									padding='6px 18px'
 									boxShadow='0px 10px 13px -7px #808080'
-									backgroundHover='var(--accentgreen)'
-									fontSize='10px'
+									backgroundHover='var(--tertiary)'
+									color='var(--secondary)'
 									onClick={handleWeightsState}
 									type='button'
 								>
@@ -237,12 +238,12 @@ const AddProgram = () => {
 
 								<StyledButton
 									width='fit-content'
-									background='var(--primary)'
+									background='var(--grey)'
 									margin='1em 0 0'
 									padding='6px 18px'
 									boxShadow='0px 10px 13px -7px #808080'
-									backgroundHover='var(--accentgreen)'
-									fontSize='10px'
+									backgroundHover='var(--tertiary)'
+									color='var(--secondary)'
 									onClick={handleMinutesState}
 									type='button'
 								>
@@ -251,12 +252,12 @@ const AddProgram = () => {
 
 								<StyledButton
 									width='fit-content'
-									background='var(--primary)'
+									background='var(--grey)'
 									margin='1em 0 0'
 									padding='6px 18px'
 									boxShadow='0px 10px 13px -7px #808080'
-									backgroundHover='var(--accentgreen)'
-									fontSize='10px'
+									backgroundHover='var(--tertiary)'
+									color='var(--secondary)'
 									onClick={handleSecondsState}
 									type='button'
 								>
@@ -265,12 +266,12 @@ const AddProgram = () => {
 
 								<StyledButton
 									width='fit-content'
-									background='var(--primary)'
+									background='var(--grey)'
 									margin='1em 0 0'
 									padding='6px 18px'
 									boxShadow='0px 10px 13px -7px #808080'
-									backgroundHover='var(--accentgreen)'
-									fontSize='10px'
+									backgroundHover='var(--tertiary)'
+									color='var(--secondary)'
 									onClick={handleDurationState}
 									type='button'
 								>
@@ -279,12 +280,12 @@ const AddProgram = () => {
 
 								<StyledButton
 									width='fit-content'
-									background='var(--primary)'
+									background='var(--grey)'
 									margin='1em 0 0'
 									padding='6px 18px'
 									boxShadow='0px 10px 13px -7px #808080'
-									backgroundHover='var(--accentgreen)'
-									fontSize='10px'
+									backgroundHover='var(--tertiary)'
+									color='var(--secondary)'
 									onClick={handleExerciseLengthState}
 									type='button'
 								>
@@ -293,12 +294,12 @@ const AddProgram = () => {
 
 								<StyledButton
 									width='fit-content'
-									background='var(--primary)'
+									background='var(--grey)'
 									margin='1em 0 0'
 									padding='6px 18px'
 									boxShadow='0px 10px 13px -7px #808080'
-									backgroundHover='var(--accentgreen)'
-									fontSize='10px'
+									backgroundHover='var(--tertiary)'
+									color='var(--secondary)'
 									onClick={handleCommentsState}
 									type='button'
 								>
@@ -307,12 +308,12 @@ const AddProgram = () => {
 
 								<StyledButton
 									width='fit-content'
-									background='var(--primary)'
+									background='var(--grey)'
 									margin='1em 0 0'
 									padding='6px 18px'
 									boxShadow='0px 10px 13px -7px #808080'
-									backgroundHover='var(--accentgreen)'
-									fontSize='10px'
+									backgroundHover='var(--tertiary)'
+									color='var(--secondary)'
 									onClick={handleExerciseLinkState}
 									type='button'
 								>
@@ -341,8 +342,8 @@ const AddProgram = () => {
 								margin='1em 0 0'
 								padding='6px 18px'
 								boxShadow='0px 10px 13px -7px #808080'
-								backgroundHover='var(--accentgreen)'
-								fontSize='10px'
+								backgroundHover='var(--tertiary)'
+								color='var(--secondary)'
 								type='submit'
 							>
 								Add exercise
@@ -351,22 +352,29 @@ const AddProgram = () => {
 					)}
 				</Formik>
 				{exerciseContent && (
-				<ExerciseGrid>
-					{exerciseContent.map((exercise) => (
-						<ExerciseContainer key={exercise._id}>
-							<HeadingOne fontSize="1.5rem">{exercise.exercise}</HeadingOne>
-							{exercise.sets && <p>Sets: {exercise.sets}</p>}
-							{exercise.reps && <p>Reps: {exercise.reps}</p>}
-							{exercise.weights && <p>Weights: {exercise.weights}</p>}
-							{exercise.minutes && <p>Minutes: {exercise.minutes}</p>}
-							{exercise.seconds && <p>Seconds: {exercise.seconds}</p>}
-							{exercise.duration && <p>Duration: {exercise.duration}</p>}
-							{exercise.exerciseLength && <p>Distance: {exercise.exerciseLength} </p>}
-							{exercise.comments && <p>Comment: {exercise.comments}</p>}
-							{exercise.exerciseLink && <p>Link: <a href={exercise.exerciseLink} target='_blank' rel='noopener noreferrer'>{exercise.exerciseLink}</a></p>}
-						</ExerciseContainer>
-					))}
-				</ExerciseGrid>
+					<ExerciseGrid>
+						{exerciseContent.map((exercise) => (
+							<ExerciseContainer key={exercise._id}>
+								<HeadingOne fontSize='1.5rem'>{exercise.exercise}</HeadingOne>
+								{exercise.sets && <p>Sets: {exercise.sets}</p>}
+								{exercise.reps && <p>Reps: {exercise.reps}</p>}
+								{exercise.weights && <p>Weights: {exercise.weights}</p>}
+								{exercise.minutes && <p>Minutes: {exercise.minutes}</p>}
+								{exercise.seconds && <p>Seconds: {exercise.seconds}</p>}
+								{exercise.duration && <p>Duration: {exercise.duration}</p>}
+								{exercise.exerciseLength && <p>Distance: {exercise.exerciseLength} </p>}
+								{exercise.comments && <p>Comment: {exercise.comments}</p>}
+								{exercise.exerciseLink && (
+									<p>
+										Link:{' '}
+										<a href={exercise.exerciseLink} target='_blank' rel='noopener noreferrer'>
+											{exercise.exerciseLink}
+										</a>
+									</p>
+								)}
+							</ExerciseContainer>
+						))}
+					</ExerciseGrid>
 				)}
 				<ButtonContainer>
 					<StyledButton
@@ -375,7 +383,8 @@ const AddProgram = () => {
 						margin='1em 0 0'
 						padding='6px 18px'
 						boxShadow='0px 10px 13px -7px #808080'
-						backgroundHover='var(--accentgreen)'
+						backgroundHover='var(--tertiary)'
+						color='var(--secondary)'
 						fontSize='10px'
 						onClick={handleGoBack}
 					>
@@ -396,15 +405,15 @@ const StyledForm = styled(Form)`
 	flex-direction: column;
 	justify-content: center;
 	align-items: flex-start;
-	margin: 2rem 0 3rem;
+	margin: 1rem 0;
 	background: var(--secondary);
 	padding: 2rem;
-	gap: 2rem;
+	gap: 0.5rem;
 	border-radius: 6px;
 	box-shadow: 0px 10px 13px 0px #808080;
 
 	@media screen and (min-width: 768px) {
-		padding: 3rem;
+		padding: 2rem 3rem;
 	}
 `
 
@@ -428,7 +437,7 @@ const StyledInput = styled(MyTextInput)`
 
 	&:focus {
 		outline: none;
-		border: 2px solid var(--accentgreen);
+		border: 2px solid var(--primary);
 	}
 `
 
@@ -443,7 +452,7 @@ const StyledCommentInput = styled(MyTextArea)`
 
 	&:focus {
 		outline: none;
-		border: 2px solid var(--accentgreen);
+		border-bottom: 3px solid var(--primary);
 	}
 `
 
@@ -453,6 +462,7 @@ const MetricsButtonContainer = styled.div`
 	flex-wrap: wrap;
 	width: 100%;
 	margin-bottom: 1rem;
+	gap: 3px;
 `
 
 const MetricsInputContainer = styled.div`
@@ -470,7 +480,7 @@ const ButtonContainer = styled.div`
 	width: 100%;
 	display: flex;
 	justify-content: space-evenly;
-	margin: 2rem 0 6rem;
+	margin: 0 0 2rem;
 	gap: 1rem;
 `
 
@@ -497,7 +507,6 @@ const ExerciseContainer = styled.div`
 	border-radius: 15px;
 	box-shadow: 0px 6px 13px 0px #adadad;
 `
-
 
 //-------------------------------------------- code for trying to have multiple sets --------------------------//
 
