@@ -132,7 +132,7 @@ const AddProgram = () => {
 	) : (
 		<OuterWrapper>
 			<Header />
-			<InnerWrapper margin='25vh auto 4rem'>
+			<InnerWrapper margin='18vh auto 4rem' desktopMargin='25vh auto 4rem'>
 				{exerciseContent && (
 					<HeadingOne fontSize='2rem' color='#6EB3B8'>
 						{programName}
@@ -299,11 +299,11 @@ const AddProgram = () => {
 									padding='6px 18px'
 									boxShadow='0px 10px 13px -7px #808080'
 									backgroundHover='var(--tertiary)'
-									color='var(--secondary)'
-									onClick={handleCommentsState}
+									color='var(--white)'
+									onClick={handleExerciseLinkState}
 									type='button'
 								>
-									Comments
+									Link
 								</StyledButton>
 
 								<StyledButton
@@ -314,13 +314,12 @@ const AddProgram = () => {
 									boxShadow='0px 10px 13px -7px #808080'
 									backgroundHover='var(--tertiary)'
 									color='var(--secondary)'
-									onClick={handleExerciseLinkState}
+									onClick={handleCommentsState}
 									type='button'
 								>
-									Link
+									Comments
 								</StyledButton>
 							</MetricsButtonContainer>
-
 							<MetricsInputContainer>
 								{displaySets ? <StyledInput label='Sets' name='sets' type='text' /> : null}
 								{displayReps ? <StyledInput label='Reps' name='reps' type='text' /> : null}
@@ -356,15 +355,23 @@ const AddProgram = () => {
 						{exerciseContent.map((exercise) => (
 							<ExerciseContainer key={exercise._id}>
 								<HeadingOne fontSize='1.5rem'>{exercise.exercise}</HeadingOne>
-								<ExerciseContentContainer>
+								{/* <ExerciseContentContainer> */}
+								<MetricsContentContainer>
+							<MetricsInputContainer>
+							<MetricsContainer>
 									{exercise.sets && <p>Sets: {exercise.sets}</p>}
 									{exercise.reps && <p>Reps: {exercise.reps}</p>}
 									{exercise.weights && <p>Weights: {exercise.weights}</p>}
+									</MetricsContainer>
+								<MetricsContainer>
 									{exercise.minutes && <p>Minutes: {exercise.minutes}</p>}
+									</MetricsContainer>
+								<MetricsContainer>
 									{exercise.seconds && <p>Seconds: {exercise.seconds}</p>}
 									{exercise.duration && <p>Duration: {exercise.duration}</p>}
 									{exercise.exerciseLength && <p>Distance: {exercise.exerciseLength} </p>}
-									{exercise.comments && <p>Comment: {exercise.comments}</p>}
+								</MetricsContainer>
+								<MetricsContainer>
 									{exercise.exerciseLink && (
 										<p>
 											Link:{' '}
@@ -373,7 +380,11 @@ const AddProgram = () => {
 											</a>
 										</p>
 									)}
-								</ExerciseContentContainer>
+									{exercise.comments && <p>Comment: {exercise.comments}</p>}
+									</MetricsContainer>
+								</MetricsInputContainer>
+								</MetricsContentContainer>
+								{/* </ExerciseContentContainer> */}
 							</ExerciseContainer>
 						))}
 					</ExerciseGrid>
@@ -446,7 +457,6 @@ const StyledInput = styled(MyTextInput)`
 const StyledCommentInput = styled(MyTextArea)`
 	max-width: 150px;
 	margin: 0.5rem 0;
-	text-align: center;
 	border: none;
 	border-radius: 15px;
 	padding: 6px 10px;
@@ -454,7 +464,7 @@ const StyledCommentInput = styled(MyTextArea)`
 
 	&:focus {
 		outline: none;
-		border: 2px solid var(--primary);
+		border-bottom: 3px solid var(--primary);
 	}
 `
 
@@ -467,15 +477,39 @@ const MetricsButtonContainer = styled.div`
 	gap: 3px;
 `
 
+const MetricsContentContainer = styled.div`
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+
+	p {
+		font-size: 0.9rem;
+		max-width: 17ch;
+		overflow-wrap: break-word;
+		padding-right: 0.5em;
+
+		@media screen and (min-width: 768px) {
+			{
+				font-size: 1rem;
+				max-width: 25ch;
+			}
+		}
+`
+
 const MetricsInputContainer = styled.div`
 	display: grid;
 	grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
 	width: 100%;
-	column-gap: 10px;
+	column-gap: 5px;
 
 	@media screen and (min-width: 768px) {
 		grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
 	}
+`
+
+const MetricsContainer = styled.div`
+	display: flex;
+	margin-bottom: 0.15em;
 `
 
 const ButtonContainer = styled.div`
@@ -494,13 +528,15 @@ const StyledError = styled.div`
 
 const ExerciseGrid = styled.article`
 	width: 100%;
-	// // display: grid;
+	// display: grid;
 	// grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
 	// gap: 1rem;
 `
 
 const ExerciseContainer = styled.div`
 	// height: 200px;
+	max-width: 765px;
+	margin: auto;
 	display: flex;
 	flex-direction: column;
 	align-items: flex-start;

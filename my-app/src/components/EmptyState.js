@@ -24,7 +24,8 @@ const EmptyStateContainer = styled.div`
 	justify-content: center;
 	background: white;
 	text-align: center;
-	margin-top: 4vh;
+	margin-top: 6vh;
+	gap: 2rem;
 `
 
 const StyledImage = styled.img`

@@ -5,12 +5,14 @@ import { Formik, Form, useField } from 'formik'
 import * as Yup from 'yup'
 import styled from 'styled-components/macro'
 
-import LoadingAnimation from '../components/LoadingAnimation'
-import { API_URL } from '../utils/utils'
-import user from '../reducers/user'
 import { OuterWrapper, InnerWrapper } from '../styles/GlobalStyles'
 import { StyledButton } from '../styles/ButtonStyles'
 import loginImage from '../styles/images/login-image.png'
+
+import { API_URL } from '../utils/utils'
+import LoadingAnimation from '../components/LoadingAnimation'
+import user from '../reducers/user'
+
 
 const MyTextInput = ({ label, ...props }) => {
 	const [field, meta] = useField(props)
@@ -33,7 +35,9 @@ const Login = () => {
 	const accessToken = useSelector((store) => store.user.accessToken)
 
 	const handleLoginSuccess = (data) => {
-		console.log('programs from user', data, data.program)
+		if (mode === "register") {
+			setMode("login")
+		}
 		batch(() => {
 			dispatch(user.actions.setUserId(data.userId))
 			dispatch(user.actions.setAccessToken(data.accessToken))
@@ -45,11 +49,9 @@ const Login = () => {
 			}
 			dispatch(user.actions.setError(null))
 		})
-		
 	}
 
 	const handleLoginFailure = (data) => {
-		console.log('faliure', data)
 		dispatch(user.actions.setError(data.response))
 		dispatch(user.actions.setUserId(null))
 		dispatch(user.actions.setAccessToken(null))
@@ -103,7 +105,7 @@ const Login = () => {
 				</TitleContainer>
 
 				<Formik
-					initialValues={{ username: '', password: '', confirmPassword: '', email: '' }}
+					initialValues={{ username: '', password: '', confirmPassword: '' }}
 					validationSchema={Schema}
 					onSubmit={(values, { setSubmitting, resetForm }) => {
 						fetch(API_URL(mode), {
@@ -116,10 +118,6 @@ const Login = () => {
 							.then((res) => res.json())
 							.then((data) => {
 								handleLoginSuccess(data)
-								if (mode === "register") {
-									setMode("login")
-								}
-								console.log("mode inside fetch", mode)
 							})
 							.catch((error) => {
 								handleLoginFailure(error)
@@ -135,12 +133,6 @@ const Login = () => {
 							{isSubmitting && <LoadingAnimation />}
 
 							<StyledInput label='Username' name='username' type='text' />
-
-							{/* <StyledInput
-                                    label="Email address"
-                                    name="email"
-                                    type="email" 
-                                    /> */}
 
 							<StyledInput label='Password' name='password' type='password' />
 							{mode === 'register' ? (

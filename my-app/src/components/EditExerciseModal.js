@@ -43,10 +43,10 @@ const EditExerciseModal = () => {
 		fetch(API_URL(`exercise/${exerciseId}`), options)
 			.then((res) => res.json())
 			.then((data) => {
-				// dispatch(ui.actions.setLoading(true))
+				dispatch(ui.actions.setLoading(true))
 				setExerciseContent(data.response)
 			})
-		// .finally(() => dispatch(ui.actions.setLoading(false)))
+		.finally(() => dispatch(ui.actions.setLoading(false)))
 	}, [exerciseId])
 
 	const Schema = Yup.object().shape({

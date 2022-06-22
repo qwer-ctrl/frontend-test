@@ -3,6 +3,9 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import styled from 'styled-components/macro'
 
+import deleteIcon from '../styles/images/delete.png'
+import editIcon from '../styles/images/edit.png'
+
 import EditExerciseModal from '../components/EditExerciseModal'
 import DeleteExerciseModal from '../components/DeleteExerciseModal'
 import { API_URL } from '../utils/utils'
@@ -84,9 +87,6 @@ const SingleProgram = () => {
 		fetchProgram()
 	}
 
-	// const handleGoBack = () => {
-	// 	navigate('/')
-	// }
 
 	let updatedList = [...checked]
 
@@ -195,40 +195,19 @@ const SingleProgram = () => {
 							 
 							</ExerciseContainer>
 							</ExerciseContentContainer>
-							<ButtonContainer justifyContent='center' flexDirection='row'>
-								<StyledButton
-									width='65px'
-									background='var(--primary)'
-									margin='0'
-									padding='5px 10px'
-									boxShadow='0px 10px 13px -7px #808080'
-									backgroundHover='var(--tertiary)'
-									color='var(--white)'
-									onClick={() => handleEditExerciseModal(item._id)}
-								>
-									Edit
-								</StyledButton>
-								{showEditExerciseModal ? <EditExerciseModal /> : null}
-								<StyledButton
-									width='65px'
-									background='var(--primary)'
-									margin='0'
-									padding='5px 10px'
-									boxShadow='0px 10px 13px -7px #808080'
-									backgroundHover='var(--tertiary)'
-									color='var(--white)'
-									onClick={() => handleDeleteExerciseModal(item._id)}
-								>
-									Delete
-								</StyledButton>
+								<IconContainer>
+									<IconButton onClick={() => handleEditExerciseModal(item._id)}>
+									<IconStyle src={editIcon} alt='editIcon'/>
+									{showEditExerciseModal ? <EditExerciseModal /> : null}
+									</IconButton>
+									<IconButton onClick={() => handleDeleteExerciseModal(item._id)}>
+								<IconStyle src={deleteIcon} alt='deleteIcon'/>
 								{showDeleteExerciseModal ? <DeleteExerciseModal /> : null}
-							</ButtonContainer>
+								</IconButton>
+								</IconContainer>
 						</ExerciseWrapper>
 					))}
 				</ExerciseGrid>
-				{/* <StyledButton padding='6px 8px' background='var(--primary)' fontSize='0.6rem' onClick={handleGoBack}>
-					Go back
-				</StyledButton> */}
 			</InnerWrapper>
 			<Timer />
 			<Footer />
@@ -261,11 +240,12 @@ const ExerciseWrapper = styled.article`
 	padding: 0.8rem;
 	margin-top: 1rem;
 
-	// @media screen and (min-width: 768px) {
-	// 	 {
-	// 		max-width: 350px;
-	// 	}
-	// }
+	@media screen and (min-width: 768px) {
+		 {
+			max-width: 550px;
+			margin: 1.2rem auto;
+		}
+	}
 `
 
 const HeadingThree = styled.h3`
@@ -275,7 +255,7 @@ const HeadingThree = styled.h3`
 
 const ExerciseContainer = styled.div`
 	display: flex;
-	flex-direction: row;
+	flex-direction: column;
 	align-items: flex-start;
 	// justify-content: space-evenly;
 	// padding: 10px;
@@ -286,35 +266,69 @@ const ExerciseContainer = styled.div`
 		max-width: 17ch;
 		overflow-wrap: break-word;
 		padding-right: 0.5em;
+		font-weight: 500;
 
 		@media screen and (min-width: 768px) {
 			 {
-				font-size: 0.9rem;
+				font-size: 1rem;
 				max-width: 25ch;
 			}
 		}
 `
 const MetricsContainer = styled.div`
 		display: flex;
+		margin-bottom: 0.1em;
 `
 
 const StyledCheckbox = styled.input`
 	accent-color: var(--tertiary);
-	margin-top: 0.5rem;
 
 	&:hover,
 	&:focus {
-		outline: 2px solid var(--primary);
+		outline: 4px solid var(--primary);
 	}
+
+	@media screen and (min-width: 768px) {
+		{
+		 height: 20px;
+		 width: 20px;
+	 }
+	@media screen and (min-width: 1024px) {
+		{
+		 height: 25px;
+		 width: 25px;
+	 }
+`
+
+const IconContainer = styled.div`
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-end;
+`
+const IconButton = styled.button`
+	 background: transparent;
+	 border: none;
+
+	 &:hover,
+	 &:focus {
+		 outline: none;
+
+`
+
+const IconStyle = styled.img`
+	max-width: 20px;
+	margin-left: 0.5em;
+	margin-top: auto;
 `
 
 const ButtonContainer = styled.div`
 	display: flex;
 	flex-direction: ${(props) => props.flexDirection};
 	justify-content: ${(props) => props.justifyContent};
-	margin: 0.5rem 0;
+	margin: 0.2rem 0;
 	gap: 5px;
 `
+
 const ProgressContainer = styled.div`
 	height: 12px;
 	width: 100%;
@@ -343,6 +357,7 @@ const Progress = styled(BaseBox)`
 	background: var(--accentlilac);
 	width: ${({ percent }) => percent}%;
 `
+
 const ExerciseContentContainer = styled.section`
 	display: grid;
 	grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));

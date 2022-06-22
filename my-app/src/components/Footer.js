@@ -13,7 +13,7 @@ const Footer = () => {
 					<StyledImage src={homeIcon} />
 				</StyledActiveLink>
 				<StyledActiveLink to='/profilepage' activeclassname='selected'>
-					<StyledUserImage src={userIcon} />
+					<StyledImage src={userIcon} />
 				</StyledActiveLink>
 
 				{/* <NavLink to='/'>
@@ -47,26 +47,27 @@ const FooterContainer = styled.footer`
 `
 
 const StyledImage = styled.img`
-	width: 30px;
-	height: 30px;
+	width: 20px;
+	height: 20px;
 `
 
-const StyledUserImage = styled.img`
-	width: 30px;
-	height: 30px;
-`
 
 const StyledActiveLink = styled(NavLink)`
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	background: var(--primary);
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	border-bottom: none;
 	&.active {
-		border-bottom: 1px solid #37767a;
+		border-bottom: 1px solid var(--tertiary);
 	}
 
 	&:hover,
 	&:focus {
 		outline: none;
-		filter: invert(100%);
-		// border: 2px solid var(--primary);
-
+		background: var(--accentlilac);
 	}
 `

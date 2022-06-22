@@ -125,7 +125,7 @@ const Timer = () => {
 	return (
 		<TimerContainer>
 			<TimerBox background={getBackground()}>
-			<HeadingOne fontSize='1.5em'>Timer</HeadingOne>
+			<HeadingOne fontSize='1.3em'>Timer</HeadingOne>
 				{message}
 				<TimerClock>
 					<SetTimerContainer>
@@ -150,18 +150,20 @@ const Timer = () => {
 						</TimerComponent>
 					</SetTimerContainer>
 
-					<StyledButton backgroundHover='var(--tertiary)'
-									color='var(--white)' padding='6px 18px' margin='3px 0 0' onClick={() => setRunTimer(true)}>
-						Start
-					</StyledButton>
-					<StyledButton backgroundHover='var(--tertiary)'
-									color='var(--white)' padding='6px 18px' margin='3px 0 0' onClick={() => setRunTimer(false)}>
-						Stop
-					</StyledButton>
-					<StyledButton backgroundHover='var(--tertiary)'
-									color='var(--white)' padding='6px 18px' margin='3px 0 0' onClick={() => restartButton()}>
-						Restart
-					</StyledButton>
+					<ButtonContainer>
+						<StyledButton backgroundHover='var(--tertiary)'
+										color='var(--white)' padding='6px 18px' margin='3px 2px 0' onClick={() => setRunTimer(true)}>
+							Start
+						</StyledButton>
+						<StyledButton backgroundHover='var(--tertiary)'
+										color='var(--white)' padding='6px 18px' margin='3px 2px 0' onClick={() => setRunTimer(false)}>
+							Stop
+						</StyledButton>
+						<StyledButton backgroundHover='var(--tertiary)'
+										color='var(--white)' padding='6px 18px' margin='3px 2px 0' onClick={() => restartButton()}>
+							Restart
+						</StyledButton>
+					</ButtonContainer> 
 				</TimerClock>
 
 				{godJobMessage}
@@ -215,7 +217,11 @@ const TimerComponent = styled.div`
 	justify-content: space-between;
 	padding: 0.3em 0.25em;
 `
+
 const TimerText = styled.p`
 	margin: 0 1em;
 `
 
+const ButtonContainer = styled.div`
+	display: flex;
+`

@@ -15,7 +15,7 @@ const NotFound = () => {
 
 	return (
 		<OuterWrapper>
-			<InnerWrapper margin="15vh auto 0">
+			<InnerWrapper margin="20vh auto 0">
 				<NotFoundWrapper>
 					<StyledImage src={errorImage} />
 					<HeadingOne fontSize="1rem" color="#8DB9BC" desktopFontSize="2rem">Sorry, could not find the page you were looking for, but keep calm and head back</HeadingOne>
@@ -25,8 +25,8 @@ const NotFound = () => {
 					margin="2rem 0 0"
 					padding="6px 18px"
 					boxShadow="0px 10px 13px -7px #808080"
-					backgroundHover="var(--accentgreen)"
-					fontSize="10px" 
+					backgroundHover='var(--tertiary)'
+					color='var(--white)'
 					onClick={() => handleGoBack()}>Go Back</StyledButton>
 			</InnerWrapper>
 		</OuterWrapper>
@@ -53,7 +53,7 @@ const StyledImage = styled.img`
 	height: auto;
 
 	@media screen and (min-width: 768px) {
-		width: 500px;
-		height: 400px;
+		width: 400px;
+		height: 300px;
 	}
 `

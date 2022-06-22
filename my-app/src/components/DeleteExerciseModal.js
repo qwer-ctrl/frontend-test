@@ -6,7 +6,6 @@ import { ModalContainer, StyledModal, CloseButton } from '../styles/ModalStyles'
 import { StyledButton } from '../styles/ButtonStyles'
 import ui from '../reducers/ui'
 import { API_URL } from '../utils/utils'
-// import LoadingAnimation from '../components/LoadingAnimation'
 
 const DeleteExerciseModal = () => {
 	const exerciseId = useSelector((store) => store.ui.currentModalId)

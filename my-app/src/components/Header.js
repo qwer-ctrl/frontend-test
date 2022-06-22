@@ -31,8 +31,9 @@ const Header = () => {
 					width='70%'
 					color='#202020'
 					textTransform='uppercase'
-					margin='0 0 0 0'
+					margin='1rem 0 0 0'
 					desktopWidth='300px'
+					desktopFontSize="2rem"
 				>
 					{showGreeting()}
 					<StyledHeader>{userName}</StyledHeader>
@@ -64,6 +65,6 @@ const HeaderContainer = styled.header`
 `
 const StyledHeader = styled.p`
 	//font-family: 'Special Elite', cursive;
-	line-height: 50px;
+	line-height: 40px;
 	color: #303030;
 `

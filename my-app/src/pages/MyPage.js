@@ -3,6 +3,12 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate, Link } from 'react-router-dom'
 import styled from 'styled-components/macro'
 
+import { OuterWrapper, InnerWrapper } from '../styles/GlobalStyles'
+import { StyledButton } from '../styles/ButtonStyles'
+import gymImage from '../styles/images/gym-two.png'
+import cardioImage from '../styles/images/cardio-two.png'
+import plusIcon from '../styles/images/plus-sign.png'
+
 import { API_URL } from '../utils/utils'
 import user from '../reducers/user'
 import { program } from '../reducers/program'
@@ -12,18 +18,13 @@ import Footer from '../components/Footer'
 import LoadingAnimation from '../components/LoadingAnimation'
 import EmptyState from '../components/EmptyState'
 import ProgramModal from '../components/ProgramModal'
-import { OuterWrapper, InnerWrapper } from '../styles/GlobalStyles'
-import { StyledButton } from '../styles/ButtonStyles'
-import gymImage from '../styles/images/gym-two.png'
-import cardioImage from '../styles/images/cardio-two.png'
-import plusIcon from '../styles/images/plus-sign.png'
+
 
 const MyPage = () => {
 	const [showModal, setShowModal] = useState(false)
 	const accessToken = useSelector((store) => store.user.accessToken)
 	const userId = useSelector((store) => store.user.userId)
 	const userHasProgram = useSelector((store) => store.user.program)
-	console.log('userHasProgram', userHasProgram)
 	const isLoading = useSelector((store) => store.ui.isLoading)
 	const navigate = useNavigate()
 	const dispatch = useDispatch()
@@ -75,6 +76,7 @@ const MyPage = () => {
 		<>
 			<OuterWrapper>
 				<Header />
+				{/* <LoadingAnimation /> */}
 				<InnerWrapper margin='18vh auto 4rem' desktopMargin='26vh auto 0'>
 					{(!userHasProgram || userHasProgram.length < 1) && <EmptyState />}
 					{userHasProgram.length > 0 && (
@@ -90,7 +92,6 @@ const MyPage = () => {
 											background='transparent'
 											textDecoration='none'
 											boxShadow='none'
-											// onClick={() => handleProgram(prog._id)}
 										>
 											{prog.programName}
 										</StyledButton>
@@ -151,6 +152,12 @@ const ProgramContainer = styled.div`
 const StyledImage = styled.img`
 	height: 70px;
 	width: 70px;
+
+	@media screen and (min-width: 768px) {
+		height: 100px;
+		width: 100px;
+		;
+	}
 `
 
 const ButtonContainer = styled.div`

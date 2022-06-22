@@ -4,8 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components/macro'
 
 import user from '../reducers/user'
-import signOutIcon from "../styles/images/sign-out.png"
-import signOutHoverIcon from "../styles/images/sign-out-hover.png"
+import logOffIcon from "../styles/images/log-off.png"
 
 const SignOut = () => {
 	const navigate = useNavigate()
@@ -18,42 +17,42 @@ const SignOut = () => {
 
 	return (
 		<>
-			<SignOutButton onClick={() => removeToken()}><StyledImage src={signOutIcon} /></SignOutButton>
+			<SignOutButton onClick={() => removeToken()}><StyledImage src={logOffIcon} /></SignOutButton>
 		</>
 	)
 }
 
 export default SignOut
 
-// const ButtonContainer = styled.div`
-// 	position: relative;
-// `
-
 const SignOutButton = styled.button`
-	width: 60px;
-	border-radius: 15px;
-	background: transparent;
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	background: var(--primary);
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	font-family: 'poppins';
 	text-transform: uppercase;
 	border: none;
-	padding: 6px 15px;
+	// padding: 6px 15px;
 	margin-top: 1em;
 	// box-shadow: 0px 10px 13px -7px #808080; <-------change
 	font-size: 0.5rem;
 	position: absolute;
 	top: 10px;
-	right: 10px;
+	right: 20px;
 	color: var(--black);
 	font-weight: bold;
 
 	&:hover,
 	&:focus {
-		filter: invert(100%);
 		outline: none;
+		background: var(--accentlilac);
 	}
 `
 
 const StyledImage = styled.img` 
-	width: 35px;
-	height: 35px;
+	width: 25px;
+	height: 25px;
 `

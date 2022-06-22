@@ -1,5 +1,7 @@
 import React from "react"
 import styled from 'styled-components/macro'
+import Lottie from "lottie-react"
+import spinnerLoader from "../lotties/spinner-loader.json"
 
 
 const LoadingAnimation = () => {
@@ -7,7 +9,8 @@ const LoadingAnimation = () => {
     return (
         <>
         <LoaderContainer>
-        <p>Loading..</p>
+            <Lottie animationData={spinnerLoader} />
+        {/* <p>Loading..</p> */}
         </LoaderContainer>
         </>
     )

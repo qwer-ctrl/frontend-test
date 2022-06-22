@@ -4,14 +4,16 @@ import styled from 'styled-components/macro'
 import { Formik, Form, useField } from 'formik'
 import * as Yup from 'yup'
 
+import { OuterWrapper, InnerWrapper, HeadingOne } from '../styles/GlobalStyles'
+import { StyledButton } from '../styles/ButtonStyles'
+import profileImage from "../styles/images/profile.png"
+
 import { API_URL } from '../utils/utils'
 import user from '../reducers/user'
 import LoadingAnimation from '../components/LoadingAnimation'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
-import { OuterWrapper, InnerWrapper, HeadingOne } from '../styles/GlobalStyles'
-import { StyledButton } from '../styles/ButtonStyles'
-import profileImage from "../styles/images/profile.png"
+
 
 const MyTextInput = ({ label, ...props }) => {
 	const [field, meta] = useField(props)
@@ -35,9 +37,6 @@ const ProfilePage = () => {
         dispatch(user.actions.setUserName(data.response.username))
     }
 
-	// const handleGoBack = () => {
-	// 	navigate('/')
-	// }
 
     const Schema = Yup.object().shape({
 		username: Yup.string()
@@ -48,7 +47,6 @@ const ProfilePage = () => {
 		<LoadingAnimation /> 
 	) : (
 		<OuterWrapper>
-			{/* <AllDoneLoader /> */}
 			<Header />
 			<InnerWrapper margin='23vh auto 4rem' >
                 <StyledImage src={profileImage} />	
@@ -100,9 +98,6 @@ const ProfilePage = () => {
                         </StyledForm>
                     )}
 				</Formik>
-                {/* <StyledButton padding='6px 8px' background='var(--primary)' fontSize='0.6rem' margin="1rem 0 0" onClick={handleGoBack}>
-					Go back
-				</StyledButton> */}
 			</InnerWrapper>
 			<Footer />
 		</OuterWrapper>

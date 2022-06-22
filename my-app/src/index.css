@@ -16,7 +16,7 @@ code {
 
 a {
 	text-decoration: none;
-	accent-color: var(--tertiary);
+	color: #9e76dd;
 }
 
 label {

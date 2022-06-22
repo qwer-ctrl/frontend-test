@@ -22,6 +22,15 @@ export const StyledButton = styled.button`
 		color: ${(props) => props.color};
 		outline: none;
 	}
+
+	
+	@media screen and (min-width: 1024px) {
+		{
+			font-size: 0.9em;
+			width: auto;
+			padding: 8px 14px; 
+		}
+	}
 `
 
 export const TimerButton = styled.button`
