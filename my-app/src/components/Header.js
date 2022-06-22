@@ -97,7 +97,7 @@ const HeaderContainer = styled.header`
 		height: 20vh;
 	}
 `
-const StyledHeader = styled.h2`
+const StyledHeader = styled.p`
 	//font-family: 'Special Elite', cursive;
 	line-height: 50px;
 	color: #303030;

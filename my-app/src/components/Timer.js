@@ -183,18 +183,6 @@ const TimerBox = styled.div`
 	// }
 `
 
-const StyledTitle = styled.h1`
-	font-size: 1rem;
-	margin-bottom: 5px;
-`
-
-const SetContainer = styled.div`
-	display: flex;
-	flex-direction: column;
-	text-align: center;
-	gap: 3px;
-`
-
 const TimerClock = styled.div`
 	display: flex;
 	flex-direction: column;
@@ -214,6 +202,4 @@ const TimerComponent = styled.div`
 const TimerText = styled.p`
 	margin: 0 1em;
 `
-const Rounds = styled.p``
 
-const Seconds = styled.p``
