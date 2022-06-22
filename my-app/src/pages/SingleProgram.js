@@ -219,11 +219,11 @@ const SingleProgram = () => {
 export default SingleProgram
 
 const ExerciseGrid = styled.section`
-	width: 100%;
-	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(140px, 0.5fr));
-	gap: 5px;
-	margin-top: 1rem;
+	// width: 100%;
+	// display: grid;
+	// grid-template-columns: repeat(auto-fit, minmax(200px, 0.5fr));
+	// gap: 5px;
+	// margin-top: 1rem;
 `
 
 const ExerciseWrapper = styled.article`
@@ -233,6 +233,12 @@ const ExerciseWrapper = styled.article`
 	border-radius: 6px;
 	box-shadow: 0px 6px 13px 0px #adadad;
 	padding: 0.8rem;
+
+	// @media screen and (min-width: 768px) {
+	// 	 {
+	// 		max-width: 350px;
+	// 	}
+	// }
 `
 
 const HeadingThree = styled.h3`
@@ -250,6 +256,15 @@ const ExerciseContainer = styled.div`
 
 	p {
 		font-size: 0.7rem;
+		max-width: 17ch;
+		overflow-wrap: break-word;
+
+		@media screen and (min-width: 768px) {
+			 {
+				font-size: 0.9rem;
+				max-width: 25ch;
+			}
+		}
 	}
 `
 const StyledCheckbox = styled.input`
