@@ -153,6 +153,7 @@ const SingleProgram = () => {
 					{programExercise.map((item) => (
 						<ExerciseWrapper key={item._id}>
 							<HeadingThree>{item.exercise}</HeadingThree>
+							<StyledCheckbox id='checkbox' type='checkbox' value={item._id} onChange={handleChecked} />
 							<ExerciseContainer>
 								{item.sets ? <p>{item.sets} sets</p> : null}
 								{item.reps ? <p>{item.reps} sets</p> : null}
@@ -172,7 +173,6 @@ const SingleProgram = () => {
 								) : null}
 
 								<label htmlFor='checkbox'></label>
-								<StyledCheckbox id='checkbox' type='checkbox' value={item._id} onChange={handleChecked} />
 							</ExerciseContainer>
 							<ButtonContainer justifyContent='center' flexDirection='row'>
 								<StyledButton

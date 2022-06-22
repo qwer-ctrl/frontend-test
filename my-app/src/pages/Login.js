@@ -116,13 +116,13 @@ const Login = () => {
 							.then((res) => res.json())
 							.then((data) => {
 								console.log('data passed to function from fetch in', data.response)
-								if (data.success) {
-									handleLoginSuccess(data)
-									setMode('login')
-								} else {
-									handleLoginFailure(data)
-									setError(true)
-								}
+								// if (data.success) {
+								handleLoginSuccess(data)
+								setMode('login')
+								// } else {
+								// 	handleLoginFailure(data)
+								// 	setError(true)
+								// }
 							})
 							.catch((error) => {
 								console.log('error', error)

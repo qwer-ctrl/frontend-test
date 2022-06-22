@@ -25,7 +25,9 @@ const MyCheckbox = ({ label, ...props }) => {
 	const [field, meta] = useField({ ...props, type: 'radio' })
 	return (
 		<>
-			<label htmlFor={props.id || props.name}>{label}</label>
+			<label className='radio-label' htmlFor={props.id || props.name}>
+				{label}
+			</label>
 			<input className='radio-input' {...field} {...props} type='radio' />
 
 			{meta.touched && meta.error ? <StyledError className='error'>{meta.error}</StyledError> : null}
@@ -53,7 +55,7 @@ const ProgramModal = ({ showModal, setShowModal }) => {
 	const Schema = Yup.object().shape({
 		programName: Yup.string()
 			.required('Program name is required')
-			.min(5, 'The name must contain minimum 5 characters')
+			.min(1, 'The name must contain minimum 1 characters')
 			.max(20, 'The name can contain maximum 20 letters'),
 		programType: Yup.string().required('You have to choose a program type'),
 	})
@@ -100,8 +102,13 @@ const ProgramModal = ({ showModal, setShowModal }) => {
 								<StyledForm>
 									<StyledInput label='Program name' name='programName' type='text' />
 									<CheckboxContainer>
-										<StyledCheckbox label='Weights' name='programType' value='weights' />
-										<StyledCheckbox label='Cardio' name='programType' value='cardio' />
+										<RadioAndError>
+											<StyledCheckbox label='Weights' name='programType' value='weights' />
+										</RadioAndError>
+
+										<RadioAndError>
+											<StyledCheckbox label='Cardio' name='programType' value='cardio' />
+										</RadioAndError>
 									</CheckboxContainer>
 
 									<StyledButton
@@ -162,4 +169,9 @@ const StyledError = styled.div`
 	margin-bottom: 1.5rem;
 	text-align: center;
 	color: var(--accentlilac);
+	display: block;
+`
+const RadioAndError = styled.div`
+	display: flex;
+	flex-direction: column;
 `

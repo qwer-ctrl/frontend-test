@@ -356,22 +356,24 @@ const AddProgram = () => {
 						{exerciseContent.map((exercise) => (
 							<ExerciseContainer key={exercise._id}>
 								<HeadingOne fontSize='1.5rem'>{exercise.exercise}</HeadingOne>
-								{exercise.sets && <p>Sets: {exercise.sets}</p>}
-								{exercise.reps && <p>Reps: {exercise.reps}</p>}
-								{exercise.weights && <p>Weights: {exercise.weights}</p>}
-								{exercise.minutes && <p>Minutes: {exercise.minutes}</p>}
-								{exercise.seconds && <p>Seconds: {exercise.seconds}</p>}
-								{exercise.duration && <p>Duration: {exercise.duration}</p>}
-								{exercise.exerciseLength && <p>Distance: {exercise.exerciseLength} </p>}
-								{exercise.comments && <p>Comment: {exercise.comments}</p>}
-								{exercise.exerciseLink && (
-									<p>
-										Link:{' '}
-										<a href={exercise.exerciseLink} target='_blank' rel='noopener noreferrer'>
-											{exercise.exerciseLink}
-										</a>
-									</p>
-								)}
+								<ExerciseContentContainer>
+									{exercise.sets && <p>Sets: {exercise.sets}</p>}
+									{exercise.reps && <p>Reps: {exercise.reps}</p>}
+									{exercise.weights && <p>Weights: {exercise.weights}</p>}
+									{exercise.minutes && <p>Minutes: {exercise.minutes}</p>}
+									{exercise.seconds && <p>Seconds: {exercise.seconds}</p>}
+									{exercise.duration && <p>Duration: {exercise.duration}</p>}
+									{exercise.exerciseLength && <p>Distance: {exercise.exerciseLength} </p>}
+									{exercise.comments && <p>Comment: {exercise.comments}</p>}
+									{exercise.exerciseLink && (
+										<p>
+											Link:{' '}
+											<a href={exercise.exerciseLink} target='_blank' rel='noopener noreferrer'>
+												{exercise.exerciseLink}
+											</a>
+										</p>
+									)}
+								</ExerciseContentContainer>
 							</ExerciseContainer>
 						))}
 					</ExerciseGrid>
@@ -452,7 +454,7 @@ const StyledCommentInput = styled(MyTextArea)`
 
 	&:focus {
 		outline: none;
-		border-bottom: 3px solid var(--primary);
+		border: 2px solid var(--primary);
 	}
 `
 
@@ -492,13 +494,13 @@ const StyledError = styled.div`
 
 const ExerciseGrid = styled.article`
 	width: 100%;
-	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-	gap: 1rem;
+	// // display: grid;
+	// grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+	// gap: 1rem;
 `
 
 const ExerciseContainer = styled.div`
-	height: 200px;
+	// height: 200px;
 	display: flex;
 	flex-direction: column;
 	align-items: flex-start;
@@ -506,6 +508,12 @@ const ExerciseContainer = styled.div`
 	padding: 1rem 2rem;
 	border-radius: 15px;
 	box-shadow: 0px 6px 13px 0px #adadad;
+`
+const ExerciseContentContainer = styled.section`
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+	width: 100%;
+	column-gap: 5px;
 `
 
 //-------------------------------------------- code for trying to have multiple sets --------------------------//

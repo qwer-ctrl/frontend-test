@@ -16,10 +16,19 @@ code {
 
 a {
 	text-decoration: none;
+	accent-color: var(--tertiary);
 }
 
 label {
 	font-weight: 600;
 	font-size: 0.8rem;
 	text-transform: uppercase;
+}
+
+.radio-label {
+	text-align: center;
+}
+
+p {
+	overflow-wrap: break-word;
 }
