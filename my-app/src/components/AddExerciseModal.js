@@ -139,6 +139,8 @@ const AddExerciseModal = () => {
 										backgroundHover='var(--tertiary)'
 										color='var(--secondary)'
 										type='submit'
+										position='absolute'
+										bottom='1em'
 									>
 										Add exercise
 									</StyledButton>

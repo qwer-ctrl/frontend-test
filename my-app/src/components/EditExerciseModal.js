@@ -27,7 +27,7 @@ const EditExerciseModal = () => {
 	const exerciseId = useSelector((store) => store.ui.currentModalId)
 	const showModal = useSelector((store) => store.ui.showEditExerciseModal)
 	const dispatch = useDispatch()
-	// console.log("exercise Id from edit exercise modal", exerciseId)
+	console.log('exercise Id from edit exercise modal', exerciseId)
 
 	const closeModal = () => {
 		dispatch(ui.actions.setShowEditExerciseModal(false))
@@ -44,10 +44,10 @@ const EditExerciseModal = () => {
 		fetch(API_URL(`exercise/${exerciseId}`), options)
 			.then((res) => res.json())
 			.then((data) => {
-				dispatch(ui.actions.setLoading(true))
+				// dispatch(ui.actions.setLoading(true))
 				setExerciseContent(data.response)
 			})
-		.finally(() => dispatch(ui.actions.setLoading(false)))
+		// .finally(() => dispatch(ui.actions.setLoading(false)))
 	}, [exerciseId, dispatch])
 
 	const Schema = Yup.object().shape({
@@ -102,6 +102,7 @@ const EditExerciseModal = () => {
 								})
 									.then((res) => res.json())
 									.then((data) => {
+										dispatch(ui.actions.setLoading(true))
 										console.log(data)
 									})
 									.catch((err) => {
@@ -109,6 +110,7 @@ const EditExerciseModal = () => {
 									})
 									.finally(() => {
 										setSubmitting(false)
+										dispatch(ui.actions.setLoading(false))
 										resetForm()
 										closeModal()
 										window.location.reload()

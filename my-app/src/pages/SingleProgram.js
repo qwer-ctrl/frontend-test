@@ -12,7 +12,7 @@ import editIcon from '../styles/images/edit.png'
 import ui from '../reducers/ui'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
-// import EditExerciseModal from '../components/EditExerciseModal'
+import EditExerciseModal from '../components/EditExerciseModal'
 import DeleteExerciseModal from '../components/DeleteExerciseModal'
 import AddExerciseModal from '../components/AddExerciseModal'
 import UpdateProgramModal from '../components/UpdateProgramModal'
@@ -34,6 +34,7 @@ const SingleProgram = () => {
 	const showUpdateProgramModal = useSelector((store) => store.ui.showUpdateProgramModal)
 	const showEditExerciseModal = useSelector((store) => store.ui.showEditExerciseModal)
 	const showDeleteExerciseModal = useSelector((store) => store.ui.showDeleteExerciseModal)
+
 	const dispatch = useDispatch()
 
 	const fetchProgram = useCallback(() => {
@@ -196,7 +197,7 @@ const SingleProgram = () => {
 								<IconButton onClick={() => handleEditExerciseModal(item._id)}>
 									<IconStyle src={editIcon} alt='editIcon' />
 								</IconButton>
-								{/* {showEditExerciseModal ? <EditExerciseModal /> : null} */}
+								{showEditExerciseModal ? <EditExerciseModal /> : null}
 								<IconButton onClick={() => handleDeleteExerciseModal(item._id)}>
 									<IconStyle src={deleteIcon} alt='deleteIcon' />
 								</IconButton>
@@ -236,6 +237,7 @@ const ExerciseWrapper = styled.article`
 	box-shadow: 0px 6px 13px 0px #adadad;
 	padding: 0.8rem;
 	margin-top: 1rem;
+	position: relative;
 
 	@media screen and (min-width: 768px) {
 		 {
@@ -301,22 +303,36 @@ const IconContainer = styled.div`
 	display: flex;
 	flex-direction: row;
 	justify-content: flex-end;
+	position: absolute;
+	bottom: 0.2em;
+	right: 0.42em;
 `
 const IconButton = styled.button`
 	 background: transparent;
 	 border: none;
 	 cursor: pointer;
+	 align-self: baseline;
+
 
 	 &:hover,
 	 &:focus {
-		 outline: ;
+		 background: var(--primary);
+		 border-radius: 15px;
 
 `
 
 const IconStyle = styled.img`
-	max-width: 20px;
-	margin-left: 0.5em;
-	margin-top: auto;
+	max-width: 18px;
+	padding: 0.35em 0.5em 0.25em;
+
+	@media screen and (min-width: 768px) {
+		{
+		 max-width: 20px;
+	 }
+	@media screen and (min-width: 1024px) {
+		{
+		 max-width: 25px;
+	 }
 `
 
 const ButtonContainer = styled.div`
