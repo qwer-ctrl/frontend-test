@@ -27,7 +27,7 @@ const Header = () => {
 	return (
 		<>
 			<HeaderContainer>
-				<AnimatedImg class='bounce-animation' src={DumbelImg} alt='dumbel' />
+				<AnimatedImg src={DumbelImg} alt='dumbel' />
 				<HeadingOne
 					fontSize='1.5rem'
 					width='70%'
