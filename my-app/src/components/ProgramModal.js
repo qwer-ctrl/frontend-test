@@ -10,6 +10,8 @@ import { ModalContainer, StyledModal, CloseButton } from '../styles/ModalStyles'
 import { StyledButton } from '../styles/ButtonStyles'
 import { API_URL } from '../utils/utils'
 
+import ui from '../reducers/ui'
+
 const MyTextInput = ({ label, ...props }) => {
 	const [field, meta] = useField(props)
 	return (
@@ -86,6 +88,7 @@ const ProgramModal = ({ showModal, setShowModal }) => {
 									.then((res) => res.json())
 									.then((data) => {
 										console.log('data from program modal post', data)
+										dispatch(ui.actions.setLoading(true))
 										handleData(data)
 									})
 									.catch((err) => {
@@ -93,6 +96,7 @@ const ProgramModal = ({ showModal, setShowModal }) => {
 									})
 									.finally(() => {
 										setSubmitting(false)
+										dispatch(ui.actions.setLoading(false))
 										resetForm()
 										window.location.reload()
 									})
