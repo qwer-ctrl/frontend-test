@@ -216,7 +216,7 @@ const StyledInput = styled(MyTextInput)`
 
 	&:focus {
 		outline: none;
-		border: 2px solid var(--accentgreen);
+		border-bottom: 3px solid var(--primary);
 	}
 `
 const StyledError = styled.div`

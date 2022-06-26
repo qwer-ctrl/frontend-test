@@ -23,21 +23,18 @@ const reducer = combineReducers({
 	ui: ui.reducer,
 })
 
-// const persistedStateJSON = localStorage.getItem('userItemsReduxState')
-// let preloadedState = {}
+const persistedStateJSON = localStorage.getItem('userItemsReduxState')
+let preloadedState = {}
 
-// if (persistedStateJSON) {
-// 	preloadedState = JSON.parse(persistedStateJSON)
-// }
+if (persistedStateJSON) {
+	preloadedState = JSON.parse(persistedStateJSON)
+}
 
-const store = configureStore({
-	reducer,
-	// , preloadedState
+const store = configureStore({ reducer, preloadedState })
+
+store.subscribe(() => {
+	localStorage.setItem('userItemsReduxState', JSON.stringify(store.getState()))
 })
-
-// store.subscribe(() => {
-// 	localStorage.setItem('userItemsReduxState', JSON.stringify(store.getState()))
-// })
 
 export const App = () => {
 	return (

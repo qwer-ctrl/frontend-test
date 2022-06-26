@@ -24,11 +24,18 @@ export const StyledButton = styled.button`
 		outline: none;
 	}
 
-	@media screen and (min-width: 1024px) {
+	@media screen and (min-width: 768px) {
 		 {
 			font-size: 0.9em;
 			width: auto;
-			padding: 8px 14px;
+			padding: 6px 11px;
+		}
+
+	@media screen and (min-width: 1024px) {
+		 {
+			font-size: 1em;
+			width: auto;
+			padding: 7px 14px;
 		}
 	}
 `

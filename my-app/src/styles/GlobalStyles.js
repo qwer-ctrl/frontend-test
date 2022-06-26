@@ -51,10 +51,11 @@ export const HeadingOne = styled.h1`
 	padding: ${(props) => props.padding};
 	margin: ${(props) => props.margin};
 	text-align: ${(props) => props.textAlign};
+	text-shadow: ${(props) => props.textShadow};
 	letter-spacing: 1.7px;
 
 	@media screen and (min-width: 768px) {
 		width: ${(props) => props.desktopWidth};
-		font-size: ${props => props.desktopFontSize};
+		font-size: ${(props) => props.desktopFontSize};
 	}
 `

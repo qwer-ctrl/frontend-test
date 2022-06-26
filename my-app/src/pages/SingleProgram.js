@@ -262,7 +262,7 @@ const ExerciseContainer = styled.div`
 
 	p {
 		font-size: 0.9rem;
-		max-width: 17ch;
+		max-width: 25ch;
 		overflow-wrap: break-word;
 		padding-right: 0.5em;
 		font-weight: 500;

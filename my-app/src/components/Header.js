@@ -1,9 +1,10 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import styled from 'styled-components/macro'
+import styled, { keyframes } from 'styled-components/macro'
 
 import SignOut from './SignOut'
 import { HeadingOne } from '../styles/GlobalStyles'
+import DumbelImg from '../styles/images/dumbel.png'
 
 const Header = () => {
 	const userName = useSelector((store) => store.user.username)
@@ -26,14 +27,16 @@ const Header = () => {
 	return (
 		<>
 			<HeaderContainer>
+				<AnimatedImg class='bounce-animation' src={DumbelImg} alt='dumbel' />
 				<HeadingOne
 					fontSize='1.5rem'
 					width='70%'
 					color='#202020'
 					textTransform='uppercase'
-					margin='1rem 0 0 0'
+					// margin='1rem 0 0 0'
 					desktopWidth='300px'
-					desktopFontSize="2rem"
+					desktopFontSize='2rem'
+					textShadow='2px 3px 2px #a0c1af'
 				>
 					{showGreeting()}
 					<StyledHeader>{userName}</StyledHeader>
@@ -48,6 +51,7 @@ export default Header
 
 const HeaderContainer = styled.header`
 	display: flex;
+	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 	text-align: center;
@@ -67,4 +71,26 @@ const StyledHeader = styled.p`
 	//font-family: 'Special Elite', cursive;
 	line-height: 40px;
 	color: #303030;
+`
+
+const bounce = keyframes`
+0% {
+	transform: scale(1, 1) translateY(0);
+}
+10% {
+	transform: scale(1.1, 0.9) translateY(0);
+}
+30% {
+	transform: scale(0.9, 1.1) translateY(-10px);
+}
+50% {
+	transform: scale(1, 1) translateY(0);
+}
+100% {
+	transform: scale(0.7, 1, 1) translateY(-5px);
+}
+`
+
+const AnimatedImg = styled.img`
+	animation: ${bounce} linear 1.5s 2;
 `
