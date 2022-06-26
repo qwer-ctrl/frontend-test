@@ -238,6 +238,7 @@ const ExerciseWrapper = styled.article`
 	padding: 0.8rem;
 	margin-top: 1rem;
 	position: relative;
+	z-index: -2;
 
 	@media screen and (min-width: 768px) {
 		 {
