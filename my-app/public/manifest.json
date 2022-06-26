@@ -1,20 +1,20 @@
 {
-	"short_name": "React App",
 	"name": "Flexnjoy",
+	"short_name": "Flexnjoy",
 	"icons": [
 		{
 			"src": "favicon16.png",
 			"sizes": "16x16",
-			"type": "image/x-icon"
+			"type": "image/png"
 		},
 		{
 			"src": "favicon32.png",
 			"sizes": "32x32",
-			"type": "image/x-icon"
+			"type": "image/png"
 		},
 		{
 			"src": "favicon.ico",
-			"sizes": "64x64 24x24",
+			"sizes": "48x48",
 			"type": "image/x-icon"
 		},
 		{
@@ -28,7 +28,7 @@
 			"sizes": "512x512"
 		}
 	],
-	"start_url": ".",
+	"start_url": "/",
 	"display": "standalone",
 	"theme_color": "#000000",
 	"background_color": "#ffffff"

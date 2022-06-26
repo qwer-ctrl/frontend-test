@@ -12,8 +12,9 @@ export const StyledButton = styled.button`
 	margin: ${(props) => props.margin};
 	box-shadow: ${(props) => props.boxShadow};
 	font-size: 0.7rem;
-	// font-size: ${(props) => props.fontSize};
-	// font-weight: bold;
+	cursor: pointer;
+	position: ${(props) => props.position};
+	bottom: ${(props) => props.bottom};
 
 	&:hover,
 	&:focus {
@@ -23,29 +24,29 @@ export const StyledButton = styled.button`
 		outline: none;
 	}
 
-	
 	@media screen and (min-width: 1024px) {
-		{
+		 {
 			font-size: 0.9em;
 			width: auto;
-			padding: 8px 14px; 
+			padding: 8px 14px;
 		}
 	}
 `
 
 export const TimerButton = styled.button`
-padding: 5px 10px;
-width: 30px;
-height: 30px;
-border: none;
-border-radius: 50%;
-box-shadow: 0px 10px 13px -7px #808080;
+	padding: 5px 10px;
+	width: 30px;
+	height: 30px;
+	border: none;
+	border-radius: 50%;
+	box-shadow: 0px 10px 13px -7px #808080;
+	cursor: pointer;
 
-&:hover,
-&:focus {
-	background: var(--tertiary);
-	text-decoration: none;
-	color: var(--white);
-	outline: none;
-}
+	&:hover,
+	&:focus {
+		background: var(--tertiary);
+		text-decoration: none;
+		color: var(--white);
+		outline: none;
+	}
 `

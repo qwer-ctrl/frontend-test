@@ -101,18 +101,36 @@ const AddExerciseModal = () => {
 							{({ isSubmitting }) => (
 								<StyledForm>
 									{isSubmitting && <LoadingAnimation />}
-									<MetricsInputContainer>
-									<StyledInput label='Exercise name' name='exercise' type='text' />
-									<StyledInput label='Sets' name='sets' type='text' />
-									<StyledInput label='Reps' name='reps' type='text' />
-									<StyledInput label='Weights' name='weights' type='text' />
-									<StyledInput label='Seconds' name='seconds' type='text' />
-									<StyledInput label='Minutes' name='minutes' type='text' />
-									<StyledInput label='Duration' name='duration' type='text' />
-									<StyledInput label='Length' name='exerciseLength' type='text' />
-									<StyledInput label='Comments' name='comments' type='text' />
-									<StyledInput label='Link' name='exerciseLink' type='text' />
-									</MetricsInputContainer>
+									<InputContainer>
+										<StyledInput label='Exercise name' name='exercise' type='text' />
+									</InputContainer>
+									<InputContainer>
+										<StyledInput label='Sets' name='sets' type='text' />
+									</InputContainer>
+									<InputContainer>
+										<StyledInput label='Reps' name='reps' type='text' />
+									</InputContainer>
+									<InputContainer>
+										<StyledInput label='Weights' name='weights' type='text' />
+									</InputContainer>
+									<InputContainer>
+										<StyledInput label='Seconds' name='seconds' type='text' />
+									</InputContainer>
+									<InputContainer>
+										<StyledInput label='Minutes' name='minutes' type='text' />
+									</InputContainer>
+									<InputContainer>
+										<StyledInput label='Duration' name='duration' type='text' />
+									</InputContainer>
+									<InputContainer>
+										<StyledInput label='Length' name='exerciseLength' type='text' />
+									</InputContainer>
+									<InputContainer>
+										<StyledInput label='Comments' name='comments' type='text' />
+									</InputContainer>
+									<InputContainer>
+										<StyledInput label='Link' name='exerciseLink' type='text' />
+									</InputContainer>
 									<StyledButton
 										background='var(--primary)'
 										margin='1em 0 0'
@@ -139,6 +157,19 @@ export default AddExerciseModal
 const StyledForm = styled(Form)`
 	// display: flex;
 	// flex-direction: column;
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+	width: 100%;
+	column-gap: 5px;
+
+	@media screen and (min-width: 1024px) {
+		grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+	}
+`
+
+const InputContainer = styled.div`
+	display: flex;
+	flex-direction: column;
 `
 
 const StyledInput = styled(MyTextInput)`
@@ -155,17 +186,6 @@ const StyledInput = styled(MyTextInput)`
 		outline: none;
 		border-bottom: 3px solid var(--primary);
 		// border-bottom: 3px solid var(--tertiary);
-	}
-`
-
-const MetricsInputContainer = styled.div`
-	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
-	width: 100%;
-	column-gap: 5px;
-
-	@media screen and (min-width: 768px) {
-		grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
 	}
 `
 

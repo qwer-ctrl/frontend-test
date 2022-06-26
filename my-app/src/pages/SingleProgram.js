@@ -1,25 +1,25 @@
 import React, { useEffect, useState, useCallback } from 'react'
+import { API_URL } from '../utils/utils'
 import { useSelector, useDispatch } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import styled from 'styled-components/macro'
+import { OuterWrapper, InnerWrapper, HeadingOne } from '../styles/GlobalStyles'
+import { StyledButton } from '../styles/ButtonStyles'
 
 import deleteIcon from '../styles/images/delete.png'
 import editIcon from '../styles/images/edit.png'
 
-import EditExerciseModal from '../components/EditExerciseModal'
-import DeleteExerciseModal from '../components/DeleteExerciseModal'
-import { API_URL } from '../utils/utils'
 import ui from '../reducers/ui'
-import Timer from '../components/Timer'
-import AllDoneLoader from '../components/AllDoneLoader'
-// import LoadingAnimation from '../components/LoadingAnimation'
+import Header from '../components/Header'
+import Footer from '../components/Footer'
+// import EditExerciseModal from '../components/EditExerciseModal'
+import DeleteExerciseModal from '../components/DeleteExerciseModal'
 import AddExerciseModal from '../components/AddExerciseModal'
 import UpdateProgramModal from '../components/UpdateProgramModal'
 import DeleteProgramModal from '../components/DeleteProgramModal'
-import Header from '../components/Header'
-import Footer from '../components/Footer'
-import { OuterWrapper, InnerWrapper, HeadingOne } from '../styles/GlobalStyles'
-import { StyledButton } from '../styles/ButtonStyles'
+import Timer from '../components/Timer'
+import AllDoneLoader from '../components/AllDoneLoader'
+// import LoadingAnimation from '../components/LoadingAnimation'
 
 const SingleProgram = () => {
 	const { programId } = useParams()
@@ -47,12 +47,12 @@ const SingleProgram = () => {
 			.then((res) => res.json())
 			.then((data) => {
 				console.log('data from single program fetch', data)
-				dispatch(ui.actions.setLoading(true))
+				// dispatch(ui.actions.setLoading(true))
 				setProgramExercise(data.response.exercise)
 				setProgramName(data.response.programName)
 			})
-			.finally(() => dispatch(ui.actions.setLoading(false)))
-	}, [dispatch, programId])
+		// .finally(() => dispatch(ui.actions.setLoading(false)))
+	}, [programId])
 
 	useEffect(() => {
 		fetchProgram()
@@ -85,7 +85,6 @@ const SingleProgram = () => {
 		dispatch(ui.actions.setCurrentModalId(id))
 		fetchProgram()
 	}
-
 
 	let updatedList = [...checked]
 
@@ -159,51 +158,50 @@ const SingleProgram = () => {
 					{programExercise.map((item) => (
 						<ExerciseWrapper key={item._id}>
 							<HeaderAndCheck>
-							<HeadingThree>{item.exercise}</HeadingThree>
-							<label htmlFor='checkbox'></label>
-							<StyledCheckbox id='checkbox' type='checkbox' value={item._id} onChange={handleChecked} />
+								<HeadingThree>{item.exercise}</HeadingThree>
+								<label htmlFor='checkbox'></label>
+								<StyledCheckbox id='checkbox' type='checkbox' value={item._id} onChange={handleChecked} />
 							</HeaderAndCheck>
 							<ExerciseContentContainer>
-							<ExerciseContainer>
-								<MetricsContainer>
-								{item.sets ? <p>{item.sets} sets</p> : null}
-								{item.reps ? <p>{item.reps} sets</p> : null}
-								{item.weights ? <p>{item.weights}</p> : null}
-								</MetricsContainer>
-								<MetricsContainer>
-								{item.minutes ? <p>{item.minutes} minutes</p> : null}
-								{item.seconds ? <p>{item.seconds} seconds</p> : null}
-								</MetricsContainer>
-								<MetricsContainer>
-								{item.duration ? <p>{item.duration}</p> : null}
-								{item.exerciseLength ? <p>{item.exerciseLength}</p> : null}
-								</MetricsContainer>
-								<MetricsContainer>
-								{item.exerciseLink ? (
-									<p>
-										link:
-										<a href={item.exerciseLink} target='_blank' rel='noopener noreferrer'>
-											{item.exerciseLink}
-										</a>
-									</p>
-								) : null}
-								</MetricsContainer> 
-								<MetricsContainer>
-								{item.comments ? <p>comments: {item.comments}</p> : null}
-								</MetricsContainer> 
-							 
-							</ExerciseContainer>
+								<ExerciseContainer>
+									<MetricsContainer>
+										{item.sets ? <p>{item.sets} sets</p> : null}
+										{item.reps ? <p>{item.reps} sets</p> : null}
+										{item.weights ? <p>{item.weights}</p> : null}
+									</MetricsContainer>
+									<MetricsContainer>
+										{item.minutes ? <p>{item.minutes} minutes</p> : null}
+										{item.seconds ? <p>{item.seconds} seconds</p> : null}
+									</MetricsContainer>
+									<MetricsContainer>
+										{item.duration ? <p>{item.duration}</p> : null}
+										{item.exerciseLength ? <p>{item.exerciseLength}</p> : null}
+									</MetricsContainer>
+									<MetricsContainer>
+										{item.exerciseLink ? (
+											<p>
+												link:
+												<a href={item.exerciseLink} target='_blank' rel='noopener noreferrer'>
+													{item.exerciseLink}
+												</a>
+											</p>
+										) : null}
+									</MetricsContainer>
+									<MetricsContainer>
+										{item.comments ? <p>comments: {item.comments}</p> : null}
+									</MetricsContainer>
+								</ExerciseContainer>
 							</ExerciseContentContainer>
-								<IconContainer>
-									<IconButton onClick={() => handleEditExerciseModal(item._id)}>
-									<IconStyle src={editIcon} alt='editIcon'/>
-									{showEditExerciseModal ? <EditExerciseModal /> : null}
-									</IconButton>
-									<IconButton onClick={() => handleDeleteExerciseModal(item._id)}>
-								<IconStyle src={deleteIcon} alt='deleteIcon'/>
-								{showDeleteExerciseModal ? <DeleteExerciseModal /> : null}
+							<IconContainer>
+								<IconButton onClick={() => handleEditExerciseModal(item._id)}>
+									<IconStyle src={editIcon} alt='editIcon' />
 								</IconButton>
-								</IconContainer>
+								{/* {showEditExerciseModal ? <EditExerciseModal /> : null} */}
+								<IconButton onClick={() => handleDeleteExerciseModal(item._id)}>
+									<IconStyle src={deleteIcon} alt='deleteIcon' />
+								</IconButton>
+								{showDeleteExerciseModal ? <DeleteExerciseModal /> : null}
+							</IconContainer>
 						</ExerciseWrapper>
 					))}
 				</ExerciseGrid>
@@ -225,9 +223,9 @@ const ExerciseGrid = styled.section`
 `
 
 const HeaderAndCheck = styled.div`
-	display: flex; 
+	display: flex;
 	justify-content: space-between;
-  align-items: flex-start;
+	align-items: flex-start;
 `
 
 const ExerciseWrapper = styled.article`
@@ -275,8 +273,8 @@ const ExerciseContainer = styled.div`
 		}
 `
 const MetricsContainer = styled.div`
-		display: flex;
-		margin-bottom: 0.1em;
+	display: flex;
+	margin-bottom: 0.1em;
 `
 
 const StyledCheckbox = styled.input`
@@ -307,6 +305,7 @@ const IconContainer = styled.div`
 const IconButton = styled.button`
 	 background: transparent;
 	 border: none;
+	 cursor: pointer;
 
 	 &:hover,
 	 &:focus {

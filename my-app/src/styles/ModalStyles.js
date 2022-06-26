@@ -28,6 +28,10 @@ export const StyledModal = styled.div`
 	border-radius: 6px;
 	box-shadow: 0px 10px 13px 0px #808080;
 	position: relative;
+
+	@media screen and (min-width: 768px) {
+		max-width: 50%;
+	}
 `
 
 export const CloseButton = styled.button`
