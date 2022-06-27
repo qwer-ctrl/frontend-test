@@ -19,7 +19,6 @@ import UpdateProgramModal from '../components/UpdateProgramModal'
 import DeleteProgramModal from '../components/DeleteProgramModal'
 import Timer from '../components/Timer'
 import AllDoneLoader from '../components/AllDoneLoader'
-// import LoadingAnimation from '../components/LoadingAnimation'
 
 const SingleProgram = () => {
 	const { programId } = useParams()
@@ -47,13 +46,14 @@ const SingleProgram = () => {
 		fetch(API_URL(`myprogram/${programId}`), options)
 			.then((res) => res.json())
 			.then((data) => {
+				dispatch(ui.actions.setLoading(true))
 				console.log('data from single program fetch', data)
 				// dispatch(ui.actions.setLoading(true))
 				setProgramExercise(data.response.exercise)
 				setProgramName(data.response.programName)
 			})
-		// .finally(() => dispatch(ui.actions.setLoading(false)))
-	}, [programId])
+			.finally(() => dispatch(ui.actions.setLoading(false)))
+	}, [programId, dispatch])
 
 	useEffect(() => {
 		fetchProgram()
@@ -238,7 +238,7 @@ const ExerciseWrapper = styled.article`
 	padding: 0.8rem;
 	margin-top: 1rem;
 	position: relative;
-	z-index: -2;
+	// z-index: -2;
 
 	@media screen and (min-width: 768px) {
 		 {

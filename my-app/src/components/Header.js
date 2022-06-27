@@ -27,7 +27,7 @@ const Header = () => {
 	return (
 		<>
 			<HeaderContainer>
-				<AnimatedImg src={DumbelImg} alt='dumbel' />
+				{/* <AnimatedImg src={DumbelImg} alt='dumbel' /> */}
 				<HeadingOne
 					fontSize='1.5rem'
 					width='70%'
@@ -62,6 +62,7 @@ const HeaderContainer = styled.header`
 	top: 0;
 	left: 0;
 	right: 0;
+	z-index: 2;
 
 	@media screen and (min-width: 768px) {
 		height: 20vh;
@@ -73,24 +74,26 @@ const StyledHeader = styled.p`
 	color: #303030;
 `
 
-const bounce = keyframes`
-0% {
-	transform: scale(1, 1) translateY(0);
-}
-10% {
-	transform: scale(1.1, 0.9) translateY(0);
-}
-30% {
-	transform: scale(0.9, 1.1) translateY(-10px);
-}
-50% {
-	transform: scale(1, 1) translateY(0);
-}
-100% {
-	transform: scale(0.7, 1, 1) translateY(-5px);
-}
-`
+// const bounce = keyframes`
+// 0% {
+// 	transform: scale(1, 1) translateY(0);
+// }
+// 10% {
+// 	transform: scale(1.1, 0.9) translateY(0);
+// }
+// 30% {
+// 	transform: scale(0.9, 1.1) translateY(-10px);
+// }
+// 50% {
+// 	transform: scale(1, 1) translateY(0);
+// }
+// 100% {
+// 	transform: scale(0.7, 1, 1) translateY(-5px);
+// }
+// `
 
-const AnimatedImg = styled.img`
-	animation: ${bounce} linear 1.5s 2;
-`
+// const AnimatedImg = styled.img`
+// 	@media screen and (min-width: 768px) {
+// 		animation: ${bounce} linear 1.5s 2;
+// 	}
+// `

@@ -10,6 +10,7 @@ export const ModalContainer = styled.div`
   height: 100%;
   overflow: auto;
   background: rgb(0,0,0,0.2);
+	z-index:3;
   `
 
 export const StyledModal = styled.div`

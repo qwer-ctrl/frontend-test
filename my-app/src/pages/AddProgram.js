@@ -62,10 +62,10 @@ const AddProgram = () => {
 			},
 		}
 
-		dispatch(ui.actions.setLoading(true))
 		fetch(API_URL(`myprogram/${programId}`), options)
 			.then((res) => res.json())
 			.then((data) => {
+				dispatch(ui.actions.setLoading(true))
 				if (data.success) {
 					setProgramName(data.response.programName)
 					setExerciseContent(data.response.exercise)
@@ -356,32 +356,32 @@ const AddProgram = () => {
 							<ExerciseContainer key={exercise._id}>
 								<HeadingOne fontSize='1.5rem'>{exercise.exercise}</HeadingOne>
 								<MetricsContentContainer>
-							<MetricsInputContainer>
-							<MetricsContainer>
-									{exercise.sets && <p>Sets: {exercise.sets}</p>}
-									{exercise.reps && <p>Reps: {exercise.reps}</p>}
-									{exercise.weights && <p>Weights: {exercise.weights}</p>}
-									</MetricsContainer>
-								<MetricsContainer>
-									{exercise.minutes && <p>Minutes: {exercise.minutes}</p>}
-									</MetricsContainer>
-								<MetricsContainer>
-									{exercise.seconds && <p>Seconds: {exercise.seconds}</p>}
-									{exercise.duration && <p>Duration: {exercise.duration}</p>}
-									{exercise.exerciseLength && <p>Distance: {exercise.exerciseLength} </p>}
-								</MetricsContainer>
-								<MetricsContainer>
-									{exercise.exerciseLink && (
-										<p>
-											Link:{' '}
-											<a href={exercise.exerciseLink} target='_blank' rel='noopener noreferrer'>
-												{exercise.exerciseLink}
-											</a>
-										</p>
-									)}
-									{exercise.comments && <p>Comment: {exercise.comments}</p>}
-									</MetricsContainer>
-								</MetricsInputContainer>
+									<MetricsInputContainer>
+										<MetricsContainer>
+											{exercise.sets && <p>Sets: {exercise.sets}</p>}
+											{exercise.reps && <p>Reps: {exercise.reps}</p>}
+											{exercise.weights && <p>Weights: {exercise.weights}</p>}
+										</MetricsContainer>
+										<MetricsContainer>
+											{exercise.minutes && <p>Minutes: {exercise.minutes}</p>}
+										</MetricsContainer>
+										<MetricsContainer>
+											{exercise.seconds && <p>Seconds: {exercise.seconds}</p>}
+											{exercise.duration && <p>Duration: {exercise.duration}</p>}
+											{exercise.exerciseLength && <p>Distance: {exercise.exerciseLength} </p>}
+										</MetricsContainer>
+										<MetricsContainer>
+											{exercise.exerciseLink && (
+												<p>
+													Link:{' '}
+													<a href={exercise.exerciseLink} target='_blank' rel='noopener noreferrer'>
+														{exercise.exerciseLink}
+													</a>
+												</p>
+											)}
+											{exercise.comments && <p>Comment: {exercise.comments}</p>}
+										</MetricsContainer>
+									</MetricsInputContainer>
 								</MetricsContentContainer>
 							</ExerciseContainer>
 						))}
@@ -543,7 +543,6 @@ const ExerciseContainer = styled.div`
 	border-radius: 15px;
 	box-shadow: 0px 6px 13px 0px #adadad;
 `
-
 
 //-------------------------------------------- code for trying to have multiple sets --------------------------//
 

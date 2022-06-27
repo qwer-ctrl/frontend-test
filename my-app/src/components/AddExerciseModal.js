@@ -85,6 +85,7 @@ const AddExerciseModal = () => {
 								})
 									.then((res) => res.json())
 									.then((data) => {
+										dispatch(ui.actions.setLoading(true))
 										console.log(data)
 									})
 									.catch((err) => {
@@ -92,6 +93,7 @@ const AddExerciseModal = () => {
 									})
 									.finally(() => {
 										setSubmitting(false)
+										dispatch(ui.actions.setLoading(false))
 										resetForm()
 										closeModal()
 										window.location.reload()
