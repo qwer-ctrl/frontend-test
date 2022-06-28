@@ -23,7 +23,8 @@ const MyTextInput = ({ label, ...props }) => {
 }
 
 const EditExerciseModal = () => {
-	const [exerciseContent, setExerciseContent] = useState(null)
+	const [exerciseContent, setExerciseContent] = useState('')
+	console.log('exCont', exerciseContent)
 	const exerciseId = useSelector((store) => store.ui.currentModalId)
 	const showModal = useSelector((store) => store.ui.showEditExerciseModal)
 	const dispatch = useDispatch()
@@ -44,10 +45,10 @@ const EditExerciseModal = () => {
 		fetch(API_URL(`exercise/${exerciseId}`), options)
 			.then((res) => res.json())
 			.then((data) => {
-				dispatch(ui.actions.setLoading(true))
+				// dispatch(ui.actions.setLoading(true))
 				setExerciseContent(data.response)
 			})
-			.finally(() => dispatch(ui.actions.setLoading(false)))
+		// .finally(() => dispatch(ui.actions.setLoading(false)))
 	}, [exerciseId, dispatch])
 
 	const Schema = Yup.object().shape({

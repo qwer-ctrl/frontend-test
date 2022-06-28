@@ -235,7 +235,7 @@ const ExerciseWrapper = styled.article`
 	justify-content: space-between;
 	border-radius: 6px;
 	box-shadow: 0px 6px 13px 0px #adadad;
-	padding: 0.8rem;
+	padding: 0.8rem 0.8rem 1.6rem;
 	margin-top: 1rem;
 	position: relative;
 	// z-index: -2;
