@@ -1,10 +1,11 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import styled, { keyframes } from 'styled-components/macro'
+import styled from 'styled-components/macro'
+// import  { keyframes } from 'styled-components'
 
 import SignOut from './SignOut'
 import { HeadingOne } from '../styles/GlobalStyles'
-import DumbelImg from '../styles/images/dumbel.png'
+// import DumbelImg from '../styles/images/dumbel.png'
 
 const Header = () => {
 	const userName = useSelector((store) => store.user.username)
