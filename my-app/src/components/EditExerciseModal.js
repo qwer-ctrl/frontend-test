@@ -23,7 +23,7 @@ const MyTextInput = ({ label, ...props }) => {
 }
 
 const EditExerciseModal = () => {
-	const [exerciseContent, setExerciseContent] = useState('')
+	const [exerciseContent, setExerciseContent] = useState(null)
 	const exerciseId = useSelector((store) => store.ui.currentModalId)
 	const showModal = useSelector((store) => store.ui.showEditExerciseModal)
 	const dispatch = useDispatch()
