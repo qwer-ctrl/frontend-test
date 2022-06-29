@@ -7,6 +7,7 @@ import SignOut from './SignOut'
 import { HeadingOne } from '../styles/GlobalStyles'
 // import DumbelImg from '../styles/images/dumbel.png'
 
+
 const Header = () => {
 	const userName = useSelector((store) => store.user.username)
 
@@ -26,40 +27,38 @@ const Header = () => {
 	}
 
 	return (
-		<>
-			<HeaderContainer>
-				<HeaderTitleContainer>
-					<HeadingOne 
-						fontSize="1.5rem" 
-						textAlign="left" 
-						// width="85%" 
-						desktopFontSize="1.8rem" 
-						fontWeight="700"
-						// desktopMargin="4rem 0 1rem"
-						>
-							Flex 'n Joy
-					</HeadingOne>
-					{/* <AnimatedImg src={DumbelImg} alt='dumbel' /> */}
-					<SignOut />
-				</HeaderTitleContainer>
-				
-				<GreetingBox>
-					<HeadingOne
-						fontSize='0.9rem'
-						width='100%'
-						color='#202020'
-						textTransform='uppercase'
-						desktopWidth='300px'
-						desktopFontSize='1.2rem'
-						textShadow='2px 3px 2px #a0c1af'
-						fontWeight="500"
+		<HeaderContainer>
+			<HeaderTitleContainer>
+				<HeadingOne 
+					fontSize="1.5rem" 
+					textAlign="left" 
+					// width="85%" 
+					desktopFontSize="1.8rem" 
+					fontWeight="700"
+					// desktopMargin="4rem 0 1rem"
 					>
-						{showGreeting()}
-						<StyledHeader>{userName}</StyledHeader>
-					</HeadingOne>
-				</GreetingBox>
-			</HeaderContainer>
-		</>
+						Flex 'n Joy
+				</HeadingOne>
+				{/* <AnimatedImg src={DumbelImg} alt='dumbel' /> */}
+				<SignOut />
+			</HeaderTitleContainer>
+			
+			<GreetingBox>
+				<HeadingOne
+					fontSize='0.9rem'
+					width='100%'
+					color='#202020'
+					textTransform='uppercase'
+					desktopWidth='300px'
+					desktopFontSize='1.2rem'
+					textShadow='2px 3px 2px #a0c1af'
+					fontWeight="500"
+				>
+					{showGreeting()}
+					<StyledHeader>{userName}</StyledHeader>
+				</HeadingOne>
+			</GreetingBox>
+		</HeaderContainer>
 	)
 }
 

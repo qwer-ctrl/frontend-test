@@ -63,12 +63,7 @@ const MyPage = () => {
 			.then((res) => res.json())
 			.then((data) => {
 				if (data.success) {
-					console.log("data", data)
-					// if (data.response.program) {
-						dispatch(user.actions.setProgram(data.response.program))
-					// } else {
-					// 	dispatch(user.actions.setProgram([]))
-					// }
+					dispatch(user.actions.setProgram(data.response.program))
 					dispatch(program.actions.setError(null))
 				} else {
 					dispatch(program.actions.setError(data.response.success))
@@ -96,7 +91,7 @@ const MyPage = () => {
 						<MainContainer>
 							{userHasProgram.map((prog) => (
 								<StyledLink key={prog._id} to={`/singleprogram/${prog._id}`}>
-									<ProgramContainer key={prog._id}>
+									<ProgramContainer>
 										<StyledImage src={prog.programType === 'weights' ? gymImage : cardioImage} />
 										<StyledButton
 											width='115px'

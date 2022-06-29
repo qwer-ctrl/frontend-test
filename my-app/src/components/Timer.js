@@ -13,7 +13,7 @@ const Timer = () => {
 	const [rounds, setRounds] = useState(0)
 	const [runTimer, setRunTimer] = useState(false)
 	const [message, setMessage] = useState('')
-	const [godJobMessage, setGreatJobMessage] = useState('')
+	const [greatJobMessage, setGreatJobMessage] = useState('')
 
 	useEffect(() => {
 		if (workingSeconds > 0 && runTimer) {
@@ -125,49 +125,71 @@ const Timer = () => {
 	return (
 		<TimerContainer>
 			<TimerBox background={getBackground()}>
-			<HeadingOne fontSize='1.3em' fontWeight="500">Timer</HeadingOne>
+
+				<HeadingOne fontSize='1.3em' fontWeight="500">Timer</HeadingOne>
 				{message}
 				<TimerClock>
 					<SetTimerContainer>
+
 						<TimerComponent>
-							<TimerButton onClick={handleRoundsDecrement}>-</TimerButton>
+							<TimerButton onClick={handleRoundsDecrement}><StyledSpan role="img" aria-label="minus icon">-</StyledSpan></TimerButton>
 							<TimerText>
 								{rounds} / {addRounds} rounds
 							</TimerText>
-							<TimerButton onClick={handleRoundsIncrement}>+</TimerButton>
+							<TimerButton onClick={handleRoundsIncrement}><StyledSpan role="img" aria-label="minus icon">+</StyledSpan></TimerButton>
 						</TimerComponent>
 
 						<TimerComponent>
-							<TimerButton onClick={handleWorkingTimeDecrement}>-</TimerButton>
+							<TimerButton onClick={handleWorkingTimeDecrement}><StyledSpan role="img" aria-label="minus icon">-</StyledSpan></TimerButton>
 							<TimerText>{workingSeconds} working sec</TimerText>
-							<TimerButton onClick={handleWorkingTimeIncrement}>+</TimerButton>
+							<TimerButton onClick={handleWorkingTimeIncrement}><StyledSpan role="img" aria-label="minus icon">+</StyledSpan></TimerButton>
 						</TimerComponent>
 
 						<TimerComponent>
-							<TimerButton onClick={handleRestSecondsDecrement}>-</TimerButton>
+							<TimerButton onClick={handleRestSecondsDecrement}><StyledSpan role="img" aria-label="minus icon">-</StyledSpan></TimerButton>
 							<TimerText>{restSeconds} resting sec</TimerText>
-							<TimerButton onClick={handleRestSecondsIncrement}>+</TimerButton>
+							<TimerButton onClick={handleRestSecondsIncrement}><StyledSpan role="img" aria-label="minus icon">+</StyledSpan></TimerButton>
 						</TimerComponent>
+
 					</SetTimerContainer>
 
 					<ButtonContainer>
-						<StyledButton backgroundHover='var(--tertiary)'
-										color='var(--white)' padding='6px 18px' margin='3px 2px 0' onClick={() => setRunTimer(true)}>
+
+						<StyledButton
+							backgroundHover='var(--tertiary)'
+							color='var(--white)' 
+							padding='6px 18px' 
+							margin='3px 2px 0' 
+							onClick={() => setRunTimer(true)}
+							>
 							Start
 						</StyledButton>
-						<StyledButton backgroundHover='var(--tertiary)'
-										color='var(--white)' padding='6px 18px' margin='3px 2px 0' onClick={() => setRunTimer(false)}>
+
+						<StyledButton 
+							backgroundHover='var(--tertiary)'
+							color='var(--white)' 
+							padding='6px 18px' 
+							margin='3px 2px 0' 
+							onClick={() => setRunTimer(false)}
+							>
 							Stop
 						</StyledButton>
-						<StyledButton backgroundHover='var(--tertiary)'
-										color='var(--white)' padding='6px 18px' margin='3px 2px 0' onClick={() => restartButton()}>
+
+						<StyledButton
+							backgroundHover='var(--tertiary)'
+							color='var(--white)' 
+							padding='6px 18px' 
+							margin='3px 2px 0' 
+							onClick={() => restartButton()}
+							>
 							Restart
 						</StyledButton>
+
 					</ButtonContainer> 
 				</TimerClock>
 
-				{godJobMessage}
-				{/* {workingSeconds === 0 && restSeconds === 0 && rounds === 0 && <p>Good job!</p>} */}
+				{greatJobMessage}
+
 			</TimerBox>
 		</TimerContainer>
 	)
@@ -211,6 +233,10 @@ const TimerComponent = styled.div`
 	display: flex;
 	justify-content: space-between;
 	padding: 0.3em 0.25em;
+`
+
+const StyledSpan = styled.span`
+	color: var(--black);
 `
 
 const TimerText = styled.p`

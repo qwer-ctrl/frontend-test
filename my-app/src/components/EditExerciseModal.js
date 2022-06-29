@@ -11,6 +11,7 @@ import ui from '../reducers/ui'
 import { API_URL } from '../utils/utils'
 import LoadingAnimation from '../components/LoadingAnimation'
 
+
 const MyTextInput = ({ label, ...props }) => {
 	const [field, meta] = useField(props)
 	return (
@@ -22,11 +23,11 @@ const MyTextInput = ({ label, ...props }) => {
 	)
 }
 
+
 const EditExerciseModal = () => {
 	const [exerciseContent, setExerciseContent] = useState('')
 	const exerciseId = useSelector((store) => store.ui.currentModalId)
 	const showModal = useSelector((store) => store.ui.showEditExerciseModal)
-	// const isLoading = useSelector((store) => store.ui.isLoading)
 	const dispatch = useDispatch()
 
 	const closeModal = () => {
@@ -40,13 +41,11 @@ const EditExerciseModal = () => {
 				'Content-Type': 'application/json',
 			},
 		}
-		// dispatch(ui.actions.setLoading(true))
 		fetch(API_URL(`exercise/${exerciseId}`), options)
 			.then((res) => res.json())
 			.then((data) => {
 				setExerciseContent(data.response)
 			})
-		// .finally(() => dispatch(ui.actions.setLoading(false)))
 	}, [exerciseId, dispatch])
 
 	const Schema = Yup.object().shape({
@@ -67,8 +66,7 @@ const EditExerciseModal = () => {
 			{showModal ? (
 				<ModalContainer>
 					<StyledModal>
-					{/* {isLoading && <LoadingAnimation />} */}
-						<CloseButton onClick={closeModal}>x</CloseButton>
+						<CloseButton onClick={closeModal}><StyledSpan>x</StyledSpan></CloseButton>
 						<Formik
 							initialValues={{
 								sets: exerciseContent.sets,
@@ -187,6 +185,10 @@ const EditExerciseModal = () => {
 
 export default EditExerciseModal
 
+const StyledSpan = styled.span`
+	color: var(--black);
+`
+
 const StyledTitle = styled.h1`
 	margin-bottom: 1rem;
 `
@@ -212,6 +214,8 @@ const StyledInput = styled(MyTextInput)`
 	border: none;
 	border-radius: 15px;
 	padding: 6px 10px;
+	-webkit-appearance: none;
+	-moz-appearance: none;
 	box-shadow: inset 0px 4px 4px 0px #adadad;
 
 	&:focus {

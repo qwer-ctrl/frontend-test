@@ -20,6 +20,7 @@ const NotFound = () => {
 					<StyledImage src={errorImage} />
 					<HeadingOne fontSize="1rem" color="#8DB9BC" desktopFontSize="2rem">Sorry, could not find the page you were looking for, but keep calm and head back</HeadingOne>
 				</NotFoundWrapper>
+
 				<StyledButton
 					background="var(--primary)"
 					margin="2rem 0 0"
@@ -27,7 +28,8 @@ const NotFound = () => {
 					boxShadow="0px 10px 13px -7px #808080"
 					backgroundHover='var(--tertiary)'
 					color='var(--white)'
-					onClick={() => handleGoBack()}>Go Back</StyledButton>
+					onClick={() => handleGoBack()}>Go Back
+				</StyledButton>
 			</InnerWrapper>
 		</OuterWrapper>
 	)

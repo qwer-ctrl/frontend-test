@@ -30,7 +30,6 @@ const ProfilePage = () => {
     const userId = useSelector((store) => store.user.userId)
     const userName = useSelector((store) => store.user.username)
 	const dispatch = useDispatch()
-    console.log(userName)
 
 	const handleData = (data) => {
         dispatch(user.actions.setUserName(data.response.username))
@@ -88,7 +87,6 @@ const ProfilePage = () => {
                         })
                             .then((res) => res.json())
                             .then((data) => {
-                                console.log("data from update user", data)
                                 handleData(data)
                             })
                             .catch((err) => {
@@ -171,6 +169,8 @@ const StyledInput = styled(MyTextInput)`
 	border: none;
 	border-radius: 15px;
 	padding: 6px 10px;
+    -webkit-appearance: none;
+	-moz-appearance: none;
 	box-shadow: inset 0px 4px 4px 0px #adadad;
     font-size: 1rem;
 

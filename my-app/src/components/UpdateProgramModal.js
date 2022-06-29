@@ -56,17 +56,14 @@ const UpdateProgramModal = () => {
 		fetch(API_URL(`myprogram/${programId}`), options)
 			.then((res) => res.json())
 			.then((data) => {
-				// dispatch(ui.actions.setLoading(true))
 				setExerciseContent(data.response)
 			})
-		// .finally(() => dispatch(ui.actions.setLoading(false)))
 	}, [programId])
 
 	const handleData = (data) => {
 		dispatch(program.actions.setProgramName(data.response.programName))
 		dispatch(program.actions.setProgramType(data.response.programType))
 		dispatch(program.actions.setProgramId(data.response._id))
-		console.log('hello', data.response._id)
 	}
 
 	const Schema = Yup.object().shape({
@@ -80,7 +77,7 @@ const UpdateProgramModal = () => {
 			{showModal ? (
 				<ModalContainer>
 					<StyledModal>
-						<CloseButton onClick={closeModal}>x</CloseButton>
+						<CloseButton onClick={closeModal}><StyledSpan>x</StyledSpan></CloseButton>
 						<Formik
 							initialValues={{
 								programName: exerciseContent.programName,
@@ -100,7 +97,6 @@ const UpdateProgramModal = () => {
 								})
 									.then((res) => res.json())
 									.then((data) => {
-										console.log('data from update program modal post', data)
 										handleData(data)
 									})
 									.catch((err) => {
@@ -152,6 +148,10 @@ const UpdateProgramModal = () => {
 
 export default UpdateProgramModal
 
+const StyledSpan = styled.span`
+	color: var(--black);
+`
+
 const StyledForm = styled(Form)`
 	display: flex;
 	flex-direction: column;
@@ -167,6 +167,8 @@ const StyledInput = styled(MyTextInput)`
 	border: none;
 	border-radius: 10px;
 	padding: 6px 10px;
+	-webkit-appearance: none;
+	-moz-appearance: none;
 	box-shadow: inset 0px 4px 4px 0px #adadad;
 
 	&:focus {

@@ -11,7 +11,6 @@ import { StyledButton } from '../styles/ButtonStyles'
 
 import { API_URL } from '../utils/utils'
 import LoadingAnimation from './LoadingAnimation'
-
 import ui from '../reducers/ui'
 
 
@@ -45,7 +44,6 @@ const ProgramModal = ({ showModal, setShowModal }) => {
 	const navigate = useNavigate()
 	const dispatch = useDispatch()
 	const isLoading = useSelector((store) => store.ui.isLoading)
-	// const programId = useSelector((store) => store.program.programId)
 
 	const closeModal = () => {
 		setShowModal((prev) => !prev)
@@ -55,10 +53,7 @@ const ProgramModal = ({ showModal, setShowModal }) => {
 		dispatch(program.actions.setProgramName(data.response.programName))
 		dispatch(program.actions.setProgramType(data.response.programType))
 		dispatch(program.actions.setProgramId(data.response._id))
-		console.log('hello', data.response._id)
-		// if (programId) {
-			navigate(`/addprogram/${data.response._id}`) 
-		// }
+		navigate(`/addprogram/${data.response._id}`) 
 	}
 
 	const Schema = Yup.object().shape({
@@ -76,7 +71,7 @@ const ProgramModal = ({ showModal, setShowModal }) => {
 				<ModalContainer showModal={showModal}>
 					{isLoading && <LoadingAnimation />}
 					<StyledModal>
-						<CloseButton onClick={closeModal}>x</CloseButton>
+						<CloseButton onClick={closeModal}><StyledSpan>x</StyledSpan></CloseButton>
 						<Formik
 							initialValues={{
 								programName: '',
@@ -146,6 +141,10 @@ const ProgramModal = ({ showModal, setShowModal }) => {
 
 export default ProgramModal
 
+const StyledSpan = styled.span`
+	color: var(--black);
+`
+
 const StyledForm = styled(Form)`
 	display: flex;
 	flex-direction: column;
@@ -164,7 +163,7 @@ const StyledInput = styled(MyTextInput)`
 	-webkit-appearance: none;
 	-moz-appearance: none;
 	box-shadow: inset 0px 4px 4px 0px #adadad;
-	//box-shadow: inset 2px -1px 4px 0px #adadad;
+
 	&:focus {
 		outline: none;
 		border-bottom: 3px solid var(--primary);
@@ -197,3 +196,4 @@ const RadioAndError = styled.div`
 	align-items: center;
 	margin-top: 0.5rem;
 `
+

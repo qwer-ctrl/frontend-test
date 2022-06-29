@@ -2,14 +2,15 @@ import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Formik, Form, useField } from 'formik'
 import * as Yup from 'yup'
-
 import styled from 'styled-components/macro'
+
 import { ModalContainer, StyledModal, CloseButton } from '../styles/ModalStyles'
 import { StyledButton } from '../styles/ButtonStyles'
 
 import ui from '../reducers/ui'
 import { API_URL } from '../utils/utils'
 import LoadingAnimation from '../components/LoadingAnimation'
+
 
 const MyTextInput = ({ label, ...props }) => {
 	const [field, meta] = useField(props)
@@ -49,7 +50,7 @@ const AddExerciseModal = () => {
 			{showModal ? (
 				<ModalContainer>
 					<StyledModal>
-						<CloseButton onClick={closeModal}>x</CloseButton>
+						<CloseButton onClick={closeModal}><StyledSpan>x</StyledSpan></CloseButton>
 						<Formik
 							initialValues={{
 								exercise: '',
@@ -158,9 +159,11 @@ const AddExerciseModal = () => {
 
 export default AddExerciseModal
 
+const StyledSpan = styled.span`
+	color: var(--black);
+`
+
 const StyledForm = styled(Form)`
-	// display: flex;
-	// flex-direction: column;
 	display: grid;
 	grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
 	width: 100%;
@@ -184,13 +187,13 @@ const StyledInput = styled(MyTextInput)`
 	border: none;
 	border-radius: 15px;
 	padding: 6px 10px;
+	-webkit-appearance: none;
+	-moz-appearance: none;
 	box-shadow: inset 0px 4px 4px 0px #adadad;
-	//box-shadow: inset 2px -1px 4px 0px #adadad;
 
 	&:focus {
 		outline: none;
 		border-bottom: 3px solid var(--primary);
-		// border-bottom: 3px solid var(--tertiary);
 	}
 `
 

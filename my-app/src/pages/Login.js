@@ -27,11 +27,9 @@ const MyTextInput = ({ label, ...props }) => {
 
 const Login = () => {
 	const [mode, setMode] = useState('login')
-	console.log("mode", mode)
 	const dispatch = useDispatch()
 	const navigate = useNavigate()
 	const userId = useSelector((store) => store.user.userId)
-	console.log('userId', userId)
 	const accessToken = useSelector((store) => store.user.accessToken)
 
 	const handleLoginSuccess = (data) => {
@@ -243,12 +241,12 @@ const StyledInput = styled(MyTextInput)`
 	border: none;
 	border-radius: 15px;
 	padding: 6px 10px;
+	-webkit-appearance: none;
+	-moz-appearance: none;
 	box-shadow: inset 0px 4px 4px 0px #adadad;
-	//box-shadow: inset 2px -1px 4px 0px #adadad;
 
 	&:focus {
 		outline: none;
-		// border-bottom: 3px solid var(--tertiary);
 		border-bottom: 3px solid var(--primary);
 	}
 `

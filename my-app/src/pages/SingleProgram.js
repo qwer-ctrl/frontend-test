@@ -47,7 +47,6 @@ const SingleProgram = () => {
 			.then((res) => res.json())
 			.then((data) => {
 				dispatch(ui.actions.setLoading(true))
-				console.log('data from single program fetch', data)
 				setProgramExercise(data.response.exercise)
 				setProgramName(data.response.programName)
 			})
@@ -95,7 +94,6 @@ const SingleProgram = () => {
 			updatedList.splice(checked.indexOf(event.target.value), 1)
 		}
 		setChecked(updatedList)
-		console.log(updatedList.length, programExercise.length)
 		const progressbar = (updatedList.length / programExercise.length) * 100
 		setPercent(progressbar)
 	}
@@ -179,7 +177,7 @@ const SingleProgram = () => {
 										<MetricsContainer>
 											{item.exerciseLink ? (
 												<p>
-													link:
+													link: 
 													<a href={item.exerciseLink} target='_blank' rel='noopener noreferrer'>
 														{item.exerciseLink}
 													</a>
@@ -249,10 +247,8 @@ const ExerciseWrapper = styled.article`
 	margin-top: 1rem;
 	position: relative;
 	width: 90%;
-	// z-index: -2;
 
 	@media screen and (min-width: 768px) {
-		// max-width: 550px;
 		margin: 1.2rem auto;
 	}
 `
@@ -310,6 +306,7 @@ const IconContainer = styled.div`
 	bottom: 0.2em;
 	right: 0.42em;
 `
+
 const IconButton = styled.button`
 	background: transparent;
 	border: none;

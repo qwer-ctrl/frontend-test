@@ -1,11 +1,14 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import styled from 'styled-components/macro'
+import styled from "styled-components/macro"
 
 import { ModalContainer, StyledModal, CloseButton } from '../styles/ModalStyles'
 import { StyledButton } from '../styles/ButtonStyles'
+import { HeadingOne } from "../styles/GlobalStyles"
+
 import ui from '../reducers/ui'
 import { API_URL } from '../utils/utils'
+
 
 const DeleteExerciseModal = () => {
 	const exerciseId = useSelector((store) => store.ui.currentModalId)
@@ -38,14 +41,17 @@ const DeleteExerciseModal = () => {
 			{showModal ? (
 				<ModalContainer>
 					<StyledModal>
-						<CloseButton onClick={closeModal}>x</CloseButton>
-						<StyledTitle>Are you sure you want to delete the exercise?</StyledTitle>
+						<CloseButton onClick={closeModal}><StyledSpan>x</StyledSpan></CloseButton>
+						<HeadingOne
+							fontSize="1.2rem"
+							textAlign="center"
+							margin="1rem 0 0"
+						>Are you sure you want to delete the exercise?</HeadingOne>
 						<StyledButton
 						background="var(--primary)"
 						margin="1em 0 0"
 						padding="6px 18px"
 						boxShadow="0px 10px 13px -7px #808080"
-						fontSize="10px"
 						onClick={() => handleExerciseDeletion()}>Delete</StyledButton>
 					</StyledModal>
 				</ModalContainer>
@@ -56,8 +62,6 @@ const DeleteExerciseModal = () => {
 
 export default DeleteExerciseModal
 
-const StyledTitle = styled.h1`
-	font-size: 1.2rem;
-	text-align: center;
-	margin-top: 1rem;
+const StyledSpan = styled.span`
+	color: var(--black);
 `
