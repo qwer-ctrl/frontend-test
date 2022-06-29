@@ -14,7 +14,6 @@ import ui from '../reducers/ui'
 import LoadingAnimation from '../components/LoadingAnimation'
 import Footer from '../components/Footer'
 
-
 const MyTextInput = ({ label, ...props }) => {
 	const [field, meta] = useField(props)
 	return (
@@ -74,7 +73,6 @@ const AddProgram = () => {
 			})
 			.finally(() => dispatch(ui.actions.setLoading(false)))
 	}, [dispatch, programId])
-		
 
 	useEffect(() => {
 		if (programId) {
@@ -99,6 +97,7 @@ const AddProgram = () => {
 
 	const handleSetsState = () => {
 		setDisplaySets(!displaySets)
+		console.log('toggle')
 	}
 	const handleRepsState = () => {
 		setDisplayReps(!displayReps)
@@ -135,7 +134,7 @@ const AddProgram = () => {
 		<OuterWrapper>
 			<InnerWrapper margin='6vh auto 4rem' desktopMargin='10vh auto 4rem'>
 				{exerciseContent && (
-					<HeadingOne fontSize='2rem' color='#6EB3B8' fontWeight="700">
+					<HeadingOne fontSize='2rem' color='#6EB3B8' fontWeight='700'>
 						{programName}
 					</HeadingOne>
 				)}
@@ -195,131 +194,49 @@ const AddProgram = () => {
 							<StyledInput label='Exercise name' name='exercise' type='text' />
 
 							<MetricsButtonContainer>
-								<StyledButton
-									width='fit-content'
-									background='var(--grey)'
-									margin='1em 0 0'
-									padding='6px 18px'
-									boxShadow='0px 10px 13px -7px #808080'
-									backgroundHover='var(--tertiary)'
-									color='var(--secondary)'
-									onClick={handleSetsState}
-									type='button'
-								>
+								<StyledInputButton onClick={handleSetsState} type='button' changeColor={displaySets}>
 									Sets
-								</StyledButton>
+								</StyledInputButton>
 
-								<StyledButton
-									width='fit-content'
-									background='var(--grey)'
-									margin='1em 0 0'
-									padding='6px 18px'
-									boxShadow='0px 10px 13px -7px #808080'
-									backgroundHover='var(--tertiary)'
-									color='var(--secondary)'
-									onClick={handleRepsState}
-									type='button'
-								>
+								<StyledInputButton onClick={handleRepsState} type='button' changeColor={displayReps}>
 									Reps
-								</StyledButton>
+								</StyledInputButton>
 
-								<StyledButton
-									width='fit-content'
-									background='var(--grey)'
-									margin='1em 0 0'
-									padding='6px 18px'
-									boxShadow='0px 10px 13px -7px #808080'
-									backgroundHover='var(--tertiary)'
-									color='var(--secondary)'
-									onClick={handleWeightsState}
-									type='button'
-								>
+								<StyledInputButton onClick={handleWeightsState} type='button' changeColor={displayWeights}>
 									Weights
-								</StyledButton>
+								</StyledInputButton>
 
-								<StyledButton
-									width='fit-content'
-									background='var(--grey)'
-									margin='1em 0 0'
-									padding='6px 18px'
-									boxShadow='0px 10px 13px -7px #808080'
-									backgroundHover='var(--tertiary)'
-									color='var(--secondary)'
-									onClick={handleMinutesState}
-									type='button'
-								>
+								<StyledInputButton onClick={handleMinutesState} type='button' changeColor={displayMinutes}>
 									Minutes
-								</StyledButton>
+								</StyledInputButton>
 
-								<StyledButton
-									width='fit-content'
-									background='var(--grey)'
-									margin='1em 0 0'
-									padding='6px 18px'
-									boxShadow='0px 10px 13px -7px #808080'
-									backgroundHover='var(--tertiary)'
-									color='var(--secondary)'
-									onClick={handleSecondsState}
-									type='button'
-								>
+								<StyledInputButton onClick={handleSecondsState} type='button' changeColor={displaySeconds}>
 									Seconds
-								</StyledButton>
+								</StyledInputButton>
 
-								<StyledButton
-									width='fit-content'
-									background='var(--grey)'
-									margin='1em 0 0'
-									padding='6px 18px'
-									boxShadow='0px 10px 13px -7px #808080'
-									backgroundHover='var(--tertiary)'
-									color='var(--secondary)'
-									onClick={handleDurationState}
-									type='button'
-								>
+								<StyledInputButton onClick={handleDurationState} type='button' changeColor={displayDuration}>
 									Duration
-								</StyledButton>
+								</StyledInputButton>
 
-								<StyledButton
-									width='fit-content'
-									background='var(--grey)'
-									margin='1em 0 0'
-									padding='6px 18px'
-									boxShadow='0px 10px 13px -7px #808080'
-									backgroundHover='var(--tertiary)'
-									color='var(--secondary)'
+								<StyledInputButton
+									changeColor={displayExerciseLength}
 									onClick={handleExerciseLengthState}
 									type='button'
 								>
 									Length
-								</StyledButton>
+								</StyledInputButton>
 
-								<StyledButton
-									width='fit-content'
-									background='var(--grey)'
-									margin='1em 0 0'
-									padding='6px 18px'
-									boxShadow='0px 10px 13px -7px #808080'
-									backgroundHover='var(--tertiary)'
-									color='var(--white)'
+								<StyledInputButton
 									onClick={handleExerciseLinkState}
 									type='button'
+									changeColor={displayExerciseLink}
 								>
 									Link
-								</StyledButton>
+								</StyledInputButton>
 
-								<StyledButton
-									width='fit-content'
-									background='var(--grey)'
-									margin='1em 0 0'
-									padding='6px 18px'
-									boxShadow='0px 10px 13px -7px #808080'
-									backgroundHover='var(--tertiary)'
-									color='var(--secondary)'
-									onClick={handleCommentsState}
-									type='button'
-								>
+								<StyledInputButton onClick={handleCommentsState} type='button' changeColor={displayComments}>
 									Comments
-								</StyledButton>
+								</StyledInputButton>
 							</MetricsButtonContainer>
 
 							<MetricsInputContainer>
@@ -356,14 +273,11 @@ const AddProgram = () => {
 					<ExerciseGrid>
 						{exerciseContent.map((exercise) => (
 							<ExerciseContainer key={exercise._id}>
-								<HeadingOne 
-									fontSize="1rem" 
-									color="var(--tertiary)"
-									fontWeight="500" 
-									>{exercise.exercise}
+								<HeadingOne fontSize='1rem' color='var(--tertiary)' fontWeight='500'>
+									{exercise.exercise}
 								</HeadingOne>
 
-								<MetricsInputContainer>
+								<MetricsOutputContainer>
 									<MetricsContainer>
 										{exercise.sets && <p>Sets: {exercise.sets}</p>}
 										{exercise.reps && <p>Reps: {exercise.reps}</p>}
@@ -383,7 +297,7 @@ const AddProgram = () => {
 									<MetricsContainer>
 										{exercise.exerciseLink && (
 											<p>
-												Link: {' '}
+												Link:{' '}
 												<a href={exercise.exerciseLink} target='_blank' rel='noopener noreferrer'>
 													{exercise.exerciseLink}
 												</a>
@@ -394,7 +308,7 @@ const AddProgram = () => {
 									<MetricsContainer>
 										{exercise.comments && <p>Comment: {exercise.comments}</p>}
 									</MetricsContainer>
-								</MetricsInputContainer>
+								</MetricsOutputContainer>
 							</ExerciseContainer>
 						))}
 					</ExerciseGrid>
@@ -463,6 +377,16 @@ const MetricsButtonContainer = styled.div`
 	gap: 3px;
 `
 
+const MetricsInputContainer = styled.div`
+	width: 100%;
+
+	@media screen and (min-width: 768px) {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+		column-gap: 1rem;
+	}
+`
+
 const StyledInput = styled(MyTextInput)`
 	max-width: 150px;
 	margin: 0.5rem 0;
@@ -494,7 +418,7 @@ const StyledCommentsInput = styled(MyTextArea)`
 	}
 `
 
-const MetricsInputContainer = styled.div`
+const MetricsOutputContainer = styled.div`
 	width: 100%;
 
 	p {
@@ -537,4 +461,25 @@ const ButtonContainer = styled.div`
 	justify-content: space-evenly;
 	margin: 0 0 2rem;
 	gap: 1rem;
+`
+
+const StyledInputButton = styled.button`
+	background-color: ${(props) => (props.changeColor ? 'var(--primary)' : 'var(--white)')};
+	color: var(--black);
+	font-family: 'poppins';
+	font-size: 0.7rem;
+	font-weight: 500;
+	cursor: pointer;
+	text-transform: uppercase;
+	border: none;
+	border-radius: 20px;
+	width: fit-content;
+	padding: 6px 18px;
+	margin: 1em 0 0;
+	box-shadow: 0px 10px 13px -7px #808080;
+
+	&:hover {
+		outline: none;
+		background: var(--tertiary);
+		color: var(--secondary);
 `

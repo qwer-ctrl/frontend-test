@@ -34,7 +34,6 @@ const SingleProgram = () => {
 	const showDeleteExerciseModal = useSelector((store) => store.ui.showDeleteExerciseModal)
 	const dispatch = useDispatch()
 
-
 	const fetchProgram = useCallback(() => {
 		const options = {
 			method: 'GET',
@@ -106,7 +105,7 @@ const SingleProgram = () => {
 		<AllDoneLoader />
 	) : (
 		<OuterWrapper>
-			<InnerWrapper margin='6vh auto 3rem' desktopMargin='10vh auto 4rem'>
+			<InnerWrapper margin='6vh auto 3rem' desktopMargin='10vh auto 7rem'>
 				<HeadingOne fontSize='1.5rem' color='var(--tertiary)' margin='0 0 1.5rem'>
 					{programName}
 				</HeadingOne>
@@ -155,7 +154,9 @@ const SingleProgram = () => {
 						{programExercise.map((item) => (
 							<ExerciseWrapper key={item._id}>
 								<HeaderAndCheck>
-									<HeadingThree>{item.exercise}</HeadingThree>
+									<HeadingOne fontSize='1rem' color='var(--tertiary)'>
+										{item.exercise}
+									</HeadingOne>
 									<label htmlFor='checkbox'></label>
 									<StyledCheckbox id='checkbox' type='checkbox' value={item._id} onChange={handleChecked} />
 								</HeaderAndCheck>
@@ -177,7 +178,7 @@ const SingleProgram = () => {
 										<MetricsContainer>
 											{item.exerciseLink ? (
 												<p>
-													link: 
+													link:&nbsp;
 													<a href={item.exerciseLink} target='_blank' rel='noopener noreferrer'>
 														{item.exerciseLink}
 													</a>
@@ -201,7 +202,6 @@ const SingleProgram = () => {
 								</IconContainer>
 							</ExerciseWrapper>
 						))}
-						
 					</ExerciseGrid>
 					<Timer />
 				</ExerciseTimerWrapper>
@@ -224,6 +224,7 @@ const ExerciseTimerWrapper = styled.section`
 	@media screen and (min-width: 1024px) {
 		flex-direction: row;
 		margin-top: 1rem;
+		align-items: flex-start;
 	}
 `
 
@@ -235,6 +236,7 @@ const HeaderAndCheck = styled.div`
 	display: flex;
 	justify-content: space-between;
 	align-items: flex-start;
+	margin-bottom: 0.8rem;
 `
 
 const ExerciseWrapper = styled.article`
@@ -251,11 +253,6 @@ const ExerciseWrapper = styled.article`
 	@media screen and (min-width: 768px) {
 		margin: 1.2rem auto;
 	}
-`
-
-const HeadingThree = styled.h3`
-	font-size: 1rem;
-	color: var(--tertiary);
 `
 
 const ExerciseContainer = styled.div`
@@ -291,11 +288,11 @@ const StyledCheckbox = styled.input`
 	@media screen and (min-width: 768px) {
 		height: 20px;
 		width: 20px;
-	 }
+	}
 	@media screen and (min-width: 1024px) {
 		height: 25px;
 		width: 25px;
-	 }
+	}
 `
 
 const IconContainer = styled.div`
