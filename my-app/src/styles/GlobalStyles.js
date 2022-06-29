@@ -36,8 +36,8 @@ export const InnerWrapper = styled.section`
 	align-items: center;
 	justify-content: center;
 
-	@media screen and (min-width: 768px) {
-		width: 60%;
+	@media screen and (min-width: 1024px) {
+		width: 70%;
 		margin: ${(props) => props.desktopMargin};
 	}
 `
@@ -53,6 +53,7 @@ export const HeadingOne = styled.h1`
 	text-align: ${(props) => props.textAlign};
 	text-shadow: ${(props) => props.textShadow};
 	letter-spacing: 1.7px;
+	font-weight: ${props => props.fontWeight};
 
 	@media screen and (min-width: 768px) {
 		font-size: ${(props) => props.tabletFontSize};

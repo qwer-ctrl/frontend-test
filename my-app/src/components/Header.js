@@ -28,22 +28,22 @@ const Header = () => {
 	return (
 		<>
 			<HeaderContainer>
-				<HeadingOne 
-					fontSize="1.5rem" 
-					margin="2rem 0 1rem" 
-					textAlign="left" 
-					width="85%" 
-					padding="0 0 0 2rem" 
-					desktopFontSize="1.8rem" 
-					tabletPadding="0 0 0"
-					tabletMargin="4rem 0 1rem"
-					desktopMargin="4rem 0 1rem"
-					>
-						Flex 'n Joy
-				</HeadingOne>
-				{/* <AnimatedImg src={DumbelImg} alt='dumbel' /> */}
-				<SignOut />
-				<HeaderBox>
+				<HeaderTitleContainer>
+					<HeadingOne 
+						fontSize="1.5rem" 
+						textAlign="left" 
+						// width="85%" 
+						desktopFontSize="1.8rem" 
+						fontWeight="700"
+						// desktopMargin="4rem 0 1rem"
+						>
+							Flex 'n Joy
+					</HeadingOne>
+					{/* <AnimatedImg src={DumbelImg} alt='dumbel' /> */}
+					<SignOut />
+				</HeaderTitleContainer>
+				
+				<GreetingBox>
 					<HeadingOne
 						fontSize='0.9rem'
 						width='100%'
@@ -52,11 +52,12 @@ const Header = () => {
 						desktopWidth='300px'
 						desktopFontSize='1.2rem'
 						textShadow='2px 3px 2px #a0c1af'
+						fontWeight="500"
 					>
 						{showGreeting()}
 						<StyledHeader>{userName}</StyledHeader>
 					</HeadingOne>
-				</HeaderBox>
+				</GreetingBox>
 			</HeaderContainer>
 		</>
 	)
@@ -69,22 +70,41 @@ const HeaderContainer = styled.header`
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	// text-align: left;
-	// background: var(--background);
 	height: 22vh;
-	// height: 15vh;
 	position: fixed;
 	top: 0;
 	left: 0;
 	right: 0;
 	z-index: 2;
+	background: var(--white);
+	padding-bottom: 5px;
 
 	@media screen and (min-width: 768px) {
 		height: 20vh;
 	}
+
+	@media screen and (min-width: 1024px) {
+		height: 25vh;
+	}
 `
 
-const HeaderBox = styled.div`
+const HeaderTitleContainer = styled.div`
+	width: 80%;	
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin: 1rem 0;
+
+	@media screen and (min-width: 768px) {
+		width: 85%;
+	}
+
+	@media screen and (min-width: 1024px) {
+		margin: 2rem 0 1rem;
+	}
+`
+
+const GreetingBox = styled.div`
 	background: var(--background);
 	width: 80%;
 	border-radius: 10px;

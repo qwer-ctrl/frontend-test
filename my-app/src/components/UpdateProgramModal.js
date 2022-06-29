@@ -4,11 +4,13 @@ import styled from 'styled-components/macro'
 import { Formik, Form, useField } from 'formik'
 import * as Yup from 'yup'
 
+import { StyledModal, ModalContainer, CloseButton } from '../styles/ModalStyles'
+import { StyledButton } from '../styles/ButtonStyles'
+
 import { program } from '../reducers/program'
 import ui from '../reducers/ui'
 import { API_URL } from '../utils/utils'
-import { StyledModal, ModalContainer, CloseButton } from '../styles/ModalStyles'
-import { StyledButton } from '../styles/ButtonStyles'
+
 
 const MyTextInput = ({ label, ...props }) => {
 	const [field, meta] = useField(props)

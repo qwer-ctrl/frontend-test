@@ -3,8 +3,9 @@ import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components/macro'
 
-import user from '../reducers/user'
 import logOffIcon from "../styles/images/log-off.png"
+
+import user from '../reducers/user'
 
 const SignOut = () => {
 	const navigate = useNavigate()
@@ -35,13 +36,7 @@ const SignOutButton = styled.button`
 	font-family: 'poppins';
 	text-transform: uppercase;
 	border: none;
-	// padding: 6px 15px;
-	margin-top: 1em;
-	// box-shadow: 0px 10px 13px -7px #808080; <-------change
 	font-size: 0.5rem;
-	position: absolute;
-	top: 6%;
-	right: 9%;
 	color: var(--black);
 	font-weight: bold;
 
@@ -51,14 +46,7 @@ const SignOutButton = styled.button`
 		background: var(--accentlilac);
 	}
 
-	@media screen and (min-width: 768px) {
-		top: 16%;
-		right: 7%;
-	}
-
 	@media screen and (min-width: 1024px) {
-		top: 15%;
-		right: 7%;
 		width: 40px;
 		height: 40px;
 	}	

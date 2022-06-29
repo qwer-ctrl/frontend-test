@@ -5,15 +5,16 @@ import { Formik, Form, useField } from 'formik'
 import * as Yup from 'yup'
 import styled from 'styled-components/macro'
 
+import { OuterWrapper, InnerWrapper, HeadingOne } from '../styles/GlobalStyles'
+import { StyledButton } from '../styles/ButtonStyles'
+
 import { API_URL } from '../utils/utils'
 import exercise from '../reducers/exercise'
 import ui from '../reducers/ui'
 import LoadingAnimation from '../components/LoadingAnimation'
 // import SignOut from '../components/SignOut'
-// import Header from '../components/Header'
 import Footer from '../components/Footer'
-import { OuterWrapper, InnerWrapper, HeadingOne } from '../styles/GlobalStyles'
-import { StyledButton } from '../styles/ButtonStyles'
+
 
 const MyTextInput = ({ label, ...props }) => {
 	const [field, meta] = useField(props)
@@ -133,10 +134,9 @@ const AddProgram = () => {
 		<LoadingAnimation />
 	) : (
 		<OuterWrapper>
-			{/* <Header /> */}
 			<InnerWrapper margin='6vh auto 4rem' desktopMargin='10vh auto 4rem'>
 				{exerciseContent && (
-					<HeadingOne fontSize='2rem' color='#6EB3B8'>
+					<HeadingOne fontSize='2rem' color='#6EB3B8' fontWeight="700">
 						{programName}
 					</HeadingOne>
 				)}
@@ -322,6 +322,7 @@ const AddProgram = () => {
 									Comments
 								</StyledButton>
 							</MetricsButtonContainer>
+
 							<MetricsInputContainer>
 								{displaySets ? <StyledInput label='Sets' name='sets' type='text' /> : null}
 								{displayReps ? <StyledInput label='Reps' name='reps' type='text' /> : null}
@@ -334,7 +335,7 @@ const AddProgram = () => {
 								) : null}
 								{displayExerciseLink ? <StyledInput label='Link' name='exerciseLink' type='text' /> : null}
 								{displayComments ? (
-									<StyledCommentInput label='Comments' name='comments' type='text' rows='3' />
+									<StyledCommentsInput label='Comments' name='comments' type='text' rows='3' />
 								) : null}
 							</MetricsInputContainer>
 
@@ -356,35 +357,39 @@ const AddProgram = () => {
 					<ExerciseGrid>
 						{exerciseContent.map((exercise) => (
 							<ExerciseContainer key={exercise._id}>
-								<HeadingThree>{exercise.exercise}</HeadingThree>
-								<MetricsContentContainer>
-									<MetricsInputContainer>
-										<MetricsContainer>
-											{exercise.sets && <p>Sets: {exercise.sets}</p>}
-											{exercise.reps && <p>Reps: {exercise.reps}</p>}
-											{exercise.weights && <p>Weights: {exercise.weights}</p>}
-										</MetricsContainer>
-										<MetricsContainer>
-											{exercise.minutes && <p>Minutes: {exercise.minutes}</p>}
-										</MetricsContainer>
-										<MetricsContainer>
-											{exercise.seconds && <p>Seconds: {exercise.seconds}</p>}
-											{exercise.duration && <p>Duration: {exercise.duration}</p>}
-											{exercise.exerciseLength && <p>Distance: {exercise.exerciseLength} </p>}
-										</MetricsContainer>
-										<MetricsContainer>
-											{exercise.exerciseLink && (
-												<p>
-													Link:{' '}
-													<a href={exercise.exerciseLink} target='_blank' rel='noopener noreferrer'>
-														{exercise.exerciseLink}
-													</a>
-												</p>
-											)}
-											{exercise.comments && <p>Comment: {exercise.comments}</p>}
-										</MetricsContainer>
-									</MetricsInputContainer>
-								</MetricsContentContainer>
+								<HeadingOne 
+									fontSize="1rem" 
+									color="var(--tertiary)"
+									fontWeight="500" 
+									>{exercise.exercise}
+								</HeadingOne>
+
+								<MetricsInputContainer>
+									<MetricsContainer>
+										{exercise.sets && <p>Sets: {exercise.sets}</p>}
+										{exercise.reps && <p>Reps: {exercise.reps}</p>}
+										{exercise.weights && <p>Weights: {exercise.weights}</p>}
+									</MetricsContainer>
+									<MetricsContainer>
+										{exercise.minutes && <p>Minutes: {exercise.minutes}</p>}
+										{exercise.seconds && <p>Seconds: {exercise.seconds}</p>}
+									</MetricsContainer>
+									<MetricsContainer>
+										{exercise.duration && <p>Duration: {exercise.duration}</p>}
+										{exercise.exerciseLength && <p>Distance: {exercise.exerciseLength} </p>}
+									</MetricsContainer>
+									<MetricsContainer>
+										{exercise.exerciseLink && (
+											<p>
+												Link:{' '}
+												<a href={exercise.exerciseLink} target='_blank' rel='noopener noreferrer'>
+													{exercise.exerciseLink}
+												</a>
+											</p>
+										)}
+										{exercise.comments && <p>Comment: {exercise.comments}</p>}
+									</MetricsContainer>
+								</MetricsInputContainer>
 							</ExerciseContainer>
 						))}
 					</ExerciseGrid>
@@ -403,7 +408,6 @@ const AddProgram = () => {
 					>
 						Done, go back!
 					</StyledButton>
-					{/* <SignOut /> */}
 				</ButtonContainer>
 			</InnerWrapper>
 			<Footer />
@@ -439,6 +443,21 @@ const InputContainer = styled.div`
 	}
 `
 
+const StyledError = styled.div`
+	margin-bottom: 1.5rem;
+	text-align: center;
+	color: var(--accentlilac);
+`
+
+const MetricsButtonContainer = styled.div`
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	width: 100%;
+	margin-bottom: 1rem;
+	gap: 3px;
+`
+
 const StyledInput = styled(MyTextInput)`
 	max-width: 150px;
 	margin: 0.5rem 0;
@@ -454,7 +473,7 @@ const StyledInput = styled(MyTextInput)`
 	}
 `
 
-const StyledCommentInput = styled(MyTextArea)`
+const StyledCommentsInput = styled(MyTextArea)`
 	max-width: 150px;
 	margin: 0.5rem 0;
 	border: none;
@@ -468,34 +487,6 @@ const StyledCommentInput = styled(MyTextArea)`
 	}
 `
 
-const MetricsButtonContainer = styled.div`
-	display: flex;
-	flex-direction: row;
-	flex-wrap: wrap;
-	width: 100%;
-	margin-bottom: 1rem;
-	gap: 3px;
-`
-
-const MetricsContentContainer = styled.div`
-	display: flex;
-	flex-direction: column;
-	align-items: flex-start;
-
-	p {
-		font-size: 0.9rem;
-		max-width: 17ch;
-		overflow-wrap: break-word;
-		padding-right: 0.5em;
-
-		@media screen and (min-width: 768px) {
-			{
-				font-size: 1rem;
-				max-width: 25ch;
-			}
-		}
-`
-
 const MetricsInputContainer = styled.div`
 	display: grid;
 	grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
@@ -505,6 +496,18 @@ const MetricsInputContainer = styled.div`
 	@media screen and (min-width: 768px) {
 		grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
 	}
+
+	p {
+		font-size: 0.9rem;
+		max-width: 17ch;
+		overflow-wrap: break-word;
+		padding-right: 0.5em;
+
+		@media screen and (min-width: 768px) {
+			font-size: 1rem;
+			max-width: 25ch;
+		}
+	}
 `
 
 const MetricsContainer = styled.div`
@@ -512,29 +515,11 @@ const MetricsContainer = styled.div`
 	margin-bottom: 0.15em;
 `
 
-const ButtonContainer = styled.div`
-	width: 100%;
-	display: flex;
-	justify-content: space-evenly;
-	margin: 0 0 2rem;
-	gap: 1rem;
-`
-
-const StyledError = styled.div`
-	margin-bottom: 1.5rem;
-	text-align: center;
-	color: var(--accentlilac);
-`
-
 const ExerciseGrid = styled.article`
 	width: 100%;
-	// display: grid;
-	// grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-	// gap: 1rem;
 `
 
 const ExerciseContainer = styled.div`
-	// height: 200px;
 	max-width: 765px;
 	margin: auto;
 	display: flex;
@@ -546,9 +531,12 @@ const ExerciseContainer = styled.div`
 	box-shadow: 0px 6px 13px 0px #adadad;
 `
 
-const HeadingThree = styled.h3`
-	font-size: 1rem;
-	color: var(--tertiary);
+const ButtonContainer = styled.div`
+	width: 100%;
+	display: flex;
+	justify-content: space-evenly;
+	margin: 0 0 2rem;
+	gap: 1rem;
 `
 
 //-------------------------------------------- code for trying to have multiple sets --------------------------//

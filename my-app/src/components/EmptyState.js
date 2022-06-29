@@ -8,7 +8,12 @@ const EmptyState = () => {
 	return (
 		<>
 			<EmptyStateContainer>
-				<HeadingOne fontSize="1.5rem" color="#8DB9BC">Hey there, add some programs and get moving!</HeadingOne>
+				<HeadingOne 
+					fontSize="1.5rem" 
+					color="#8DB9BC"
+					fontWeight="500"
+					>Hey there, add some programs and get moving!
+				</HeadingOne>
 				<StyledImage src={yogaOne} />
 			</EmptyStateContainer>
 		</>

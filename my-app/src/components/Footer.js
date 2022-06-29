@@ -4,6 +4,8 @@ import styled from 'styled-components/macro'
 
 import homeIcon from '../styles/images/home-icon.png'
 import userIcon from '../styles/images/user-icon.png'
+// import homeImage from "../styles/images/home-image.png"
+// import profileImage from "../styles/images/profile-image.png"
 
 const Footer = () => {
 	return (
@@ -61,6 +63,7 @@ const StyledActiveLink = styled(NavLink)`
 	justify-content: center;
 	align-items: center;
 	border-bottom: none;
+	// border: 2px solid var(--tertiary);
 	&.active {
 		border-bottom: 1px solid var(--tertiary);
 	}

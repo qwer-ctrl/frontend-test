@@ -2,37 +2,36 @@ import styled from 'styled-components/macro'
 
 export const StyledButton = styled.button`
 	color: var(--black);
-	width: ${(props) => props.width};
-	border-radius: 20px;
-	// border-radius: 35px;
-	background: ${(props) => props.background};
 	font-family: 'poppins';
+	font-size: 0.7rem;
+	font-weight: 500;
+	cursor: pointer;
 	text-transform: uppercase;
 	border: none;
+	border-radius: 20px;
+	// border-radius: 35px;
+	width: ${(props) => props.width};
+	background: ${(props) => props.background};
 	padding: ${(props) => props.padding};
 	margin: ${(props) => props.margin};
 	box-shadow: ${(props) => props.boxShadow};
-	font-size: 0.7rem;
-	cursor: pointer;
 	position: ${(props) => props.position};
 	bottom: ${(props) => props.bottom};
 
 	&:hover,
 	&:focus {
+		outline: none;
 		background: ${(props) => props.backgroundHover};
 		text-decoration: ${(props) => props.textDecoration};
 		color: ${(props) => props.color};
-		outline: none;
 	}
 
 	@media screen and (min-width: 768px) {
-		// font-size: 0.8rem;
 		width: auto;
 		padding: 5px 15px;
 	}
 
 	@media screen and (min-width: 1024px) {
-		// font-size: 0.8rem;
 		width: auto;
 		padding: 7px 14px;
 	}

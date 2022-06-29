@@ -8,6 +8,7 @@ import * as Yup from 'yup'
 
 import { ModalContainer, StyledModal, CloseButton } from '../styles/ModalStyles'
 import { StyledButton } from '../styles/ButtonStyles'
+
 import { API_URL } from '../utils/utils'
 import LoadingAnimation from './LoadingAnimation'
 

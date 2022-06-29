@@ -125,7 +125,7 @@ const Timer = () => {
 	return (
 		<TimerContainer>
 			<TimerBox background={getBackground()}>
-			<HeadingOne fontSize='1.3em'>Timer</HeadingOne>
+			<HeadingOne fontSize='1.3em' fontWeight="500">Timer</HeadingOne>
 				{message}
 				<TimerClock>
 					<SetTimerContainer>
@@ -179,7 +179,7 @@ const TimerContainer = styled.div`
 	display: flex;
 	justify-content: space-evenly;
 	align-items: center;
-	margin: 0 0 0;
+	margin: 0 0 4rem;
 `
 
 const TimerBox = styled.div`
@@ -194,11 +194,6 @@ const TimerBox = styled.div`
 	border-radius: 15px;
 	box-shadow: 0px 10px 13px 0px #adadad;
 	background: ${(props) => props.background};
-
-	// @media screen and (min-width: 768px) {
-	// 	width: 500px;
-	// 	height: fit-content;
-	// }
 `
 
 const TimerClock = styled.div`

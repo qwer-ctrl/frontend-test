@@ -43,7 +43,14 @@ const DeleteProgramModal = () => {
 				<ModalContainer>
 					<StyledModal>
 						<CloseButton onClick={closeModal}>x</CloseButton>
-						<HeadingOne fontSize="1rem" margin="1rem 0 0" textAlign="center" color="var(--black)">Are you sure you want to delete the program?</HeadingOne>
+						<HeadingOne 
+							fontSize="1rem" 
+							margin="1rem 0 0" 
+							textAlign="center" 
+							color="var(--black)"
+							fontWeight="500"
+							>Are you sure you want to delete the program?
+						</HeadingOne>
 						<StyledButton
 						background="var(--primary)"
 						margin="1.5em 0 0"

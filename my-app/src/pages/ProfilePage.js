@@ -54,6 +54,8 @@ const ProfilePage = () => {
                         color="var(--tertiary)" 
                         width="100%" 
                         margin="0 0 1rem"
+                        textTransform="uppercase"
+                        fontWeight="700"
                         desktopFontSize="1.3rem"
                         >
                             Your profile
