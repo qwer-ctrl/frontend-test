@@ -6,12 +6,11 @@ import * as Yup from 'yup'
 
 import { OuterWrapper, InnerWrapper, HeadingOne } from '../styles/GlobalStyles'
 import { StyledButton } from '../styles/ButtonStyles'
-import profileImage from "../styles/images/profile.png"
+// import profileImage from "../styles/images/profile.png"
 
 import { API_URL } from '../utils/utils'
 import user from '../reducers/user'
 import LoadingAnimation from '../components/LoadingAnimation'
-import Header from '../components/Header'
 import Footer from '../components/Footer'
 
 
@@ -47,13 +46,32 @@ const ProfilePage = () => {
 		<LoadingAnimation /> 
 	) : (
 		<OuterWrapper>
-			<Header />
-			<InnerWrapper margin='23vh auto 4rem' >
-                <StyledImage src={profileImage} />	
-                <HeadingOne fontSize="2rem" color="var(--tertiary)" textAlign="center">Update your username</HeadingOne>			
+			<InnerWrapper margin='13vh auto 4rem' desktopMargin="20vh auto 4rem">
+                {/* <StyledImage src={profileImage} />	 */}
+                <HeaderWrapper>
+                    <HeadingOne 
+                        fontSize="1.2rem" 
+                        color="var(--tertiary)" 
+                        width="100%" 
+                        margin="0 0 1rem"
+                        desktopFontSize="1.3rem"
+                        >
+                            Your profile
+                    </HeadingOne>
+                </HeaderWrapper>
+                			
+                <ProfileInfoWrapper>
+                    {/* <HeadingOne fontSize="0.8rem" margin="0 0 1rem">Name: </HeadingOne> */}
+                    <HeadingOne 
+                        fontSize="0.9rem" 
+                        margin="0 0 1rem">
+                            Username: {userName}
+                    </HeadingOne>
+                </ProfileInfoWrapper>
+
                 <Formik
                     initialValues={{
-                        username: userName,
+                        username: "",
                     }}
                     validationSchema={Schema}
                     onSubmit={(values, { setSubmitting, resetForm }) => {
@@ -83,18 +101,17 @@ const ProfilePage = () => {
                 >
                     {({ isSubmitting }) => (
                         <StyledForm>
-                            <StyledInput label='New username' name='username' type='text' placeholder={userName} />
+                            <StyledInput label='Edit username' name='username' type='text' placeholder={userName}/>
 
                             <StyledButton
-                            width="150px"
+                            width="130px"
                             background="var(--primary)"
-                            margin="1.5em 0 0"
-                            padding="6px 10px"
+                            margin="1rem 0 0"
+                            padding="6px 15px"
                             boxShadow="0px 10px 13px -7px #808080"
                             backgroundHover='var(--tertiary)'
 							color='var(--secondary)'
-                            fontSize="10px"
-                            type='submit'>Update username</StyledButton>
+                            type='submit'>Save changes</StyledButton>
                         </StyledForm>
                     )}
 				</Formik>
@@ -106,9 +123,31 @@ const ProfilePage = () => {
 
 export default ProfilePage
 
-const StyledImage = styled.img`
-    width: 100px;
-    height: auto;
+// const StyledImage = styled.img`
+//     width: 100px;
+//     height: auto;
+// `
+
+const HeaderWrapper = styled.div`
+    text-align: center;
+    width: 60%;
+
+    @media screen and (min-width: 768px) {
+        width: 50%;
+    }
+`
+
+const ProfileInfoWrapper = styled.div`
+    background: var(--secondary);
+    padding: 1rem;
+    border-radius: 10px;
+    margin: 0 0 4rem;
+    width: 60%;
+    text-align: center;
+
+    @media screen and (min-width: 768px) {
+        width: 50%;
+    }
 `
 
 const StyledForm = styled(Form)`
@@ -117,7 +156,6 @@ const StyledForm = styled(Form)`
 	justify-content: center;
 	align-items: center;
 	margin: 1rem 0;
-    // gap: 0.5rem;
 `
 
 const StyledLabel = styled.label`
@@ -132,12 +170,16 @@ const StyledInput = styled(MyTextInput)`
 	border-radius: 15px;
 	padding: 6px 10px;
 	box-shadow: inset 0px 4px 4px 0px #adadad;
+    font-size: 1rem;
 
     &:focus {
 		outline: none;
 		border-bottom: 3px solid var(--primary);
-        // border-bottom: 3px solid var(--tertiary);
 	}
+
+    @media screen and (min-width: 768px) {
+        // width: 250px;
+    }
 `
 
 const StyledError = styled.div`

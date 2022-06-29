@@ -25,8 +25,8 @@ const SignOut = () => {
 export default SignOut
 
 const SignOutButton = styled.button`
-	width: 40px;
-	height: 40px;
+	width: 35px;
+	height: 35px;
 	border-radius: 50%;
 	background: var(--primary);
 	display: flex;
@@ -40,8 +40,8 @@ const SignOutButton = styled.button`
 	// box-shadow: 0px 10px 13px -7px #808080; <-------change
 	font-size: 0.5rem;
 	position: absolute;
-	top: 10px;
-	right: 20px;
+	top: 6%;
+	right: 9%;
 	color: var(--black);
 	font-weight: bold;
 
@@ -50,6 +50,18 @@ const SignOutButton = styled.button`
 		outline: none;
 		background: var(--accentlilac);
 	}
+
+	@media screen and (min-width: 768px) {
+		top: 16%;
+		right: 7%;
+	}
+
+	@media screen and (min-width: 1024px) {
+		top: 15%;
+		right: 7%;
+		width: 40px;
+		height: 40px;
+	}	
 `
 
 const StyledImage = styled.img` 

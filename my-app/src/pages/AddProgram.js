@@ -9,8 +9,8 @@ import { API_URL } from '../utils/utils'
 import exercise from '../reducers/exercise'
 import ui from '../reducers/ui'
 import LoadingAnimation from '../components/LoadingAnimation'
-import SignOut from '../components/SignOut'
-import Header from '../components/Header'
+// import SignOut from '../components/SignOut'
+// import Header from '../components/Header'
 import Footer from '../components/Footer'
 import { OuterWrapper, InnerWrapper, HeadingOne } from '../styles/GlobalStyles'
 import { StyledButton } from '../styles/ButtonStyles'
@@ -61,11 +61,10 @@ const AddProgram = () => {
 				'Content-Type': 'application/json',
 			},
 		}
-
+		dispatch(ui.actions.setLoading(true))
 		fetch(API_URL(`myprogram/${programId}`), options)
 			.then((res) => res.json())
 			.then((data) => {
-				dispatch(ui.actions.setLoading(true))
 				if (data.success) {
 					setProgramName(data.response.programName)
 					setExerciseContent(data.response.exercise)
@@ -75,10 +74,13 @@ const AddProgram = () => {
 			})
 			.finally(() => dispatch(ui.actions.setLoading(false)))
 	}, [dispatch, programId])
+		
 
 	useEffect(() => {
-		fetchProgram()
-	}, [fetchProgram])
+		if (programId) {
+			fetchProgram()
+		}
+	}, [fetchProgram, programId])
 
 	const Schema = Yup.object().shape({
 		exercise: Yup.string()
@@ -131,8 +133,8 @@ const AddProgram = () => {
 		<LoadingAnimation />
 	) : (
 		<OuterWrapper>
-			<Header />
-			<InnerWrapper margin='18vh auto 4rem' desktopMargin='25vh auto 4rem'>
+			{/* <Header /> */}
+			<InnerWrapper margin='6vh auto 4rem' desktopMargin='10vh auto 4rem'>
 				{exerciseContent && (
 					<HeadingOne fontSize='2rem' color='#6EB3B8'>
 						{programName}
@@ -354,7 +356,7 @@ const AddProgram = () => {
 					<ExerciseGrid>
 						{exerciseContent.map((exercise) => (
 							<ExerciseContainer key={exercise._id}>
-								<HeadingOne fontSize='1.5rem'>{exercise.exercise}</HeadingOne>
+								<HeadingThree>{exercise.exercise}</HeadingThree>
 								<MetricsContentContainer>
 									<MetricsInputContainer>
 										<MetricsContainer>
@@ -391,7 +393,7 @@ const AddProgram = () => {
 					<StyledButton
 						width='150px'
 						background='var(--primary)'
-						margin='1em 0 0'
+						margin='1rem 0 0'
 						padding='6px 18px'
 						boxShadow='0px 10px 13px -7px #808080'
 						backgroundHover='var(--tertiary)'
@@ -401,7 +403,7 @@ const AddProgram = () => {
 					>
 						Done, go back!
 					</StyledButton>
-					<SignOut />
+					{/* <SignOut /> */}
 				</ButtonContainer>
 			</InnerWrapper>
 			<Footer />
@@ -542,6 +544,11 @@ const ExerciseContainer = styled.div`
 	padding: 1rem 2rem;
 	border-radius: 15px;
 	box-shadow: 0px 6px 13px 0px #adadad;
+`
+
+const HeadingThree = styled.h3`
+	font-size: 1rem;
+	color: var(--tertiary);
 `
 
 //-------------------------------------------- code for trying to have multiple sets --------------------------//

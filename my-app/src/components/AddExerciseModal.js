@@ -168,6 +168,7 @@ const StyledForm = styled(Form)`
 
 	@media screen and (min-width: 1024px) {
 		grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+		column-gap: 10px;
 	}
 `
 

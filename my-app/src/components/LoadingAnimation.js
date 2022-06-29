@@ -10,7 +10,6 @@ const LoadingAnimation = () => {
         <>
         <LoaderContainer>
             <Lottie animationData={spinnerLoader} />
-        {/* <p>Loading..</p> */}
         </LoaderContainer>
         </>
     )

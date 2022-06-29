@@ -49,8 +49,7 @@ const NotFoundWrapper = styled.section`
 `
 
 const StyledImage = styled.img`
-	width: 300px;
-	height: auto;
+	width: 250px;
 
 	@media screen and (min-width: 768px) {
 		width: 400px;

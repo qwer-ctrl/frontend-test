@@ -10,7 +10,6 @@ import deleteIcon from '../styles/images/delete.png'
 import editIcon from '../styles/images/edit.png'
 
 import ui from '../reducers/ui'
-import Header from '../components/Header'
 import Footer from '../components/Footer'
 import EditExerciseModal from '../components/EditExerciseModal'
 import DeleteExerciseModal from '../components/DeleteExerciseModal'
@@ -33,8 +32,8 @@ const SingleProgram = () => {
 	const showUpdateProgramModal = useSelector((store) => store.ui.showUpdateProgramModal)
 	const showEditExerciseModal = useSelector((store) => store.ui.showEditExerciseModal)
 	const showDeleteExerciseModal = useSelector((store) => store.ui.showDeleteExerciseModal)
-
 	const dispatch = useDispatch()
+
 
 	const fetchProgram = useCallback(() => {
 		const options = {
@@ -43,12 +42,12 @@ const SingleProgram = () => {
 				'Content-Type': 'application/json',
 			},
 		}
+		dispatch(ui.actions.setLoading(true))
 		fetch(API_URL(`myprogram/${programId}`), options)
 			.then((res) => res.json())
 			.then((data) => {
 				dispatch(ui.actions.setLoading(true))
 				console.log('data from single program fetch', data)
-				// dispatch(ui.actions.setLoading(true))
 				setProgramExercise(data.response.exercise)
 				setProgramName(data.response.programName)
 			})
@@ -109,10 +108,8 @@ const SingleProgram = () => {
 		<AllDoneLoader />
 	) : (
 		<OuterWrapper>
-			<Header />
-			{/* <AllDoneLoader /> */}
-			<InnerWrapper margin='18vh auto 4rem' desktopMargin='25vh auto 4rem'>
-				<HeadingOne fontSize='1.5rem' color='var(--tertiary)' margin='0 0 0.5rem'>
+			<InnerWrapper margin='6vh auto 3rem' desktopMargin='10vh auto 4rem'>
+				<HeadingOne fontSize='1.5rem' color='var(--tertiary)' margin='0 0 1.5rem'>
 					{programName}
 				</HeadingOne>
 				<ButtonContainer justifyContent='space-evenly' flexDirection='row'>
@@ -155,59 +152,62 @@ const SingleProgram = () => {
 					<Progress percent={percent} />
 				</ProgressContainer>
 				{progress}/{maxValue}
-				<ExerciseGrid>
-					{programExercise.map((item) => (
-						<ExerciseWrapper key={item._id}>
-							<HeaderAndCheck>
-								<HeadingThree>{item.exercise}</HeadingThree>
-								<label htmlFor='checkbox'></label>
-								<StyledCheckbox id='checkbox' type='checkbox' value={item._id} onChange={handleChecked} />
-							</HeaderAndCheck>
-							<ExerciseContentContainer>
-								<ExerciseContainer>
-									<MetricsContainer>
-										{item.sets ? <p>{item.sets} sets</p> : null}
-										{item.reps ? <p>{item.reps} sets</p> : null}
-										{item.weights ? <p>{item.weights}</p> : null}
-									</MetricsContainer>
-									<MetricsContainer>
-										{item.minutes ? <p>{item.minutes} minutes</p> : null}
-										{item.seconds ? <p>{item.seconds} seconds</p> : null}
-									</MetricsContainer>
-									<MetricsContainer>
-										{item.duration ? <p>{item.duration}</p> : null}
-										{item.exerciseLength ? <p>{item.exerciseLength}</p> : null}
-									</MetricsContainer>
-									<MetricsContainer>
-										{item.exerciseLink ? (
-											<p>
-												link:
-												<a href={item.exerciseLink} target='_blank' rel='noopener noreferrer'>
-													{item.exerciseLink}
-												</a>
-											</p>
-										) : null}
-									</MetricsContainer>
-									<MetricsContainer>
-										{item.comments ? <p>comments: {item.comments}</p> : null}
-									</MetricsContainer>
-								</ExerciseContainer>
-							</ExerciseContentContainer>
-							<IconContainer>
-								<IconButton onClick={() => handleEditExerciseModal(item._id)}>
-									<IconStyle src={editIcon} alt='editIcon' />
-								</IconButton>
-								{showEditExerciseModal ? <EditExerciseModal /> : null}
-								<IconButton onClick={() => handleDeleteExerciseModal(item._id)}>
-									<IconStyle src={deleteIcon} alt='deleteIcon' />
-								</IconButton>
-								{showDeleteExerciseModal ? <DeleteExerciseModal /> : null}
-							</IconContainer>
-						</ExerciseWrapper>
-					))}
-				</ExerciseGrid>
+				<ExerciseTimerWrapper>
+					<ExerciseGrid>
+						{programExercise.map((item) => (
+							<ExerciseWrapper key={item._id}>
+								<HeaderAndCheck>
+									<HeadingThree>{item.exercise}</HeadingThree>
+									<label htmlFor='checkbox'></label>
+									<StyledCheckbox id='checkbox' type='checkbox' value={item._id} onChange={handleChecked} />
+								</HeaderAndCheck>
+								<ExerciseContentContainer>
+									<ExerciseContainer>
+										<MetricsContainer>
+											{item.sets ? <p>{item.sets} sets</p> : null}
+											{item.reps ? <p>{item.reps} reps</p> : null}
+											{item.weights ? <p>{item.weights}</p> : null}
+										</MetricsContainer>
+										<MetricsContainer>
+											{item.minutes ? <p>{item.minutes} minutes</p> : null}
+											{item.seconds ? <p>{item.seconds} seconds</p> : null}
+										</MetricsContainer>
+										<MetricsContainer>
+											{item.duration ? <p>{item.duration}</p> : null}
+											{item.exerciseLength ? <p>{item.exerciseLength}</p> : null}
+										</MetricsContainer>
+										<MetricsContainer>
+											{item.exerciseLink ? (
+												<p>
+													link:
+													<a href={item.exerciseLink} target='_blank' rel='noopener noreferrer'>
+														{item.exerciseLink}
+													</a>
+												</p>
+											) : null}
+										</MetricsContainer>
+										<MetricsContainer>
+											{item.comments ? <p>comments: {item.comments}</p> : null}
+										</MetricsContainer>
+									</ExerciseContainer>
+								</ExerciseContentContainer>
+								<IconContainer>
+									<IconButton onClick={() => handleEditExerciseModal(item._id)}>
+										<IconStyle src={editIcon} alt='editIcon' />
+									</IconButton>
+									{showEditExerciseModal ? <EditExerciseModal /> : null}
+									<IconButton onClick={() => handleDeleteExerciseModal(item._id)}>
+										<IconStyle src={deleteIcon} alt='deleteIcon' />
+									</IconButton>
+									{showDeleteExerciseModal ? <DeleteExerciseModal /> : null}
+								</IconContainer>
+							</ExerciseWrapper>
+						))}
+						
+					</ExerciseGrid>
+					<Timer />
+				</ExerciseTimerWrapper>
 			</InnerWrapper>
-			<Timer />
 			<Footer />
 		</OuterWrapper>
 	)
@@ -215,12 +215,22 @@ const SingleProgram = () => {
 
 export default SingleProgram
 
+const ExerciseTimerWrapper = styled.section`
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 2rem;
+
+	@media screen and (min-width: 1024px) {
+		flex-direction: row;
+		margin-top: 1rem;
+	}
+`
+
 const ExerciseGrid = styled.section`
 	width: 100%;
-	// display: grid;
-	// grid-template-columns: repeat(auto-fit, minmax(200px, 0.5fr));
-	// gap: 5px;
-	// margin-top: 1rem;
 `
 
 const HeaderAndCheck = styled.div`
@@ -238,13 +248,12 @@ const ExerciseWrapper = styled.article`
 	padding: 0.8rem 0.8rem 1.6rem;
 	margin-top: 1rem;
 	position: relative;
+	width: 90%;
 	// z-index: -2;
 
 	@media screen and (min-width: 768px) {
-		 {
-			max-width: 550px;
-			margin: 1.2rem auto;
-		}
+		// max-width: 550px;
+		margin: 1.2rem auto;
 	}
 `
 
@@ -257,9 +266,6 @@ const ExerciseContainer = styled.div`
 	display: flex;
 	flex-direction: column;
 	align-items: flex-start;
-	// justify-content: space-evenly;
-	// padding: 10px;
-	// margin: 2rem;
 
 	p {
 		font-size: 0.9rem;
@@ -269,10 +275,8 @@ const ExerciseContainer = styled.div`
 		font-weight: 500;
 
 		@media screen and (min-width: 768px) {
-			 {
-				font-size: 1rem;
-				max-width: 25ch;
-			}
+			font-size: 1rem;
+			max-width: 25ch;
 		}
 `
 const MetricsContainer = styled.div`
@@ -289,14 +293,12 @@ const StyledCheckbox = styled.input`
 	}
 
 	@media screen and (min-width: 768px) {
-		{
-		 height: 20px;
-		 width: 20px;
+		height: 20px;
+		width: 20px;
 	 }
 	@media screen and (min-width: 1024px) {
-		{
-		 height: 25px;
-		 width: 25px;
+		height: 25px;
+		width: 25px;
 	 }
 `
 
@@ -309,17 +311,16 @@ const IconContainer = styled.div`
 	right: 0.42em;
 `
 const IconButton = styled.button`
-	 background: transparent;
-	 border: none;
-	 cursor: pointer;
-	 align-self: baseline;
+	background: transparent;
+	border: none;
+	cursor: pointer;
+	align-self: baseline;
 
-
-	 &:hover,
-	 &:focus {
-		 background: var(--primary);
-		 border-radius: 15px;
-
+	&:hover,
+	&:focus {
+		background: var(--primary);
+		border-radius: 15px;
+	}
 `
 
 const IconStyle = styled.img`
@@ -327,13 +328,12 @@ const IconStyle = styled.img`
 	padding: 0.35em 0.5em 0.25em;
 
 	@media screen and (min-width: 768px) {
-		{
-		 max-width: 20px;
-	 }
+		max-width: 20px;
+	}
+
 	@media screen and (min-width: 1024px) {
-		{
-		 max-width: 25px;
-	 }
+		max-width: 25px;
+	}
 `
 
 const ButtonContainer = styled.div`
@@ -351,6 +351,10 @@ const ProgressContainer = styled.div`
 	position: relative;
 	z-index: -1;
 	margin: 1rem 0 0.5rem;
+
+	@media screen and (min-width: 768px) {
+		margin: 2rem 0 1.5rem;
+	}
 `
 
 const BaseBox = styled.div`

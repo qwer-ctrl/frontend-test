@@ -24,11 +24,10 @@ const MyTextInput = ({ label, ...props }) => {
 
 const EditExerciseModal = () => {
 	const [exerciseContent, setExerciseContent] = useState('')
-	console.log('exCont', exerciseContent)
 	const exerciseId = useSelector((store) => store.ui.currentModalId)
 	const showModal = useSelector((store) => store.ui.showEditExerciseModal)
+	// const isLoading = useSelector((store) => store.ui.isLoading)
 	const dispatch = useDispatch()
-	console.log('exercise Id from edit exercise modal', exerciseId)
 
 	const closeModal = () => {
 		dispatch(ui.actions.setShowEditExerciseModal(false))
@@ -41,11 +40,10 @@ const EditExerciseModal = () => {
 				'Content-Type': 'application/json',
 			},
 		}
-
+		// dispatch(ui.actions.setLoading(true))
 		fetch(API_URL(`exercise/${exerciseId}`), options)
 			.then((res) => res.json())
 			.then((data) => {
-				// dispatch(ui.actions.setLoading(true))
 				setExerciseContent(data.response)
 			})
 		// .finally(() => dispatch(ui.actions.setLoading(false)))
@@ -69,6 +67,7 @@ const EditExerciseModal = () => {
 			{showModal ? (
 				<ModalContainer>
 					<StyledModal>
+					{/* {isLoading && <LoadingAnimation />} */}
 						<CloseButton onClick={closeModal}>x</CloseButton>
 						<Formik
 							initialValues={{

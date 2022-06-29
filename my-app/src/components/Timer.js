@@ -179,7 +179,7 @@ const TimerContainer = styled.div`
 	display: flex;
 	justify-content: space-evenly;
 	align-items: center;
-	margin: 0 0 6rem;
+	margin: 0 0 0;
 `
 
 const TimerBox = styled.div`

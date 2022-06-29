@@ -9,8 +9,10 @@ import * as Yup from 'yup'
 import { ModalContainer, StyledModal, CloseButton } from '../styles/ModalStyles'
 import { StyledButton } from '../styles/ButtonStyles'
 import { API_URL } from '../utils/utils'
+import LoadingAnimation from './LoadingAnimation'
 
 import ui from '../reducers/ui'
+
 
 const MyTextInput = ({ label, ...props }) => {
 	const [field, meta] = useField(props)
@@ -41,6 +43,8 @@ const ProgramModal = ({ showModal, setShowModal }) => {
 	const userId = useSelector((store) => store.user.userId)
 	const navigate = useNavigate()
 	const dispatch = useDispatch()
+	const isLoading = useSelector((store) => store.ui.isLoading)
+	// const programId = useSelector((store) => store.program.programId)
 
 	const closeModal = () => {
 		setShowModal((prev) => !prev)
@@ -51,7 +55,9 @@ const ProgramModal = ({ showModal, setShowModal }) => {
 		dispatch(program.actions.setProgramType(data.response.programType))
 		dispatch(program.actions.setProgramId(data.response._id))
 		console.log('hello', data.response._id)
-		navigate(`/addprogram/${data.response._id}`) //<---------------------change?
+		// if (programId) {
+			navigate(`/addprogram/${data.response._id}`) 
+		// }
 	}
 
 	const Schema = Yup.object().shape({
@@ -62,10 +68,12 @@ const ProgramModal = ({ showModal, setShowModal }) => {
 		programType: Yup.string().required('You have to choose a program type'),
 	})
 
+
 	return (
 		<>
 			{showModal ? (
 				<ModalContainer showModal={showModal}>
+					{isLoading && <LoadingAnimation />}
 					<StyledModal>
 						<CloseButton onClick={closeModal}>x</CloseButton>
 						<Formik

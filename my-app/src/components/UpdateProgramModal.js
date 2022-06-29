@@ -170,7 +170,6 @@ const StyledInput = styled(MyTextInput)`
 	&:focus {
 		outline: none;
 		border: 2px solid var(--primary);
-		// border-bottom: 3px solid var(--tertiary);
 	}
 `
 
@@ -187,7 +186,6 @@ const StyledCheckbox = styled(MyCheckbox)`
 	&:hover,
 	&:focus {
 		outline: 2px solid var(--primary);
-		// border: ;
 	}
 `
 

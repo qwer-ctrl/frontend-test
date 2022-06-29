@@ -33,6 +33,15 @@ const MyPage = () => {
 		setShowModal((prev) => !prev)
 	}
 
+	const hideModals = () => {
+		dispatch(ui.actions.setShowDeleteProgramModal(false))
+		dispatch(ui.actions.setShowAddExerciseModal(false))
+		dispatch(ui.actions.setShowUpdateProgramModal(false))
+		dispatch(ui.actions.setShowEditExerciseModal(false))
+		dispatch(ui.actions.setShowDeleteExerciseModal(false))
+	}
+	hideModals()
+
 	useEffect(() => {
 		if (!accessToken) {
 			navigate('/')
@@ -54,7 +63,12 @@ const MyPage = () => {
 			.then((res) => res.json())
 			.then((data) => {
 				if (data.success) {
-					dispatch(user.actions.setProgram(data.response.program))
+					console.log("data", data)
+					// if (data.response.program) {
+						dispatch(user.actions.setProgram(data.response.program))
+					// } else {
+					// 	dispatch(user.actions.setProgram([]))
+					// }
 					dispatch(program.actions.setError(null))
 				} else {
 					dispatch(program.actions.setError(data.response.success))
@@ -76,8 +90,7 @@ const MyPage = () => {
 		<>
 			<OuterWrapper>
 				<Header />
-				{/* <LoadingAnimation /> */}
-				<InnerWrapper margin='18vh auto 4rem' desktopMargin='26vh auto 0'>
+				<InnerWrapper margin='27vh auto 4rem' desktopMargin='30vh auto 0'>
 					{(!userHasProgram || userHasProgram.length < 1) && <EmptyState />}
 					{userHasProgram.length > 0 && (
 						<MainContainer>

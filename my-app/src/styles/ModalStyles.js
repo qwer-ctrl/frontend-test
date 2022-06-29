@@ -1,16 +1,16 @@
 import styled from 'styled-components/macro'
 
 export const ModalContainer = styled.div`
-  position: fixed;
-  z-index: 1
-  margin-top: 100px;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background: rgb(0,0,0,0.2);
-	z-index:3;
+	position: fixed;
+	z-index: 1
+	margin-top: 100px;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	overflow: auto;
+	background: rgb(0,0,0,0.2);
+	z-index: 3;
   `
 
 export const StyledModal = styled.div`
@@ -24,14 +24,12 @@ export const StyledModal = styled.div`
 	box-sizing: border-box;
 	background: var(--secondary);
 	border: 25px solid var(--white);
-	//border: none;
-	//border-left: 7px var(--primary) solid;
 	border-radius: 6px;
 	box-shadow: 0px 10px 13px 0px #808080;
 	position: relative;
 
 	@media screen and (min-width: 768px) {
-		max-width: 50%;
+		max-width: 60%;
 	}
 `
 
@@ -45,6 +43,7 @@ export const CloseButton = styled.button`
 	padding: 6px 15px;
 	box-shadow: 2px 3px 2px #888888;
 	box-shadow: 1px 3px 4px 0px #808080;
+
 	&:hover,
 	&:focus {
 		outline: none;

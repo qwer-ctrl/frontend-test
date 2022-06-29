@@ -3,7 +3,8 @@ import styled from 'styled-components/macro'
 export const StyledButton = styled.button`
 	color: var(--black);
 	width: ${(props) => props.width};
-	border-radius: 35px;
+	border-radius: 20px;
+	// border-radius: 35px;
 	background: ${(props) => props.background};
 	font-family: 'poppins';
 	text-transform: uppercase;
@@ -25,18 +26,15 @@ export const StyledButton = styled.button`
 	}
 
 	@media screen and (min-width: 768px) {
-		 {
-			font-size: 0.9em;
-			width: auto;
-			padding: 6px 11px;
-		}
+		// font-size: 0.8rem;
+		width: auto;
+		padding: 5px 15px;
+	}
 
 	@media screen and (min-width: 1024px) {
-		 {
-			font-size: 1em;
-			width: auto;
-			padding: 7px 14px;
-		}
+		// font-size: 0.8rem;
+		width: auto;
+		padding: 7px 14px;
 	}
 `
 
