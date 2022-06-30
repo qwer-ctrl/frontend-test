@@ -1,7 +1,6 @@
 import React from "react"
 import styled from "styled-components/macro"
 
-import { HeadingOne } from "../styles/GlobalStyles"
 import BurgerNav from "./BurgerNav"
 
 const NavBar = () => {
