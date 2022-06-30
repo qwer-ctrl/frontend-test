@@ -48,7 +48,6 @@ const StyledActiveLink = styled(NavLink)`
 	height: 40px;
 	border-radius: 50%;
 	background: transparent;
-	background: var(--secondary);
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -61,7 +60,7 @@ const StyledActiveLink = styled(NavLink)`
 		height: 2px;
 		width: 30px;
 		position: absolute;
-		bottom: 0.5em;
+		bottom: 0.9rem;
 	}
 
 	&:hover,

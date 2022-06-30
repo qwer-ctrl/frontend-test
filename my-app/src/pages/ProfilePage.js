@@ -12,6 +12,7 @@ import { API_URL } from '../utils/utils'
 import user from '../reducers/user'
 import LoadingAnimation from '../components/LoadingAnimation'
 import Footer from '../components/Footer'
+import NavBar from '../components/NavBar'
 
 
 const MyTextInput = ({ label, ...props }) => {
@@ -45,8 +46,9 @@ const ProfilePage = () => {
 		<LoadingAnimation /> 
 	) : (
 		<OuterWrapper>
-			<InnerWrapper margin='13vh auto 4rem' desktopMargin="20vh auto 4rem">
+			<InnerWrapper margin='0vh auto 4rem' desktopMargin="0vh auto 4rem">
                 {/* <StyledImage src={profileImage} />	 */}
+                <NavBar />
                 <HeaderWrapper>
                     <HeadingOne 
                         fontSize="1.2rem" 
@@ -131,6 +133,7 @@ export default ProfilePage
 const HeaderWrapper = styled.div`
     text-align: center;
     width: 60%;
+    margin-top: 15vh;
 
     @media screen and (min-width: 768px) {
         width: 50%;

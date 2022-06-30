@@ -18,6 +18,7 @@ import UpdateProgramModal from '../components/UpdateProgramModal'
 import DeleteProgramModal from '../components/DeleteProgramModal'
 import Timer from '../components/Timer'
 import AllDoneLoader from '../components/AllDoneLoader'
+import NavBar from '../components/NavBar'
 
 const SingleProgram = () => {
 	const { programId } = useParams()
@@ -105,8 +106,19 @@ const SingleProgram = () => {
 		<AllDoneLoader />
 	) : (
 		<OuterWrapper>
-			<InnerWrapper margin='6vh auto 3rem' desktopMargin='10vh auto 7rem'>
-				<HeadingOne fontSize='1.5rem' color='var(--tertiary)' margin='0 0 1.5rem'>
+			<InnerWrapper margin='0vh auto 3rem' desktopMargin='0vh auto 7rem'>
+				<NavBar />
+				<HeadingOne 
+					fontSize='1.5rem' 
+					color='var(--tertiary)' 
+					width="100%" 
+					textAlign="center" 
+					margin='0 0 1.5rem' 
+					borderBlockStart="1px solid var(--primary)" 
+					padding="1.5rem 0 0"
+					desktopPadding="1.5rem 0 0"
+					desktopMargin="0.5rem 0 1.5rem"
+					>
 					{programName}
 				</HeadingOne>
 				<ButtonContainer justifyContent='space-evenly' flexDirection='row'>
@@ -160,7 +172,6 @@ const SingleProgram = () => {
 									<label htmlFor='checkbox'></label>
 									<StyledCheckbox id='checkbox' type='checkbox' value={item._id} onChange={handleChecked} />
 								</HeaderAndCheck>
-								<ExerciseContentContainer>
 									<ExerciseContainer>
 										<MetricsContainer>
 											{item.sets ? <p>{item.sets} sets</p> : null}
@@ -189,7 +200,6 @@ const SingleProgram = () => {
 											{item.comments ? <p>comments: {item.comments}</p> : null}
 										</MetricsContainer>
 									</ExerciseContainer>
-								</ExerciseContentContainer>
 								<IconContainer>
 									<IconButton onClick={() => handleEditExerciseModal(item._id)}>
 										<IconStyle src={editIcon} alt='editIcon' />
@@ -371,9 +381,3 @@ const Progress = styled(BaseBox)`
 	width: ${({ percent }) => percent}%;
 `
 
-const ExerciseContentContainer = styled.section`
-	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
-	width: 100%;
-	column-gap: 5px;
-`

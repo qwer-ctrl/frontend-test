@@ -54,6 +54,7 @@ export const HeadingOne = styled.h1`
 	text-shadow: ${(props) => props.textShadow};
 	letter-spacing: 1.7px;
 	font-weight: ${props => props.fontWeight};
+	border-block-start: ${props => props.borderBlockStart};
 
 	@media screen and (min-width: 768px) {
 		font-size: ${(props) => props.tabletFontSize};

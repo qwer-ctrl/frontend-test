@@ -3,9 +3,12 @@ import { useSelector } from 'react-redux'
 import styled from 'styled-components/macro'
 // import  { keyframes } from 'styled-components'
 
-import SignOut from './SignOut'
 import { HeadingOne } from '../styles/GlobalStyles'
 // import DumbelImg from '../styles/images/dumbel.png'
+
+// import SignOut from './SignOut'
+import NavBar from './NavBar'
+
 
 
 const Header = () => {
@@ -29,18 +32,10 @@ const Header = () => {
 	return (
 		<HeaderContainer>
 			<HeaderTitleContainer>
-				<HeadingOne 
-					fontSize="1.5rem" 
-					textAlign="left" 
-					// width="85%" 
-					desktopFontSize="1.8rem" 
-					fontWeight="700"
-					// desktopMargin="4rem 0 1rem"
-					>
-						Flex 'n Joy
-				</HeadingOne>
+				
 				{/* <AnimatedImg src={DumbelImg} alt='dumbel' /> */}
-				<SignOut />
+				<NavBar />
+				{/* <SignOut /> */}
 			</HeaderTitleContainer>
 			
 			<GreetingBox>
@@ -67,7 +62,7 @@ export default Header
 const HeaderContainer = styled.header`
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
+	justify-content: space-evenly;
 	align-items: center;
 	height: 22vh;
 	position: fixed;
@@ -76,7 +71,7 @@ const HeaderContainer = styled.header`
 	right: 0;
 	z-index: 2;
 	background: var(--white);
-	padding-bottom: 5px;
+	padding-bottom: 1rem;
 
 	@media screen and (min-width: 768px) {
 		height: 20vh;
@@ -88,19 +83,7 @@ const HeaderContainer = styled.header`
 `
 
 const HeaderTitleContainer = styled.div`
-	width: 80%;	
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	margin: 1rem 0;
-
-	@media screen and (min-width: 768px) {
-		width: 85%;
-	}
-
-	@media screen and (min-width: 1024px) {
-		margin: 2rem 0 1rem;
-	}
+	width: 90%;	
 `
 
 const GreetingBox = styled.div`
@@ -109,6 +92,7 @@ const GreetingBox = styled.div`
 	border-radius: 10px;
 	padding: 0.5rem 0 0.5rem 1rem;
 	text-align: left;
+	margin-bottom: 0.5rem;
 
 	@media screen and (min-width: 768px) {
 		margin-top: 0.5rem;

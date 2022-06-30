@@ -136,10 +136,10 @@ const Timer = () => {
 			<TimerBox background={getBackground()}>
 				<TimerTitleContainer>
 					<TimerTitle>
-						Timer
 						<TimerIconSpan>
 							<StyledTimerImage src={timerIcon} />
 						</TimerIconSpan>
+						Timer
 					</TimerTitle>
 					<AccordionButton onClick={handleTimerToggle}>
 						<TimerSpan transform={transform}>
@@ -293,7 +293,7 @@ const TimerTitle = styled.h1`
 `
 
 const TimerIconSpan = styled.span`
-	margin: 5px 0 0 10px;
+	margin: 5px 10px 0 0;
 `
 
 const StyledTimerImage = styled.img`
