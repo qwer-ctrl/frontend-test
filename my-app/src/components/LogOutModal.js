@@ -75,6 +75,7 @@ const ButtonContainer = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 0.5rem;
 
     @media screen and (min-width: 768px) {
         width: 60%;
