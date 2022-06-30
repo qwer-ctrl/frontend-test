@@ -98,7 +98,7 @@ const SingleProgram = () => {
 		const progressbar = (updatedList.length / programExercise.length) * 100
 		setPercent(progressbar)
 
-		if (updatedList.length === programExercise.length){
+		if (updatedList.length === programExercise.length) {
 			dispatch(ui.actions.setFinishedWorkoutModal(true))
 		}
 	}
@@ -115,17 +115,17 @@ const SingleProgram = () => {
 				<NavBar />
 			</NavBarContainer>
 			<InnerWrapper margin='10vh auto 3rem' desktopMargin='13vh auto 7rem'>
-				<HeadingOne 
-					fontSize='1.5rem' 
-					color='var(--tertiary)' 
-					width="100%" 
-					textAlign="center" 
-					margin='1rem 0 1.5rem' 
-					borderBlockStart="1px solid var(--primary)" 
-					padding="2rem 0 0"
-					desktopPadding="3rem 0 0"
-					desktopMargin="0.5rem 0 1.5rem"
-					>
+				<HeadingOne
+					fontSize='1.5rem'
+					color='var(--tertiary)'
+					width='100%'
+					textAlign='center'
+					margin='1rem 0 1.5rem'
+					borderBlockStart='1px solid var(--primary)'
+					padding='2rem 0 0'
+					desktopPadding='3rem 0 0'
+					desktopMargin='0.5rem 0 1.5rem'
+				>
 					{programName}
 				</HeadingOne>
 				<ButtonContainer justifyContent='space-evenly' flexDirection='row'>
@@ -180,34 +180,34 @@ const SingleProgram = () => {
 									<label htmlFor='checkbox'></label>
 									<StyledCheckbox id='checkbox' type='checkbox' value={item._id} onChange={handleChecked} />
 								</HeaderAndCheck>
-									<ExerciseContainer>
-										<MetricsContainer>
-											{item.sets ? <p>{item.sets} sets</p> : null}
-											{item.reps ? <p>{item.reps} reps</p> : null}
-											{item.weights ? <p>{item.weights}</p> : null}
-										</MetricsContainer>
-										<MetricsContainer>
-											{item.minutes ? <p>{item.minutes} minutes</p> : null}
-											{item.seconds ? <p>{item.seconds} seconds</p> : null}
-										</MetricsContainer>
-										<MetricsContainer>
-											{item.duration ? <p>{item.duration}</p> : null}
-											{item.exerciseLength ? <p>{item.exerciseLength}</p> : null}
-										</MetricsContainer>
-										<MetricsContainer>
-											{item.exerciseLink ? (
-												<p>
-													link:&nbsp;
-													<a href={item.exerciseLink} target='_blank' rel='noopener noreferrer'>
-														{item.exerciseLink}
-													</a>
-												</p>
-											) : null}
-										</MetricsContainer>
-										<MetricsContainer>
-											{item.comments ? <p>comments: {item.comments}</p> : null}
-										</MetricsContainer>
-									</ExerciseContainer>
+								<ExerciseContainer>
+									<MetricsContainer>
+										{item.sets ? <p>{item.sets} sets</p> : null}
+										{item.reps ? <p>{item.reps} reps</p> : null}
+										{item.weights ? <p>{item.weights}</p> : null}
+									</MetricsContainer>
+									<MetricsContainer>
+										{item.minutes ? <p>{item.minutes} minutes</p> : null}
+										{item.seconds ? <p>{item.seconds} seconds</p> : null}
+									</MetricsContainer>
+									<MetricsContainer>
+										{item.duration ? <p>{item.duration}</p> : null}
+										{item.exerciseLength ? <p>{item.exerciseLength}</p> : null}
+									</MetricsContainer>
+									<MetricsContainer>
+										{item.exerciseLink ? (
+											<p>
+												link:&nbsp;
+												<a href={item.exerciseLink} target='_blank' rel='noopener noreferrer'>
+													{item.exerciseLink}
+												</a>
+											</p>
+										) : null}
+									</MetricsContainer>
+									<MetricsContainer>
+										{item.comments ? <p>comments: {item.comments}</p> : null}
+									</MetricsContainer>
+								</ExerciseContainer>
 								<IconContainer>
 									<IconButton onClick={() => handleEditExerciseModal(item._id)}>
 										<IconStyle src={editIcon} alt='editIcon' />
@@ -232,19 +232,20 @@ const SingleProgram = () => {
 export default SingleProgram
 
 const NavBarContainer = styled.section`
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    align-items: center;
-    height: 10vh;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 2;
-    background: var(--white);
-    padding-bottom: 1rem;
-
+	display: flex;
+	flex-direction: column;
+	justify-content: space-evenly;
+	align-items: center;
+	height: 10vh;
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	z-index: 2;
+	background: var(--white);
+	padding-bottom: 1rem;
+	max-width: 850px;
+	margin: auto;
 `
 
 const ExerciseTimerWrapper = styled.section`
@@ -404,4 +405,3 @@ const Progress = styled(BaseBox)`
 	background: var(--accentlilac);
 	width: ${({ percent }) => percent}%;
 `
-

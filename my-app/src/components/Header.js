@@ -6,8 +6,6 @@ import { HeadingOne } from '../styles/GlobalStyles'
 
 import NavBar from './NavBar'
 
-
-
 const Header = () => {
 	const userName = useSelector((store) => store.user.username)
 
@@ -27,9 +25,9 @@ const Header = () => {
 	}
 
 	return (
-		<HeaderContainer>				
+		<HeaderContainer>
 			<NavBar />
-			
+
 			<GreetingBox>
 				<HeadingOne
 					fontSize='0.9rem'
@@ -39,13 +37,12 @@ const Header = () => {
 					desktopWidth='300px'
 					desktopFontSize='1.2rem'
 					textShadow='2px 3px 2px #a0c1af'
-					fontWeight="500"
+					fontWeight='500'
 				>
 					{showGreeting()}
 					<StyledHeader>{userName}</StyledHeader>
 				</HeadingOne>
 			</GreetingBox>
-
 		</HeaderContainer>
 	)
 }
@@ -72,6 +69,8 @@ const HeaderContainer = styled.header`
 
 	@media screen and (min-width: 1024px) {
 		height: 25vh;
+		max-width: 900px;
+		margin: auto;
 	}
 `
 

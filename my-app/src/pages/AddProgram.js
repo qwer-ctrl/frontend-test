@@ -226,9 +226,9 @@ const AddProgram = () => {
 								</StyledInputButton>
 
 								<StyledInputButton
+									changeColor={displayExerciseLink}
 									onClick={handleExerciseLinkState}
 									type='button'
-									changeColor={displayExerciseLink}
 								>
 									Link
 								</StyledInputButton>

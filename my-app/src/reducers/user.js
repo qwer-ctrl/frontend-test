@@ -8,6 +8,7 @@ const user = createSlice({
 		program: [],
 		accessToken: null,
 		error: null,
+		workoutCounter: 0,
 	},
 	reducers: {
 		setUserId: (store, action) => {
@@ -24,6 +25,11 @@ const user = createSlice({
 		},
 		setError: (store, action) => {
 			store.error = action.payload
+		},
+		setWorkoutCounter: (store, action) => {
+			if (action.payload === store.userId) {
+				store.workoutCounter++
+			}
 		},
 	},
 })

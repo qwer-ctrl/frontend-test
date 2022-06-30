@@ -13,7 +13,6 @@ const ui = createSlice({
 		showLogOutModal: false,
 		currentModalId: null,
 		currentAddExerciseModalId: null,
-		workoutCounter: null,
 	},
 	reducers: {
 		setLoading: (store, action) => {
@@ -45,9 +44,6 @@ const ui = createSlice({
 		},
 		setCurrentAddExerciseModalId: (store, action) => {
 			store.currentAddExerciseModalId = action.payload
-		},
-		setWorkoutCounter: (store, action) => {
-			store.workoutCounter = action.payload
 		},
 	},
 })
