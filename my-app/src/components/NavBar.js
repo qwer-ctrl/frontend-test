@@ -9,14 +9,9 @@ const NavBar = () => {
 
     return (
         <Nav>
-            <HeadingOne 
-					fontSize="1.5rem" 
-					textAlign="left" 
-					desktopFontSize="1.8rem" 
-					fontWeight="700"
-					>
-						Flex 'n Joy
-			</HeadingOne>
+            <LogoTitle>
+				Flex 'n Joy
+			</LogoTitle>
             <BurgerNav />
         </Nav>
 
@@ -26,7 +21,7 @@ const NavBar = () => {
 export default NavBar
 
 const Nav = styled.nav`
-    width: 100%;
+    width: 82%;
     height: 60px;
     padding: 1.5rem 0 0.5rem 0.8rem;
     display: flex;
@@ -37,5 +32,21 @@ const Nav = styled.nav`
         padding: 2rem 0 0;
     }
 
+    @media screen and (min-width: 1024px) {
+        width: 90%;
+    }
+`
+
+const LogoTitle = styled.h1`
+    font-family: "Boogaloo", cursive;
+    font-size: 2rem;
+    // text-transform: uppercase;
+    text-align: left;
+    color: var(--tertiary);
+    // font-weight: 700;
+    
+    @media screen and (min-width: 1024px) {
+        font-size: 3rem;
+    }
 `
 

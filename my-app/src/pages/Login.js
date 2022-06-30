@@ -169,7 +169,7 @@ const Login = () => {
 									margin='1em 0 0'
 									padding='6px 18px'
 									boxShadow='none'
-									textDecoration='underline'
+									textDecorationHover='underline'
 									type='button'
 									onClick={() => setMode('register')}
 								>
@@ -181,7 +181,7 @@ const Login = () => {
 									margin='1em 0 0'
 									padding='6px 18px'
 									boxShadow='none'
-									textDecoration='underline'
+									textDecorationHover='underline'
 									type='button'
 									onClick={() => setMode('login')}
 								>

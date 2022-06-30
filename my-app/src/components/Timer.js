@@ -323,7 +323,7 @@ const AccordionButton = styled.button`
 `
 
 const TimerSpan = styled.span`
-	transform: ${(props) => (props.transform ? 'rotate(-0.5turn)' : '')};
+	transform: ${(props) => (props.transform ? 'rotate(-0.5turn)' : undefined)};
 	transition: all ease-out 0.5s;
 `
 

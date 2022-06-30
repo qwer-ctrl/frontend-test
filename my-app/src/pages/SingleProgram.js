@@ -16,6 +16,7 @@ import DeleteExerciseModal from '../components/DeleteExerciseModal'
 import AddExerciseModal from '../components/AddExerciseModal'
 import UpdateProgramModal from '../components/UpdateProgramModal'
 import DeleteProgramModal from '../components/DeleteProgramModal'
+import FinishedWorkoutModal from '../components/FinishedWorkoutModal'
 import Timer from '../components/Timer'
 import AllDoneLoader from '../components/AllDoneLoader'
 import NavBar from '../components/NavBar'
@@ -33,6 +34,7 @@ const SingleProgram = () => {
 	const showUpdateProgramModal = useSelector((store) => store.ui.showUpdateProgramModal)
 	const showEditExerciseModal = useSelector((store) => store.ui.showEditExerciseModal)
 	const showDeleteExerciseModal = useSelector((store) => store.ui.showDeleteExerciseModal)
+	const showFinishedWorkoutModal = useSelector((store) => store.ui.showFinishedWorkoutModal)
 	const dispatch = useDispatch()
 
 	const fetchProgram = useCallback(() => {
@@ -96,6 +98,10 @@ const SingleProgram = () => {
 		setChecked(updatedList)
 		const progressbar = (updatedList.length / programExercise.length) * 100
 		setPercent(progressbar)
+
+		if (updatedList.length === programExercise.length){
+			dispatch(ui.actions.setFinishedWorkoutModal(true))
+		}
 	}
 
 	const progress = updatedList.length
@@ -106,17 +112,19 @@ const SingleProgram = () => {
 		<AllDoneLoader />
 	) : (
 		<OuterWrapper>
-			<InnerWrapper margin='0vh auto 3rem' desktopMargin='0vh auto 7rem'>
+			<NavBarContainer>
 				<NavBar />
+			</NavBarContainer>
+			<InnerWrapper margin='10vh auto 3rem' desktopMargin='13vh auto 7rem'>
 				<HeadingOne 
 					fontSize='1.5rem' 
 					color='var(--tertiary)' 
 					width="100%" 
 					textAlign="center" 
-					margin='0 0 1.5rem' 
+					margin='1rem 0 1.5rem' 
 					borderBlockStart="1px solid var(--primary)" 
-					padding="1.5rem 0 0"
-					desktopPadding="1.5rem 0 0"
+					padding="2rem 0 0"
+					desktopPadding="3rem 0 0"
 					desktopMargin="0.5rem 0 1.5rem"
 					>
 					{programName}
@@ -162,6 +170,7 @@ const SingleProgram = () => {
 				</ProgressContainer>
 				{progress}/{maxValue}
 				<ExerciseTimerWrapper>
+					{showFinishedWorkoutModal ? <FinishedWorkoutModal /> : null}
 					<ExerciseGrid>
 						{programExercise.map((item) => (
 							<ExerciseWrapper key={item._id}>
@@ -216,12 +225,28 @@ const SingleProgram = () => {
 					<Timer />
 				</ExerciseTimerWrapper>
 			</InnerWrapper>
-			<Footer />
+			{/* <Footer /> */}
 		</OuterWrapper>
 	)
 }
 
 export default SingleProgram
+
+const NavBarContainer = styled.section`
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 10vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 2;
+    background: var(--white);
+    padding-bottom: 1rem;
+
+`
 
 const ExerciseTimerWrapper = styled.section`
 	width: 100%;

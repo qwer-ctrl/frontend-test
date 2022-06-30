@@ -53,6 +53,10 @@ const StyledActiveLink = styled(NavLink)`
 	align-items: center;
 	border-bottom: none;
 
+	@media screen and (min-width: 768px) {
+		display: none;
+	}
+
 	&.active:after {
 		display: block;
 		background: var(--black);
@@ -60,7 +64,7 @@ const StyledActiveLink = styled(NavLink)`
 		height: 2px;
 		width: 30px;
 		position: absolute;
-		bottom: 0.9rem;
+		bottom: 0.5rem;
 	}
 
 	&:hover,

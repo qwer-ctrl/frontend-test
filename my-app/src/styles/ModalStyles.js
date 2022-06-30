@@ -14,7 +14,7 @@ export const ModalContainer = styled.div`
   `
 
 export const StyledModal = styled.div`
-	margin: 20px auto;
+	margin: ${props => props.margin};
 	padding: 2rem 2rem 4rem;
 	display: flex;
 	flex-direction: column;
@@ -30,6 +30,7 @@ export const StyledModal = styled.div`
 
 	@media screen and (min-width: 768px) {
 		max-width: 60%;
+		margin: 30px auto;
 	}
 `
 

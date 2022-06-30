@@ -97,7 +97,6 @@ const AddProgram = () => {
 
 	const handleSetsState = () => {
 		setDisplaySets(!displaySets)
-		console.log('toggle')
 	}
 	const handleRepsState = () => {
 		setDisplayReps(!displayReps)
@@ -482,4 +481,9 @@ const StyledInputButton = styled.button`
 		outline: none;
 		background: var(--tertiary);
 		color: var(--secondary);
+	}
+
+	&:focus {
+		outline: 1px solid var(--tertiary);
+	}
 `

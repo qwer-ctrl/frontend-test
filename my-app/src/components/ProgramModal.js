@@ -70,7 +70,7 @@ const ProgramModal = ({ showModal, setShowModal }) => {
 			{showModal ? (
 				<ModalContainer showModal={showModal}>
 					{isLoading && <LoadingAnimation />}
-					<StyledModal>
+					<StyledModal margin="20px auto">
 						<CloseButton onClick={closeModal}><StyledSpan>x</StyledSpan></CloseButton>
 						<Formik
 							initialValues={{

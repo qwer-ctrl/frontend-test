@@ -40,7 +40,7 @@ const DeleteExerciseModal = () => {
 		<>
 			{showModal ? (
 				<ModalContainer>
-					<StyledModal>
+					<StyledModal margin="20px auto">
 						<CloseButton onClick={closeModal}><StyledSpan>x</StyledSpan></CloseButton>
 						<HeadingOne
 							fontSize="1.2rem"

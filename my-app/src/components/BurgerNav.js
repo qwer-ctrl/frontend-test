@@ -1,40 +1,57 @@
 import React, { useState } from "react"
 import { NavLink } from "react-router-dom"
 import styled from "styled-components/macro"
-import { useDispatch } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
 
-import user from '../reducers/user'
+import ui from "../reducers/ui"
+import LogOutModal from "./LogOutModal"
 
 const BurgerNav = () => {
     const [open, setOpen] = useState(false)
-    const navigate = useNavigate()
+    // const navigate = useNavigate()
 	const dispatch = useDispatch()
+    const showLogOutModal = useSelector((store) => store.ui.showLogOutModal)
 
-	const removeToken = () => {
-		dispatch(user.actions.setAccessToken(null))
-		navigate('/')
-	}
+	const handleLogOut = () => {
+        dispatch(ui.actions.setShowLogOutModal(true))
+    }
 
      return (
         <>
-            <StyledBurger open={open} onClick={() => setOpen(!open)}>
-                <div></div>
-                <div></div>
-                <div></div>
-            </StyledBurger>
-            <StyledList open={open}>
-                <li><StyledNavLink to="/mypage" activeclassname='selected'>Home</StyledNavLink></li>
-                {/* <li><NavLink>Timer</NavLink></li> */}
-                {/* <li><NavLink>About</NavLink></li> */}
-                <li><StyledNavLink to="/profilepage" activeclassname='selected'>Profile</StyledNavLink></li>
-                <li><LogOutButton onClick={() => removeToken()}>Log Out</LogOutButton></li>
-            </StyledList>
+            {/* <NavContainer open={open}> */}
+                <StyledBurger open={open} onClick={() => setOpen(!open)}>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </StyledBurger>
+                <StyledList open={open}>
+                    <li><StyledNavLink to="/mypage" activeclassname='selected'>Home</StyledNavLink></li>
+                    {/* <li><NavLink>Timer</NavLink></li> */}
+                    {/* <li><NavLink>About</NavLink></li> */}
+                    <li><StyledNavLink to="/profilepage" activeclassname='selected'>Profile</StyledNavLink></li>
+                    <li><LogOutButton onClick={() => handleLogOut()}>Log Out</LogOutButton></li>
+                </StyledList>
+                {showLogOutModal ? <LogOutModal /> : null}
+            {/* </NavContainer> */}
         </>
      )
 }
 
 export default BurgerNav
+
+// const NavContainer = styled.section`
+//     width: 90%;
+// //     position: fixed;
+// //     z-index: 1
+// //     margin-top: 100px;
+// //     left: 0;
+// //     top: 0;
+// //     width: 100%;
+// //     height: 100%;
+// //     overflow: auto;
+// //     background-color: ${({ open}) => open ? "#00000033" : "transparent"};
+// //     z-index: 3;
+// `
 
 const StyledBurger = styled.div`
     width: 2rem;
@@ -84,6 +101,7 @@ const StyledList = styled.ul`
 
     li {
         padding: 18px 10px;
+        font-size: 1rem;
     }
 
     @media screen and (max-width: 768px) {
@@ -118,7 +136,10 @@ const StyledNavLink = styled(NavLink)`
 `
 
 const LogOutButton = styled.button`
+    font-family: "Jost", sans-serif;
+    appearance: none;
     border: none;
     background: transparent;
-
+    font-size: 1rem;
+    color: var(--black);
 `

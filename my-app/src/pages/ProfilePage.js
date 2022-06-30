@@ -30,6 +30,7 @@ const ProfilePage = () => {
 	const isLoading = useSelector((store) => store.ui.isLoading)
     const userId = useSelector((store) => store.user.userId)
     const userName = useSelector((store) => store.user.username)
+    const workoutCounter = useSelector((store) => store.ui.workoutCounter)
 	const dispatch = useDispatch()
 
 	const handleData = (data) => {
@@ -46,9 +47,11 @@ const ProfilePage = () => {
 		<LoadingAnimation /> 
 	) : (
 		<OuterWrapper>
-			<InnerWrapper margin='0vh auto 4rem' desktopMargin="0vh auto 4rem">
-                {/* <StyledImage src={profileImage} />	 */}
+            <NavBarContainer>
                 <NavBar />
+            </NavBarContainer>
+			<InnerWrapper margin='10vh auto 4rem' desktopMargin="10vh auto 4rem">
+                {/* <StyledImage src={profileImage} />	 */}
                 <HeaderWrapper>
                     <HeadingOne 
                         fontSize="1.2rem" 
@@ -70,6 +73,12 @@ const ProfilePage = () => {
                         margin="0 0 1rem">
                             Username: {userName}
                     </HeadingOne>
+                    <HeadingOne 
+                        fontSize="0.9rem" 
+                        margin="0 0 1rem">
+                            Total workouts: {workoutCounter > 0 ? workoutCounter : '-'}
+                    </HeadingOne>
+                            
                 </ProfileInfoWrapper>
 
                 <Formik
@@ -130,17 +139,33 @@ export default ProfilePage
 //     height: auto;
 // `
 
-const HeaderWrapper = styled.div`
+const NavBarContainer = styled.section`
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 10vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 2;
+    background: var(--white);
+    padding-bottom: 1rem;
+`
+
+const HeaderWrapper = styled.section`
+    width: 100%;
     text-align: center;
-    width: 60%;
-    margin-top: 15vh;
+    border-block-start: 1px solid var(--primary);
+    padding: 7rem 0 0;
+    margin: 1rem 0 0;
 
     @media screen and (min-width: 768px) {
-        width: 50%;
     }
 `
 
-const ProfileInfoWrapper = styled.div`
+const ProfileInfoWrapper = styled.article`
     background: var(--secondary);
     padding: 1rem;
     border-radius: 10px;

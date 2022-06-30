@@ -31,12 +31,12 @@ const Header = () => {
 
 	return (
 		<HeaderContainer>
-			<HeaderTitleContainer>
+			{/* <HeaderTitleContainer> */}
 				
 				{/* <AnimatedImg src={DumbelImg} alt='dumbel' /> */}
-				<NavBar />
+			<NavBar />
 				{/* <SignOut /> */}
-			</HeaderTitleContainer>
+			{/* </HeaderTitleContainer> */}
 			
 			<GreetingBox>
 				<HeadingOne
@@ -82,9 +82,9 @@ const HeaderContainer = styled.header`
 	}
 `
 
-const HeaderTitleContainer = styled.div`
-	width: 90%;	
-`
+// const HeaderTitleContainer = styled.div`
+// 	width: 90%;	
+// `
 
 const GreetingBox = styled.div`
 	background: var(--background);
