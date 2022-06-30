@@ -10,7 +10,6 @@ import deleteIcon from '../styles/images/delete.png'
 import editIcon from '../styles/images/edit.png'
 
 import ui from '../reducers/ui'
-// import Footer from '../components/Footer'
 import EditExerciseModal from '../components/EditExerciseModal'
 import DeleteExerciseModal from '../components/DeleteExerciseModal'
 import AddExerciseModal from '../components/AddExerciseModal'

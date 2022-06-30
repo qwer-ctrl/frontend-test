@@ -36,6 +36,10 @@ export const InnerWrapper = styled.section`
 	align-items: center;
 	justify-content: center;
 
+	@media screen and (min-width: 768px) {
+		margin: ${props => props.tabletMargin};
+	}
+
 	@media screen and (min-width: 1024px) {
 		width: 70%;
 		margin: ${(props) => props.desktopMargin};

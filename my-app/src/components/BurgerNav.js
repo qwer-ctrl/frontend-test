@@ -8,7 +8,6 @@ import LogOutModal from "./LogOutModal"
 
 const BurgerNav = () => {
     const [open, setOpen] = useState(false)
-    // const navigate = useNavigate()
 	const dispatch = useDispatch()
     const showLogOutModal = useSelector((store) => store.ui.showLogOutModal)
 
@@ -18,40 +17,36 @@ const BurgerNav = () => {
 
      return (
         <>
-            {/* <NavContainer open={open}> */}
-                <StyledBurger open={open} onClick={() => setOpen(!open)}>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                </StyledBurger>
-                <StyledList open={open}>
-                    <li><StyledNavLink to="/mypage" activeclassname='selected'>Home</StyledNavLink></li>
-                    {/* <li><NavLink>Timer</NavLink></li> */}
-                    {/* <li><NavLink>About</NavLink></li> */}
-                    <li><StyledNavLink to="/profilepage" activeclassname='selected'>Profile</StyledNavLink></li>
-                    <li><LogOutButton onClick={() => handleLogOut()}>Log Out</LogOutButton></li>
-                </StyledList>
-                {showLogOutModal ? <LogOutModal /> : null}
-            {/* </NavContainer> */}
+            <StyledBurger open={open} onClick={() => setOpen(!open)}>
+                <div></div>
+                <div></div>
+                <div></div>
+            </StyledBurger>
+            <NavContainer open={open}></NavContainer>
+            <StyledList open={open}>
+                <li><StyledNavLink to="/mypage" activeclassname='selected'>Home</StyledNavLink></li>
+                <li><StyledNavLink to="/about" activeclassname='selected'>About</StyledNavLink></li>
+                <li><StyledNavLink to="/profilepage" activeclassname='selected'>Profile</StyledNavLink></li>
+                <li><LogOutButton onClick={() => handleLogOut()}>Log Out</LogOutButton></li>
+            </StyledList>
+            {showLogOutModal ? <LogOutModal /> : null}
         </>
      )
 }
 
 export default BurgerNav
 
-// const NavContainer = styled.section`
-//     width: 90%;
-// //     position: fixed;
-// //     z-index: 1
-// //     margin-top: 100px;
-// //     left: 0;
-// //     top: 0;
-// //     width: 100%;
-// //     height: 100%;
-// //     overflow: auto;
-// //     background-color: ${({ open}) => open ? "#00000033" : "transparent"};
-// //     z-index: 3;
-// `
+const NavContainer = styled.section`
+    display: ${({ open}) => open ? "block" : "none"};
+    width: 90%;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: #e4f1ed42;
+`
 
 const StyledBurger = styled.div`
     width: 2rem;
@@ -71,7 +66,7 @@ const StyledBurger = styled.div`
     div {
         width: 2rem;
         height: 0.25rem;
-        background-color: ${({ open}) => open ? "var(--accentlilac)" : "var(--tertiary)"};
+        background-color: ${({ open}) => open ? "var(--tertiary)" : "var(--tertiary)"};
         border-radius: 10px;
         transform-origin: 1px;
         transition: all 0.3s linear;

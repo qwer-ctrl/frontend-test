@@ -1,12 +1,9 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import styled from 'styled-components/macro'
-// import  { keyframes } from 'styled-components'
 
 import { HeadingOne } from '../styles/GlobalStyles'
-// import DumbelImg from '../styles/images/dumbel.png'
 
-// import SignOut from './SignOut'
 import NavBar from './NavBar'
 
 
@@ -30,13 +27,8 @@ const Header = () => {
 	}
 
 	return (
-		<HeaderContainer>
-			{/* <HeaderTitleContainer> */}
-				
-				{/* <AnimatedImg src={DumbelImg} alt='dumbel' /> */}
+		<HeaderContainer>				
 			<NavBar />
-				{/* <SignOut /> */}
-			{/* </HeaderTitleContainer> */}
 			
 			<GreetingBox>
 				<HeadingOne
@@ -53,6 +45,7 @@ const Header = () => {
 					<StyledHeader>{userName}</StyledHeader>
 				</HeadingOne>
 			</GreetingBox>
+
 		</HeaderContainer>
 	)
 }
@@ -82,10 +75,6 @@ const HeaderContainer = styled.header`
 	}
 `
 
-// const HeaderTitleContainer = styled.div`
-// 	width: 90%;	
-// `
-
 const GreetingBox = styled.div`
 	background: var(--background);
 	width: 80%;
@@ -105,27 +94,3 @@ const StyledHeader = styled.p`
 	line-height: 35px;
 	color: #303030;
 `
-
-// const bounce = keyframes`
-// 0% {
-// 	transform: scale(1, 1) translateY(0);
-// }
-// 10% {
-// 	transform: scale(1.1, 0.9) translateY(0);
-// }
-// 30% {
-// 	transform: scale(0.9, 1.1) translateY(-10px);
-// }
-// 50% {
-// 	transform: scale(1, 1) translateY(0);
-// }
-// 100% {
-// 	transform: scale(0.7, 1, 1) translateY(-5px);
-// }
-// `
-
-// const AnimatedImg = styled.img`
-// 	@media screen and (min-width: 768px) {
-// 		animation: ${bounce} linear 1.5s 2;
-// 	}
-// `

@@ -43,7 +43,6 @@ const LogOutModal = () => {
                         <ButtonContainer>
                             <StyledButton
                                 width="175px"
-                                // tabletWidth="200px"
                                 background="var(--primary)"
                                 margin="1.5em 0 0"
                                 padding="6px 10px"
@@ -54,7 +53,6 @@ const LogOutModal = () => {
 
                             <StyledButton
                                 width="175px"
-                                // tabletWidth="200px"
                                 background="transparent"
                                 margin="1.5em 0 0"
                                 padding="6px 8px"

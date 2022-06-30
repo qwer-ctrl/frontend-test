@@ -5,7 +5,7 @@ import { Formik, Form, useField } from 'formik'
 import * as Yup from 'yup'
 import styled from 'styled-components/macro'
 
-import { OuterWrapper, InnerWrapper } from '../styles/GlobalStyles'
+import { OuterWrapper, InnerWrapper, HeadingOne } from '../styles/GlobalStyles'
 import { StyledButton } from '../styles/ButtonStyles'
 import loginImage from '../styles/images/login-image.png'
 
@@ -85,112 +85,117 @@ const Login = () => {
 
 	return (
 		<OuterWrapper>
-			<InnerWrapper margin='0 auto 2rem'>
-				<StyledImage src={loginImage} />
+			<InnerWrapper margin='5vh auto 2rem' tabletMargin="15vh auto 2rem" desktopMargin="15vh auto 2rem">
 
-				<TitleContainer>
-					{mode === 'login' ? (
-						<StyledTitle>Login and start moving!</StyledTitle>
-					) : (
-						<StyledTitle>Register for Flex 'n Joy!</StyledTitle>
-					)}
-					{mode === 'register' ? (
-						<p>
-							Flex 'n Joy gives you the opportunity to bring your workouts with you wherever you go, easily
-							and effectively!
-						</p>
-					) : null}
-				</TitleContainer>
+				<LoginContainer>
+					<ImageGreetingWrapper>
+						<StyledImage src={loginImage} />
 
-				<Formik
-					initialValues={{ username: '', password: '', confirmPassword: '' }}
-					validationSchema={Schema}
-					onSubmit={(values, { setSubmitting, resetForm }) => {
-						fetch(API_URL(mode), {
-							method: 'POST',
-							headers: {
-								'Content-Type': 'application/json',
-							},
-							body: JSON.stringify({ username: values.username, password: values.password }),
-						})
-							.then((res) => res.json())
-							.then((data) => {
-								handleLoginSuccess(data)
-							})
-							.catch((error) => {
-								handleLoginFailure(error)
-							})
-							.finally(() => {
-								setSubmitting(false)
-								resetForm()
-							})
-					}}
-				>
-					{({ isSubmitting }) => (
-						<StyledForm>
-							{isSubmitting && <LoadingAnimation />}
-
-							<StyledInput label='Username' name='username' type='text' />
-
-							<StyledInput label='Password' name='password' type='password' />
+						<TitleContainer>
+							{mode === 'login' ? (
+								<HeadingOne fontSize="1.4rem">Login and start moving!</HeadingOne>
+							) : (
+								<HeadingOne fontSize="1.4rem">Register for Flex 'n Joy!</HeadingOne>
+							)}
 							{mode === 'register' ? (
-								<StyledInput label='Confirm password' name='confirmPassword' type='password' />
+								<p>
+									Flex 'n Joy gives you the opportunity to bring your workouts with you wherever you go, easily
+									and effectively!
+								</p>
 							) : null}
+						</TitleContainer>
+					</ImageGreetingWrapper>
 
-							{mode === 'login' ? (
-								<StyledButton
-									background='var(--primary)'
-									margin='1em 0 0'
-									padding='6px 18px'
-									boxShadow='0px 10px 13px -7px #808080'
-									backgroundHover='var(--tertiary)'
-									color='var(--white)'
-									type='submit'
-								>
-									Login
-								</StyledButton>
-							) : (
-								<StyledButton
-									background='var(--primary)'
-									margin='1em 0 0'
-									padding='6px 18px'
-									boxShadow='0px 10px 13px -7px #808080'
-									backgroundHover='var(--tertiary)'
-									color='var(--white)'
-									type='submit'
-								>
-									Register
-								</StyledButton>
-							)}
+					<Formik
+						initialValues={{ username: '', password: '', confirmPassword: '' }}
+						validationSchema={Schema}
+						onSubmit={(values, { setSubmitting, resetForm }) => {
+							fetch(API_URL(mode), {
+								method: 'POST',
+								headers: {
+									'Content-Type': 'application/json',
+								},
+								body: JSON.stringify({ username: values.username, password: values.password }),
+							})
+								.then((res) => res.json())
+								.then((data) => {
+									handleLoginSuccess(data)
+								})
+								.catch((error) => {
+									handleLoginFailure(error)
+								})
+								.finally(() => {
+									setSubmitting(false)
+									resetForm()
+								})
+						}}
+					>
+						{({ isSubmitting }) => (
+							<StyledForm>
+								{isSubmitting && <LoadingAnimation />}
 
-							{mode === 'login' ? (
-								<StyledButton
-									background='transparent'
-									margin='1em 0 0'
-									padding='6px 18px'
-									boxShadow='none'
-									textDecorationHover='underline'
-									type='button'
-									onClick={() => setMode('register')}
-								>
-									Not a member yet? Register here
-								</StyledButton>
-							) : (
-								<StyledButton
-									background='transparent'
-									margin='1em 0 0'
-									padding='6px 18px'
-									boxShadow='none'
-									textDecorationHover='underline'
-									type='button'
-									onClick={() => setMode('login')}
-								>
-									Already a member? Login here
-								</StyledButton>
-							)}
-						</StyledForm>
-					)}
-				</Formik>
+								<StyledInput label='Username' name='username' type='text' />
+
+								<StyledInput label='Password' name='password' type='password' />
+								{mode === 'register' ? (
+									<StyledInput label='Confirm password' name='confirmPassword' type='password' />
+								) : null}
+
+								{mode === 'login' ? (
+									<StyledButton
+										background='var(--primary)'
+										margin='1em 0 0'
+										padding='6px 18px'
+										boxShadow='0px 10px 13px -7px #808080'
+										backgroundHover='var(--tertiary)'
+										color='var(--white)'
+										type='submit'
+									>
+										Login
+									</StyledButton>
+								) : (
+									<StyledButton
+										background='var(--primary)'
+										margin='1em 0 0'
+										padding='6px 18px'
+										boxShadow='0px 10px 13px -7px #808080'
+										backgroundHover='var(--tertiary)'
+										color='var(--white)'
+										type='submit'
+									>
+										Register
+									</StyledButton>
+								)}
+
+								{mode === 'login' ? (
+									<StyledButton
+										background='transparent'
+										margin='1em 0 0'
+										padding='6px 18px'
+										boxShadow='none'
+										textDecorationHover='underline'
+										type='button'
+										onClick={() => setMode('register')}
+									>
+										Not a member yet? Register here
+									</StyledButton>
+								) : (
+									<StyledButton
+										background='transparent'
+										margin='1em 0 0'
+										padding='6px 18px'
+										boxShadow='none'
+										textDecorationHover='underline'
+										type='button'
+										onClick={() => setMode('login')}
+									>
+										Already a member? Login here
+									</StyledButton>
+								)}
+							</StyledForm>
+						)}
+					</Formik>
+				</LoginContainer>
 			</InnerWrapper>
 		</OuterWrapper>
 	)
@@ -198,22 +203,52 @@ const Login = () => {
 
 export default Login
 
-const TitleContainer = styled.div`
+const LoginContainer = styled.main`
 	display: flex;
 	flex-direction: column;
+
+	@media screen and (min-width: 768px) {
+		flex-direction: row-reverse;
+		align-items: center;
+		gap: 5rem;
+	}
+`
+
+const ImageGreetingWrapper = styled.section`
+	display: flex;
+	flex-direction: column-reverse;
 	align-items: center;
-	justify-content: center;
-	text-align: center;
-	margin-bottom: 2rem;
 `
 
 const StyledImage = styled.img`
 	width: 300px;
 	height: auto;
 	margin: 1rem 0 0;
+
+	@media screen and (min-width: 768px) {
+		width: 400px;
+		margin: 0;
+	}
+
+	@media screen and (min-width: 1024px) {
+		width: 500px;
+	}
 `
 
-const StyledTitle = styled.h1``
+const TitleContainer = styled.div`
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	gap: 0.5rem;
+
+	@media screen and (min-width: 768px) {
+		width: 80%;
+		gap: 1rem;
+		margin: 0;
+	}
+`
 
 const StyledForm = styled(Form)`
 	display: flex;
@@ -224,6 +259,10 @@ const StyledForm = styled(Form)`
 	padding: 2rem;
 	border-radius: 6px;
 	box-shadow: 0px 10px 13px 0px #808080;
+
+	@media screen and (min-width: 1024px) {
+		padding: 3rem;
+	}
 `
 const InputContainer = styled.div`
 	display: flex;
@@ -256,3 +295,4 @@ const StyledError = styled.div`
 	text-align: center;
 	color: var(--accentlilac);
 `
+

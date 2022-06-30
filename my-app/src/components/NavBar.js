@@ -5,7 +5,6 @@ import BurgerNav from "./BurgerNav"
 
 const NavBar = () => {
     
-
     return (
         <Nav>
             <LogoTitle>
@@ -20,7 +19,7 @@ const NavBar = () => {
 export default NavBar
 
 const Nav = styled.nav`
-    width: 82%;
+    width: 86%;
     height: 60px;
     padding: 1.5rem 0 0.5rem 0.8rem;
     display: flex;
@@ -32,20 +31,24 @@ const Nav = styled.nav`
     }
 
     @media screen and (min-width: 1024px) {
-        width: 90%;
+        width: 88%;
     }
 `
 
 const LogoTitle = styled.h1`
-    font-family: "Boogaloo", cursive;
-    font-size: 2rem;
-    // text-transform: uppercase;
+    //  font-family: "Anton", sans-serif;
+    font-family: "Raleway", sans-serif;
+    font-size: 1.5;
     text-align: left;
     color: var(--tertiary);
-    // font-weight: 700;
+    font-weight: 700;
     
+    @media screen and (min-width: 768px) {
+        font-size: 1.7rem;
+    }
+
     @media screen and (min-width: 1024px) {
-        font-size: 3rem;
+        font-size: 1.9rem;
     }
 `
 

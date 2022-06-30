@@ -6,7 +6,6 @@ import * as Yup from 'yup'
 
 import { OuterWrapper, InnerWrapper, HeadingOne } from '../styles/GlobalStyles'
 import { StyledButton } from '../styles/ButtonStyles'
-// import profileImage from "../styles/images/profile.png"
 
 import { API_URL } from '../utils/utils'
 import user from '../reducers/user'
@@ -51,7 +50,6 @@ const ProfilePage = () => {
                 <NavBar />
             </NavBarContainer>
 			<InnerWrapper margin='10vh auto 4rem' desktopMargin="10vh auto 4rem">
-                {/* <StyledImage src={profileImage} />	 */}
                 <HeaderWrapper>
                     <HeadingOne 
                         fontSize="1.2rem" 
@@ -67,7 +65,6 @@ const ProfilePage = () => {
                 </HeaderWrapper>
                 			
                 <ProfileInfoWrapper>
-                    {/* <HeadingOne fontSize="0.8rem" margin="0 0 1rem">Name: </HeadingOne> */}
                     <HeadingOne 
                         fontSize="0.9rem" 
                         margin="0 0 1rem">
@@ -134,11 +131,6 @@ const ProfilePage = () => {
 
 export default ProfilePage
 
-// const StyledImage = styled.img`
-//     width: 100px;
-//     height: auto;
-// `
-
 const NavBarContainer = styled.section`
     display: flex;
     flex-direction: column;
@@ -154,7 +146,7 @@ const NavBarContainer = styled.section`
     padding-bottom: 1rem;
 `
 
-const HeaderWrapper = styled.section`
+const HeaderWrapper = styled.article`
     width: 100%;
     text-align: center;
     border-block-start: 1px solid var(--primary);
@@ -206,10 +198,6 @@ const StyledInput = styled(MyTextInput)`
 		outline: none;
 		border-bottom: 3px solid var(--primary);
 	}
-
-    @media screen and (min-width: 768px) {
-        // width: 250px;
-    }
 `
 
 const StyledError = styled.div`

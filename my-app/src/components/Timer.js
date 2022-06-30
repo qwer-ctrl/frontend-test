@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components/macro'
 
-// import { HeadingOne } from '../styles/GlobalStyles'
 import arrowIcon from '../styles/images/arrow.png'
 import { StyledButton, TimerButton } from '../styles/ButtonStyles'
 import timerIcon from '../styles/images/timer.png'
@@ -149,7 +148,7 @@ const Timer = () => {
 				</TimerTitleContainer>
 
 				{timerAccordion && (
-					<TimerMetricsContainer>
+					<>
 						{message}
 						<TimerClock>
 							<SetTimerContainer>
@@ -232,7 +231,7 @@ const Timer = () => {
 						</TimerClock>
 
 						{greatJobMessage}
-					</TimerMetricsContainer>
+					</>
 				)}
 			</TimerBox>
 		</TimerContainer>
@@ -311,7 +310,6 @@ const AccordionButton = styled.button`
 	width: 30px;
 	height: 30px;
 	border-radius: 50%;
-	// box-shadow: 0px 10px 13px -7px #808080;
 	cursor: pointer;
 	background: transparent;
 	font-size: 1.5rem;
@@ -326,8 +324,6 @@ const TimerSpan = styled.span`
 	transform: ${(props) => (props.transform ? 'rotate(-0.5turn)' : undefined)};
 	transition: all ease-out 0.5s;
 `
-
-const TimerMetricsContainer = styled.div``
 
 const TimerClock = styled.div`
 	display: flex;

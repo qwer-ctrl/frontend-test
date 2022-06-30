@@ -45,12 +45,12 @@ const FinishedWorkoutModal = () => {
 						>GREAT JOB!!</HeadingOne>
 
 						<StyledButton
-						background="var(--tertiary)"
-						margin="1rem 0 0"
-						padding="6px 18px"
-						// textDecorationHover="underline"
-						boxShadow="0px 10px 13px -7px #808080"
-						onClick={handleUpdatedWorkouts}>Add session to your totals</StyledButton>
+							background="var(--tertiary)"
+							margin="1rem 0 0"
+							padding="6px 18px"
+							// textDecorationHover="underline"
+							boxShadow="0px 10px 13px -7px #808080"
+							onClick={handleUpdatedWorkouts}>Add session to your totals</StyledButton>
 						
 						<ButtonContainer>
 							<StyledButton

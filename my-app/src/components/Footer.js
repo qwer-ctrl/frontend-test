@@ -2,10 +2,9 @@ import React from 'react'
 import { NavLink } from 'react-router-dom'
 import styled from 'styled-components/macro'
 
-import homeImage from '../styles/images/home-image.png'
-import userImage from '../styles/images/profile-image.png'
-// import homeIcon from '../styles/images/home-icon.png'
-// import userIcon from '../styles/images/user-icon.png'
+import homeImage from "../styles/images/home.png"
+import profileImage from "../styles/images/profile-icon.png"
+
 
 const Footer = () => {
 	return (
@@ -15,7 +14,7 @@ const Footer = () => {
 					<StyledImage src={homeImage} />
 				</StyledActiveLink>
 				<StyledActiveLink to='/profilepage' activeclassname='selected'>
-					<StyledImage src={userImage} />
+					<StyledImage src={profileImage} />
 				</StyledActiveLink>
 			</FooterContainer>
 		</>
@@ -55,11 +54,16 @@ const StyledActiveLink = styled(NavLink)`
 
 	@media screen and (min-width: 768px) {
 		display: none;
+
+		&:hover {
+		outline: none;
+		background: var(--accentlilac);
+		}
 	}
 
 	&.active:after {
 		display: block;
-		background: var(--black);
+		background: var(--tertiary);
 		content: '';
 		height: 2px;
 		width: 30px;
@@ -67,7 +71,6 @@ const StyledActiveLink = styled(NavLink)`
 		bottom: 0.5rem;
 	}
 
-	&:hover,
 	&:focus {
 		outline: none;
 		background: var(--accentlilac);
