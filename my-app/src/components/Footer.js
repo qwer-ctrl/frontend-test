@@ -68,7 +68,7 @@ const StyledActiveLink = styled(NavLink)`
 		height: 2px;
 		width: 30px;
 		position: absolute;
-		bottom: 0.5rem;
+		bottom: 0.2rem;
 	}
 
 	&:focus {
