@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import styled from 'styled-components/macro'
@@ -10,11 +10,10 @@ import { HeadingOne } from '../styles/GlobalStyles'
 // import checkedBox from '../styles/images/checked.png'
 
 import ui from '../reducers/ui'
-import user from '../reducers/user'
+// import user from '../reducers/user'
 
 const FinishedWorkoutModal = () => {
 	const showModal = useSelector((store) => store.ui.showFinishedWorkoutModal)
-	const userId = useSelector((store) => store.user.userId)
 	// const [addWorkout, setAddWorkout] = useState(false)
 	const dispatch = useDispatch()
 	const navigate = useNavigate()
