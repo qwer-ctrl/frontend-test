@@ -192,9 +192,9 @@ const StyledSpan = styled.span`
 	color: var(--black);
 `
 
-const StyledTitle = styled.h1`
-	margin-bottom: 1rem;
-`
+// const StyledTitle = styled.h1`
+// 	margin-bottom: 1rem;
+// `
 
 const StyledForm = styled(Form)`
 	display: flex;
