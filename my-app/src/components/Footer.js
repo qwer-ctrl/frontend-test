@@ -2,18 +2,18 @@ import React from 'react'
 import { NavLink } from 'react-router-dom'
 import styled from 'styled-components/macro'
 
-import homeIcon from '../styles/images/home-icon.png'
-import userIcon from '../styles/images/user-icon.png'
+import homeImage from '../styles/images/home.png'
+import profileImage from '../styles/images/profile-icon.png'
 
 const Footer = () => {
 	return (
 		<>
 			<FooterContainer>
 				<StyledActiveLink to='/mypage' activeclassname='selected'>
-					<StyledImage src={homeIcon} />
+					<StyledImage src={homeImage} />
 				</StyledActiveLink>
 				<StyledActiveLink to='/profilepage' activeclassname='selected'>
-					<StyledImage src={userIcon} />
+					<StyledImage src={profileImage} />
 				</StyledActiveLink>
 			</FooterContainer>
 		</>
@@ -37,26 +37,39 @@ const FooterContainer = styled.footer`
 `
 
 const StyledImage = styled.img`
-	width: 20px;
-	height: 20px;
+	width: 40px;
+	height: 40px;
 `
-
 
 const StyledActiveLink = styled(NavLink)`
 	width: 40px;
 	height: 40px;
 	border-radius: 50%;
-	background: var(--primary);
+	background: transparent;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	border-bottom: none;
-	// border: 2px solid var(--tertiary);
-	&.active {
-		border-bottom: 1px solid var(--tertiary);
+
+	@media screen and (min-width: 768px) {
+		display: none;
+
+		&:hover {
+			outline: none;
+			background: var(--accentlilac);
+		}
 	}
 
-	&:hover,
+	&.active:after {
+		display: block;
+		background: var(--tertiary);
+		content: '';
+		height: 2px;
+		width: 30px;
+		position: absolute;
+		bottom: 0.15rem;
+	}
+
 	&:focus {
 		outline: none;
 		background: var(--accentlilac);

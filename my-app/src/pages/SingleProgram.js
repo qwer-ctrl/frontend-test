@@ -10,14 +10,15 @@ import deleteIcon from '../styles/images/delete.png'
 import editIcon from '../styles/images/edit.png'
 
 import ui from '../reducers/ui'
-import Footer from '../components/Footer'
 import EditExerciseModal from '../components/EditExerciseModal'
 import DeleteExerciseModal from '../components/DeleteExerciseModal'
 import AddExerciseModal from '../components/AddExerciseModal'
 import UpdateProgramModal from '../components/UpdateProgramModal'
 import DeleteProgramModal from '../components/DeleteProgramModal'
+import FinishedWorkoutModal from '../components/FinishedWorkoutModal'
 import Timer from '../components/Timer'
 import AllDoneLoader from '../components/AllDoneLoader'
+import NavBar from '../components/NavBar'
 
 const SingleProgram = () => {
 	const { programId } = useParams()
@@ -32,8 +33,8 @@ const SingleProgram = () => {
 	const showUpdateProgramModal = useSelector((store) => store.ui.showUpdateProgramModal)
 	const showEditExerciseModal = useSelector((store) => store.ui.showEditExerciseModal)
 	const showDeleteExerciseModal = useSelector((store) => store.ui.showDeleteExerciseModal)
+	const showFinishedWorkoutModal = useSelector((store) => store.ui.showFinishedWorkoutModal)
 	const dispatch = useDispatch()
-
 
 	const fetchProgram = useCallback(() => {
 		const options = {
@@ -96,6 +97,10 @@ const SingleProgram = () => {
 		setChecked(updatedList)
 		const progressbar = (updatedList.length / programExercise.length) * 100
 		setPercent(progressbar)
+
+		if (updatedList.length === programExercise.length) {
+			dispatch(ui.actions.setFinishedWorkoutModal(true))
+		}
 	}
 
 	const progress = updatedList.length
@@ -106,8 +111,21 @@ const SingleProgram = () => {
 		<AllDoneLoader />
 	) : (
 		<OuterWrapper>
-			<InnerWrapper margin='6vh auto 3rem' desktopMargin='10vh auto 4rem'>
-				<HeadingOne fontSize='1.5rem' color='var(--tertiary)' margin='0 0 1.5rem'>
+			<NavBarContainer>
+				<NavBar />
+			</NavBarContainer>
+			<InnerWrapper margin='10vh auto 3rem' desktopMargin='13vh auto 7rem'>
+				<HeadingOne
+					fontSize='1.5rem'
+					color='var(--tertiary)'
+					width='100%'
+					textAlign='center'
+					margin='1rem 0 1.5rem'
+					borderBlockStart='1px solid var(--primary)'
+					padding='2rem 0 0'
+					desktopPadding='3rem 0 0'
+					desktopMargin='0.5rem 0 1.5rem'
+				>
 					{programName}
 				</HeadingOne>
 				<ButtonContainer justifyContent='space-evenly' flexDirection='row'>
@@ -151,44 +169,45 @@ const SingleProgram = () => {
 				</ProgressContainer>
 				{progress}/{maxValue}
 				<ExerciseTimerWrapper>
+					{showFinishedWorkoutModal ? <FinishedWorkoutModal /> : null}
 					<ExerciseGrid>
 						{programExercise.map((item) => (
 							<ExerciseWrapper key={item._id}>
 								<HeaderAndCheck>
-									<HeadingThree>{item.exercise}</HeadingThree>
+									<HeadingOne fontSize='1rem' color='var(--tertiary)'>
+										{item.exercise}
+									</HeadingOne>
 									<label htmlFor='checkbox'></label>
 									<StyledCheckbox id='checkbox' type='checkbox' value={item._id} onChange={handleChecked} />
 								</HeaderAndCheck>
-								<ExerciseContentContainer>
-									<ExerciseContainer>
-										<MetricsContainer>
-											{item.sets ? <p>{item.sets} sets</p> : null}
-											{item.reps ? <p>{item.reps} reps</p> : null}
-											{item.weights ? <p>{item.weights}</p> : null}
-										</MetricsContainer>
-										<MetricsContainer>
-											{item.minutes ? <p>{item.minutes} minutes</p> : null}
-											{item.seconds ? <p>{item.seconds} seconds</p> : null}
-										</MetricsContainer>
-										<MetricsContainer>
-											{item.duration ? <p>{item.duration}</p> : null}
-											{item.exerciseLength ? <p>{item.exerciseLength}</p> : null}
-										</MetricsContainer>
-										<MetricsContainer>
-											{item.exerciseLink ? (
-												<p>
-													link: 
-													<a href={item.exerciseLink} target='_blank' rel='noopener noreferrer'>
-														{item.exerciseLink}
-													</a>
-												</p>
-											) : null}
-										</MetricsContainer>
-										<MetricsContainer>
-											{item.comments ? <p>comments: {item.comments}</p> : null}
-										</MetricsContainer>
-									</ExerciseContainer>
-								</ExerciseContentContainer>
+								<ExerciseContainer>
+									<MetricsContainer>
+										{item.sets ? <p>{item.sets} sets</p> : null}
+										{item.reps ? <p>{item.reps} reps</p> : null}
+										{item.weights ? <p>{item.weights}</p> : null}
+									</MetricsContainer>
+									<MetricsContainer>
+										{item.minutes ? <p>{item.minutes} minutes</p> : null}
+										{item.seconds ? <p>{item.seconds} seconds</p> : null}
+									</MetricsContainer>
+									<MetricsContainer>
+										{item.duration ? <p>{item.duration}</p> : null}
+										{item.exerciseLength ? <p>{item.exerciseLength}</p> : null}
+									</MetricsContainer>
+									<MetricsContainer>
+										{item.exerciseLink ? (
+											<p>
+												link:&nbsp;
+												<a href={item.exerciseLink} target='_blank' rel='noopener noreferrer'>
+													{item.exerciseLink}
+												</a>
+											</p>
+										) : null}
+									</MetricsContainer>
+									<MetricsContainer>
+										{item.comments ? <p>comments: {item.comments}</p> : null}
+									</MetricsContainer>
+								</ExerciseContainer>
 								<IconContainer>
 									<IconButton onClick={() => handleEditExerciseModal(item._id)}>
 										<IconStyle src={editIcon} alt='editIcon' />
@@ -201,17 +220,33 @@ const SingleProgram = () => {
 								</IconContainer>
 							</ExerciseWrapper>
 						))}
-						
 					</ExerciseGrid>
 					<Timer />
 				</ExerciseTimerWrapper>
 			</InnerWrapper>
-			<Footer />
+			{/* <Footer /> */}
 		</OuterWrapper>
 	)
 }
 
 export default SingleProgram
+
+const NavBarContainer = styled.section`
+	display: flex;
+	flex-direction: column;
+	justify-content: space-evenly;
+	align-items: center;
+	height: 10vh;
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	z-index: 2;
+	background: var(--white);
+	padding-bottom: 1rem;
+	max-width: 850px;
+	margin: auto;
+`
 
 const ExerciseTimerWrapper = styled.section`
 	width: 100%;
@@ -224,6 +259,7 @@ const ExerciseTimerWrapper = styled.section`
 	@media screen and (min-width: 1024px) {
 		flex-direction: row;
 		margin-top: 1rem;
+		align-items: flex-start;
 	}
 `
 
@@ -235,6 +271,7 @@ const HeaderAndCheck = styled.div`
 	display: flex;
 	justify-content: space-between;
 	align-items: flex-start;
+	margin-bottom: 0.8rem;
 `
 
 const ExerciseWrapper = styled.article`
@@ -251,11 +288,6 @@ const ExerciseWrapper = styled.article`
 	@media screen and (min-width: 768px) {
 		margin: 1.2rem auto;
 	}
-`
-
-const HeadingThree = styled.h3`
-	font-size: 1rem;
-	color: var(--tertiary);
 `
 
 const ExerciseContainer = styled.div`
@@ -291,11 +323,11 @@ const StyledCheckbox = styled.input`
 	@media screen and (min-width: 768px) {
 		height: 20px;
 		width: 20px;
-	 }
+	}
 	@media screen and (min-width: 1024px) {
 		height: 25px;
 		width: 25px;
-	 }
+	}
 `
 
 const IconContainer = styled.div`
@@ -372,11 +404,4 @@ const Background = styled(BaseBox)`
 const Progress = styled(BaseBox)`
 	background: var(--accentlilac);
 	width: ${({ percent }) => percent}%;
-`
-
-const ExerciseContentContainer = styled.section`
-	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
-	width: 100%;
-	column-gap: 5px;
 `

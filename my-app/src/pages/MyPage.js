@@ -39,6 +39,7 @@ const MyPage = () => {
 		dispatch(ui.actions.setShowUpdateProgramModal(false))
 		dispatch(ui.actions.setShowEditExerciseModal(false))
 		dispatch(ui.actions.setShowDeleteExerciseModal(false))
+		dispatch(ui.actions.setFinishedWorkoutModal(false))
 	}
 	hideModals()
 
@@ -85,7 +86,7 @@ const MyPage = () => {
 		<>
 			<OuterWrapper>
 				<Header />
-				<InnerWrapper margin='27vh auto 4rem' desktopMargin='28vh auto 0'>
+				<InnerWrapper margin='27vh auto 4rem' desktopMargin='30vh auto 0'>
 					{(!userHasProgram || userHasProgram.length < 1) && <EmptyState />}
 					{userHasProgram.length > 0 && (
 						<MainContainer>

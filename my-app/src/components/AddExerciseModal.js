@@ -49,7 +49,7 @@ const AddExerciseModal = () => {
 		<>
 			{showModal ? (
 				<ModalContainer>
-					<StyledModal>
+					<StyledModal margin="20px auto">
 						<CloseButton onClick={closeModal}><StyledSpan>x</StyledSpan></CloseButton>
 						<Formik
 							initialValues={{

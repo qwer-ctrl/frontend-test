@@ -1,12 +1,10 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import styled from 'styled-components/macro'
-// import  { keyframes } from 'styled-components'
 
-import SignOut from './SignOut'
 import { HeadingOne } from '../styles/GlobalStyles'
-// import DumbelImg from '../styles/images/dumbel.png'
 
+import NavBar from './NavBar'
 
 const Header = () => {
 	const userName = useSelector((store) => store.user.username)
@@ -28,21 +26,8 @@ const Header = () => {
 
 	return (
 		<HeaderContainer>
-			<HeaderTitleContainer>
-				<HeadingOne 
-					fontSize="1.5rem" 
-					textAlign="left" 
-					// width="85%" 
-					desktopFontSize="1.8rem" 
-					fontWeight="700"
-					// desktopMargin="4rem 0 1rem"
-					>
-						Flex 'n Joy
-				</HeadingOne>
-				{/* <AnimatedImg src={DumbelImg} alt='dumbel' /> */}
-				<SignOut />
-			</HeaderTitleContainer>
-			
+			<NavBar />
+
 			<GreetingBox>
 				<HeadingOne
 					fontSize='0.9rem'
@@ -52,7 +37,7 @@ const Header = () => {
 					desktopWidth='300px'
 					desktopFontSize='1.2rem'
 					textShadow='2px 3px 2px #a0c1af'
-					fontWeight="500"
+					fontWeight='500'
 				>
 					{showGreeting()}
 					<StyledHeader>{userName}</StyledHeader>
@@ -67,7 +52,7 @@ export default Header
 const HeaderContainer = styled.header`
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
+	justify-content: space-evenly;
 	align-items: center;
 	height: 22vh;
 	position: fixed;
@@ -76,7 +61,7 @@ const HeaderContainer = styled.header`
 	right: 0;
 	z-index: 2;
 	background: var(--white);
-	padding-bottom: 5px;
+	padding-bottom: 1rem;
 
 	@media screen and (min-width: 768px) {
 		height: 20vh;
@@ -84,22 +69,8 @@ const HeaderContainer = styled.header`
 
 	@media screen and (min-width: 1024px) {
 		height: 25vh;
-	}
-`
-
-const HeaderTitleContainer = styled.div`
-	width: 80%;	
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	margin: 1rem 0;
-
-	@media screen and (min-width: 768px) {
-		width: 85%;
-	}
-
-	@media screen and (min-width: 1024px) {
-		margin: 2rem 0 1rem;
+		max-width: 900px;
+		margin: auto;
 	}
 `
 
@@ -109,6 +80,7 @@ const GreetingBox = styled.div`
 	border-radius: 10px;
 	padding: 0.5rem 0 0.5rem 1rem;
 	text-align: left;
+	margin-bottom: 0.5rem;
 
 	@media screen and (min-width: 768px) {
 		margin-top: 0.5rem;
@@ -121,27 +93,3 @@ const StyledHeader = styled.p`
 	line-height: 35px;
 	color: #303030;
 `
-
-// const bounce = keyframes`
-// 0% {
-// 	transform: scale(1, 1) translateY(0);
-// }
-// 10% {
-// 	transform: scale(1.1, 0.9) translateY(0);
-// }
-// 30% {
-// 	transform: scale(0.9, 1.1) translateY(-10px);
-// }
-// 50% {
-// 	transform: scale(1, 1) translateY(0);
-// }
-// 100% {
-// 	transform: scale(0.7, 1, 1) translateY(-5px);
-// }
-// `
-
-// const AnimatedImg = styled.img`
-// 	@media screen and (min-width: 768px) {
-// 		animation: ${bounce} linear 1.5s 2;
-// 	}
-// `

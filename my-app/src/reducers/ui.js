@@ -9,6 +9,8 @@ const ui = createSlice({
 		showAddExerciseModal: false,
 		showEditExerciseModal: false,
 		showDeleteExerciseModal: false,
+		showFinishedWorkoutModal: false,
+		showLogOutModal: false,
 		currentModalId: null,
 		currentAddExerciseModalId: null,
 	},
@@ -30,6 +32,12 @@ const ui = createSlice({
 		},
 		setShowDeleteExerciseModal: (store, action) => {
 			store.showDeleteExerciseModal = action.payload
+		},
+		setFinishedWorkoutModal: (store, action) => {
+			store.showFinishedWorkoutModal = action.payload
+		},
+		setShowLogOutModal: (store, action) => {
+			store.showLogOutModal = action.payload
 		},
 		setCurrentModalId: (store, action) => {
 			store.currentModalId = action.payload

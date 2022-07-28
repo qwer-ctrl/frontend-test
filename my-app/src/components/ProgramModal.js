@@ -1,7 +1,6 @@
 import React from 'react'
-import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { program } from '../reducers/program'
+import { useSelector, useDispatch } from 'react-redux'
 import styled from 'styled-components/macro'
 import { Formik, Form, useField } from 'formik'
 import * as Yup from 'yup'
@@ -9,10 +8,11 @@ import * as Yup from 'yup'
 import { ModalContainer, StyledModal, CloseButton } from '../styles/ModalStyles'
 import { StyledButton } from '../styles/ButtonStyles'
 
+import { program } from '../reducers/program'
 import { API_URL } from '../utils/utils'
 import LoadingAnimation from './LoadingAnimation'
-import ui from '../reducers/ui'
 
+import ui from '../reducers/ui'
 
 const MyTextInput = ({ label, ...props }) => {
 	const [field, meta] = useField(props)
@@ -53,7 +53,7 @@ const ProgramModal = ({ showModal, setShowModal }) => {
 		dispatch(program.actions.setProgramName(data.response.programName))
 		dispatch(program.actions.setProgramType(data.response.programType))
 		dispatch(program.actions.setProgramId(data.response._id))
-		navigate(`/addprogram/${data.response._id}`) 
+		navigate(`/addprogram/${data.response._id}`)
 	}
 
 	const Schema = Yup.object().shape({
@@ -64,14 +64,15 @@ const ProgramModal = ({ showModal, setShowModal }) => {
 		programType: Yup.string().required('You have to choose a program type'),
 	})
 
-
 	return (
 		<>
 			{showModal ? (
 				<ModalContainer showModal={showModal}>
 					{isLoading && <LoadingAnimation />}
-					<StyledModal>
-						<CloseButton onClick={closeModal}><StyledSpan>x</StyledSpan></CloseButton>
+					<StyledModal margin='20px auto'>
+						<CloseButton onClick={closeModal}>
+							<StyledSpan>x</StyledSpan>
+						</CloseButton>
 						<Formik
 							initialValues={{
 								programName: '',
@@ -91,7 +92,6 @@ const ProgramModal = ({ showModal, setShowModal }) => {
 								})
 									.then((res) => res.json())
 									.then((data) => {
-										console.log('data from program modal post', data)
 										dispatch(ui.actions.setLoading(true))
 										handleData(data)
 									})
@@ -196,4 +196,3 @@ const RadioAndError = styled.div`
 	align-items: center;
 	margin-top: 0.5rem;
 `
-

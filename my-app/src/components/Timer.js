@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components/macro'
 
-import { HeadingOne } from '../styles/GlobalStyles'
+import arrowIcon from '../styles/images/arrow.png'
 import { StyledButton, TimerButton } from '../styles/ButtonStyles'
+import timerIcon from '../styles/images/timer.png'
 
 const Timer = () => {
 	const [addRounds, setAddRounds] = useState(0)
@@ -14,6 +15,8 @@ const Timer = () => {
 	const [runTimer, setRunTimer] = useState(false)
 	const [message, setMessage] = useState('')
 	const [greatJobMessage, setGreatJobMessage] = useState('')
+	const [timerAccordion, setTimerAccordion] = useState(false)
+	const [transform, setTransform] = useState(false)
 
 	useEffect(() => {
 		if (workingSeconds > 0 && runTimer) {
@@ -122,74 +125,114 @@ const Timer = () => {
 		setAddRestSeconds(0)
 	}
 
+	const handleTimerToggle = () => {
+		setTimerAccordion((prev) => !prev)
+		setTransform(!transform)
+	}
+
 	return (
 		<TimerContainer>
 			<TimerBox background={getBackground()}>
+				<TimerTitleContainer>
+					<TimerTitle>
+						<TimerIconSpan>
+							<StyledTimerImage src={timerIcon} />
+						</TimerIconSpan>
+						Timer
+					</TimerTitle>
+					<AccordionButton onClick={handleTimerToggle}>
+						<TimerSpan transform={transform}>
+							<StyledArrowIcon src={arrowIcon} />
+						</TimerSpan>
+					</AccordionButton>
+				</TimerTitleContainer>
 
-				<HeadingOne fontSize='1.3em' fontWeight="500">Timer</HeadingOne>
-				{message}
-				<TimerClock>
-					<SetTimerContainer>
+				{timerAccordion && (
+					<>
+						{message}
+						<TimerClock>
+							<SetTimerContainer>
+								<TimerComponent>
+									<TimerButton onClick={handleRoundsDecrement}>
+										<StyledSpan role='img' aria-label='minus icon'>
+											-
+										</StyledSpan>
+									</TimerButton>
+									<TimerText>
+										{rounds} / {addRounds} rounds
+									</TimerText>
+									<TimerButton onClick={handleRoundsIncrement}>
+										<StyledSpan role='img' aria-label='minus icon'>
+											+
+										</StyledSpan>
+									</TimerButton>
+								</TimerComponent>
 
-						<TimerComponent>
-							<TimerButton onClick={handleRoundsDecrement}><StyledSpan role="img" aria-label="minus icon">-</StyledSpan></TimerButton>
-							<TimerText>
-								{rounds} / {addRounds} rounds
-							</TimerText>
-							<TimerButton onClick={handleRoundsIncrement}><StyledSpan role="img" aria-label="minus icon">+</StyledSpan></TimerButton>
-						</TimerComponent>
+								<TimerComponent>
+									<TimerButton onClick={handleWorkingTimeDecrement}>
+										<StyledSpan role='img' aria-label='minus icon'>
+											-
+										</StyledSpan>
+									</TimerButton>
+									<TimerText>{workingSeconds} working sec</TimerText>
+									<TimerButton onClick={handleWorkingTimeIncrement}>
+										<StyledSpan role='img' aria-label='minus icon'>
+											+
+										</StyledSpan>
+									</TimerButton>
+								</TimerComponent>
 
-						<TimerComponent>
-							<TimerButton onClick={handleWorkingTimeDecrement}><StyledSpan role="img" aria-label="minus icon">-</StyledSpan></TimerButton>
-							<TimerText>{workingSeconds} working sec</TimerText>
-							<TimerButton onClick={handleWorkingTimeIncrement}><StyledSpan role="img" aria-label="minus icon">+</StyledSpan></TimerButton>
-						</TimerComponent>
+								<TimerComponent>
+									<TimerButton onClick={handleRestSecondsDecrement}>
+										<StyledSpan role='img' aria-label='minus icon'>
+											-
+										</StyledSpan>
+									</TimerButton>
+									<TimerText>{restSeconds} resting sec</TimerText>
+									<TimerButton onClick={handleRestSecondsIncrement}>
+										<StyledSpan role='img' aria-label='minus icon'>
+											+
+										</StyledSpan>
+									</TimerButton>
+								</TimerComponent>
+							</SetTimerContainer>
 
-						<TimerComponent>
-							<TimerButton onClick={handleRestSecondsDecrement}><StyledSpan role="img" aria-label="minus icon">-</StyledSpan></TimerButton>
-							<TimerText>{restSeconds} resting sec</TimerText>
-							<TimerButton onClick={handleRestSecondsIncrement}><StyledSpan role="img" aria-label="minus icon">+</StyledSpan></TimerButton>
-						</TimerComponent>
+							<ButtonContainer>
+								<StyledButton
+									backgroundHover='var(--tertiary)'
+									color='var(--white)'
+									padding='6px 18px'
+									margin='3px 2px 0'
+									onClick={() => setRunTimer(true)}
+								>
+									Start
+								</StyledButton>
 
-					</SetTimerContainer>
+								<StyledButton
+									backgroundHover='var(--tertiary)'
+									color='var(--white)'
+									padding='6px 18px'
+									margin='3px 2px 0'
+									onClick={() => setRunTimer(false)}
+								>
+									Stop
+								</StyledButton>
 
-					<ButtonContainer>
+								<StyledButton
+									backgroundHover='var(--tertiary)'
+									color='var(--white)'
+									padding='6px 18px'
+									margin='3px 2px 0'
+									onClick={() => restartButton()}
+								>
+									Restart
+								</StyledButton>
+							</ButtonContainer>
+						</TimerClock>
 
-						<StyledButton
-							backgroundHover='var(--tertiary)'
-							color='var(--white)' 
-							padding='6px 18px' 
-							margin='3px 2px 0' 
-							onClick={() => setRunTimer(true)}
-							>
-							Start
-						</StyledButton>
-
-						<StyledButton 
-							backgroundHover='var(--tertiary)'
-							color='var(--white)' 
-							padding='6px 18px' 
-							margin='3px 2px 0' 
-							onClick={() => setRunTimer(false)}
-							>
-							Stop
-						</StyledButton>
-
-						<StyledButton
-							backgroundHover='var(--tertiary)'
-							color='var(--white)' 
-							padding='6px 18px' 
-							margin='3px 2px 0' 
-							onClick={() => restartButton()}
-							>
-							Restart
-						</StyledButton>
-
-					</ButtonContainer> 
-				</TimerClock>
-
-				{greatJobMessage}
-
+						{greatJobMessage}
+					</>
+				)}
 			</TimerBox>
 		</TimerContainer>
 	)
@@ -197,25 +240,89 @@ const Timer = () => {
 
 export default Timer
 
-const TimerContainer = styled.div`
+const TimerContainer = styled.section`
 	display: flex;
 	justify-content: space-evenly;
 	align-items: center;
 	margin: 0 0 4rem;
+	width: 100%;
+
+	@media screen and (min-width: 1024px) {
+		width: 80%;
+	}
 `
 
-const TimerBox = styled.div`
+const TimerBox = styled.article`
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
 	align-items: center;
 	gap: 1rem;
-	width: fit-content;
+	width: 70%;
 	height: fit-content;
-	padding: 30px;
-	border-radius: 15px;
+	padding: 15px 30px;
+	border-radius: 6px;
 	box-shadow: 0px 10px 13px 0px #adadad;
 	background: ${(props) => props.background};
+
+	@media screen and (min-width: 1024px) {
+		margin-top: 1.2rem;
+	}
+`
+
+const TimerTitleContainer = styled.div`
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	border-bottom: 1px solid var(--tertiary);
+`
+
+const TimerTitle = styled.h1`
+	font-size: 1.2rem;
+	font-weight: 500;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	@media screen and (min-width: 768px) {
+		font-size: 1.7rem;
+	}
+`
+
+const TimerIconSpan = styled.span`
+	margin: 5px 10px 0 0;
+`
+
+const StyledTimerImage = styled.img`
+	width: 25px;
+	height: 25px;
+
+	@media screen and (min-width: 768px) {
+		width: 40px;
+		height: 40px;
+	}
+`
+
+const AccordionButton = styled.button`
+	padding: 5px 10px;
+	width: 30px;
+	height: 30px;
+	border-radius: 50%;
+	cursor: pointer;
+	background: transparent;
+	font-size: 1.5rem;
+	border: none;
+	color: var(--black);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+`
+
+const TimerSpan = styled.span`
+	transform: ${(props) => (props.transform ? 'rotate(-0.5turn)' : undefined)};
+	transition: all ease-out 0.5s;
 `
 
 const TimerClock = styled.div`
@@ -237,6 +344,14 @@ const TimerComponent = styled.div`
 
 const StyledSpan = styled.span`
 	color: var(--black);
+`
+
+const StyledArrowIcon = styled.img`
+	width: 20px;
+
+	@media screen and (min-width: 768px) {
+		width: 30px;
+	}
 `
 
 const TimerText = styled.p`

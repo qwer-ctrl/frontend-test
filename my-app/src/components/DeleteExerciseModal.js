@@ -2,7 +2,7 @@ import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import styled from "styled-components/macro"
 
-import { ModalContainer, StyledModal, CloseButton } from '../styles/ModalStyles'
+import { ModalContainer, StyledModal } from '../styles/ModalStyles'
 import { StyledButton } from '../styles/ButtonStyles'
 import { HeadingOne } from "../styles/GlobalStyles"
 
@@ -40,19 +40,32 @@ const DeleteExerciseModal = () => {
 		<>
 			{showModal ? (
 				<ModalContainer>
-					<StyledModal>
-						<CloseButton onClick={closeModal}><StyledSpan>x</StyledSpan></CloseButton>
+					<StyledModal margin="20px auto">
 						<HeadingOne
 							fontSize="1.2rem"
 							textAlign="center"
 							margin="1rem 0 0"
 						>Are you sure you want to delete the exercise?</HeadingOne>
-						<StyledButton
-						background="var(--primary)"
-						margin="1em 0 0"
-						padding="6px 18px"
-						boxShadow="0px 10px 13px -7px #808080"
-						onClick={() => handleExerciseDeletion()}>Delete</StyledButton>
+
+						<ButtonContainer>
+                            <StyledButton
+                                width="175px"
+                                background="var(--primary)"
+                                margin="1.5rem 0 0"
+                                padding="6px 10px"
+                                boxShadow="0px 10px 13px -7px #808080"
+                                backgroundHover="var(--tertiary)"
+                                onClick={closeModal}>No, go back
+                            </StyledButton>
+
+							<StyledButton
+								background="transparent"
+								margin="1.5rem 0 0"
+								padding="6px 18px"
+								textDecorationHover="underline"
+								onClick={() => handleExerciseDeletion()}>Yes, delete it
+							</StyledButton>
+						</ButtonContainer>
 					</StyledModal>
 				</ModalContainer>
 			) : null}
@@ -62,6 +75,13 @@ const DeleteExerciseModal = () => {
 
 export default DeleteExerciseModal
 
-const StyledSpan = styled.span`
-	color: var(--black);
+const ButtonContainer = styled.div`
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    @media screen and (min-width: 768px) {
+        width: 70%;
+    }
 `

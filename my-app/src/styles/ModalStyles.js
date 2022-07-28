@@ -2,8 +2,6 @@ import styled from 'styled-components/macro'
 
 export const ModalContainer = styled.div`
 	position: fixed;
-	z-index: 1
-	margin-top: 100px;
 	left: 0;
 	top: 0;
 	width: 100%;
@@ -14,7 +12,7 @@ export const ModalContainer = styled.div`
   `
 
 export const StyledModal = styled.div`
-	margin: 20px auto;
+	margin: ${props => props.margin};
 	padding: 2rem 2rem 4rem;
 	display: flex;
 	flex-direction: column;
@@ -30,6 +28,7 @@ export const StyledModal = styled.div`
 
 	@media screen and (min-width: 768px) {
 		max-width: 60%;
+		margin: 30px auto;
 	}
 `
 
@@ -41,7 +40,6 @@ export const CloseButton = styled.button`
 	background: var(--primary);
 	border: none;
 	padding: 6px 15px;
-	box-shadow: 2px 3px 2px #888888;
 	box-shadow: 1px 3px 4px 0px #808080;
 
 	&:hover,

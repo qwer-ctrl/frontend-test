@@ -17,22 +17,23 @@ export const StyledButton = styled.button`
 	box-shadow: ${(props) => props.boxShadow};
 	position: ${(props) => props.position};
 	bottom: ${(props) => props.bottom};
+	text-decoration: ${props => props.textDecoration};
 
 	&:hover,
 	&:focus {
 		outline: none;
 		background: ${(props) => props.backgroundHover};
-		text-decoration: ${(props) => props.textDecoration};
+		text-decoration: ${(props) => props.textDecorationHover};
 		color: ${(props) => props.color};
 	}
 
 	@media screen and (min-width: 768px) {
-		width: auto;
+		width: ${props => props.tabletWidth};
 		padding: 5px 15px;
 	}
 
 	@media screen and (min-width: 1024px) {
-		width: auto;
+		width: ${props => props.desktopWidth};
 		padding: 7px 14px;
 	}
 `
