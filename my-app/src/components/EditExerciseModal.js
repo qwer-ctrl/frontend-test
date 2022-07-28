@@ -69,6 +69,7 @@ const EditExerciseModal = () => {
 						<CloseButton onClick={closeModal}><StyledSpan>x</StyledSpan></CloseButton>
 						<Formik
 							initialValues={{
+								exercise: exerciseContent.exercise,
 								sets: exerciseContent.sets,
 								reps: exerciseContent.reps,
 								weights: exerciseContent.weights,
@@ -87,6 +88,7 @@ const EditExerciseModal = () => {
 										'Content-Type': 'application/json',
 									},
 									body: JSON.stringify({
+										exercise: values.exercise,
 										sets: values.sets,
 										reps: values.reps,
 										weights: values.weights,
@@ -118,7 +120,8 @@ const EditExerciseModal = () => {
 							{({ isSubmitting }) => (
 								<StyledForm>
 									{isSubmitting && <LoadingAnimation />}
-									<StyledTitle>{exerciseContent.exercise}</StyledTitle>
+									{/* <StyledTitle>{exerciseContent.exercise}</StyledTitle> */}
+									<StyledInput label='Exercise' name='exercise' type='text' placeholder={exerciseContent.exercise} />
 									<StyledInput label='Sets' name='sets' type='text' placeholder={exerciseContent.sets} />
 									<StyledInput label='Reps' name='reps' type='text' placeholder={exerciseContent.reps} />
 									<StyledInput
