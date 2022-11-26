@@ -1,4 +1,4 @@
-const BASE_URL = `https://flexnjoy.herokuapp.com`
+const BASE_URL = `https://finalproject-369818.lm.r.appspot.com`
 
 // const BASE_URL = `http://localhost:8080`
 
